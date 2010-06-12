@@ -8,12 +8,12 @@ class Fabricator
   def fabricate(options)
     @instance = @class.new
     instance_eval &@block
-    options.each { |k,v| @instance.send("#{k.to_s}=", v) }
+    options.each { |k,v| assign(@instance, k, v) }
     @instance
   end
 
   def method_missing(method, *args)
-    @instance.send("#{method}=", args.first)
+    assign(@instance, method, args.first)
   end
 
   private
@@ -33,6 +33,10 @@ class Fabricator
   #Stolen directly from factory_girl. Thanks thoughtbot!
   def variable_name_to_class_name(name)
     name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
+  end
+
+  def assign(instance, attribute, value)
+    instance.send("#{attribute.to_s}=", value)
   end
 
 end
