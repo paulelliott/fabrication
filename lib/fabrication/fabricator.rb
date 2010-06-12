@@ -12,7 +12,8 @@ class Fabricator
     @instance
   end
 
-  def method_missing(method, *args)
+  def method_missing(method, *args, &block)
+    args = [block.call] if block
     assign(@instance, method, args.first)
   end
 
@@ -35,8 +36,8 @@ class Fabricator
     name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
   end
 
-  def assign(instance, attribute, value)
-    instance.send("#{attribute.to_s}=", value)
+  def assign(instance, attribute, *value, &block)
+    instance.send("#{attribute.to_s}=", value.first)
   end
 
 end
