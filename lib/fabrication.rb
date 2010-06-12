@@ -1,14 +1,22 @@
 autoload :Fabricator, 'lib/fabrication/fabricator.rb'
 autoload :Fabricate,  'lib/fabrication/fabricate.rb'
 
-class Fabrication
+module Fabrication
 
-  def self.schematic(name, &block)
-    (@fabricators ||= {})[name] = Fabricator.new(name, &block)
+  extend self
+
+  def schematic(name, &block)
+    fabricators[name] = Fabricator.new(name, &block)
   end
 
-  def self.generate(name, options)
-    @fabricators[name].fabricate(options)
+  def generate(name, options)
+    fabricators[name].fabricate(options)
+  end
+
+  private
+
+  def fabricators
+    @@fabricators ||= {}
   end
 
 end
