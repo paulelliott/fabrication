@@ -1,6 +1,3 @@
-autoload :Fabricator, 'lib/fabrication/fabricator.rb'
-autoload :Fabricate,  'lib/fabrication/fabricate.rb'
-
 module Fabrication
 
   extend self
@@ -20,6 +17,10 @@ module Fabrication
   end
 
 end
+
+Fabrication.autoload :Fabricator, 'lib/fabrication/fabricator.rb'
+Fabrication.autoload :Fabricate,  'lib/fabrication/fabricate.rb'
+Fabrication.autoload :Proxy,      'lib/fabrication/proxy.rb'
 
 def Fabricator(name, &block)
   Fabrication.schematic(name, &block)
