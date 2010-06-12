@@ -1,11 +1,9 @@
 require 'spec_helper'
 
-class Person; attr_accessor :age, :first_name, :last_name end
-
 describe Fabrication do
 
   let(:person) do
-    Fabricate(:person, :first_name => 'Joe', :last_name => 'Awesome', :age => 78)
+    Fabricate(:person, :last_name => 'Awesome')
   end
 
   before(:all) do
@@ -21,7 +19,7 @@ describe Fabrication do
   end
 
   it 'has a last name' do
-    person.last_name.should == 'Schmoe'
+    person.last_name.should == 'Awesome'
   end
 
   it 'has an age' do

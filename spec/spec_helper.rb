@@ -5,3 +5,5 @@ require 'rubygems'
 require 'spec'
 require 'spec/autorun'
 require 'fabrication'
+
+class Person; attr_accessor :age, :first_name, :last_name end

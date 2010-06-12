@@ -7,8 +7,8 @@ class Fabrication
     (@fabricators ||= {})[name] = Fabricator.new(name, &block)
   end
 
-  def self.generate(name)
-    @fabricators[name].fabricate
+  def self.generate(name, options)
+    @fabricators[name].fabricate(options)
   end
 
 end
@@ -18,5 +18,5 @@ def Fabricator(name, &block)
 end
 
 def Fabricate(name, options={})
-  Fabrication.generate(name)
+  Fabrication.generate(name, options)
 end

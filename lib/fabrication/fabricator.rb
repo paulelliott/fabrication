@@ -5,9 +5,10 @@ class Fabricator
     @block = block
   end
 
-  def fabricate
+  def fabricate(options)
     @instance = @class.new
     instance_eval &@block
+    options.each { |k,v| @instance.send("#{k.to_s}=", v) }
     @instance
   end
 
@@ -17,7 +18,7 @@ class Fabricator
 
   private
 
-  #Stolen directly from factory_girl. Thanks ThoughtBot!
+  #Stolen directly from factory_girl. Thanks thoughtbot!
   def class_for(class_or_to_s)
     if class_or_to_s.respond_to?(:to_sym)
       class_name = variable_name_to_class_name(class_or_to_s)
