@@ -14,15 +14,15 @@ describe Fabrication do
     end
   end
 
-  it 'has a first name' do
+  it 'has the default first name' do
     person.first_name.should == 'Joe'
   end
 
-  it 'has a last name' do
+  it 'has an overridden last name' do
     person.last_name.should == 'Awesome'
   end
 
-  it 'has an age' do
+  it 'has the default age' do
     person.age.should == 78
   end
 
