@@ -19,7 +19,7 @@ class Fabrication::Proxy
 
   private
 
-  def assign(instance, attribute, *value, &block)
+  def assign(instance, attribute, *value)
     instance.send("#{attribute.to_s}=", value.first)
   end
 
