@@ -2,7 +2,6 @@ module Fabrication
 
   autoload :Fabricator, 'lib/fabrication/fabricator'
   autoload :Fabricate,  'lib/fabrication/fabricate'
-  autoload :Proxy,      'lib/fabrication/proxy'
 
   module Generator
     autoload :Base,     'lib/fabrication/generator/base'
