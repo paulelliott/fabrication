@@ -4,6 +4,9 @@ module Fabrication
   autoload :Fabricate,  'lib/fabrication/fabricate'
   autoload :Proxy,      'lib/fabrication/proxy'
 
+  module Generator
+    autoload :Base,     'lib/fabrication/generator/base'
+  end
 
   class << self
 

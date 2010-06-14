@@ -1,11 +1,11 @@
 class Fabrication::Fabricator
 
   def initialize(name, &block)
-    @proxy = Fabrication::Proxy.new(name, &block)
+    @fabricator = Fabrication::Proxy.create(name, &block)
   end
 
   def fabricate(options)
-    @proxy.create(options)
+    @fabricator.generate(options)
   end
 
 end
