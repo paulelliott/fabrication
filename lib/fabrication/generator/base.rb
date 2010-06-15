@@ -13,7 +13,7 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    assign(@instance, method_name.to_s, block ? block.call : args.first)
+    assign(@instance, method_name.to_s, block_given? ? yield : args.first)
   end
 
   private
