@@ -10,6 +10,11 @@ describe Fabrication do
     before do
       Fabricator(:company) do
         name { Faker::Company.name }
+        divisions(:force) { [Fabricate(:division)] }
+      end
+
+      Fabricator(:division) do
+        name "Awesome Division"
       end
     end
 
@@ -19,6 +24,10 @@ describe Fabrication do
       company.name.should be
     end
     it 'overrides associations'
+
+    it 'generates associations immediately when forced' do
+      Division.find_all_by_company_id(company.id).count.should == 1
+    end
   end
 
 end
