@@ -1,0 +1,34 @@
+# change this if sqlite is unavailable
+dbconfig = {
+  :adapter => 'sqlite3',
+  :database => ':memory:'
+}
+
+ActiveRecord::Base.establish_connection(dbconfig)
+ActiveRecord::Migration.verbose = false
+
+class TestMigration < ActiveRecord::Migration
+  def self.up
+    create_table :companies, :force => true do |t|
+      t.column :name, :string
+    end
+
+    create_table :divisions, :force => true do |t|
+      t.column :name, :string
+      t.references :company
+    end
+  end
+
+  def self.down
+    drop_table :companies
+    drop_table :divisions
+  end
+end
+
+class Company < ActiveRecord::Base
+  has_many :divisions
+end
+
+class Division < ActiveRecord::Base
+  belongs_to :company
+end

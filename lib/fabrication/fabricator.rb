@@ -2,7 +2,11 @@ class Fabrication::Fabricator
 
   def initialize(class_name, &block)
     klass = class_for(class_name)
-    @fabricator = Fabrication::Generator::Base.new(klass, &block)
+    if klass.ancestors.include?(ActiveRecord::Base)
+      @fabricator = Fabrication::Generator::ActiveRecord.new(klass, &block)
+    else
+      @fabricator = Fabrication::Generator::Base.new(klass, &block)
+    end
   end
 
   def fabricate(options={})

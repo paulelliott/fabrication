@@ -21,18 +21,21 @@ describe Fabrication::Fabricator do
 
   end
 
-  # context 'with an activerecord object' do
+  context 'with an activerecord object' do
 
-    # let(:fabricator) { Fabrication::Fabricator.new(:company) { name '1' } }
+    before(:all) { TestMigration.up }
+    after(:all) { TestMigration.down }
 
-    # it 'fabricates a Company instance' do
-      # fabricator.fabricate.instance_of?(Company).should be_true
-    # end
+    let(:fabricator) { Fabrication::Fabricator.new(:company) { name '1' } }
 
-    # it 'uses the activerecord generator' do
-      # fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::ActiveRecord).should be_true
-    # end
+    it 'fabricates a Company instance' do
+      fabricator.fabricate.instance_of?(Company).should be_true
+    end
 
-  # end
+    it 'uses the activerecord generator' do
+      fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::ActiveRecord).should be_true
+    end
+
+  end
 
 end
