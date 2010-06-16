@@ -1,10 +1,10 @@
 module Fabrication
 
-  autoload :Fabricator, 'lib/fabrication/fabricator'
+  autoload :Fabricator, 'fabrication/fabricator'
 
   module Generator
-    autoload :ActiveRecord, 'lib/fabrication/generator/activerecord'
-    autoload :Base,         'lib/fabrication/generator/base'
+    autoload :ActiveRecord, 'fabrication/generator/activerecord'
+    autoload :Base,         'fabrication/generator/base'
   end
 
   class << self
