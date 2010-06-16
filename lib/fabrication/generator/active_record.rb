@@ -8,7 +8,8 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    unless @options.include?(method_name)
+    method_name = method_name.to_s
+    unless @options.include?(method_name.to_sym)
       if block_given?
         unless @instance.class.columns.map(&:name).include?(method_name)
           # copy the original getter
@@ -22,17 +23,18 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
             def #{method_name}
               original_value = @__#{method_name}_original.call
               if @__#{method_name}_block.present?
-                #{method_name}= @__#{method_name}_block.call(self)
+                original_value = #{method_name}= @__#{method_name}_block.call(self)
                 @__#{method_name}_block = nil
+                @__#{method_name}_original.call
               end
-              @__#{method_name}_original.call
+              original_value
             end
           >
         else
-          assign(@instance, method_name.to_s, yield)
+          assign(@instance, method_name, yield)
         end
       else
-        assign(@instance, method_name.to_s, args.first)
+        assign(@instance, method_name, args.first)
       end
     end
   end
