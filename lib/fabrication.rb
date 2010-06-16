@@ -3,7 +3,7 @@ module Fabrication
   autoload :Fabricator, 'fabrication/fabricator'
 
   module Generator
-    autoload :ActiveRecord, 'fabrication/generator/activerecord'
+    autoload :ActiveRecord, 'fabrication/generator/active_record'
     autoload :Base,         'fabrication/generator/base'
   end
 
