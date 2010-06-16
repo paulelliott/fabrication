@@ -23,10 +23,13 @@ describe Fabrication do
     it 'generates field blocks immediately' do
       company.name.should be
     end
-    it 'overrides associations'
 
     it 'generates associations immediately when forced' do
       Division.find_all_by_company_id(company.id).count.should == 1
+    end
+
+    it 'overrides associations' do
+      Fabricate(:company, :divisions => []).divisions.should == []
     end
   end
 
