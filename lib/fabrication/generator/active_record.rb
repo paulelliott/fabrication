@@ -7,6 +7,10 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     @instance
   end
 
+  def self.supports?(klass)
+    defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
+  end
+
   def method_missing(method_name, *args, &block)
     method_name = method_name.to_s
     unless @options.include?(method_name.to_sym)

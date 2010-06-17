@@ -1,17 +1,24 @@
 class Fabrication::Fabricator
 
+  GENERATORS = [
+    Fabrication::Generator::ActiveRecord,
+    Fabrication::Generator::Base
+  ]
+
+  attr_accessor :fabricator
+
   def initialize(class_name, &block)
     klass = class_for(class_name)
-    if defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
-      @fabricator = Fabrication::Generator::ActiveRecord.new(klass, &block)
-    else
-      @fabricator = Fabrication::Generator::Base.new(klass, &block)
-    end
+    self.fabricator = GENERATORS.detect do |generator|
+      generator.supports?(klass)
+    end.new(klass, &block)
   end
 
   def fabricate(options={})
-    @fabricator.generate(options)
+    fabricator.generate(options)
   end
+
+  protected
 
   #Stolen directly from factory_girl. Thanks thoughtbot!
   def class_for(class_or_to_s)

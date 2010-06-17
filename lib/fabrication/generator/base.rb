@@ -16,6 +16,8 @@ class Fabrication::Generator::Base
     assign(@instance, method_name.to_s, block_given? ? yield : args.first)
   end
 
+  def self.supports?(klass); true end
+
   private
 
   def assign(instance, method_name, value)
