@@ -2,6 +2,7 @@ class Fabrication::Fabricator
 
   GENERATORS = [
     Fabrication::Generator::ActiveRecord,
+    Fabrication::Generator::Mongoid,
     Fabrication::Generator::Base
   ]
 

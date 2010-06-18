@@ -38,4 +38,18 @@ describe Fabrication::Fabricator do
 
   end
 
+  context 'with a mongoid document' do
+
+    let(:fabricator) { Fabrication::Fabricator.new(:author) { name "Seth Godin" } }
+
+    it 'fabricates a Author instance' do
+      fabricator.fabricate.instance_of?(Author).should be_true
+    end
+
+    it 'uses the activerecord generator' do
+      fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::Mongoid).should be_true
+    end
+
+  end
+
 end
