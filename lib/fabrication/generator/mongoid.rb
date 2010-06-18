@@ -1,10 +1,9 @@
 class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
 
+  attr_accessor :instance
+
   def generate(options)
-    @options = options
-    @instance = super
-    @instance.save
-    @instance
+    self.instance = super.tap { |t| t.save }
   end
 
   def self.supports?(klass)
