@@ -15,14 +15,22 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    assign(instance, method_name.to_s, block_given? ? yield : args.first)
+    assign(instance, method_name.to_s, args.first, &block)
   end
 
   def self.supports?(klass); true end
 
   private
 
-  def assign(instance, method_name, value)
+  def assign(instance, method_name, param)
+    value = nil
+    if param.is_a?(Hash) && param[:count] && param[:count] > 1
+      value = (1..param[:count]).map do |i|
+        block_given? ? yield(i) : param
+      end
+    else
+      value = block_given? ? yield : param
+    end
     instance.send("#{method_name.to_s}=", value)
   end
 

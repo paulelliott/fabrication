@@ -45,6 +45,7 @@ describe Fabrication do
         first_name { Faker::Name.first_name }
         last_name { Faker::Name.last_name }
         age { rand(100) }
+        shoes(:count => 10) { |i| "shoe #{i}" }
       end
     end
 
@@ -58,6 +59,10 @@ describe Fabrication do
 
     it 'has an age' do
       person.age.should be
+    end
+
+    it 'has 10 shoes' do
+      person.shoes.should == (1..10).map { |i| "shoe #{i}" }
     end
 
   end
@@ -97,7 +102,7 @@ describe Fabrication do
     before do
       Fabricator(:company) do
         name { Faker::Company.name }
-        divisions(:force => true) { [Fabricate(:division)] }
+        divisions(:force => true, :count => 4) { Fabricate(:division) }
       end
 
       Fabricator(:division) do
@@ -112,11 +117,29 @@ describe Fabrication do
     end
 
     it 'generates associations immediately when forced' do
-      Division.find_all_by_company_id(company.id).count.should == 1
+      Division.find_all_by_company_id(company.id).count.should == 4
     end
 
     it 'overrides associations' do
       Fabricate(:company, :divisions => []).divisions.should == []
+    end
+  end
+  
+  context 'with a mongoid document' do
+
+    let(:author) do
+      Fabricator(:author) do
+        name "George Orwell"
+        books(:count => 4) { |i| "book title #{i}" }
+      end.fabricate
+    end
+
+    it "sets the author name" do
+      author.name.should == "George Orwell"
+    end
+
+    it 'generates four books' do
+      author.books.should == (1..4).map { |i| "book title #{i}" }
     end
   end
 

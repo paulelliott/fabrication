@@ -13,6 +13,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
   def method_missing(method_name, *args, &block)
     method_name = method_name.to_s
+    count = (args && args.first && args.first[:count]) || 1
     unless options.include?(method_name.to_sym)
       if block_given?
         unless (args.first && args.first[:force]) || instance.class.columns.map(&:name).include?(method_name)
@@ -27,7 +28,11 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
             def #{method_name}
               original_value = @__#{method_name}_original.call
               if @__#{method_name}_block.present?
-                original_value = #{method_name}= @__#{method_name}_block.call(self)
+                if #{count} \> 1
+                  original_value = #{method_name}= (1..#{count}).map { |i| @__#{method_name}_block.call(self, i) }
+                else
+                  original_value = #{method_name}= @__#{method_name}_block.call(self)
+                end
                 @__#{method_name}_block = nil
                 @__#{method_name}_original.call
               end
@@ -35,10 +40,10 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
             end
           >
         else
-          assign(instance, method_name, yield)
+          assign(instance, method_name, args.first, &block)
         end
       else
-        assign(instance, method_name, args.first)
+        assign(instance, method_name, args)
       end
     end
   end
