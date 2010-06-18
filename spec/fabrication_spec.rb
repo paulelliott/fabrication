@@ -97,7 +97,7 @@ describe Fabrication do
     before do
       Fabricator(:company) do
         name { Faker::Company.name }
-        divisions(:force) { [Fabricate(:division)] }
+        divisions(:force => true) { [Fabricate(:division)] }
       end
 
       Fabricator(:division) do

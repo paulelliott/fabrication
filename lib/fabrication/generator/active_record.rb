@@ -15,7 +15,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     method_name = method_name.to_s
     unless options.include?(method_name.to_sym)
       if block_given?
-        unless args.include?(:force) || instance.class.columns.map(&:name).include?(method_name)
+        unless (args.first && args.first[:force]) || instance.class.columns.map(&:name).include?(method_name)
           # copy the original getter
           instance.instance_variable_set("@__#{method_name}_original", instance.method(method_name).clone)
 
