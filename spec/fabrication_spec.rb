@@ -103,6 +103,7 @@ describe Fabrication do
       Fabricator(:company) do
         name { Faker::Company.name }
         divisions(:force => true, :count => 4) { Fabricate(:division) }
+        after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 
       Fabricator(:division) do
@@ -123,8 +124,13 @@ describe Fabrication do
     it 'overrides associations' do
       Fabricate(:company, :divisions => []).divisions.should == []
     end
+
+    it 'executes after create blocks' do
+      company.city.should == 'Jacksonville Beach'
+    end
+
   end
-  
+
   context 'with a mongoid document' do
 
     let(:author) do

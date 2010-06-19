@@ -11,6 +11,7 @@ class TestMigration < ActiveRecord::Migration
   def self.up
     create_table :companies, :force => true do |t|
       t.column :name, :string
+      t.column :city, :string
     end
 
     create_table :divisions, :force => true do |t|
