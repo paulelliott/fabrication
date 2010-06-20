@@ -38,6 +38,7 @@ Define your fabricators.
     end
 
 Breaking down the above, we are defining a "company" fabricator, which will generate Company model objects.
+
 * The object has a name field, which is statically filled with "Fun Factory".
 * It has a has_many association to employees and will generate an array of 20 records as indicated by the :count => 20. The block is passed the company object being fabricated and index of the array being created.
 * It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the :force => true parameter being passed in.
