@@ -30,12 +30,12 @@ They are automatically loaded, so no additional requires are necessary.
 
 Define your fabricators.
 
-`Fabricator(:company) do  
-  name "Fun Factory"  
-  employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }  
-  location(:force => true) { Fabricate(:location) }  
-  after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }  
-end`
+    Fabricator(:company) do
+      name "Fun Factory"
+      employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }
+      location(:force => true) { Fabricate(:location) }
+      after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }
+    end
 
 Breaking down the above, we are defining a "company" fabricator, which will generate Company model objects.
 * The object has a name field, which is statically filled with "Fun Factory".
