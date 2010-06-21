@@ -111,10 +111,10 @@ describe Fabrication do
       end
     end
 
-    let(:company) { Fabricate(:company) }
+    let(:company) { Fabricate(:company, :name => "Hashrocket") }
 
     it 'generates field blocks immediately' do
-      company.name.should be
+      company.name.should == "Hashrocket"
     end
 
     it 'generates associations immediately when forced' do

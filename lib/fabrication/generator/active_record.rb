@@ -1,6 +1,6 @@
 class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
-  attr_accessor :instance, :options
+  attr_accessor :options
 
   def generate(options)
     self.options = options
@@ -13,7 +13,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
   def method_missing(method_name, *args, &block)
     method_name = method_name.to_s
-    count = (args && args.first && args.first[:count]) || 1
+    count = (args && args.first && args.first[:count]) || 0
     unless options.include?(method_name.to_sym)
       if block_given?
         unless (args.first && args.first[:force]) || instance.class.columns.map(&:name).include?(method_name)
@@ -28,7 +28,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
             def #{method_name}
               original_value = @__#{method_name}_original.call
               if @__#{method_name}_block.present?
-                if #{count} \> 1
+                if #{count} \>= 1
                   original_value = #{method_name}= (1..#{count}).map { |i| @__#{method_name}_block.call(self, i) }
                 else
                   original_value = #{method_name}= @__#{method_name}_block.call(self)
@@ -43,7 +43,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
           assign(instance, method_name, args.first, &block)
         end
       else
-        assign(instance, method_name, args)
+        assign(instance, method_name, args.first)
       end
     end
   end
