@@ -6,5 +6,6 @@ end
 class Author
   include Mongoid::Document
   field :name
+  field :handle
   field :books, :type => Array
 end
