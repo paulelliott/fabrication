@@ -2,12 +2,25 @@ require 'spec_helper'
 
 describe Fabrication::Generator::Base do
 
-  let(:person) do
+  let(:generator) do
     Fabrication::Generator::Base.new(Person) do
       first_name 'Some'
-      last_name { Faker::Name.last_name }
+      last_name { |person| person.first_name.reverse.capitalize }
       age 40
-    end.generate({:first_name => 'Body'})
+      shoes(:count => 4) { |person, index| "shoe #{index}" }
+    end
+  end
+
+  let(:person) do
+    generator.generate({:first_name => 'Body'})
+  end
+
+  it 'passes the object to blocks' do
+    person.last_name.should == 'Emos'
+  end
+
+  it 'passes the object and count to blocks' do
+    person.shoes.should == (1..4).map { |i| "shoe #{i}" }
   end
 
   it 'generates an instance' do
@@ -19,7 +32,7 @@ describe Fabrication::Generator::Base do
   end
 
   it 'generates the last name immediately' do
-    person.instance_variable_get(:@last_name).should be
+    person.instance_variable_get(:@last_name).should == 'Emos'
   end
 
   it 'generates the age immediately' do

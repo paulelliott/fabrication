@@ -45,7 +45,7 @@ describe Fabrication do
         first_name { Faker::Name.first_name }
         last_name { Faker::Name.last_name }
         age { rand(100) }
-        shoes(:count => 10) { |i| "shoe #{i}" }
+        shoes(:count => 10) { |person, i| "shoe #{i}" }
       end
     end
 
@@ -136,7 +136,7 @@ describe Fabrication do
     let(:author) do
       Fabricator(:author) do
         name "George Orwell"
-        books(:count => 4) { |i| "book title #{i}" }
+        books(:count => 4) { |author, i| "book title #{i}" }
       end.fabricate
     end
 

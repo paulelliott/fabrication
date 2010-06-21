@@ -26,10 +26,10 @@ class Fabrication::Generator::Base
     value = nil
     if param.is_a?(Hash) && param[:count] && param[:count] > 1
       value = (1..param[:count]).map do |i|
-        block_given? ? yield(i) : param
+        block_given? ? yield(instance, i) : param
       end
     else
-      value = block_given? ? yield : param
+      value = block_given? ? yield(instance) : param
     end
     instance.send("#{method_name.to_s}=", value)
   end
