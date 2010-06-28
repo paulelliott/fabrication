@@ -67,6 +67,24 @@ describe Fabrication do
 
   end
 
+  context 'with the generation parameter' do
+
+    before(:all) do
+      Fabricator(:person) do
+        first_name "Paul"
+        last_name { |person| "#{person.first_name}#{person.age}" }
+        age 60
+      end
+    end
+
+    let(:person) { Fabricate(:person) }
+
+    it 'evaluates the fields in order of declaration' do
+      person.last_name.should == "Paul"
+    end
+
+  end
+
   context 'multiple instance' do
 
     let(:person1) { Fabricate(:person, :first_name => 'Jane') }
