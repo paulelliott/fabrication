@@ -167,4 +167,29 @@ describe Fabrication do
     end
   end
 
+  context 'with a parent fabricator' do
+
+    let(:ernie) { Fabricate(:hemingway) }
+
+    before do
+      Fabricator(:author) do
+        name 'George Orwell'
+        books { ['1984'] }
+      end
+
+      Fabricator(:hemingway, :from => :author) do
+        name 'Ernest Hemingway'
+      end
+    end
+
+    it 'has the values from the parent' do
+      ernie.books.should == ['1984']
+    end
+
+    it 'overrides specified values from the parent' do
+      ernie.name.should == 'Ernest Hemingway'
+    end
+
+  end
+
 end

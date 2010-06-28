@@ -10,8 +10,9 @@ module Fabrication
 
   class << self
 
-    def schematic(name, &block)
-      fabricators[name] = Fabricator.new(name, &block)
+    def schematic(name, options, &block)
+      class_name = options[:from] || name
+      fabricators[name] = Fabricator.new(class_name, &block)
     end
 
     def generate(name, options)
@@ -47,8 +48,8 @@ module Fabrication
 
 end
 
-def Fabricator(name, &block)
-  Fabrication.schematic(name, &block)
+def Fabricator(name, options={}, &block)
+  Fabrication.schematic(name, options, &block)
 end
 
 def Fabricate(name, options={})
