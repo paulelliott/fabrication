@@ -54,6 +54,7 @@ module Fabrication
 
     private
 
+    @@fabricators = nil
     def fabricators
       @@fabricators ||= {}
     end
