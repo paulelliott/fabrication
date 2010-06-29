@@ -11,6 +11,7 @@ require 'mongoid'
 
 Spec::Runner.configure do |config|
   config.before(:all) do
+    Fabrication.clear_definitions
     Author.delete_all
   end
 end

@@ -117,7 +117,7 @@ describe Fabrication do
     before(:all) { TestMigration.up }
     after(:all) { TestMigration.down }
 
-    before do
+    before(:all) do
       Fabricator(:company) do
         name { Faker::Company.name }
         divisions(:force => true, :count => 4) { Fabricate(:division) }
@@ -151,12 +151,14 @@ describe Fabrication do
 
   context 'with a mongoid document' do
 
-    let(:author) do
+    before(:all) do
       Fabricator(:author) do
         name "George Orwell"
         books(:count => 4) { |author, i| "book title #{i}" }
-      end.fabricate
+      end
     end
+
+    let(:author) { Fabricate(:author) }
 
     it "sets the author name" do
       author.name.should == "George Orwell"
@@ -197,7 +199,6 @@ describe Fabrication do
     context 'and a class name as a parent' do
 
       before(:all) do
-        Fabrication.clear_definitions
         Fabricator(:hemingway, :from => :author) do
           name 'Ernest Hemingway'
         end
@@ -233,7 +234,6 @@ describe Fabrication do
   context 'when generating from a non-existant fabricator' do
 
     before(:all) do
-      Fabrication.clear_definitions
     end
 
     it 'throws an error' do
