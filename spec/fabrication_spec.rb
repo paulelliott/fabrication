@@ -171,7 +171,7 @@ describe Fabrication do
 
     let(:ernie) { Fabricate(:hemingway) }
 
-    before do
+    before(:all) do
       Fabricator(:author) do
         name 'George Orwell'
         books { ['1984'] }
@@ -182,12 +182,25 @@ describe Fabrication do
       end
     end
 
+    it 'overrides specified values from the parent' do
+      ernie.name.should == 'Ernest Hemingway'
+    end
+
     it 'has the values from the parent' do
       ernie.books.should == ['1984']
     end
 
-    it 'overrides specified values from the parent' do
-      ernie.name.should == 'Ernest Hemingway'
+  end
+
+  describe '.clear_definitions' do
+
+    before(:all) do
+      Fabricator(:author) {}
+      Fabrication.clear_definitions
+    end
+
+    it 'should not generate authors' do
+      lambda { Fabricate(:author) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
 
   end

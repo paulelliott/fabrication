@@ -1,5 +1,6 @@
 module Fabrication
 
+  require 'fabrication/errors'
   autoload :Fabricator, 'fabrication/fabricator'
 
   module Generator
@@ -17,7 +18,8 @@ module Fabrication
     end
 
     def generate(name, options)
-      find_definitions if fabricators.empty?
+      find_definitions if @@fabricators.nil?
+      raise UnknownFabricatorError unless fabricators.has_key?(name)
       fabricators[name].fabricate(options)
     end
 
@@ -37,6 +39,10 @@ module Fabrication
           end
         end
       end
+    end
+
+    def clear_definitions
+      fabricators.clear
     end
 
     private
