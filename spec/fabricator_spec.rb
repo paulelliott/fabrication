@@ -16,7 +16,7 @@ describe Fabrication::Fabricator do
     end
 
     it 'uses the base generator' do
-      fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::Base).should be_true
+      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::Base).should be_true
     end
 
   end
@@ -33,7 +33,7 @@ describe Fabrication::Fabricator do
     end
 
     it 'uses the activerecord generator' do
-      fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::ActiveRecord).should be_true
+      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::ActiveRecord).should be_true
     end
 
   end
@@ -47,7 +47,7 @@ describe Fabrication::Fabricator do
     end
 
     it 'uses the activerecord generator' do
-      fabricator.instance_variable_get(:@fabricator).instance_of?(Fabrication::Generator::Mongoid).should be_true
+      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::Mongoid).should be_true
     end
 
   end
