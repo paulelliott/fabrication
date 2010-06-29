@@ -13,7 +13,13 @@ module Fabrication
 
     def schematic(name, options, &block)
       parent = fabricators[options[:from]]
-      class_name = parent ? parent.class_name : name
+      if parent
+        class_name = parent.class_name
+      elsif options[:from]
+        class_name = options[:from]
+      else
+        class_name = name
+      end
       fabricators[name] = Fabricator.new(class_name, parent, &block)
     end
 

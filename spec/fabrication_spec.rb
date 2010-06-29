@@ -169,25 +169,50 @@ describe Fabrication do
 
   context 'with a parent fabricator' do
 
-    let(:ernie) { Fabricate(:hemingway) }
+    context 'and a previously defined parent' do
 
-    before(:all) do
-      Fabricator(:author) do
-        name 'George Orwell'
-        books { ['1984'] }
+      let(:ernie) { Fabricate(:hemingway) }
+
+      before(:all) do
+        Fabricator(:author) do
+          name 'George Orwell'
+          books { ['1984'] }
+        end
+
+        Fabricator(:hemingway, :from => :author) do
+          name 'Ernest Hemingway'
+        end
       end
 
-      Fabricator(:hemingway, :from => :author) do
-        name 'Ernest Hemingway'
+      it 'has the values from the parent' do
+        ernie.books.should == ['1984']
       end
+
+      it 'overrides specified values from the parent' do
+        ernie.name.should == 'Ernest Hemingway'
+      end
+
     end
 
-    it 'overrides specified values from the parent' do
-      ernie.name.should == 'Ernest Hemingway'
-    end
+    context 'and a class name as a parent' do
 
-    it 'has the values from the parent' do
-      ernie.books.should == ['1984']
+      before(:all) do
+        Fabrication.clear_definitions
+        Fabricator(:hemingway, :from => :author) do
+          name 'Ernest Hemingway'
+        end
+      end
+
+      let(:ernie) { Fabricate(:hemingway) }
+
+      it 'has the name defined' do
+        ernie.name.should == 'Ernest Hemingway'
+      end
+
+      it 'not have any books' do
+        ernie.books.should be_nil
+      end
+
     end
 
   end
