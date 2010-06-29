@@ -231,10 +231,19 @@ describe Fabrication do
 
   end
 
-  context 'when generating from a non-existant fabricator' do
+  context 'when defining a fabricator twice' do
 
     before(:all) do
+      Fabricator(:author) {}
     end
+
+    it 'throws an error' do
+      lambda { Fabricator(:author) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
+    end
+
+  end
+
+  context 'when generating from a non-existant fabricator' do
 
     it 'throws an error' do
       lambda { Fabricate(:author) }.should raise_error(Fabrication::UnknownFabricatorError)

@@ -12,6 +12,7 @@ module Fabrication
   class << self
 
     def schematic(name, options, &block)
+      raise DuplicateFabricatorError if fabricators.has_key?(name)
       parent = fabricators[options[:from]]
       if parent
         class_name = parent.class_name
