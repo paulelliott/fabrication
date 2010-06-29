@@ -43,3 +43,13 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * It has a has_many association to employees and will generate an array of 20 records as indicated by the :count => 20. The block is passed the company object being fabricated and index of the array being created.
 * It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the :force => true parameter being passed in.
 * After the object is created, it will update the "ceo" association with a new "drone" record.
+
+### Inheritance ###
+
+So you already have a company fabricator, but you need one that specifically generates an LLC. No problem!
+
+    Fabricator(:llc, :from => :company) do
+      type "LLC"
+    end
+
+Setting the :from option will inherit the class and all the attributes from the named Fabricator.

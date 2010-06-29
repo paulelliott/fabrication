@@ -1,14 +1,15 @@
 class Fabrication::Generator::Base
 
-  attr_accessor :klass, :block, :instance
+  attr_accessor :klass, :parent, :block, :instance
 
-  def initialize(klass, &block)
+  def initialize(klass, parent=nil, &block)
     self.klass = klass
+    self.parent = parent
     self.block = block
   end
 
-  def generate(options)
-    self.instance = klass.new
+  def generate(options={})
+    self.instance = parent ? parent.fabricate : klass.new
     instance_eval &block
     options.each { |k,v| assign(instance, k, v) }
     instance

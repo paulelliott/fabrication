@@ -6,12 +6,14 @@ class Fabrication::Fabricator
     Fabrication::Generator::Base
   ]
 
+  attr_accessor :class_name
 
-  def initialize(class_name, &block)
+  def initialize(class_name, parent=nil, &block)
+    self.class_name = class_name
     klass = class_for(class_name)
     self.generator = GENERATORS.detect do |gen|
       gen.supports?(klass)
-    end.new(klass, &block)
+    end.new(klass, parent, &block)
   end
 
   def fabricate(options={})

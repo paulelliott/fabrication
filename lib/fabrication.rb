@@ -11,8 +11,9 @@ module Fabrication
   class << self
 
     def schematic(name, options, &block)
-      class_name = options[:from] || name
-      fabricators[name] = Fabricator.new(class_name, &block)
+      parent = fabricators[options[:from]]
+      class_name = parent ? parent.class_name : name
+      fabricators[name] = Fabricator.new(class_name, parent, &block)
     end
 
     def generate(name, options)
