@@ -52,4 +52,4 @@ So you already have a company fabricator, but you need one that specifically gen
       type "LLC"
     end
 
-Setting the :from option will inherit the class and all the attributes from the named Fabricator.
+Setting the :from option will inherit the class and all the attributes from the named Fabricator. Even if you haven't defined a :company Fabricator yet, it will still work as long as it references an actual class name.
