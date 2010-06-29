@@ -230,4 +230,16 @@ describe Fabrication do
 
   end
 
+  context 'when generating from a non-existant fabricator' do
+
+    before(:all) do
+      Fabrication.clear_definitions
+    end
+
+    it 'throws an error' do
+      lambda { Fabricate(:author) }.should raise_error(Fabrication::UnknownFabricatorError)
+    end
+
+  end
+
 end
