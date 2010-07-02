@@ -10,7 +10,7 @@ class Fabrication::Generator::Base
 
   def generate(options={})
     self.instance = parent ? parent.fabricate : klass.new
-    instance_eval &block
+    instance_eval(&block)
     options.each { |k,v| assign(instance, k, v) }
     instance
   end
