@@ -1,12 +1,5 @@
 class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
-  attr_accessor :options
-
-  def generate(options)
-    self.options = options
-    self.instance = super.tap { |t| t.save }
-  end
-
   def self.supports?(klass)
     defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
   end
@@ -46,6 +39,12 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
         assign(instance, method_name, args.first)
       end
     end
+  end
+
+  protected
+
+  def after_generation
+    instance.save
   end
 
 end

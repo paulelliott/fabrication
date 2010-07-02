@@ -1,6 +1,20 @@
 class Fabrication::Generator::Base
 
-  attr_accessor :klass, :parent, :block, :instance
+  def self.supports?(klass); true end
+
+  def after_create(&block)
+    self.after_create_block = block if block_given?
+  end
+
+  def generate(options={})
+    self.instance = parent ? parent.fabricate : klass.new
+    self.options = options
+    instance_eval(&block)
+    options.each { |k,v| assign(instance, k, v) }
+    after_generation
+    after_create_block.call(instance) if after_create_block
+    instance
+  end
 
   def initialize(klass, parent=nil, &block)
     self.klass = klass
@@ -8,20 +22,17 @@ class Fabrication::Generator::Base
     self.block = block
   end
 
-  def generate(options={})
-    self.instance = parent ? parent.fabricate : klass.new
-    instance_eval(&block)
-    options.each { |k,v| assign(instance, k, v) }
-    instance
-  end
-
   def method_missing(method_name, *args, &block)
     assign(instance, method_name.to_s, args.first, &block)
   end
 
-  def self.supports?(klass); true end
+  protected
+
+  def after_generation; end
 
   private
+
+  attr_accessor :after_create_block, :block, :instance, :klass, :options, :parent
 
   def assign(instance, method_name, param)
     value = nil
