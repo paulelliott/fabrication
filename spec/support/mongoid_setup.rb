@@ -5,7 +5,17 @@ end
 
 class Author
   include Mongoid::Document
+
+  embeds_many :books
+
   field :name
   field :handle
-  field :books, :type => Array
+end
+
+class Book
+  include Mongoid::Document
+
+  field :title
+
+  embedded_in :author, :inverse_of => :books
 end

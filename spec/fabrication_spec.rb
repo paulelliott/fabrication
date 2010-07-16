@@ -139,6 +139,10 @@ describe Fabrication do
       Division.find_all_by_company_id(company.id).count.should == 4
     end
 
+    it 'executes after create blocks' do
+      company.city.should == 'Jacksonville Beach'
+    end
+
     it 'overrides associations' do
       Fabricate(:company, :divisions => []).divisions.should == []
     end
@@ -154,7 +158,13 @@ describe Fabrication do
     before(:all) do
       Fabricator(:author) do
         name "George Orwell"
-        books(:count => 4) { |author, i| "book title #{i}" }
+        books(:count => 4) do |author, i|
+          Fabricate(:book, :title => "book title #{i}", :author => author)
+        end
+      end
+
+      Fabricator(:book) do
+        title "1984"
       end
     end
 
@@ -165,7 +175,7 @@ describe Fabrication do
     end
 
     it 'generates four books' do
-      author.books.should == (1..4).map { |i| "book title #{i}" }
+      author.books.map(&:title).should == (1..4).map { |i| "book title #{i}" }
     end
   end
 
@@ -176,9 +186,10 @@ describe Fabrication do
       let(:ernie) { Fabricate(:hemingway) }
 
       before(:all) do
+        Fabricator(:book)
         Fabricator(:author) do
           name 'George Orwell'
-          books { ['1984'] }
+          books { |author| [Fabricate(:book, :title => '1984', :author => author)] }
         end
 
         Fabricator(:hemingway, :from => :author) do
@@ -187,7 +198,7 @@ describe Fabrication do
       end
 
       it 'has the values from the parent' do
-        ernie.books.should == ['1984']
+        ernie.books.map(&:title).should == ['1984']
       end
 
       it 'overrides specified values from the parent' do
@@ -211,7 +222,7 @@ describe Fabrication do
       end
 
       it 'not have any books' do
-        ernie.books.should be_nil
+        ernie.books.should == []
       end
 
     end
