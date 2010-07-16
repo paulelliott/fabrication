@@ -251,4 +251,14 @@ describe Fabrication do
 
   end
 
+  context 'defining a fabricator without a block' do
+
+    before(:all) { Fabricator(:author) }
+
+    it 'works fine' do
+      Fabricate(:author).should be
+    end
+
+  end
+
 end
