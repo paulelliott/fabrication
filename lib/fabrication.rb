@@ -1,7 +1,9 @@
 module Fabrication
 
   require 'fabrication/errors'
+
   autoload :Fabricator, 'fabrication/fabricator'
+  autoload :Schematic,  'fabrication/schematic'
 
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
