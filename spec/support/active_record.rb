@@ -1,3 +1,5 @@
+require 'active_record'
+
 # change this if sqlite is unavailable
 dbconfig = {
   :adapter => 'sqlite3',

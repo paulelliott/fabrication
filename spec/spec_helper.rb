@@ -6,7 +6,6 @@ require 'spec'
 require 'spec/autorun'
 require 'fabrication'
 require 'ffaker'
-require 'active_record'
 
 Spec::Runner.configure do |config|
   config.before(:all) do
