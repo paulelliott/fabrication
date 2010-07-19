@@ -10,7 +10,7 @@ class Fabrication::Generator::Base
     self.instance = parent ? parent.fabricate : klass.new
     self.options = options
     instance_eval(&block) if block
-    options.each { |k,v| assign(instance, k, v) }
+    options.each { |k,v| assign(k, v) }
     after_generation
     after_create_block.call(instance) if after_create_block
     instance
@@ -23,7 +23,7 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    assign(instance, method_name.to_s, args.first, &block)
+    assign(method_name.to_s, args.first, &block)
   end
 
   protected
@@ -34,7 +34,7 @@ class Fabrication::Generator::Base
 
   attr_accessor :after_create_block, :block, :instance, :klass, :options, :parent
 
-  def assign(instance, method_name, param)
+  def assign(method_name, param)
     value = nil
     if param.is_a?(Hash) && param[:count] && param[:count] > 1
       value = (1..param[:count]).map do |i|

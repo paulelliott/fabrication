@@ -33,10 +33,10 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
             end
           >
         else
-          assign(instance, method_name, args.first, &block)
+          assign(method_name, args.first, &block)
         end
       else
-        assign(instance, method_name, args.first)
+        assign(method_name, args.first)
       end
     end
   end
