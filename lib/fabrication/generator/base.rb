@@ -7,19 +7,16 @@ class Fabrication::Generator::Base
   end
 
   def generate(options={})
-    self.instance = parent ? parent.fabricate : klass.new
-    self.options = options
-    instance_eval(&block) if block
-    options.each { |k,v| assign(k, v) }
+    self.instance = klass.new
+    process_attributes(options)
     after_generation
     after_create_block.call(instance) if after_create_block
     instance
   end
 
-  def initialize(klass, parent=nil, &block)
+  def initialize(klass, schematic=nil)
     self.klass = klass
-    self.parent = parent
-    self.block = block
+    self.schematic = schematic
   end
 
   def method_missing(method_name, *args, &block)
@@ -32,7 +29,7 @@ class Fabrication::Generator::Base
 
   private
 
-  attr_accessor :after_create_block, :block, :instance, :klass, :options, :parent
+  attr_accessor :after_create_block, :instance, :klass, :schematic
 
   def assign(method_name, param)
     value = nil
@@ -44,6 +41,20 @@ class Fabrication::Generator::Base
       value = block_given? ? yield(instance) : param
     end
     instance.send("#{method_name.to_s}=", value)
+  end
+
+  def process_attributes(options)
+    schematic.merge(options).attributes.each do |attribute|
+      if attribute.name == :after_create
+        after_create(&attribute.value)
+      else
+        if Proc === attribute.value
+          method_missing(attribute.name, attribute.params, &attribute.value)
+        else
+          method_missing(attribute.name, attribute.value)
+        end
+      end
+    end
   end
 
 end

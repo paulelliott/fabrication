@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Fabrication::Generator::Base do
 
-  let(:generator) do
-    Fabrication::Generator::Base.new(Person) do
+  let(:schematic) do
+    Fabrication::Schematic.new do
       first_name 'Some'
       last_name { |person| person.first_name.reverse.capitalize }
       age 40
@@ -11,12 +11,14 @@ describe Fabrication::Generator::Base do
     end
   end
 
+  let(:generator) { Fabrication::Generator::Base.new(Person, schematic) }
+
   let(:person) do
     generator.generate({:first_name => 'Body'})
   end
 
   it 'passes the object to blocks' do
-    person.last_name.should == 'Emos'
+    person.last_name.should == 'Ydob'
   end
 
   it 'passes the object and count to blocks' do
@@ -32,7 +34,7 @@ describe Fabrication::Generator::Base do
   end
 
   it 'generates the last name immediately' do
-    person.instance_variable_get(:@last_name).should == 'Emos'
+    person.instance_variable_get(:@last_name).should == 'Ydob'
   end
 
   it 'generates the age immediately' do

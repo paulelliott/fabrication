@@ -114,9 +114,6 @@ describe Fabrication do
 
   context 'with an active record object' do
 
-    before(:all) { TestMigration.up }
-    after(:all) { TestMigration.down }
-
     before(:all) do
       Fabricator(:company) do
         name { Faker::Company.name }
@@ -124,10 +121,17 @@ describe Fabrication do
         after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 
+      Fabricator(:other_company, :from => :company) do
+        divisions(:count => 2) { Fabricate(:division) }
+      end
+
       Fabricator(:division) do
         name "Awesome Division"
       end
     end
+
+    before { TestMigration.up }
+    after { TestMigration.down }
 
     let(:company) { Fabricate(:company, :name => "Hashrocket") }
 
@@ -147,8 +151,9 @@ describe Fabrication do
       Fabricate(:company, :divisions => []).divisions.should == []
     end
 
-    it 'executes after create blocks' do
-      company.city.should == 'Jacksonville Beach'
+    it 'overrides inherited associations' do
+      Fabricate(:other_company).divisions.count.should == 2
+      Division.count.should == 2
     end
 
   end

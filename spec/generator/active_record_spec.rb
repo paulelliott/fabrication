@@ -5,12 +5,16 @@ describe Fabrication::Generator::ActiveRecord do
   before(:all) { TestMigration.up }
   after(:all) { TestMigration.down }
 
-  let(:generator) do
-    Fabrication::Generator::ActiveRecord.new(Company) do
+  let(:schematic) do
+    Fabrication::Schematic.new do
       name 'Company Name'
       city { |c| c.name.reverse.downcase.titleize }
       divisions(:count => 2) { |c, i| Fabricate(:division, :company => c, :name => "Division #{i}") }
     end
+  end
+
+  let(:generator) do
+    Fabrication::Generator::ActiveRecord.new(Company, schematic)
   end
 
   context 'active record object' do

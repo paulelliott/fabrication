@@ -19,9 +19,12 @@ class Fabrication::Schematic
   def merge(options)
     schematic = clone
     options.each do |name, value|
-      attribute = schematic.attribute(name)
-      attribute.params = nil
-      attribute.value = value
+      if attribute = schematic.attribute(name)
+        attribute.params = nil
+        attribute.value = value
+      else
+        schematic.attributes << Attribute.new(name, nil, value)
+      end
     end
     schematic
   end

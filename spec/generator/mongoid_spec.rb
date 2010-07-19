@@ -6,13 +6,15 @@ describe Fabrication::Generator::Mongoid do
     Fabricator(:book) { title "book title" }
   end
 
-  let(:generator) do
-    Fabrication::Generator::Mongoid.new(Author) do
+  let(:schematic) do
+    Fabrication::Schematic.new do
       name 'Name'
       handle { |author| author.name.downcase }
       books(:count => 3) { |author, index| Fabricate(:book, :title => "#{author.name} #{index}", :author => author) }
     end
   end
+
+  let(:generator) { Fabrication::Generator::Mongoid.new(Author, schematic) }
 
   context 'mongoid object' do
 
