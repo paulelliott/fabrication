@@ -1,11 +1,29 @@
 class Fabrication::Schematic
 
   def initialize(&block)
-    instance_eval(&block)
+    instance_eval(&block) if block_given?
   end
 
   def attribute(name)
     attributes.select { |a| a.name == name }.first
+  end
+
+  def clone
+    Fabrication::Schematic.new.tap do |dup|
+      dup.attributes = attributes.map do |a|
+        Attribute.new(a.name, a.params, a.value)
+      end
+    end
+  end
+
+  def merge(options)
+    schematic = clone
+    options.each do |name, value|
+      attribute = schematic.attribute(name)
+      attribute.params = nil
+      attribute.value = value
+    end
+    schematic
   end
 
   def merge!(&block)
@@ -33,6 +51,7 @@ class Fabrication::Schematic
 
   class Attribute
     attr_accessor :name, :params, :value
+
     def initialize(name, params, value)
       self.name = name
       self.params = params
@@ -40,6 +59,7 @@ class Fabrication::Schematic
     end
   end
 
+  attr_writer :attributes
   def attributes
     @attributes ||= []
   end

@@ -74,4 +74,19 @@ describe Fabrication::Schematic do
 
   end
 
+  it 'is deep clonable' do
+    schematic2 = schematic.clone
+    schematic.merge! do
+      name "Henry"
+    end
+    schematic.attribute(:name).value.should == 'Henry'
+    schematic2.attribute(:name).value.should == 'Orgasmo'
+  end
+
+  it 'allows temporary parameter overrides' do
+    schematic2 = schematic.merge(:name => 'Henry')
+    schematic.attribute(:name).value.should == 'Orgasmo'
+    schematic2.attribute(:name).value.should == 'Henry'
+  end
+
 end
