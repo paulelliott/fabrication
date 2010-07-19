@@ -8,11 +8,9 @@ class Fabrication::Schematic
     attributes.select { |a| a.name == name }.first
   end
 
-  def clone
-    Fabrication::Schematic.new.tap do |dup|
-      dup.attributes = attributes.map do |a|
-        Attribute.new(a.name, a.params, a.value)
-      end
+  def initialize_copy(original)
+    self.attributes = original.attributes.map do |a|
+      Attribute.new(a.name, a.params, a.value)
     end
   end
 
