@@ -60,8 +60,8 @@ I (paulelliott) am actively maintaining this project. If you would like contribu
 
 To run rake successfully:
 
-1) Clone the project
-2) Install mongodb and sqlite3
-3) Install bundler
-4) Run `bundle install` from the project root
-5) Run `rake` and the test suite should be all green!
+1. Clone the project
+2. Install mongodb and sqlite3
+3. Install bundler
+4. Run `bundle install` from the project root
+5. Run `rake` and the test suite should be all green!
