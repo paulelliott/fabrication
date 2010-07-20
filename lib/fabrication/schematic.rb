@@ -15,16 +15,16 @@ class Fabrication::Schematic
   end
 
   def merge(options)
-    schematic = clone
-    options.each do |name, value|
-      if attribute = schematic.attribute(name)
-        attribute.params = nil
-        attribute.value = value
-      else
-        schematic.attributes << Attribute.new(name, nil, value)
+    clone.tap do |schematic|
+      options.each do |name, value|
+        if attribute = schematic.attribute(name)
+          attribute.params = nil
+          attribute.value = value
+        else
+          schematic.attributes << Attribute.new(name, nil, value)
+        end
       end
     end
-    schematic
   end
 
   def merge!(&block)
