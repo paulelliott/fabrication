@@ -242,7 +242,7 @@ describe Fabrication do
     end
 
     it 'should not generate authors' do
-      lambda { Fabricate(:author) }.should raise_error(Fabrication::UnknownFabricatorError)
+      Fabrication.fabricators.has_key?(:author).should be_false
     end
 
   end
