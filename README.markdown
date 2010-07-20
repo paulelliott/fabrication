@@ -53,3 +53,15 @@ So you already have a company fabricator, but you need one that specifically gen
     end
 
 Setting the :from option will inherit the class and all the attributes from the named Fabricator. Even if you haven't defined a :company Fabricator yet, it will still work as long as it references an actual class name.
+
+### Contributing ###
+
+I (paulelliott) am actively maintaining this project. If you would like contribute, please fork the project, make your changes on a feature branch, and submit a pull request.
+
+To run rake successfully:
+
+1) Clone the project
+2) Install mongodb and sqlite3
+3) Install bundler
+4) Run `bundle install` from the project root
+5) Run `rake` and the test suite should be all green!
