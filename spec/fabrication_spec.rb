@@ -277,4 +277,17 @@ describe Fabrication do
 
   end
 
+  describe ".fabricators" do
+
+    let(:author) { Fabricator(:author) }
+    let(:book) { Fabricator(:book) }
+
+    before(:all) { author; book }
+
+    it "returns the two fabricators" do
+      Fabrication.fabricators.should == {:author => author, :book => book}
+    end
+
+  end
+
 end
