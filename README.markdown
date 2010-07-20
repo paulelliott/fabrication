@@ -54,6 +54,14 @@ So you already have a company fabricator, but you need one that specifically gen
 
 Setting the :from option will inherit the class and all the attributes from the named Fabricator. Even if you haven't defined a :company Fabricator yet, it will still work as long as it references an actual class name.
 
+### Fabricating ###
+
+Now that your Fabricators are defined, you can start generating some objects! To generate the LLC from the previous example, just do this:
+
+    llc = Fabricate(:llc, :name => "Awesome Labs", :location => "Earth")
+
+That will return an instance of the LLC using the fields defined in the Fabricators and overriding with anything passed into Fabricate.
+
 ### Contributing ###
 
 I (paulelliott) am actively maintaining this project. If you would like contribute, please fork the project, make your changes on a feature branch, and submit a pull request.
