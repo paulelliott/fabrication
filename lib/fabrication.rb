@@ -4,6 +4,7 @@ module Fabrication
 
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Schematic,  'fabrication/schematic'
+  autoload :Support,    'fabrication/support'
 
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
@@ -28,7 +29,7 @@ module Fabrication
 
     def generate(name, options)
       find_definitions if @@fabricators.nil?
-      raise UnknownFabricatorError unless fabricators.has_key?(name)
+      raise UnknownFabricatorError unless Fabrication::Support.fabricatable?(name)
       fabricators[name].fabricate(options)
     end
 
