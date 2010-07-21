@@ -30,6 +30,7 @@ module Fabrication
     def generate(name, options)
       find_definitions if @@fabricators.nil?
       raise UnknownFabricatorError unless Fabrication::Support.fabricatable?(name)
+      schematic(name, {}) unless fabricators.has_key?(name)
       fabricators[name].fabricate(options)
     end
 

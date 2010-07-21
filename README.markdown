@@ -44,6 +44,8 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the :force => true parameter being passed in.
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
+Alternatively, you can Fabricate(:company) without first defining the Fabricator. Doing so will create an empty Fabricator called ":company" and prevent you from defining the Fabricator explicitly later.
+
 ### Inheritance ###
 
 So you already have a company fabricator, but you need one that specifically generates an LLC. No problem!

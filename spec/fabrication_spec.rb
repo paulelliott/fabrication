@@ -262,7 +262,7 @@ describe Fabrication do
   context 'when generating from a non-existant fabricator' do
 
     it 'throws an error' do
-      lambda { Fabricate(:author) }.should raise_error(Fabrication::UnknownFabricatorError)
+      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
 
   end
