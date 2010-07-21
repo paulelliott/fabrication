@@ -290,4 +290,31 @@ describe Fabrication do
 
   end
 
+  describe "Fabricate with a block" do
+
+    let(:person) do
+      Fabricate(:person) do
+        first_name "Paul"
+        last_name { "Elliott" }
+      end
+    end
+
+    it 'uses the class matching the passed-in symbol' do
+      person.kind_of?(Person).should be_true
+    end
+
+    it 'has the correct first_name' do
+      person.first_name.should == 'Paul'
+    end
+
+    it 'has the correct last_name' do
+      person.last_name.should == 'Elliott'
+    end
+
+    it 'has the correct age' do
+      person.age.should be_nil
+    end
+
+  end
+
 end

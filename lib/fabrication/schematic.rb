@@ -14,8 +14,9 @@ class Fabrication::Schematic
     end
   end
 
-  def merge(options)
+  def merge(options, &block)
     clone.tap do |schematic|
+      schematic.instance_eval(&block) if block_given?
       options.each do |name, value|
         if attribute = schematic.attribute(name)
           attribute.params = nil

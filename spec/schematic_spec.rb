@@ -89,4 +89,27 @@ describe Fabrication::Schematic do
     schematic2.attribute(:name).value.should == 'Henry'
   end
 
+  describe ".merge" do
+
+    context "accepts options and a block parameter" do
+
+      let(:merged) do
+        schematic.merge(:name => "Paul") do
+          name "Barack"
+          something "else"
+        end
+      end
+
+      it "sets name to 'Paul'" do
+        merged.attribute(:name).value.should == 'Paul'
+      end
+
+      it "sets something to 'else'" do
+        merged.attribute(:something).value.should == 'else'
+      end
+
+    end
+
+  end
+
 end

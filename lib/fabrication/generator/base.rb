@@ -6,9 +6,9 @@ class Fabrication::Generator::Base
     self.after_create_block = block if block_given?
   end
 
-  def generate(options={})
+  def generate(options={}, &block)
     self.instance = klass.new
-    process_attributes(options)
+    process_attributes(options, &block)
     after_generation
     after_create_block.call(instance) if after_create_block
     instance
@@ -43,8 +43,8 @@ class Fabrication::Generator::Base
     instance.send("#{method_name.to_s}=", value)
   end
 
-  def process_attributes(options)
-    schematic.merge(options).attributes.each do |attribute|
+  def process_attributes(options, &block)
+    schematic.merge(options, &block).attributes.each do |attribute|
       if attribute.name == :after_create
         after_create(&attribute.value)
       else
