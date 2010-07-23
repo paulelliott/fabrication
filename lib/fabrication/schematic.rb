@@ -34,6 +34,7 @@ class Fabrication::Schematic
   end
 
   def method_missing(method_name, *args, &block)
+    method_name = parse_method_name(method_name, args)
     if (attr = attribute(method_name)).present?
       if block_given?
         attr.params = args.first
@@ -49,6 +50,15 @@ class Fabrication::Schematic
         attributes.push(Attribute.new(method_name, nil, args.first))
       end
     end
+  end
+
+  def parse_method_name(method_name, args)
+    if method_name.to_s.end_with?("!")
+      method_name = method_name.to_s.chomp("!").to_sym
+      args[0] ||= {}
+      args[0][:force] = true
+    end
+    method_name
   end
 
   class Attribute

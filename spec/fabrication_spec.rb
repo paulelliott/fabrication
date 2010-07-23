@@ -117,7 +117,7 @@ describe Fabrication do
     before(:all) do
       Fabricator(:company) do
         name { Faker::Company.name }
-        divisions(:force => true, :count => 4) { Fabricate(:division) }
+        divisions!(:count => 4) { Fabricate(:division) }
         after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 
