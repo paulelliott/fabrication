@@ -56,6 +56,12 @@ So you already have a company fabricator, but you need one that specifically gen
 
 Setting the :from option will inherit the class and all the attributes from the named Fabricator. Even if you haven't defined a :company Fabricator yet, it will still work as long as it references an actual class name.
 
+You can also explicitly specify the class being fabricated with the :class_name parameter.
+
+    Fabricator(:llc, :class_name => :company) do
+      type "LLC"
+    end
+
 ### Fabricating ###
 
 Now that your Fabricators are defined, you can start generating some objects! To generate the LLC from the previous example, just do this:

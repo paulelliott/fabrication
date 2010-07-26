@@ -17,7 +17,9 @@ module Fabrication
     def schematic(name, options, &block)
       raise DuplicateFabricatorError if fabricators.has_key?(name)
       parent = fabricators[options[:from]]
-      if parent
+      if options[:class_name]
+        class_name = options[:class_name]
+      elsif parent
         class_name = parent.class_name
       elsif options[:from]
         class_name = options[:from]

@@ -112,6 +112,22 @@ describe Fabrication do
 
   end
 
+  context 'with a specified class name' do
+
+    let(:someone) { Fabricate(:someone) }
+
+    before do
+      Fabricator(:someone, :class_name => :person) do
+        first_name "Paul"
+      end
+    end
+
+    it 'generates the person as someone' do
+      someone.first_name.should == "Paul"
+    end
+
+  end
+
   context 'with an active record object' do
 
     before(:all) do
