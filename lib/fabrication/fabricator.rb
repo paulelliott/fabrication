@@ -17,8 +17,8 @@ class Fabrication::Fabricator
     end.new(klass, schematic)
   end
 
-  def fabricate(options={}, &block)
-    generator.generate(options, &block)
+  def fabricate(options={}, overrides={}, &block)
+    generator.generate(options, overrides, &block)
   end
 
   private

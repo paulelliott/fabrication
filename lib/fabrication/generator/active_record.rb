@@ -41,8 +41,8 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
   protected
 
-  def after_generation
-    instance.save
+  def after_generation(options)
+    instance.save if options[:save]
   end
 
 end

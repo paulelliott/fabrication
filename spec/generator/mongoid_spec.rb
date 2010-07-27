@@ -18,14 +18,14 @@ describe Fabrication::Generator::Mongoid do
 
   context 'mongoid object' do
 
-    before { generator.generate(:name => 'Something') }
+    before { generator.generate({:save => true}, :name => 'Something') }
 
     it 'passes the object to blocks' do
-      generator.generate({}).handle.should == "name"
+      generator.generate.handle.should == "name"
     end
 
     it 'passes the object and count to blocks' do
-      generator.generate({}).books.map(&:title).should == ["Name 1","Name 2","Name 3"]
+      generator.generate.books.map(&:title).should == ["Name 1","Name 2","Name 3"]
     end
 
     it 'persists the author upon creation' do

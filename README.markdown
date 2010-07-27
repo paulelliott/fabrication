@@ -76,6 +76,10 @@ If you need to do something more complex, you can also pass a block to Fabricate
       location!(:count => 2) { Faker::Address.city }
     end
 
+Sometimes you don't actually need to save an option when it is created but just build it. In that case, just call `Fabricate.build` and it will skip the saving step.
+
+    Fabricate.build(:company, :name => "Hashrocket")
+
 ### Contributing ###
 
 I (paulelliott) am actively maintaining this project. If you would like contribute, please fork the project, make your changes on a feature branch, and submit a pull request.

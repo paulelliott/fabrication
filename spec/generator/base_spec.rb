@@ -14,7 +14,7 @@ describe Fabrication::Generator::Base do
   let(:generator) { Fabrication::Generator::Base.new(Person, schematic) }
 
   let(:person) do
-    generator.generate({:first_name => 'Body'})
+    generator.generate({:save => true}, {:first_name => 'Body'})
   end
 
   it 'passes the object to blocks' do

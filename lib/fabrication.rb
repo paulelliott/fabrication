@@ -29,11 +29,11 @@ module Fabrication
       fabricators[name] = Fabricator.new(class_name, parent, &block)
     end
 
-    def generate(name, options, &block)
+    def generate(name, options, overrides, &block)
       find_definitions if @@fabricators.nil?
       raise UnknownFabricatorError unless Fabrication::Support.fabricatable?(name)
       schematic(name, {}) unless fabricators.has_key?(name)
-      fabricators[name].fabricate(options, &block)
+      fabricators[name].fabricate(options, overrides, &block)
     end
 
     def find_definitions
@@ -75,5 +75,13 @@ def Fabricator(name, options={}, &block)
 end
 
 def Fabricate(name, options={}, &block)
-  Fabrication.generate(name, options, &block)
+  Fabrication.generate(name, {:save => true}, options, &block)
+end
+
+class Fabricate
+
+  def self.build(name, options={}, &block)
+    Fabrication.generate(name, {:save => false}, options, &block)
+  end
+
 end

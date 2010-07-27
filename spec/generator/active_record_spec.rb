@@ -20,7 +20,7 @@ describe Fabrication::Generator::ActiveRecord do
   context 'active record object' do
 
     let(:company) do
-      generator.generate({})
+      generator.generate
     end
 
     before(:all) do
@@ -64,6 +64,20 @@ describe Fabrication::Generator::ActiveRecord do
         company.reload.divisions.length.should == 2
       end
 
+    end
+
+  end
+
+  context 'with the build option' do
+
+    let(:company) { Fabricate.build(:company, :name => "Epitaph") }
+
+    it 'creates the record' do
+      company.name.should == 'Epitaph'
+    end
+
+    it 'does not save it to the database' do
+      Company.count.should == 0
     end
 
   end

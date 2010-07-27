@@ -6,10 +6,10 @@ class Fabrication::Generator::Base
     self.after_create_block = block if block_given?
   end
 
-  def generate(options={}, &block)
+  def generate(options={:save => true}, overrides={}, &block)
     self.instance = klass.new
-    process_attributes(options, &block)
-    after_generation
+    process_attributes(overrides, &block)
+    after_generation(options)
     after_create_block.call(instance) if after_create_block
     instance
   end
@@ -25,7 +25,7 @@ class Fabrication::Generator::Base
 
   protected
 
-  def after_generation; end
+  def after_generation(options); end
 
   private
 
