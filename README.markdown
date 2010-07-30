@@ -80,6 +80,29 @@ Sometimes you don't actually need to save an option when it is created but just 
 
     Fabricate.build(:company, :name => "Hashrocket")
 
+### Sequences ###
+
+Sometimes you need a sequence of numbers while you're generating data. Fabrication provides you with an easy and flexible means for keeping track of sequences.
+
+This will create a sequence named ":number" that will start at 0. Every time you call it, it will increment by one.
+
+    Fabricate.sequence(:number)
+
+If you need to override the starting number, you can do it with a second parameter. It will always return the seed number on the first call and it will be ignored with subsequent calls.
+
+    Fabricate.sequence(:number, 99)
+
+If you are generating something like an email address, you can pass it a block and the block response will be returned.
+
+    Fabricate.sequence(:name) { |i| "Name #{i}" }
+
+And in a semi-real use case, it would look something like this:
+
+    Fabricate(:person) do
+      ssn { Fabricate.sequence :ssn, 111111111 }
+      email { Fabricate.sequence :email { |i| "user#{i}@example.com" } }
+    end
+
 ### Contributing ###
 
 I (paulelliott) am actively maintaining this project. If you would like contribute, please fork the project, make your changes on a feature branch, and submit a pull request.

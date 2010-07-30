@@ -36,6 +36,14 @@ module Fabrication
       fabricators[name].fabricate(options, overrides, &block)
     end
 
+    def sequence(name, start=0)
+      idx = sequences[name] ||= start
+
+      (block_given? ? yield(idx) : idx).tap do
+        sequences[name] += 1
+      end
+    end
+
     def find_definitions
       fabricator_file_paths = [
         File.join('test', 'fabricators'),
@@ -56,10 +64,15 @@ module Fabrication
 
     def clear_definitions
       fabricators.clear
+      sequences.clear
     end
 
     def fabricators
       @@fabricators ||= {}
+    end
+
+    def sequences
+      @@sequences ||= {}
     end
 
     private
@@ -82,6 +95,10 @@ class Fabricate
 
   def self.build(name, options={}, &block)
     Fabrication.generate(name, {:save => false}, options, &block)
+  end
+
+  def self.sequence(name, start=0, &block)
+    Fabrication.sequence(name, start, &block)
   end
 
 end
