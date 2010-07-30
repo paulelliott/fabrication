@@ -100,12 +100,12 @@ And in a semi-real use case, it would look something like this:
 
     Fabricate(:person) do
       ssn { Fabricate.sequence :ssn, 111111111 }
-      email { Fabricate.sequence :email { |i| "user#{i}@example.com" } }
+      email { Fabricate.sequence(:email) { |i| "user#{i}@example.com" } }
     end
 
 ### Contributing ###
 
-I (paulelliott) am actively maintaining this project. If you would like contribute, please fork the project, make your changes on a feature branch, and submit a pull request.
+I (paulelliott) am actively maintaining this project. If you would like to contribute, please fork the project, make your changes on a feature branch, and submit a pull request.
 
 To run rake successfully:
 
