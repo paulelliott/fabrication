@@ -80,6 +80,10 @@ Sometimes you don't actually need to save an option when it is created but just 
 
     Fabricate.build(:company, :name => "Hashrocket")
 
+You can also fabricate the object as an attribute hash instead of an actual instance. This is useful for controller or API testing where the receiver wants a hash representation of the object. If you have activesupport it will be a HashWithIndifferentAccess, otherwise it will be a regular Ruby Hash.
+
+    Fabricate.attributes_for(:company)
+
 ### Sequences ###
 
 Sometimes you need a sequence of numbers while you're generating data. Fabrication provides you with an easy and flexible means for keeping track of sequences.

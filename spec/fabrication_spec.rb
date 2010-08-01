@@ -333,4 +333,25 @@ describe Fabrication do
 
   end
 
+  describe "Fabricate.attributes_for" do
+
+    before(:all) do
+      Fabricator(:person) do
+        first_name "Paul"
+        last_name { "Elliott" }
+      end
+    end
+
+    let(:person) { Fabricate.attributes_for(:person) }
+
+    it 'has the first name as a parameter' do
+      person['first_name'].should == "Paul"
+    end
+
+    it 'has the last name as a parameter' do
+      person[:last_name].should == "Elliott"
+    end
+
+  end
+
 end

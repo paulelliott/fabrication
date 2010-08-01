@@ -44,6 +44,14 @@ module Fabrication
       end
     end
 
+    def attributes_for(name, options)
+      hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
+      fetch_schematic(name).attributes.inject(hash) do |hash, attribute|
+        value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
+        hash.merge(attribute.name => value)
+      end.merge(options)
+    end
+
     def find_definitions
       fabricator_file_paths = [
         File.join('test', 'fabricators'),
@@ -79,6 +87,17 @@ module Fabrication
 
     @@fabricators = nil
 
+    def fetch_schematic(name)
+      if fabricator = fabricators[name]
+        fabricator.schematic
+      else
+        # force finding definitions after setting @@fabricators to an empty array
+        Fabrication.send(:class_variable_set, :@@fabricators, nil) if Fabrication.fabricators.empty?
+        build(name)
+        fetch_schematic(name)
+      end
+    end
+
   end
 
 end
@@ -93,12 +112,20 @@ end
 
 class Fabricate
 
-  def self.build(name, options={}, &block)
-    Fabrication.generate(name, {:save => false}, options, &block)
-  end
+  class << self
 
-  def self.sequence(name, start=0, &block)
-    Fabrication.sequence(name, start, &block)
+    def build(name, options={}, &block)
+      Fabrication.generate(name, {:save => false}, options, &block)
+    end
+
+    def sequence(name, start=0, &block)
+      Fabrication.sequence(name, start, &block)
+    end
+
+    def attributes_for(name, options={})
+      Fabrication.attributes_for(name, options)
+    end
+
   end
 
 end
