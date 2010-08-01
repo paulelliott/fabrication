@@ -19,7 +19,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
         instance.instance_eval %<
           def #{method_name}
             original_value = @__#{method_name}_original.call
-            if @__#{method_name}_block.present?
+            if @__#{method_name}_block
               if #{count} \>= 1
                 original_value = #{method_name}= (1..#{count}).map { |i| @__#{method_name}_block.call(self, i) }
               else

@@ -3,7 +3,7 @@ class Fabrication::Support
   class << self
 
     def fabricatable?(name)
-      Fabrication.fabricators.has_key?(name) || class_for(name).present?
+      Fabrication.fabricators.has_key?(name) || class_for(name)
     end
 
     def class_for(class_or_to_s)
