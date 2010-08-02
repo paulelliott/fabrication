@@ -4,28 +4,14 @@ describe Fabrication do
 
   context 'static fields' do
 
-    let(:person) do
-      Fabricate(:person, :last_name => 'Awesome')
-    end
-
-    before(:all) do
-      Fabricator(:person) do
-        first_name 'Joe'
-        last_name 'Schmoe'
-        age 78
-      end
-    end
+    let(:person) { Fabricate(:person, :last_name => 'Awesome') }
 
     it 'has the default first name' do
-      person.first_name.should == 'Joe'
+      person.first_name.should == 'John'
     end
 
     it 'has an overridden last name' do
       person.last_name.should == 'Awesome'
-    end
-
-    it 'has the default age' do
-      person.age.should == 78
     end
 
     it 'generates a fresh object every time' do
@@ -36,22 +22,7 @@ describe Fabrication do
 
   context 'block generated fields' do
 
-    let(:person) do
-      Fabricate(:person)
-    end
-
-    before(:all) do
-      Fabricator(:person) do
-        first_name { Faker::Name.first_name }
-        last_name { Faker::Name.last_name }
-        age { rand(100) }
-        shoes(:count => 10) { |person, i| "shoe #{i}" }
-      end
-    end
-
-    it 'has a first name' do
-      person.first_name.should be
-    end
+    let(:person) { Fabricate(:person) }
 
     it 'has a last name' do
       person.last_name.should be
@@ -69,15 +40,12 @@ describe Fabrication do
 
   context 'with the generation parameter' do
 
-    before(:all) do
-      Fabricator(:person) do
+    let(:person) do
+      Fabricate(:person) do
         first_name "Paul"
         last_name { |person| "#{person.first_name}#{person.age}" }
-        age 60
       end
     end
-
-    let(:person) { Fabricate(:person) }
 
     it 'evaluates the fields in order of declaration' do
       person.last_name.should == "Paul"
@@ -89,14 +57,6 @@ describe Fabrication do
 
     let(:person1) { Fabricate(:person, :first_name => 'Jane') }
     let(:person2) { Fabricate(:person, :first_name => 'John') }
-
-    before(:all) do
-      Fabricator(:person) do
-        first_name { Faker::Name.first_name }
-        last_name { Faker::Name.last_name }
-        age { rand(100) }
-      end
-    end
 
     it 'person1 is named Jane' do
       person1.first_name.should == 'Jane'
@@ -140,10 +100,6 @@ describe Fabrication do
       Fabricator(:other_company, :from => :company) do
         divisions(:count => 2) { Fabricate(:division) }
       end
-
-      Fabricator(:division) do
-        name "Awesome Division"
-      end
     end
 
     before { TestMigration.up }
@@ -176,19 +132,6 @@ describe Fabrication do
 
   context 'with a mongoid document' do
 
-    before(:all) do
-      Fabricator(:author) do
-        name "George Orwell"
-        books(:count => 4) do |author, i|
-          Fabricate(:book, :title => "book title #{i}", :author => author)
-        end
-      end
-
-      Fabricator(:book) do
-        title "1984"
-      end
-    end
-
     let(:author) { Fabricate(:author) }
 
     it "sets the author name" do
@@ -206,20 +149,8 @@ describe Fabrication do
 
       let(:ernie) { Fabricate(:hemingway) }
 
-      before(:all) do
-        Fabricator(:book)
-        Fabricator(:author) do
-          name 'George Orwell'
-          books { |author| [Fabricate(:book, :title => '1984', :author => author)] }
-        end
-
-        Fabricator(:hemingway, :from => :author) do
-          name 'Ernest Hemingway'
-        end
-      end
-
       it 'has the values from the parent' do
-        ernie.books.map(&:title).should == ['1984']
+        ernie.books.count.should == 4
       end
 
       it 'overrides specified values from the parent' do
@@ -230,20 +161,14 @@ describe Fabrication do
 
     context 'and a class name as a parent' do
 
-      before(:all) do
-        Fabricator(:hemingway, :from => :author) do
-          name 'Ernest Hemingway'
-        end
+      let(:greyhound) { Fabricate(:greyhound) }
+
+      it 'has the breed defined' do
+        greyhound.breed.should == 'greyhound'
       end
 
-      let(:ernie) { Fabricate(:hemingway) }
-
-      it 'has the name defined' do
-        ernie.name.should == 'Ernest Hemingway'
-      end
-
-      it 'not have any books' do
-        ernie.books.should == []
+      it 'does not have a name' do
+        greyhound.name.should be_nil
       end
 
     end
@@ -253,8 +178,11 @@ describe Fabrication do
   describe '.clear_definitions' do
 
     before(:all) do
-      Fabricator(:author) {}
       Fabrication.clear_definitions
+    end
+
+    after(:all) do
+      Fabrication.find_definitions
     end
 
     it 'should not generate authors' do
@@ -285,10 +213,13 @@ describe Fabrication do
 
   context 'defining a fabricator without a block' do
 
-    before(:all) { Fabricator(:author) }
+    before(:all) do
+      class Widget; end
+      Fabricator(:widget)
+    end
 
     it 'works fine' do
-      Fabricate(:author).should be
+      Fabricate(:widget).should be
     end
 
   end
@@ -298,7 +229,14 @@ describe Fabrication do
     let(:author) { Fabricator(:author) }
     let(:book) { Fabricator(:book) }
 
-    before(:all) { author; book }
+    before(:all) do
+      Fabrication.clear_definitions
+      author; book
+    end
+
+    after(:all) do
+      Fabrication.find_definitions
+    end
 
     it "returns the two fabricators" do
       Fabrication.fabricators.should == {:author => author, :book => book}
@@ -335,21 +273,16 @@ describe Fabrication do
 
   describe "Fabricate.attributes_for" do
 
-    before(:all) do
-      Fabricator(:person) do
-        first_name "Paul"
-        last_name { "Elliott" }
-      end
+    let(:person) do
+      Fabricate.attributes_for(:person, :first_name => "John", :last_name => "Smith")
     end
 
-    let(:person) { Fabricate.attributes_for(:person) }
-
     it 'has the first name as a parameter' do
-      person['first_name'].should == "Paul"
+      person['first_name'].should == "John"
     end
 
     it 'has the last name as a parameter' do
-      person[:last_name].should == "Elliott"
+      person[:last_name].should == "Smith"
     end
 
   end

@@ -35,3 +35,7 @@ end
 class Division < ActiveRecord::Base
   belongs_to :company
 end
+
+Fabricator(:division) do
+  name "Division Name"
+end

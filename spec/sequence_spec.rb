@@ -27,14 +27,14 @@ describe "Fabricate.sequence" do
   context 'with a name and starting number' do
 
     it 'starts with the number provided' do
-      Fabricate.sequence(:incr, 69).should == 69
+      Fabricate.sequence(:higher, 69).should == 69
     end
 
     it 'increments by one with each call' do
-      Fabricate.sequence(:incr).should == 70
-      Fabricate.sequence(:incr, 69).should == 71
-      Fabricate.sequence(:incr).should == 72
-      Fabricate.sequence(:incr).should == 73
+      Fabricate.sequence(:higher).should == 70
+      Fabricate.sequence(:higher, 69).should == 71
+      Fabricate.sequence(:higher).should == 72
+      Fabricate.sequence(:higher).should == 73
     end
 
   end

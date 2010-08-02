@@ -6,9 +6,3 @@ require 'spec'
 require 'spec/autorun'
 require 'fabrication'
 require 'ffaker'
-
-Spec::Runner.configure do |config|
-  config.before(:all) do
-    Fabrication.clear_definitions
-  end
-end

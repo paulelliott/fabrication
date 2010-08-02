@@ -23,12 +23,6 @@ describe Fabrication::Generator::ActiveRecord do
       generator.generate
     end
 
-    before(:all) do
-      Fabricator(:division) do
-        name "Division Name"
-      end
-    end
-
     before { company }
 
     it 'does not persist the divisions immediately' do

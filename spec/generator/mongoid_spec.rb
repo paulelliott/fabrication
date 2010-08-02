@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Fabrication::Generator::Mongoid do
 
-  before(:all) do
-    Fabricator(:book) { title "book title" }
-  end
-
   let(:schematic) do
     Fabrication::Schematic.new do
       name 'Name'
