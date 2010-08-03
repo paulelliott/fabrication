@@ -30,7 +30,7 @@ module Fabrication
     end
 
     def generate(name, options, overrides, &block)
-      find_definitions if @@fabricators.nil?
+      Support.find_definitions if @@fabricators.nil?
       raise UnknownFabricatorError unless Fabrication::Support.fabricatable?(name)
       schematic(name, {}) unless fabricators.has_key?(name)
       fabricators[name].fabricate(options, overrides, &block)
@@ -50,24 +50,6 @@ module Fabrication
         value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
         hash.merge(attribute.name => value)
       end.merge(options)
-    end
-
-    def find_definitions
-      fabricator_file_paths = [
-        File.join('test', 'fabricators'),
-        File.join('spec', 'fabricators')
-      ]
-      fabricator_file_paths.each do |path|
-        if File.exists?("#{path}.rb")
-          require("#{path}.rb") 
-        end
-
-        if File.directory? path
-          Dir[File.join(path, '*.rb')].each do |file|
-            require file
-          end
-        end
-      end
     end
 
     def clear_definitions

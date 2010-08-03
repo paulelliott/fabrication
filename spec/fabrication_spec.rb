@@ -182,7 +182,7 @@ describe Fabrication do
     end
 
     after(:all) do
-      Fabrication.find_definitions
+      Fabrication::Support.find_definitions
     end
 
     it 'should not generate authors' do
@@ -235,7 +235,7 @@ describe Fabrication do
     end
 
     after(:all) do
-      Fabrication.find_definitions
+      Fabrication::Support.find_definitions
     end
 
     it "returns the two fabricators" do

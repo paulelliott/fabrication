@@ -22,6 +22,24 @@ class Fabrication::Support
       name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
     end
 
+    def find_definitions
+      fabricator_file_paths = [
+        File.join('test', 'fabricators'),
+        File.join('spec', 'fabricators')
+      ]
+      fabricator_file_paths.each do |path|
+        if File.exists?("#{path}.rb")
+          require("#{path}.rb") 
+        end
+
+        if File.directory? path
+          Dir[File.join(path, '*.rb')].each do |file|
+            require file
+          end
+        end
+      end
+    end
+
   end
 
 end
