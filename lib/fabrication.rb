@@ -3,6 +3,7 @@ module Fabrication
   require 'fabrication/errors'
 
   autoload :Fabricator, 'fabrication/fabricator'
+  autoload :Sequencer,  'fabrication/sequencer'
   autoload :Schematic,  'fabrication/schematic'
   autoload :Support,    'fabrication/support'
 
@@ -36,14 +37,6 @@ module Fabrication
       fabricators[name].fabricate(options, overrides, &block)
     end
 
-    def sequence(name, start=0)
-      idx = sequences[name] ||= start
-
-      (block_given? ? yield(idx) : idx).tap do
-        sequences[name] += 1
-      end
-    end
-
     def attributes_for(name, options)
       hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
       fetch_schematic(name).attributes.inject(hash) do |hash, attribute|
@@ -54,15 +47,11 @@ module Fabrication
 
     def clear_definitions
       fabricators.clear
-      sequences.clear
+      Sequencer.sequences.clear
     end
 
     def fabricators
       @@fabricators ||= {}
-    end
-
-    def sequences
-      @@sequences ||= {}
     end
 
     private
@@ -101,7 +90,7 @@ class Fabricate
     end
 
     def sequence(name, start=0, &block)
-      Fabrication.sequence(name, start, &block)
+      Fabrication::Sequencer.sequence(name, start, &block)
     end
 
     def attributes_for(name, options={})
