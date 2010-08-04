@@ -1,6 +1,7 @@
 module Fabrication
 
-  require 'fabrication/errors'
+  autoload :DuplicateFabricatorError, 'fabrication/errors'
+  autoload :UnknownFabricatorError,   'fabrication/errors'
 
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
