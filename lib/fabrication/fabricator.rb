@@ -1,28 +1,48 @@
 class Fabrication::Fabricator
 
-  GENERATORS = [
-    Fabrication::Generator::ActiveRecord,
-    Fabrication::Generator::Mongoid,
-    Fabrication::Generator::Base
-  ]
+  class << self
 
-  attr_accessor :class_name, :schematic
+    def define(name, options={}, &block)
+      raise Fabrication::DuplicateFabricatorError if schematics.include?(name)
+      schematics[name] = schematic_for(name, options, &block)
+    end
 
-  def initialize(class_name, parent=nil, &block)
-    self.class_name = class_name
-    klass = Fabrication::Support.class_for(class_name)
-    self.schematic = parent ? parent.schematic.clone.merge!(&block) : Fabrication::Schematic.new(&block)
-    self.generator = GENERATORS.detect do |gen|
-      gen.supports?(klass)
-    end.new(klass, schematic)
+    def generate(name, options={}, overrides={}, &block)
+      Fabrication::Support.find_definitions if schematics.empty?
+      (schematics[name] || define(name)).generate(options, overrides, &block)
+    end
+
+    def schematics
+      @@schematics ||= {}
+    end
+
+    private
+
+    def class_name_for(name, parent, options)
+      if options[:class_name]
+        class_name = options[:class_name]
+      elsif parent
+        class_name = parent.klass.name
+      elsif options[:from]
+        class_name = options[:from]
+      else
+        class_name = name
+      end
+      class_name
+    end
+
+    def schematic_for(name, options, &block)
+      parent = schematics[options[:from]]
+      class_name = class_name_for(name, parent, options)
+      klass = Fabrication::Support.class_for(class_name)
+      raise Fabrication::UnfabricatableError unless klass
+      if parent
+        parent.merge(&block).tap { |s| s.klass = klass }
+      else
+        Fabrication::Schematic.new(klass, &block)
+      end
+    end
+
   end
-
-  def fabricate(options={}, overrides={}, &block)
-    generator.generate(options, overrides, &block)
-  end
-
-  private
-
-  attr_accessor :generator
 
 end

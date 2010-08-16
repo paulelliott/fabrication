@@ -3,109 +3,111 @@ require 'spec_helper'
 describe Fabrication::Schematic do
 
   let(:schematic) do
-    Fabrication::Schematic.new do
+    Fabrication::Schematic.new(OpenStruct) do
       name "Orgasmo"
       something(:param => 2) { "hi!" }
       another_thing { 25 }
     end
   end
 
-  context "without inheritance" do
-
-    subject { schematic }
-
-    it "stored 'name' correctly" do
-      attribute = subject.attribute(:name)
-      attribute.name.should == :name
-      attribute.params.should be_nil
-      attribute.value.should == "Orgasmo"
+  describe ".new" do
+    it "stores the klass" do
+      schematic.klass.should == OpenStruct
     end
-
-    it "stored 'something' correctly" do
-      attribute = subject.attribute(:something)
-      attribute.name.should == :something
-      attribute.params.should == { :param => 2 }
-      Proc.should === attribute.value
-      attribute.value.call.should == "hi!"
+    it "stores the generator" do
+      schematic.generator.should == Fabrication::Generator::Base
     end
+    it "stores the attributes" do
+      schematic.attributes.size.should == 3
+    end
+  end
 
-    it "stored 'another_thing' correctly" do
-      attribute = subject.attribute(:another_thing)
-      attribute.name.should == :another_thing
-      attribute.params.should be_nil
-      Proc.should === attribute.value
-      attribute.value.call.should == 25
+  describe "#attribute" do
+    it "returns the requested attribute if it exists" do
+      schematic.attribute(:name).name.should == :name
+    end
+    it "returns nil if it does not exist" do
+      schematic.attribute(:not_there).should be_nil
+    end
+  end
+
+  describe "#attributes" do
+    it "always returns an empty array" do
+      schematic.attributes = nil
+      schematic.attributes.should == []
+    end
+  end
+
+  describe "#generate" do
+
+    it "generates a new instance" do
+      schematic.generate.should be_kind_of(OpenStruct)
     end
 
   end
 
-  context "with inheritance" do
+  describe "#merge" do
 
-    subject do
-      schematic.merge! do
-        name { "Willis" }
-        something "Else!"
-        another_thing(:thats_what => 'she_said') { "Boo-ya!" }
+    context "without inheritance" do
+
+      subject { schematic }
+
+      it "stored 'name' correctly" do
+        attribute = subject.attribute(:name)
+        attribute.name.should == :name
+        attribute.params.should be_nil
+        attribute.value.should == "Orgasmo"
       end
+
+      it "stored 'something' correctly" do
+        attribute = subject.attribute(:something)
+        attribute.name.should == :something
+        attribute.params.should == { :param => 2 }
+        Proc.should === attribute.value
+        attribute.value.call.should == "hi!"
+      end
+
+      it "stored 'another_thing' correctly" do
+        attribute = subject.attribute(:another_thing)
+        attribute.name.should == :another_thing
+        attribute.params.should be_nil
+        Proc.should === attribute.value
+        attribute.value.call.should == 25
+      end
+
     end
 
-    it "stored 'name' correctly" do
-      attribute = subject.attribute(:name)
-      attribute.name.should == :name
-      attribute.params.should be_nil
-      Proc.should === attribute.value
-      attribute.value.call.should == "Willis"
-    end
+    context "with inheritance" do
 
-    it "stored 'something' correctly" do
-      attribute = subject.attribute(:something)
-      attribute.name.should == :something
-      attribute.params.should be_nil
-      attribute.value.should == "Else!"
-    end
-
-    it "stored 'another_thing' correctly" do
-      attribute = subject.attribute(:another_thing)
-      attribute.name.should == :another_thing
-      attribute.params.should == { :thats_what => 'she_said' }
-      Proc.should === attribute.value
-      attribute.value.call.should == "Boo-ya!"
-    end
-
-  end
-
-  it 'is deep clonable' do
-    schematic2 = schematic.clone
-    schematic.merge! do
-      name "Henry"
-    end
-    schematic.attribute(:name).value.should == 'Henry'
-    schematic2.attribute(:name).value.should == 'Orgasmo'
-  end
-
-  it 'allows temporary parameter overrides' do
-    schematic2 = schematic.merge(:name => 'Henry')
-    schematic.attribute(:name).value.should == 'Orgasmo'
-    schematic2.attribute(:name).value.should == 'Henry'
-  end
-
-  describe ".merge" do
-
-    context "accepts options and a block parameter" do
-
-      let(:merged) do
-        schematic.merge(:name => "Paul") do
-          name "Barack"
-          something "else"
+      subject do
+        schematic.merge do
+          name { "Willis" }
+          something "Else!"
+          another_thing(:thats_what => 'she_said') { "Boo-ya!" }
         end
       end
 
-      it "sets name to 'Paul'" do
-        merged.attribute(:name).value.should == 'Paul'
+      it "stored 'name' correctly" do
+        attribute = subject.attribute(:name)
+        attribute.name.should == :name
+        attribute.params.should be_nil
+        Proc.should === attribute.value
+        attribute.value.call.should == "Willis"
       end
 
-      it "sets something to 'else'" do
-        merged.attribute(:something).value.should == 'else'
+      it "stored 'something' correctly" do
+        attribute = subject.attribute(:something)
+        attribute.name.should == :something
+        attribute.params.should be_nil
+        attribute.value.should == "Else!"
+      end
+
+      it "stored 'another_thing' correctly" do
+        attribute = subject.attribute(:another_thing)
+        attribute.name.should == :another_thing
+        attribute.params.should == { :thats_what => 'she_said' }
+        Proc.should === attribute.value
+        attribute.value.call.should == "Boo-ya!"
       end
 
     end

@@ -2,43 +2,48 @@ require 'spec_helper'
 
 describe Fabrication::Generator::Base do
 
-  let(:schematic) do
-    Fabrication::Schematic.new do
-      first_name 'Some'
-      last_name { |person| person.first_name.reverse.capitalize }
-      age 40
-      shoes(:count => 4) { |person, index| "shoe #{index}" }
+  describe ".supports?" do
+    subject { Fabrication::Generator::Base }
+    it "supports any object" do
+      subject.supports?(Object).should be_true
     end
   end
 
-  let(:generator) { Fabrication::Generator::Base.new(Person, schematic) }
-
-  let(:person) do
-    generator.generate({:save => true}, {:first_name => 'Body'})
+  describe "#after_create" do
+    subject { Fabrication::Generator::Base.new(Object) }
+    before { subject.after_create { "something" } }
+    it "stores the after create block" do
+      Proc.should === subject.send(:after_create_block)
+    end
   end
 
-  it 'passes the object to blocks' do
-    person.last_name.should == 'Ydob'
-  end
+  describe "#generate" do
 
-  it 'passes the object and count to blocks' do
-    person.shoes.should == (1..4).map { |i| "shoe #{i}" }
-  end
+    let(:generator) { Fabrication::Generator::Base.new(Person) }
 
-  it 'generates an instance' do
-    person.instance_of?(Person).should be_true
-  end
+    let(:attributes) do
+      Fabrication::Schematic.new(Person) do
+        first_name 'Guy'
+        shoes(:count => 4) do |person, index|
+          "#{person.first_name}'s shoe #{index}"
+        end
+      end.attributes
+    end
 
-  it 'generates the first name immediately' do
-    person.instance_variable_get(:@first_name).should == 'Body'
-  end
+    let(:person) { generator.generate({}, attributes) }
 
-  it 'generates the last name immediately' do
-    person.instance_variable_get(:@last_name).should == 'Ydob'
-  end
+    it 'generates an instance' do
+      person.instance_of?(Person).should be_true
+    end
 
-  it 'generates the age immediately' do
-    person.instance_variable_get(:@age).should == 40
+    it 'passes the object and count to blocks' do
+      person.shoes.should == (1..4).map { |i| "Guy's shoe #{i}" }
+    end
+
+    it 'sets the static value' do
+      person.instance_variable_get(:@first_name).should == 'Guy'
+    end
+
   end
 
 end

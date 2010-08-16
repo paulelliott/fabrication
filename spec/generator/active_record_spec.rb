@@ -5,24 +5,45 @@ describe Fabrication::Generator::ActiveRecord do
   before(:all) { TestMigration.up }
   after(:all) { TestMigration.down }
 
-  let(:schematic) do
-    Fabrication::Schematic.new do
-      name 'Company Name'
-      city { |c| c.name.reverse.downcase.titleize }
-      divisions(:count => 2) { |c, i| Fabricate(:division, :company => c, :name => "Division #{i}") }
+  describe ".supports?" do
+    subject { Fabrication::Generator::ActiveRecord }
+    it "returns true for active record objects" do
+      subject.supports?(Company).should be_true
+    end
+    it "returns false for non-active record objects" do
+      subject.supports?(Person).should be_false
     end
   end
 
-  let(:generator) do
-    Fabrication::Generator::ActiveRecord.new(Company, schematic)
-  end
+  describe "#after_generation" do
+    let(:instance) { mock(:instance) }
+    let(:generator) { Fabrication::Generator::ActiveRecord.new(Object) }
 
-  context 'active record object' do
+    before { generator.send(:instance=, instance) }
 
-    let(:company) do
-      generator.generate
+    it "saves with a true save flag" do
+      instance.should_receive(:save)
+      generator.send(:after_generation, {:save => true})
     end
 
+    it "does not save without a true save flag" do
+      instance.should_not_receive(:save)
+      generator.send(:after_generation, {})
+    end
+  end
+
+  describe "#generate" do
+
+    let(:attributes) do
+      Fabrication::Schematic.new(Company) do
+        name 'Company Name'
+        city { |c| c.name.downcase }
+        divisions(:count => 2) { |c, i| Division.create(:company => c, :name => "Division #{i}") }
+      end.attributes
+    end
+
+    let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
+    let(:company) { generator.generate({:save => true}, attributes) }
     before { company }
 
     it 'does not persist the divisions immediately' do
@@ -30,7 +51,7 @@ describe Fabrication::Generator::ActiveRecord do
     end
 
     it 'passes the object to blocks' do
-      company.city.should == 'Eman Ynapmoc'
+      company.city.should == 'company name'
     end
 
     it 'passes the object and count to blocks' do
@@ -58,20 +79,6 @@ describe Fabrication::Generator::ActiveRecord do
         company.reload.divisions.length.should == 2
       end
 
-    end
-
-  end
-
-  context 'with the build option' do
-
-    let(:company) { Fabricate.build(:company, :name => "Epitaph") }
-
-    it 'creates the record' do
-      company.name.should == 'Epitaph'
-    end
-
-    it 'does not save it to the database' do
-      Company.count.should == 0
     end
 
   end

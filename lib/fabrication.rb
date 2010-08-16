@@ -1,7 +1,7 @@
 module Fabrication
 
   autoload :DuplicateFabricatorError, 'fabrication/errors'
-  autoload :UnknownFabricatorError,   'fabrication/errors'
+  autoload :UnfabricatableError,      'fabrication/errors'
 
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
@@ -16,28 +16,6 @@ module Fabrication
 
   class << self
 
-    def schematic(name, options, &block)
-      raise DuplicateFabricatorError if fabricators.has_key?(name)
-      parent = fabricators[options[:from]]
-      if options[:class_name]
-        class_name = options[:class_name]
-      elsif parent
-        class_name = parent.class_name
-      elsif options[:from]
-        class_name = options[:from]
-      else
-        class_name = name
-      end
-      fabricators[name] = Fabricator.new(class_name, parent, &block)
-    end
-
-    def generate(name, options, overrides, &block)
-      Support.find_definitions if @@fabricators.nil?
-      raise UnknownFabricatorError unless Fabrication::Support.fabricatable?(name)
-      schematic(name, {}) unless fabricators.has_key?(name)
-      fabricators[name].fabricate(options, overrides, &block)
-    end
-
     def attributes_for(name, options)
       hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
       fetch_schematic(name).attributes.inject(hash) do |hash, attribute|
@@ -47,27 +25,14 @@ module Fabrication
     end
 
     def clear_definitions
-      fabricators.clear
+      Fabricator.schematics.clear
       Sequencer.sequences.clear
-    end
-
-    def fabricators
-      @@fabricators ||= {}
     end
 
     private
 
-    @@fabricators = nil
-
     def fetch_schematic(name)
-      if fabricator = fabricators[name]
-        fabricator.schematic
-      else
-        # force finding definitions after setting @@fabricators to an empty array
-        Fabrication.send(:class_variable_set, :@@fabricators, nil) if Fabrication.fabricators.empty?
-        build(name)
-        fetch_schematic(name)
-      end
+      Fabricator.schematics[name] || Fabricator.define(name)
     end
 
   end
@@ -75,11 +40,11 @@ module Fabrication
 end
 
 def Fabricator(name, options={}, &block)
-  Fabrication.schematic(name, options, &block)
+  Fabrication::Fabricator.define(name, options, &block)
 end
 
-def Fabricate(name, options={}, &block)
-  Fabrication.generate(name, {:save => true}, options, &block)
+def Fabricate(name, overrides={}, &block)
+  Fabrication::Fabricator.generate(name, {:save => true}, overrides, &block)
 end
 
 class Fabricate
@@ -87,7 +52,7 @@ class Fabricate
   class << self
 
     def build(name, options={}, &block)
-      Fabrication.generate(name, {:save => false}, options, &block)
+      Fabrication::Fabricator.generate(name, {:save => false}, options, &block)
     end
 
     def sequence(name, start=0, &block)

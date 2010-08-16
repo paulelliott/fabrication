@@ -2,52 +2,61 @@ require 'spec_helper'
 
 describe Fabrication::Fabricator do
 
-  it 'generates a new object every time' do
-    f = Fabrication::Fabricator.new(:person) { first_name '1' }
-    f.fabricate.should_not == f.fabricate
-  end
+  subject { Fabrication::Fabricator }
 
-  context 'with a plain old ruby object' do
+  describe ".define" do
 
-    let(:fabricator) { Fabrication::Fabricator.new(:person) { first_name '1' } }
-
-    it 'fabricates a Person instance' do
-      fabricator.fabricate.instance_of?(Person).should be_true
+    before(:all) do
+      subject.define(:open_struct) do
+        first_name "Joe"
+        last_name { "Schmoe" }
+      end
     end
 
-    it 'uses the base generator' do
-      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::Base).should be_true
+    it "returns the schematic" do
+      subject.define(:something, :class_name => :open_struct) do
+        name "Paul"
+      end.class.should == Fabrication::Schematic
     end
 
-  end
-
-  context 'with an activerecord object' do
-
-    before(:all) { TestMigration.up }
-    after(:all) { TestMigration.down }
-
-    let(:fabricator) { Fabrication::Fabricator.new(:company) { name '1' } }
-
-    it 'fabricates a Company instance' do
-      fabricator.fabricate.instance_of?(Company).should be_true
+    it "creates a schematic" do
+      subject.schematics[:open_struct].should be
     end
 
-    it 'uses the activerecord generator' do
-      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::ActiveRecord).should be_true
+    it "has the correct class" do
+      subject.schematics[:open_struct].klass.should == OpenStruct
+    end
+
+    it "has the attributes" do
+      subject.schematics[:open_struct].attributes.size.should == 2
     end
 
   end
 
-  context 'with a mongoid document' do
+  describe ".generate" do
 
-    let(:fabricator) { Fabrication::Fabricator.new(:author) { name "Seth Godin" } }
+    context 'without definitions' do
 
-    it 'fabricates a Author instance' do
-      fabricator.fabricate.instance_of?(Author).should be_true
+      before { subject.schematics.clear }
+
+      it "finds definitions if none exist" do
+        Fabrication::Support.should_receive(:find_definitions)
+        subject.generate(:object)
+      end
+
     end
 
-    it 'uses the activerecord generator' do
-      fabricator.instance_variable_get(:@generator).instance_of?(Fabrication::Generator::Mongoid).should be_true
+    context 'with definitions' do
+
+      it "raises an error if the object can't be fabricated" do
+        lambda { subject.generate(:somenonexistantclass) }.should raise_error(Fabrication::UnfabricatableError)
+      end
+
+      it 'generates a new object every time' do
+        subject.define(:person) { first_name '1' }
+        subject.generate(:person).should_not == subject.generate(:person)
+      end
+
     end
 
   end

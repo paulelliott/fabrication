@@ -90,6 +90,9 @@ describe Fabrication do
 
   context 'with an active record object' do
 
+    before { TestMigration.up }
+    after  { TestMigration.down }
+
     before(:all) do
       Fabricator(:company) do
         name { Faker::Company.name }
@@ -101,9 +104,6 @@ describe Fabrication do
         divisions(:count => 2) { Fabricate(:division) }
       end
     end
-
-    before { TestMigration.up }
-    after { TestMigration.down }
 
     let(:company) { Fabricate(:company, :name => "Hashrocket") }
 
@@ -186,7 +186,7 @@ describe Fabrication do
     end
 
     it 'should not generate authors' do
-      Fabrication.fabricators.has_key?(:author).should be_false
+      Fabrication::Fabricator.schematics.has_key?(:author).should be_false
     end
 
   end
@@ -206,7 +206,7 @@ describe Fabrication do
   context 'when generating from a non-existant fabricator' do
 
     it 'throws an error' do
-      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
+      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
     end
 
   end
@@ -239,7 +239,7 @@ describe Fabrication do
     end
 
     it "returns the two fabricators" do
-      Fabrication.fabricators.should == {:author => author, :book => book}
+      Fabrication::Fabricator.schematics.should == {:author => author, :book => book}
     end
 
   end

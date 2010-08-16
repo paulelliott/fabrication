@@ -1,11 +1,30 @@
 class Fabrication::Schematic
 
-  def initialize(&block)
+  GENERATORS = [
+    Fabrication::Generator::ActiveRecord,
+    Fabrication::Generator::Mongoid,
+    Fabrication::Generator::Base
+  ]
+
+  attr_accessor :generator, :klass
+  def initialize(klass, &block)
+    self.klass = klass
+    self.generator = GENERATORS.detect { |gen| gen.supports?(klass) }
     instance_eval(&block) if block_given?
   end
 
   def attribute(name)
     attributes.select { |a| a.name == name }.first
+  end
+
+  attr_writer :attributes
+  def attributes
+    @attributes ||= []
+  end
+
+  def generate(options={}, overrides={}, &block)
+    attributes = merge(overrides, &block).attributes
+    generator.new(klass).generate(options, attributes)
   end
 
   def initialize_copy(original)
@@ -14,10 +33,10 @@ class Fabrication::Schematic
     end
   end
 
-  def merge(options, &block)
+  def merge(overrides={}, &block)
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
-      options.each do |name, value|
+      overrides.each do |name, value|
         if attribute = schematic.attribute(name)
           attribute.params = nil
           attribute.value = value
@@ -26,11 +45,6 @@ class Fabrication::Schematic
         end
       end
     end
-  end
-
-  def merge!(&block)
-    instance_eval(&block)
-    self
   end
 
   def method_missing(method_name, *args, &block)
@@ -69,11 +83,6 @@ class Fabrication::Schematic
       self.params = params
       self.value = value
     end
-  end
-
-  attr_writer :attributes
-  def attributes
-    @attributes ||= []
   end
 
 end
