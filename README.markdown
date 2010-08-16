@@ -34,6 +34,7 @@ Define your fabricators.
       name "Fun Factory"
       employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }
       location! { Fabricate(:location) }
+      after_build { |company| company.name = "Another #{company.name}" }
       after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }
     end
 
@@ -42,6 +43,7 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * The object has a name field, which is statically filled with "Fun Factory".
 * It has a has_many association to employees and will generate an array of 20 records as indicated by the :count => 20. The block is passed the company object being fabricated and index of the array being created.
 * It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the "!" after the association name.
+* After the object is built but before it is saved, it will update the name to "Another Fun Factory".
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
 Alternatively, you can Fabricate(:company) without first defining the Fabricator. Doing so will create an empty Fabricator called ":company" and prevent you from defining the Fabricator explicitly later.

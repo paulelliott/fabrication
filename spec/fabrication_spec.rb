@@ -102,10 +102,12 @@ describe Fabrication do
 
       Fabricator(:other_company, :from => :company) do
         divisions(:count => 2) { Fabricate(:division) }
+        after_build { |o| o.name = "Crazysauce" }
       end
     end
 
     let(:company) { Fabricate(:company, :name => "Hashrocket") }
+    let(:other_company) { Fabricate(:other_company) }
 
     it 'generates field blocks immediately' do
       company.name.should == "Hashrocket"
@@ -113,6 +115,10 @@ describe Fabrication do
 
     it 'generates associations immediately when forced' do
       Division.find_all_by_company_id(company.id).count.should == 4
+    end
+
+    it 'executes after build blocks' do
+      other_company.name.should == 'Crazysauce'
     end
 
     it 'executes after create blocks' do
@@ -124,7 +130,7 @@ describe Fabrication do
     end
 
     it 'overrides inherited associations' do
-      Fabricate(:other_company).divisions.count.should == 2
+      other_company.divisions.count.should == 2
       Division.count.should == 2
     end
 
