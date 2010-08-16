@@ -34,4 +34,28 @@ describe Fabrication::Support do
 
   end
 
+  describe ".find_definitions" do
+
+    before(:all) do
+      File.open("spec/fabricators.rb", "w") do |f|
+        f.write("Fabricator(:awesome_object, :from => :object)")
+      end
+      File.open("spec/fabricators/cool_object.rb", "w") do |f|
+        f.write("Fabricator(:cool_object, :from => :object)")
+      end
+      Fabrication::Support.find_definitions
+      File.delete("spec/fabricators.rb")
+      File.delete("spec/fabricators/cool_object.rb")
+    end
+
+    it "has an awesome object" do
+      Fabrication::Fabricator.schematics[:awesome_object].should be
+    end
+
+    it "has a cool object" do
+      Fabrication::Fabricator.schematics[:cool_object].should be
+    end
+
+  end
+
 end

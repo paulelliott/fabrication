@@ -27,15 +27,12 @@ class Fabrication::Support
         File.join('test', 'fabricators'),
         File.join('spec', 'fabricators')
       ]
-      fabricator_file_paths.each do |path|
-        if File.exists?("#{path}.rb")
-          require("#{path}.rb") 
-        end
 
-        if File.directory? path
-          Dir[File.join(path, '*.rb')].each do |file|
-            require file
-          end
+      fabricator_file_paths.each do |path|
+        require("#{path}.rb") if File.exists?("#{path}.rb")
+
+        File.directory? path and Dir[File.join(path, '*.rb')].each do |file|
+          require file
         end
       end
     end
