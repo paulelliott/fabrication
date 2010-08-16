@@ -120,3 +120,9 @@ To run rake successfully:
 3. Install bundler
 4. Run `bundle install` from the project root
 5. Run `rake` and the test suite should be all green!
+
+### Contributors ###
+
+* Les Hill (leshill)
+* Jim Remsik (bigtiger)
+* Dave Ott (daveott)
