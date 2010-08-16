@@ -23,12 +23,9 @@ class Fabrication::Support
     end
 
     def find_definitions
-      fabricator_file_paths = [
-        File.join('.', 'test', 'fabricators'),
-        File.join('.', 'spec', 'fabricators')
-      ]
+      ['test', 'spec'].map do |folder|
+        path = File.expand_path(File.join(folder, 'fabricators'))
 
-      fabricator_file_paths.each do |path|
         require("#{path}.rb") if File.exists?("#{path}.rb")
 
         File.directory? path and Dir[File.join(path, '*.rb')].each do |file|
