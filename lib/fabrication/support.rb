@@ -24,8 +24,8 @@ class Fabrication::Support
 
     def find_definitions
       fabricator_file_paths = [
-        File.join('test', 'fabricators'),
-        File.join('spec', 'fabricators')
+        File.join('.', 'test', 'fabricators'),
+        File.join('.', 'spec', 'fabricators')
       ]
 
       fabricator_file_paths.each do |path|
