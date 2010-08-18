@@ -127,3 +127,4 @@ To run rake successfully:
 * Jim Remsik (bigtiger)
 * Dave Ott (daveott)
 * Matt (winescout)
+* Lar Van Der Jagt (supaspoida)
