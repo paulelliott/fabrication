@@ -3,7 +3,7 @@ class Fabrication::Fabricator
   class << self
 
     def define(name, options={}, &block)
-      raise Fabrication::DuplicateFabricatorError if schematics.include?(name)
+      raise Fabrication::DuplicateFabricatorError, "'#{name}' is already defined" if schematics.include?(name)
       schematics[name] = schematic_for(name, options, &block)
     end
 
@@ -35,7 +35,7 @@ class Fabrication::Fabricator
       parent = schematics[options[:from]]
       class_name = class_name_for(name, parent, options)
       klass = Fabrication::Support.class_for(class_name)
-      raise Fabrication::UnfabricatableError unless klass
+      raise Fabrication::UnfabricatableError, "No class found for '#{name}'" unless klass
       if parent
         parent.merge(&block).tap { |s| s.klass = klass }
       else
