@@ -53,7 +53,7 @@ class Fabrication::Schematic
 
   def method_missing(method_name, *args, &block)
     method_name = parse_method_name(method_name, args)
-    if (attr = attribute(method_name))
+    if attr = attribute(method_name)
       if block_given?
         attr.params = args.first
         attr.value = block
