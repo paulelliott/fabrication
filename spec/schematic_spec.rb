@@ -40,8 +40,29 @@ describe Fabrication::Schematic do
 
   describe "#generate" do
 
-    it "generates a new instance" do
-      schematic.generate.should be_kind_of(OpenStruct)
+    context "an instance" do
+
+      it "generates a new instance" do
+        schematic.generate.should be_kind_of(OpenStruct)
+      end
+
+    end
+
+    context "an attributes hash" do
+
+      let(:hash) { schematic.generate(:attributes => true) }
+
+      it "generates a hash with the object's attributes" do
+        hash.should be_kind_of(Hash)
+      end
+
+      it "has the correct attributes" do
+        hash.size.should == 3
+        hash[:name].should == 'Orgasmo'
+        hash[:something].should == "hi!"
+        hash[:another_thing].should == 25
+      end
+
     end
 
   end

@@ -24,7 +24,15 @@ class Fabrication::Schematic
 
   def generate(options={}, overrides={}, &block)
     attributes = merge(overrides, &block).attributes
-    generator.new(klass).generate(options, attributes)
+    if options[:attributes]
+      hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
+      attributes.inject(hash) do |hash, attribute|
+        value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
+        hash.merge(attribute.name => value)
+      end.merge(overrides)
+    else
+      generator.new(klass).generate(options, attributes)
+    end
   end
 
   def initialize_copy(original)
