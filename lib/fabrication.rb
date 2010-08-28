@@ -35,6 +35,12 @@ class Fabricate
 
   class << self
 
+    def attributes_for(name, options={}, &block)
+      Fabrication::Fabricator.generate(name, {
+        :save => false, :attributes => true
+      }, options, &block)
+    end
+
     def build(name, options={}, &block)
       Fabrication::Fabricator.generate(name, {
         :save => false
@@ -43,12 +49,6 @@ class Fabricate
 
     def sequence(name, start=0, &block)
       Fabrication::Sequencer.sequence(name, start, &block)
-    end
-
-    def attributes_for(name, options={}, &block)
-      Fabrication::Fabricator.generate(name, {
-        :save => false, :attributes => true
-      }, options, &block)
     end
 
   end
