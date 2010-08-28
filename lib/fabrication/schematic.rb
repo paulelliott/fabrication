@@ -25,11 +25,7 @@ class Fabrication::Schematic
   def generate(options={}, overrides={}, &block)
     attributes = merge(overrides, &block).attributes
     if options[:attributes]
-      hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
-      attributes.inject(hash) do |hash, attribute|
-        value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
-        hash.merge(attribute.name => value)
-      end.merge(overrides)
+      to_hash(attributes, overrides)
     else
       generator.new(klass).generate(options, attributes)
     end
@@ -91,6 +87,16 @@ class Fabrication::Schematic
       self.params = params
       self.value = value
     end
+  end
+
+  private
+
+  def to_hash(attrs, overrides)
+    hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
+    attributes.inject(hash) do |hash, attribute|
+      value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
+      hash.merge(attribute.name => value)
+    end.merge(overrides)
   end
 
 end
