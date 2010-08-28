@@ -19,16 +19,10 @@ class Fabrication::Fabricator
     private
 
     def class_name_for(name, parent, options)
-      if options[:class_name]
-        class_name = options[:class_name]
-      elsif parent
-        class_name = parent.klass.name
-      elsif options[:from]
-        class_name = options[:from]
-      else
-        class_name = name
-      end
-      class_name
+      options[:class_name] ||
+        (parent && parent.klass.name) ||
+        options[:from] ||
+        name
     end
 
     def schematic_for(name, options, &block)
