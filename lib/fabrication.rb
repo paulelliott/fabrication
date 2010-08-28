@@ -14,13 +14,9 @@ module Fabrication
     autoload :Base,         'fabrication/generator/base'
   end
 
-  class << self
-
-    def clear_definitions
-      Fabricator.schematics.clear
-      Sequencer.sequences.clear
-    end
-
+  def self.clear_definitions
+    Fabricator.schematics.clear
+    Sequencer.sequences.clear
   end
 
 end
