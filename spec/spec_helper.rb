@@ -3,6 +3,5 @@ $:.unshift(File.dirname(__FILE__))
 
 require 'rubygems'
 require 'spec'
-require 'spec/autorun'
 require 'fabrication'
 require 'ffaker'
