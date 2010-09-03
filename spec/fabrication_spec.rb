@@ -5,6 +5,7 @@ describe Fabrication do
   context 'static fields' do
 
     let(:person) { Fabricate(:person, :last_name => 'Awesome') }
+    let(:location) { Fabricate(:location) }
 
     it 'has the default first name' do
       person.first_name.should == 'John'
@@ -16,6 +17,14 @@ describe Fabrication do
 
     it 'generates a fresh object every time' do
       Fabricate(:person).should_not == person
+    end
+
+    it "has the latitude" do
+      location.lat.should == 35
+    end
+
+    it "has the longitude" do
+      location.lng.should == 40
     end
 
   end
