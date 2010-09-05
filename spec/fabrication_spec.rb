@@ -61,18 +61,38 @@ describe Fabrication do
 
     context "with a count" do
 
-      let(:greyhound) do
-        Fabricate(:greyhound) do
-          locations(:count => 2)
+      context "of one" do
+
+        let(:greyhound) do
+          Fabricate(:greyhound) do
+            locations(:count => 1)
+          end
         end
+
+        it "should have two locations" do
+          greyhound.locations.size.should == 1
+          greyhound.locations.first.lat.should == 35
+          greyhound.locations.first.lng.should == 40
+        end
+
       end
 
-      it "should have two locations" do
-        greyhound.locations.size.should == 2
-        greyhound.locations.each do |loc|
-          loc.lat.should == 35
-          loc.lng.should == 40
+      context "of two" do
+
+        let(:greyhound) do
+          Fabricate(:greyhound) do
+            locations(:count => 2)
+          end
         end
+
+        it "should have two locations" do
+          greyhound.locations.size.should == 2
+          greyhound.locations.each do |loc|
+            loc.lat.should == 35
+            loc.lng.should == 40
+          end
+        end
+
       end
 
     end
