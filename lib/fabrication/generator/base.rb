@@ -37,7 +37,7 @@ class Fabrication::Generator::Base
   def after_generation(options); end
 
   def assign(method_name, param)
-    if param.is_a?(Hash) && param.has_key?(:count) && param[:count] > 1
+    if param.is_a?(Hash) && param.has_key?(:count)
       value = (1..param[:count]).map do |i|
         block_given? ? yield(instance, i) : param
       end

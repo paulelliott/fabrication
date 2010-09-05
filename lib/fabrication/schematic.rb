@@ -42,8 +42,7 @@ class Fabrication::Schematic
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
         if attribute = schematic.attribute(name)
-          attribute.params = nil
-          attribute.value = value
+          attribute.merge!(:params => nil, :value => value)
         else
           schematic.attributes << Attribute.new(name, nil, value)
         end
@@ -53,19 +52,23 @@ class Fabrication::Schematic
 
   def method_missing(method_name, *args, &block)
     method_name = parse_method_name(method_name, args)
+    if args.first.is_a?(Hash)
+      params = args.first
+    else
+      value = args.first
+    end
+
     if attr = attribute(method_name)
       if block_given?
-        attr.params = args.first
-        attr.value = block
+        attr.merge!(:params => params, :value => block)
       else
-        attr.params = nil
-        attr.value = args.first
+        attr.merge!(:params => params, :value => value)
       end
     else
       if block_given?
-        attributes.push(Attribute.new(method_name, args.first, block))
+        attributes.push(Attribute.new(method_name, params, block))
       else
-        attributes.push(Attribute.new(method_name, nil, args.first))
+        attributes.push(Attribute.new(method_name, nil, value))
       end
     end
   end
@@ -80,13 +83,27 @@ class Fabrication::Schematic
   end
 
   class Attribute
+
     attr_accessor :name, :params, :value
 
     def initialize(name, params, value)
       self.name = name
       self.params = params
-      self.value = value
+      self.value = value || generate_value
     end
+
+    def merge!(attrs)
+      self.params = attrs[:params] if attrs.has_key?(:params)
+      self.value = attrs[:value] || generate_value
+    end
+
+    def generate_value
+      name = self.name.to_s
+      name = name.singularize if name.respond_to?(:singularize)
+      (self.params ||= {})[:count] ||= 1 if name != self.name.to_s
+      Proc.new { Fabricate(name.to_sym) }
+    end
+
   end
 
   private

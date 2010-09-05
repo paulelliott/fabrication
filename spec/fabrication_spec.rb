@@ -47,6 +47,38 @@ describe Fabrication do
 
   end
 
+  context "when referring to other fabricators" do
+
+    let(:person) { Fabricate(:person) }
+
+    it "has the latitude" do
+      person.location.lat.should == 35
+    end
+
+    it "has the longitude" do
+      person.location.lng.should == 40
+    end
+
+    context "with a count" do
+
+      let(:greyhound) do
+        Fabricate(:greyhound) do
+          locations(:count => 2)
+        end
+      end
+
+      it "should have two locations" do
+        greyhound.locations.size.should == 2
+        greyhound.locations.each do |loc|
+          loc.lat.should == 35
+          loc.lng.should == 40
+        end
+      end
+
+    end
+
+  end
+
   context 'with the generation parameter' do
 
     let(:person) do
@@ -110,7 +142,7 @@ describe Fabrication do
       end
 
       Fabricator(:other_company, :from => :company) do
-        divisions(:count => 2) { Fabricate(:division) }
+        divisions(:count => 2)
         after_build { |o| o.name = "Crazysauce" }
       end
     end
