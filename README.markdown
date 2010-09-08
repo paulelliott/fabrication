@@ -33,7 +33,7 @@ Define your fabricators.
     Fabricator(:company) do
       name "Fun Factory"
       employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }
-      location! { Fabricate(:location) }
+      location!
       after_build { |company| company.name = "Another #{company.name}" }
       after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }
     end
@@ -42,11 +42,19 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 
 * The object has a name field, which is statically filled with "Fun Factory".
 * It has a has_many association to employees and will generate an array of 20 records as indicated by the :count => 20. The block is passed the company object being fabricated and index of the array being created.
-* It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the "!" after the association name.
+* It has a belongs_to association to location and this will be generated immediately with the company object. This is because of the "!" after the association name. Also, leaving off the block will cause "{ Fabricate(:location) }" to be automatically generated for you. It will singularize the name of the attribute (if String#singularize is present) and use that as the fabricator name.
 * After the object is built but before it is saved, it will update the name to "Another Fun Factory".
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
 Alternatively, you can Fabricate(:company) without first defining the Fabricator. Doing so will create an empty Fabricator called ":company" and prevent you from defining the Fabricator explicitly later.
+
+### Important Thing To Note! ###
+
+If you are fabricating an activerecord backed object and it has attributes that are not columns in the underlying table, Fabrication will lazily generate them even if they are not defined associations. You can easily work around this by adding a "!" to the end of the attribute definition in the Fabricator.
+
+Fabricator(:user) do
+  some_delegated_something_or_other! { Fabricate(:something) }
+end
 
 ### Inheritance ###
 
@@ -116,8 +124,8 @@ I (paulelliott) am actively maintaining this project. If you would like to contr
 To run rake successfully:
 
 1. Clone the project
-2. Install mongodb and sqlite3
-3. Install bundler
+2. Install mongodb and sqlite3 (brew install ...)
+3. Install bundler (gem install bundler)
 4. Run `bundle install` from the project root
 5. Run `rake` and the test suite should be all green!
 
