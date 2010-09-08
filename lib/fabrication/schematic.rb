@@ -33,7 +33,7 @@ class Fabrication::Schematic
 
   def initialize_copy(original)
     self.attributes = original.attributes.map do |a|
-      Attribute.new(a.name, a.params, a.value)
+      Fabrication::Attribute.new(a.name, a.params, a.value)
     end
   end
 
@@ -42,9 +42,9 @@ class Fabrication::Schematic
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
         if attribute = schematic.attribute(name)
-          attribute.merge!(:params => nil, :value => value)
+          attribute.update!(:params => nil, :value => value)
         else
-          schematic.attributes << Attribute.new(name, nil, value)
+          schematic.attributes << Fabrication::Attribute.new(name, nil, value)
         end
       end
     end
@@ -52,24 +52,18 @@ class Fabrication::Schematic
 
   def method_missing(method_name, *args, &block)
     method_name = parse_method_name(method_name, args)
-    if args.first.is_a?(Hash)
-      params = args.first
+    if args.empty? or args.first.is_a?(Hash)
+      params = args.first || {}
+      value = block_given? ? block : generate_value(method_name, params)
     else
+      params = {}
       value = args.first
     end
 
     if attr = attribute(method_name)
-      if block_given?
-        attr.merge!(:params => params, :value => block)
-      else
-        attr.merge!(:params => params, :value => value)
-      end
+      attr.update!(:params => params, :value => value)
     else
-      if block_given?
-        attributes.push(Attribute.new(method_name, params, block))
-      else
-        attributes.push(Attribute.new(method_name, nil, value))
-      end
+      attributes.push(Fabrication::Attribute.new(method_name, params, value))
     end
   end
 
@@ -82,31 +76,14 @@ class Fabrication::Schematic
     method_name
   end
 
-  class Attribute
-
-    attr_accessor :name, :params, :value
-
-    def initialize(name, params, value)
-      self.name = name
-      self.params = params
-      self.value = value || generate_value
-    end
-
-    def merge!(attrs)
-      self.params = attrs[:params] if attrs.has_key?(:params)
-      self.value = attrs[:value] || generate_value
-    end
-
-    def generate_value
-      name = self.name.to_s
-      name = name.singularize if name.respond_to?(:singularize)
-      (self.params ||= {})[:count] ||= 1 if name != self.name.to_s
-      Proc.new { Fabricate(name.to_sym) }
-    end
-
-  end
-
   private
+
+  def generate_value(name, params)
+    name = name.to_s
+    name = name.singularize if name.respond_to?(:singularize)
+    params[:count] ||= 1 if !params[:count] && name != name.to_s
+    Proc.new { Fabricate(name.to_sym) }
+  end
 
   def to_hash(attrs, overrides)
     hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}

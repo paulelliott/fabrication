@@ -3,6 +3,7 @@ module Fabrication
   autoload :DuplicateFabricatorError, 'fabrication/errors'
   autoload :UnfabricatableError,      'fabrication/errors'
 
+  autoload :Attribute,  'fabrication/attribute'
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
   autoload :Schematic,  'fabrication/schematic'

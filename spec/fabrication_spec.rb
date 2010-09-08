@@ -6,6 +6,11 @@ describe Fabrication do
 
     let(:person) { Fabricate(:person, :last_name => 'Awesome') }
     let(:location) { Fabricate(:location) }
+    let(:dog) do
+      Fabricate(:dog) do
+        name nil
+      end
+    end
 
     it 'has the default first name' do
       person.first_name.should == 'John'
@@ -25,6 +30,10 @@ describe Fabrication do
 
     it "has the longitude" do
       location.lng.should == 40
+    end
+
+    it "handles nil values" do
+      dog.name.should be_nil
     end
 
   end
@@ -69,7 +78,7 @@ describe Fabrication do
           end
         end
 
-        it "should have two locations" do
+        it "should have one location" do
           greyhound.locations.size.should == 1
           greyhound.locations.first.lat.should == 35
           greyhound.locations.first.lng.should == 40
@@ -157,7 +166,7 @@ describe Fabrication do
     before(:all) do
       Fabricator(:company) do
         name { Faker::Company.name }
-        divisions!(:count => 4) { Fabricate(:division) }
+        divisions!(:count => 4)
         after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 

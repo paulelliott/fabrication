@@ -76,7 +76,7 @@ describe Fabrication::Schematic do
       it "stored 'name' correctly" do
         attribute = subject.attribute(:name)
         attribute.name.should == :name
-        attribute.params.should be_nil
+        attribute.params.should == {}
         attribute.value.should == "Orgasmo"
       end
 
@@ -91,7 +91,7 @@ describe Fabrication::Schematic do
       it "stored 'another_thing' correctly" do
         attribute = subject.attribute(:another_thing)
         attribute.name.should == :another_thing
-        attribute.params.should be_nil
+        attribute.params.should == {}
         Proc.should === attribute.value
         attribute.value.call.should == 25
       end
@@ -111,7 +111,7 @@ describe Fabrication::Schematic do
       it "stored 'name' correctly" do
         attribute = subject.attribute(:name)
         attribute.name.should == :name
-        attribute.params.should be_nil
+        attribute.params.should == {}
         Proc.should === attribute.value
         attribute.value.call.should == "Willis"
       end
@@ -119,7 +119,7 @@ describe Fabrication::Schematic do
       it "stored 'something' correctly" do
         attribute = subject.attribute(:something)
         attribute.name.should == :something
-        attribute.params.should be_nil
+        attribute.params.should == {}
         attribute.value.should == "Else!"
       end
 
