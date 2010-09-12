@@ -9,22 +9,6 @@ describe Fabrication::Generator::Base do
     end
   end
 
-  describe "#after_build" do
-    subject { Fabrication::Generator::Base.new(Object) }
-    before { subject.after_build { "something" } }
-    it "stores the after create block" do
-      Proc.should === subject.callbacks[:after_build]
-    end
-  end
-
-  describe "#after_create" do
-    subject { Fabrication::Generator::Base.new(Object) }
-    before { subject.after_create { "something" } }
-    it "stores the after create block" do
-      Proc.should === subject.callbacks[:after_create]
-    end
-  end
-
   describe "#generate" do
 
     let(:generator) { Fabrication::Generator::Base.new(Person) }

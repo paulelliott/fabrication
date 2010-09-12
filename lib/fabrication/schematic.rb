@@ -13,6 +13,16 @@ class Fabrication::Schematic
     instance_eval(&block) if block_given?
   end
 
+  def after_build(&block)
+    callbacks[:after_build] ||= []
+    callbacks[:after_build] << block
+  end
+
+  def after_create(&block)
+    callbacks[:after_create] ||= []
+    callbacks[:after_create] << block
+  end
+
   def attribute(name)
     attributes.select { |a| a.name == name }.first
   end
@@ -22,16 +32,26 @@ class Fabrication::Schematic
     @attributes ||= []
   end
 
+  attr_writer :callbacks
+  def callbacks
+    @callbacks ||= {}
+  end
+
   def generate(options={}, overrides={}, &block)
     attributes = merge(overrides, &block).attributes
     if options[:attributes]
       to_hash(attributes, overrides)
     else
-      generator.new(klass).generate(options, attributes)
+      generator.new(klass).generate(options, attributes, callbacks)
     end
   end
 
   def initialize_copy(original)
+    self.callbacks = {}
+    original.callbacks.each do |type, callbacks|
+      self.callbacks[type] = callbacks.clone
+    end
+
     self.attributes = original.attributes.map do |a|
       Fabrication::Attribute.new(a.name, a.params, a.value)
     end
