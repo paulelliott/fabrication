@@ -9,7 +9,7 @@ def clear_mongodb
   Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
 end
 
-Spec::Runner.configure do |config|
+Rspec.configure do |config|
   config.before(:all) do
     clear_mongodb
   end
