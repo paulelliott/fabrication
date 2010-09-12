@@ -19,6 +19,15 @@ Fabricator(:person) do
   location
 end
 
+Fabricator(:child, :from => :person) do
+  after_build { |child| child.first_name = 'Johnny' }
+  after_build { |child| child.age = 10 }
+end
+
+Fabricator(:senior, :from => :child) do
+  after_build { |senior| senior.age *= 7 }
+end
+
 # ActiveRecord Objects
 Fabricator(:division) do
   name "Division Name"

@@ -2,23 +2,12 @@ class Fabrication::Generator::Base
 
   def self.supports?(klass); true end
 
-  def after_build(&block)
-    callbacks[:after_build] = block if block_given?
-  end
-
-  def after_create(&block)
-    callbacks[:after_create] = block if block_given?
-  end
-
-  def callbacks
-    @callbacks ||= {}
-  end
-
-  def generate(options={:save => true}, attributes=[])
+  def generate(options={:save => true}, attributes=[], callbacks={})
     process_attributes(attributes)
-    callbacks[:after_build].call(instance) if callbacks.include?(:after_build)
+
+    callbacks[:after_build].each { |callback| callback.call(instance) } if callbacks[:after_build]
     after_generation(options)
-    callbacks[:after_create].call(instance) if callbacks.include?(:after_create)
+    callbacks[:after_create].each { |callback| callback.call(instance) } if callbacks[:after_create]
     instance
   end
 
@@ -49,15 +38,10 @@ class Fabrication::Generator::Base
 
   def process_attributes(attributes)
     attributes.each do |attribute|
-      case attribute.name
-      when :after_create; after_create(&attribute.value)
-      when :after_build; after_build(&attribute.value)
+      if Proc === attribute.value
+        method_missing(attribute.name, attribute.params, &attribute.value)
       else
-        if Proc === attribute.value
-          method_missing(attribute.name, attribute.params, &attribute.value)
-        else
-          method_missing(attribute.name, attribute.value)
-        end
+        method_missing(attribute.name, attribute.value)
       end
     end
   end

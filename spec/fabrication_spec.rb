@@ -219,6 +219,26 @@ describe Fabrication do
     end
   end
 
+  context 'with multiple callbacks' do
+    let(:child) { Fabricate(:child) }
+
+    it "runs the first callback" do
+      child.first_name.should == "Johnny"
+    end
+
+    it "runs the second callback" do
+      child.age.should == 10
+    end
+  end
+
+  context 'with multiple, inherited callbacks' do
+    let(:senior) { Fabricate(:senior) }
+
+    it "runs the parent callbacks first" do
+      senior.age.should == 70
+    end
+  end
+
   context 'with a parent fabricator' do
 
     context 'and a previously defined parent' do
