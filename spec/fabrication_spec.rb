@@ -269,10 +269,6 @@ describe Fabrication do
 
   context 'when defining a fabricator twice' do
 
-    before(:all) do
-      Fabricator(:author) {}
-    end
-
     it 'throws an error' do
       lambda { Fabricator(:author) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
     end
@@ -300,30 +296,11 @@ describe Fabrication do
 
   end
 
-  describe ".fabricators" do
-
-    let(:author) { Fabricator(:author) }
-    let(:book) { Fabricator(:book) }
-
-    before(:all) do
-      Fabrication.clear_definitions
-      author; book
-    end
-
-    after(:all) do
-      Fabrication::Support.find_definitions
-    end
-
-    it "returns the two fabricators" do
-      Fabrication::Fabricator.schematics.should == {:author => author, :book => book}
-    end
-
-  end
-
   describe "Fabricate with a block" do
 
     let(:person) do
       Fabricate(:person) do
+        age nil
         first_name "Paul"
         last_name { "Elliott" }
       end

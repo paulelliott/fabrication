@@ -36,7 +36,10 @@ describe Fabrication::Support do
 
   describe ".find_definitions" do
 
-    before(:all) { Fabrication::Support.find_definitions }
+    before(:all) do
+      Fabrication.clear_definitions
+      Fabrication::Support.find_definitions
+    end
 
     it "has an awesome object" do
       Fabrication::Fabricator.schematics[:awesome_object].should be
