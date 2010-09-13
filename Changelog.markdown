@@ -1,3 +1,8 @@
+### 0.7.1 (09/12/2010) ###
+
+* Looks for Rails root when searching for Fabricators
+
+
 ### 0.7.0 (09/08/2010) ###
 
 * Abbreviated association syntax
