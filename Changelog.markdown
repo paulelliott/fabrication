@@ -1,6 +1,7 @@
 ### 0.7.1 (09/12/2010) ###
 
 * Looks for Rails root when searching for Fabricators
+* Remove default fabricators. All definitions must be explicit!
 
 
 ### 0.7.0 (09/08/2010) ###

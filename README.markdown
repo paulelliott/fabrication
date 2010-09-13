@@ -10,6 +10,14 @@ Currently supported object types are...
 
 By default it will lazily generate active record associations. So if you have a has_many :widgets defined, it will not actually generate the widgets until the association is accessed. You can override this by appending "!" to the name of the parameter when defining the field in the Fabricator.
 
+### Important Thing To Note! ###
+
+If you are fabricating an activerecord backed object and it has attributes that are not columns in the underlying table, Fabrication will lazily generate them even if they are not defined associations. You can easily work around this by adding a "!" to the end of the attribute definition in the Fabricator.
+
+Fabricator(:user) do
+  some_delegated_something_or_other! { Fabricate(:something) }
+end
+
 ### Installation ###
 
 Add this to your gemfile.
@@ -46,16 +54,6 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * After the object is built but before it is saved, it will update the name to "Another Fun Factory".
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
-Alternatively, you can Fabricate(:company) without first defining the Fabricator. Doing so will create an empty Fabricator called ":company" and prevent you from defining the Fabricator explicitly later.
-
-### Important Thing To Note! ###
-
-If you are fabricating an activerecord backed object and it has attributes that are not columns in the underlying table, Fabrication will lazily generate them even if they are not defined associations. You can easily work around this by adding a "!" to the end of the attribute definition in the Fabricator.
-
-Fabricator(:user) do
-  some_delegated_something_or_other! { Fabricate(:something) }
-end
-
 ### Inheritance ###
 
 So you already have a company fabricator, but you need one that specifically generates an LLC. No problem!
@@ -64,7 +62,7 @@ So you already have a company fabricator, but you need one that specifically gen
       type "LLC"
     end
 
-Setting the :from option will inherit the class and all the attributes from the named Fabricator. Even if you haven't defined a :company Fabricator yet, it will still work as long as it references an actual class name.
+Setting the :from option will inherit the class and all the attributes from the named Fabricator.
 
 You can also explicitly specify the class being fabricated with the :class_name parameter.
 
@@ -136,3 +134,4 @@ To run rake successfully:
 * Dave Ott (daveott)
 * Matt (winescout)
 * Lar Van Der Jagt (supaspoida)
+* Justin Smestad (jsmestad)

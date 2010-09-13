@@ -9,7 +9,8 @@ class Fabrication::Fabricator
 
     def generate(name, options={}, overrides={}, &block)
       Fabrication::Support.find_definitions if schematics.empty?
-      (schematics[name] || define(name)).generate(options, overrides, &block)
+      raise Fabrication::UnknownFabricatorError, "No Fabricator defined for '#{name}'" unless schematics.has_key?(name)
+      schematics[name].generate(options, overrides, &block)
     end
 
     def schematics

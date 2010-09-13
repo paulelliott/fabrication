@@ -275,10 +275,18 @@ describe Fabrication do
 
   end
 
+  context "when defining a fabricator for a class that doesn't exist" do
+
+    it 'throws an error' do
+      lambda { Fabricator(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
+    end
+
+  end
+
   context 'when generating from a non-existant fabricator' do
 
     it 'throws an error' do
-      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
+      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
 
   end

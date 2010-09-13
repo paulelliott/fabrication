@@ -4,4 +4,6 @@ module Fabrication
 
   class UnfabricatableError < StandardError; end
 
+  class UnknownFabricatorError < StandardError; end
+
 end
