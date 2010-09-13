@@ -41,19 +41,22 @@ describe Fabrication::Fabricator do
 
       it "finds definitions if none exist" do
         Fabrication::Support.should_receive(:find_definitions)
-        subject.generate(:object)
+        lambda { subject.generate(:object) }.should raise_error
       end
 
     end
 
     context 'with definitions' do
 
-      it "raises an error if the object can't be fabricated" do
-        lambda { subject.generate(:somenonexistantclass) }.should raise_error(Fabrication::UnfabricatableError)
+      it "raises an error if the class cannot be located" do
+        lambda { subject.define(:somenonexistantclass) }.should raise_error(Fabrication::UnfabricatableError)
+      end
+
+      it "raises an error if the fabricator cannot be located" do
+        lambda { subject.generate(:object) }.should raise_error(Fabrication::UnknownFabricatorError)
       end
 
       it 'generates a new object every time' do
-        subject.define(:person) { first_name '1' }
         subject.generate(:person).should_not == subject.generate(:person)
       end
 

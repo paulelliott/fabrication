@@ -1,6 +1,7 @@
 # Plain Ruby Objects
 Fabricator(:awesome_object, :from => :object)
 
+Fabricator(:dog)
 Fabricator(:greyhound, :from => :dog) do
   breed "greyhound"
   locations(:count => 2)
