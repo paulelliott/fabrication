@@ -47,6 +47,11 @@ class Fabrication::Schematic
   end
 
   def initialize_copy(original)
+    self.callbacks = {}
+    original.callbacks.each do |type, callbacks|
+      self.callbacks[type] = callbacks.clone
+    end
+
     self.attributes = original.attributes.map do |a|
       Fabrication::Attribute.new(a.name, a.params, a.value)
     end
