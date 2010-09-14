@@ -34,6 +34,15 @@ Now you can define fabricators in any of the following locations.
 
 They are automatically loaded, so no additional requires are necessary.
 
+### Rails 3 Generators ###
+
+They are really easy to configure! Just add this to your `config/application.rb`:
+
+    config.generators do |g|
+      g.test_framework      :rspec, :fixture => true
+      g.fixture_replacement :fabrication, :dir => "spec/fabricators"
+    end
+
 ### Usage ###
 
 Define your fabricators.
