@@ -1,4 +1,4 @@
-### 0.8.0 (09/12/2010) ###
+### 0.8.0 (09/13/2010) ###
 
 * Stacking callbacks (all defined after_build and after_create callbacks will execute)
 * Rails 3 generators
