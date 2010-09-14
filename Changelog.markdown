@@ -1,3 +1,8 @@
+### 0.8.1 (09/14/2010) ###
+
+* Bugfix: UnknownFabricatorError not loaded if it is the first error encountered
+
+
 ### 0.8.0 (09/13/2010) ###
 
 * Stacking callbacks (all defined after_build and after_create callbacks will execute)

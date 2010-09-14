@@ -1,7 +1,8 @@
 module Fabrication
 
-  autoload :DuplicateFabricatorError, 'fabrication/errors'
-  autoload :UnfabricatableError,      'fabrication/errors'
+  autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
+  autoload :UnfabricatableError,      'fabrication/errors/unfabricatable_error'
+  autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
 
   autoload :Attribute,  'fabrication/attribute'
   autoload :Fabricator, 'fabrication/fabricator'
