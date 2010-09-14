@@ -156,4 +156,5 @@ To run rake successfully:
 * Matt (winescout)
 * Lar Van Der Jagt (supaspoida)
 * Justin Smestad (jsmestad)
-* chanks
+* Christopher Hanks (chanks) - Chained callbacks
+* monsterlabs - Rails 3 Generators
