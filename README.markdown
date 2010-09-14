@@ -70,6 +70,18 @@ You can also explicitly specify the class being fabricated with the :class_name 
       type "LLC"
     end
 
+The callbacks will be stacked when inheriting from other fabricators. For example, when you define something like this:
+
+    Fabricator(:user) do
+      after_create { |user| user.confirm! }
+    end
+
+    Fabricator(:admin, :from => :user) do
+      after_create { |user| user.make_admin! }
+    end
+
+When calling `Fabricate(:admin)`, the user callback will be executed first and then the admin callback.
+
 ### Fabricating ###
 
 Now that your Fabricators are defined, you can start generating some objects! To generate the LLC from the previous example, just do this:
