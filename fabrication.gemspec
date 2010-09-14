@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency("ffaker", [">= 0.4.0"])
   s.add_development_dependency("activerecord", [">= 3.0.0"])
   s.add_development_dependency("sqlite3-ruby", [">= 1.3.0"])
-  s.add_development_dependency("bson_ext", [">= 1.0.7"])
-  s.add_development_dependency("mongoid", [">= 2.0.0.beta.17"])
+  s.add_development_dependency("bson_ext", ["1.0.4"])
+  s.add_development_dependency("mongoid", ["2.0.0.beta.18"])
 end
