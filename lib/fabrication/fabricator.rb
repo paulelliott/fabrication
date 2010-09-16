@@ -14,7 +14,7 @@ class Fabrication::Fabricator
     end
 
     def schematics
-      @@schematics ||= {}
+      @schematics ||= {}
     end
 
     private

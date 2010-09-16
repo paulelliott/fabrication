@@ -11,7 +11,7 @@ class Fabrication::Sequencer
     end
 
     def sequences
-      @@sequences ||= {}
+      @sequences ||= {}
     end
 
   end
