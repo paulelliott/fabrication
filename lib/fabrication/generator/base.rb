@@ -3,16 +3,18 @@ class Fabrication::Generator::Base
   def self.supports?(klass); true end
 
   def generate(options={:save => true}, attributes=[], callbacks={})
+    self.instance = klass.new
     process_attributes(attributes)
 
     callbacks[:after_build].each { |callback| callback.call(instance) } if callbacks[:after_build]
     after_generation(options)
     callbacks[:after_create].each { |callback| callback.call(instance) } if callbacks[:after_create]
+
     instance
   end
 
   def initialize(klass)
-    self.instance = klass.new
+    self.klass = klass
   end
 
   def method_missing(method_name, *args, &block)
@@ -21,7 +23,7 @@ class Fabrication::Generator::Base
 
   protected
 
-  attr_accessor :instance
+  attr_accessor :klass, :instance
 
   def after_generation(options); end
 
