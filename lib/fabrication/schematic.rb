@@ -108,7 +108,7 @@ class Fabrication::Schematic
   def to_hash(attrs, overrides)
     hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
     attributes.inject(hash) do |hash, attribute|
-      value = attribute.value.respond_to?(:call) ? attribute.value.call : attribute.value
+      value = Proc === attribute.value ? attribute.value.call : attribute.value
       hash.merge(attribute.name => value)
     end.merge(overrides)
   end
