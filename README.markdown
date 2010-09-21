@@ -14,9 +14,9 @@ By default it will lazily generate active record associations. So if you have a 
 
 If you are fabricating an activerecord backed object and it has attributes that are not columns in the underlying table, Fabrication will lazily generate them even if they are not defined associations. You can easily work around this by adding a "!" to the end of the attribute definition in the Fabricator.
 
-Fabricator(:user) do
-  some_delegated_something_or_other! { Fabricate(:something) }
-end
+    Fabricator(:user) do
+      some_delegated_something_or_other! { Fabricate(:something) }
+    end
 
 ### Installation ###
 
