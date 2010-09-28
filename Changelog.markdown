@@ -1,3 +1,10 @@
+### 0.8.2 (09/28/2010) ###
+
+* Change generated fabricators to have _fabricator in the name
+* Change default folder for generated fabricators to spec/fabricators
+* Minor tweaks
+
+
 ### 0.8.1 (09/14/2010) ###
 
 * Bugfix: UnknownFabricatorError not loaded if it is the first error encountered
