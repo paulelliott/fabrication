@@ -17,7 +17,7 @@ describe Fabrication::Generator::ActiveRecord do
 
   describe "#after_generation" do
     let(:instance) { mock(:instance) }
-    let(:generator) { Fabrication::Generator::ActiveRecord.new(Object) }
+    let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
 
     before { generator.send(:instance=, instance) }
 
