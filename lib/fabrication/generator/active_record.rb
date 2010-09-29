@@ -8,8 +8,9 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     method_name = method_name.to_s
     if block_given?
       options = args.first || {}
-      count = options[:count] || 0
       unless options[:force] || instance.class.columns.map(&:name).include?(method_name)
+        count = options[:count] || 0
+
         # copy the original getter
         instance.instance_variable_set("@__#{method_name}_original", instance.method(method_name).clone)
 
