@@ -167,6 +167,7 @@ describe Fabrication do
       Fabricator(:company) do
         name { Faker::Company.name }
         divisions!(:count => 4)
+        non_field { "hi" }
         after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 
@@ -185,6 +186,10 @@ describe Fabrication do
 
     it 'generates associations immediately when forced' do
       Division.find_all_by_company_id(company.id).count.should == 4
+    end
+
+    it 'generates non-database backed fields immediately' do
+      company.instance_variable_get(:@non_field).should == 'hi'
     end
 
     it 'executes after build blocks' do

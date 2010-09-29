@@ -15,6 +15,7 @@ class Fabrication::Generator::Base
 
   def initialize(klass)
     self.klass = klass
+    post_initialize
   end
 
   def method_missing(method_name, *args, &block)
@@ -37,6 +38,8 @@ class Fabrication::Generator::Base
     end
     instance.send("#{method_name}=", value)
   end
+
+  def post_initialize; end
 
   def process_attributes(attributes)
     attributes.each do |attribute|

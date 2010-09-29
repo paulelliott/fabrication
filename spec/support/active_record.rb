@@ -29,6 +29,8 @@ end
 
 class Company < ActiveRecord::Base
   has_many :divisions
+
+  attr_accessor :non_field
 end
 
 class Division < ActiveRecord::Base
