@@ -1,3 +1,8 @@
+### 0.8.3 (##/##/####) ###
+
+* Bugfix: Non-association virtual attributes were being generated lazily
+
+
 ### 0.8.2 (09/28/2010) ###
 
 * Change generated fabricators to have _fabricator in the name
