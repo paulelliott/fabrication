@@ -15,7 +15,6 @@ class Fabrication::Generator::Base
 
   def initialize(klass)
     self.klass = klass
-    post_initialize
   end
 
   def method_missing(method_name, *args, &block)

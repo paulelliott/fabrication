@@ -9,7 +9,7 @@ class Fabrication::Schematic
   attr_accessor :generator, :klass
   def initialize(klass, &block)
     self.klass = klass
-    self.generator = GENERATORS.detect { |gen| gen.supports?(klass) }.new(klass)
+    self.generator = GENERATORS.detect { |gen| gen.supports?(klass) }
     instance_eval(&block) if block_given?
   end
 
@@ -42,7 +42,7 @@ class Fabrication::Schematic
     if options[:attributes]
       to_hash(attributes, overrides)
     else
-      generator.generate(options, attributes, callbacks)
+      generator.new(klass).generate(options, attributes, callbacks)
     end
   end
 

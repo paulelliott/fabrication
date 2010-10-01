@@ -15,7 +15,7 @@ describe Fabrication::Schematic do
       schematic.klass.should == OpenStruct
     end
     it "stores the generator" do
-      schematic.generator.class.should == Fabrication::Generator::Base
+      schematic.generator.should == Fabrication::Generator::Base
     end
     it "stores the attributes" do
       schematic.attributes.size.should == 3

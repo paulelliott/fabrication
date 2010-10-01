@@ -4,15 +4,15 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
   end
 
-  def post_initialize
-    @associations = klass.reflections.keys
+  def associations
+    @associations ||= klass.reflections.keys
   end
 
   def method_missing(method_name, *args, &block)
     method_name = method_name.to_s
     if block_given?
       options = args.first || {}
-      if !options[:force] && @associations.include?(method_name.to_sym)
+      if !options[:force] && associations.include?(method_name.to_sym)
         count = options[:count] || 0
 
         # copy the original getter
