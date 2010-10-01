@@ -1,14 +1,14 @@
-### 0.8.3 (##/##/####) ###
+### 0.8.3 (09/30/2010) ###
 
 * Bugfix: Non-association virtual attributes were being generated lazily
-
-
-### 0.8.2 (09/28/2010) ###
-
 * Change generated fabricators to have _fabricator in the name
 * Change default folder for generated fabricators to spec/fabricators
 * Minor tweaks
 
+
+### 0.8.2 (09/28/2010) ###
+
+- yanked...
 
 ### 0.8.1 (09/14/2010) ###
 
