@@ -9,3 +9,12 @@ end
 class Person
   attr_accessor :age, :first_name, :last_name, :shoes, :location
 end
+
+class City
+  attr_accessor :city, :state
+
+  def initialize(city, state)
+    self.city = city
+    self.state = state
+  end
+end

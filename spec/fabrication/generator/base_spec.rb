@@ -36,6 +36,39 @@ describe Fabrication::Generator::Base do
       person.instance_variable_get(:@first_name).should == 'Guy'
     end
 
+    context "with on_init block" do
+      subject { schematic.generate }
+
+      let(:klass) { Struct.new :arg1, :arg2 }
+
+      context "using init_with" do
+        let(:schematic) do
+          Fabrication::Schematic.new(klass) do
+            on_init { init_with(:a, :b) }
+          end
+        end
+
+        it "sends the return value of the block to the klass' initialize method" do
+          subject.arg1.should == :a
+          subject.arg2.should == :b
+        end
+      end
+
+      context "not using init_with" do
+        let(:schematic) do
+          Fabrication::Schematic.new(klass) do
+            on_init { [ :a, :b ] }
+          end
+        end
+
+        it "sends the return value of the block to the klass' initialize method" do
+          subject.arg1.should == :a
+          subject.arg2.should == :b
+        end
+
+      end
+    end
+
   end
 
 end

@@ -38,11 +38,13 @@ class Fabrication::Schematic
   end
 
   def generate(options={}, overrides={}, &block)
-    attributes = merge(overrides, &block).attributes
-    if options[:attributes]
-      to_hash(attributes, overrides)
-    else
-      generator.new(klass).generate(options, attributes, callbacks)
+    new_schematic = merge(overrides, &block)
+    new_schematic.instance_eval do
+      if options[:attributes]
+        to_hash(attributes, overrides)
+      else
+        generator.new(klass).generate(options, attributes, callbacks)
+      end
     end
   end
 
@@ -55,6 +57,10 @@ class Fabrication::Schematic
     self.attributes = original.attributes.map do |a|
       Fabrication::Attribute.new(a.name, a.params, a.value)
     end
+  end
+
+  def init_with(*args)
+    args
   end
 
   def merge(overrides={}, &block)
@@ -85,6 +91,10 @@ class Fabrication::Schematic
     else
       attributes.push(Fabrication::Attribute.new(method_name, params, value))
     end
+  end
+
+  def on_init(&block)
+    callbacks[:on_init] = block
   end
 
   def parse_method_name(method_name, args)

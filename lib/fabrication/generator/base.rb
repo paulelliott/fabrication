@@ -3,7 +3,12 @@ class Fabrication::Generator::Base
   def self.supports?(klass); true end
 
   def generate(options={:save => true}, attributes=[], callbacks={})
-    self.instance = klass.new
+    if callbacks[:on_init]
+      self.instance = klass.new(*callbacks[:on_init].call)
+    else
+      self.instance = klass.new
+    end
+
     process_attributes(attributes)
 
     callbacks[:after_build].each { |callback| callback.call(instance) } if callbacks[:after_build]

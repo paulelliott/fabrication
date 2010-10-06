@@ -135,4 +135,31 @@ describe Fabrication::Schematic do
 
   end
 
+  describe "#on_init" do
+    let(:init_block) { lambda {} }
+    let(:init_schematic) do
+      block = init_block
+      Fabrication::Schematic.new(OpenStruct) do
+        on_init &block
+      end
+    end
+
+    it "stores the on_init callback" do
+      init_schematic.callbacks[:on_init].should == init_block
+    end
+
+    context "with inheritance" do
+      let(:child_block) { lambda {} }
+      let(:child_schematic) do
+        block = child_block
+        init_schematic.merge do
+          on_init &block
+        end
+      end
+
+      it "overwrites the on_init callback" do
+        child_schematic.callbacks[:on_init].should == child_block
+      end
+    end
+  end
 end

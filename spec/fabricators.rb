@@ -29,6 +29,10 @@ Fabricator(:senior, :from => :child) do
   after_build { |senior| senior.age *= 7 }
 end
 
+Fabricator(:city) do
+  on_init { init_with('Boulder', 'CO') }
+end
+
 # ActiveRecord Objects
 Fabricator(:division) do
   name "Division Name"
