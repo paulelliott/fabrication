@@ -1,3 +1,10 @@
+### 0.9.0 (master) ###
+
+* Bugfix: callbacks are copied to the local override (leshill and sandro)
+* Support for classes with required arguments in their constructor (leshill
+and sandro)
+
+
 ### 0.8.3 (09/30/2010) ###
 
 * Bugfix: Non-association virtual attributes were being generated lazily
