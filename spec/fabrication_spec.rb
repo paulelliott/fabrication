@@ -56,6 +56,17 @@ describe Fabrication do
 
   end
 
+  context 'when the class requires a constructor' do
+    subject do
+      Fabricate(:city) do
+        on_init { init_with('Jacksonville Beach', 'FL') }
+      end
+    end
+
+    its(:city)  { should == 'Jacksonville Beach' }
+    its(:state) { should == 'FL' }
+  end
+
   context "when referring to other fabricators" do
 
     let(:person) { Fabricate(:person) }

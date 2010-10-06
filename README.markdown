@@ -63,6 +63,14 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * After the object is built but before it is saved, it will update the name to "Another Fun Factory".
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
+
+For a class with required arguments in its constructor, use the `on_init` method:
+
+    Fabricator(:location) do
+      on_init { init_with(30.284167, -81.396111) }
+    end
+
+
 ### Inheritance ###
 
 So you already have a company fabricator, but you need one that specifically generates an LLC. No problem!
