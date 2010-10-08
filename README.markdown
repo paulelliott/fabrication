@@ -163,6 +163,7 @@ To run rake successfully:
 * Dave Ott (daveott)
 * Matt (winescout)
 * Lar Van Der Jagt (supaspoida)
+* Sandro Turriate (sandro)
 * Justin Smestad (jsmestad)
 * Christopher Hanks (chanks) - Chained callbacks
 * monsterlabs - Rails 3 Generators

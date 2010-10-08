@@ -1,4 +1,4 @@
-### 0.9.0 (master) ###
+### 0.9.0 (10/07/2010) ###
 
 * Bugfix: callbacks are copied to the local override (leshill and sandro)
 * Support for classes with required arguments in their constructor (leshill
