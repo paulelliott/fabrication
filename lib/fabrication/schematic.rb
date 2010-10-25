@@ -27,6 +27,10 @@ class Fabrication::Schematic
     attributes.select { |a| a.name == name }.first
   end
 
+  def delete_attribute(name)
+    attributes.reject! { |a| a.name == name }
+  end
+
   attr_writer :attributes
   def attributes
     @attributes ||= []

@@ -31,6 +31,16 @@ describe Fabrication::Schematic do
     end
   end
 
+  describe "#delete_attribute" do
+    it "deletes the requested attribute if it exists" do
+      schematic.delete_attribute(:name).should_not be_nil
+      schematic.attribute(:name).should be_nil
+    end
+    it "returns nil if it does not exist" do
+      schematic.delete_attribute(:not_there).should be_nil
+    end
+  end
+
   describe "#attributes" do
     it "always returns an empty array" do
       schematic.attributes = nil
