@@ -125,6 +125,7 @@ describe Fabrication do
       Fabricate(:person) do
         first_name "Paul"
         last_name { |person| "#{person.first_name}#{person.age}" }
+        age 50
       end
     end
 

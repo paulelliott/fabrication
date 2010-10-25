@@ -58,9 +58,7 @@ class Fabrication::Schematic
       self.callbacks[type] = callbacks.clone
     end
 
-    self.attributes = original.attributes.map do |a|
-      Fabrication::Attribute.new(a.name, a.params, a.value)
-    end
+    self.attributes = original.attributes.clone
   end
 
   def init_with(*args)
@@ -71,11 +69,8 @@ class Fabrication::Schematic
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
-        if attribute = schematic.attribute(name)
-          attribute.update!(:params => nil, :value => value)
-        else
-          schematic.attributes << Fabrication::Attribute.new(name, nil, value)
-        end
+        schematic.delete_attribute(name)
+        schematic.attributes << Fabrication::Attribute.new(name, nil, value)
       end
     end
   end
@@ -90,11 +85,8 @@ class Fabrication::Schematic
       value = args.first
     end
 
-    if attr = attribute(method_name)
-      attr.update!(:params => params, :value => value)
-    else
-      attributes.push(Fabrication::Attribute.new(method_name, params, value))
-    end
+    delete_attribute(method_name)
+    attributes.push(Fabrication::Attribute.new(method_name, params, value))
   end
 
   def on_init(&block)

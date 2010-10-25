@@ -8,9 +8,4 @@ class Fabrication::Attribute
     self.value = value
   end
 
-  def update!(attrs)
-    self.params = attrs[:params] if attrs.has_key?(:params)
-    self.value = attrs[:value] if attrs.has_key?(:value)
-  end
-
 end
