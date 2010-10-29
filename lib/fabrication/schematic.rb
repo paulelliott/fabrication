@@ -3,6 +3,7 @@ class Fabrication::Schematic
   GENERATORS = [
     Fabrication::Generator::ActiveRecord,
     Fabrication::Generator::Mongoid,
+    Fabrication::Generator::Sequel,
     Fabrication::Generator::Base
   ]
 

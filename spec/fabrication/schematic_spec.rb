@@ -10,6 +10,24 @@ describe Fabrication::Schematic do
     end
   end
 
+  describe "generator selection" do
+    context "for an activerecord object" do
+      it "uses the activerecord generator" do
+        Fabrication::Schematic.new(Division).generator.should == Fabrication::Generator::ActiveRecord
+      end
+    end
+    context "for a mongoid object" do
+      it "uses the mongoid generator" do
+        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Mongoid
+      end
+    end
+    context "for a sequel object" do
+      it "uses the sequel generator" do
+        Fabrication::Schematic.new(Artist).generator.should == Fabrication::Generator::Sequel
+      end
+    end
+  end
+
   describe ".new" do
     it "stores the klass" do
       schematic.klass.should == OpenStruct
