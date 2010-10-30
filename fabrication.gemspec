@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.authors = ["Paul Elliott"]
   s.email = ["paul@hashrocket.com"]
-  s.description = "Fabrication is an object generation framework for ActiveRecord and Mongoid. It has a flexible syntax and lazily generates ActiveRecord associations!"
+  s.description = "Fabrication is an object generation framework for ActiveRecord, Mongoid, and Sequel. It has a sensible syntax and lazily generates ActiveRecord associations!"
 
   s.files = Dir.glob("{lib,spec}/**/*") + %w(README.markdown)
 

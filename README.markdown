@@ -7,6 +7,7 @@ Currently supported object types are...
 * Plain old Ruby objects
 * ActiveRecord objects
 * Mongoid Documents
+* Sequel Models
 
 By default it will lazily generate active record associations. So if you have a has_many :widgets defined, it will not actually generate the widgets until the association is accessed. You can override this by appending "!" to the name of the parameter when defining the field in the Fabricator.
 
@@ -167,3 +168,4 @@ To run rake successfully:
 * Justin Smestad (jsmestad)
 * Christopher Hanks (chanks) - Chained callbacks
 * monsterlabs - Rails 3 Generators
+* Brandon Weiss (brandonweiss) - Sequal Model support
