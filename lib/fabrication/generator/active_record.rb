@@ -12,10 +12,4 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     associations.include?(method_name.to_sym)
   end
 
-  protected
-
-  def after_generation(options)
-    instance.save if options[:save]
-  end
-
 end
