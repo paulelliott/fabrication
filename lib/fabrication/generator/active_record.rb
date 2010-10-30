@@ -32,7 +32,6 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
                 original_value = #{method_name}= @__#{method_name}_block.call(self)
               end
               @__#{method_name}_block = nil
-              @__#{method_name}_original.call
             end
             original_value
           end
