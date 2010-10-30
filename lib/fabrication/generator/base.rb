@@ -32,7 +32,7 @@ class Fabrication::Generator::Base
         count = options[:count] || 0
 
         # copy the original getter
-        instance.instance_variable_set("@__#{method_name}_original", instance.method(method_name).clone)
+        instance.instance_variable_set("@__#{method_name}_original", instance.method(method_name))
 
         # store the block for lazy generation
         instance.instance_variable_set("@__#{method_name}_block", block)
