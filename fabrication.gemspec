@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.3.7"
   s.summary = "Fabrication provides a robust solution for test object generation."
 
-  s.add_development_dependency("rspec", [">= 2.0.1"])
+  s.add_development_dependency("rspec", [">= 2.1.0"])
   s.add_development_dependency("ffaker", [">= 0.4.0"])
   s.add_development_dependency("activerecord", [">= 3.0.1"])
   s.add_development_dependency("sqlite3-ruby", [">= 1.3.1"])
