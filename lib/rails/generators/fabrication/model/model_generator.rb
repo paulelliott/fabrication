@@ -8,7 +8,7 @@ module Fabrication
       class_option :extension, :type => :string, :default => "rb", :desc => "file extension name"
 
       def create_fabrication_file
-        template 'fabricator.rb', File.join(options[:dir], "#{table_name}_fabricator.#{options[:extension].to_s}")
+        template 'fabricator.rb', File.join(options[:dir], "#{singular_table_name}_fabricator.#{options[:extension].to_s}")
       end
     end
   end
