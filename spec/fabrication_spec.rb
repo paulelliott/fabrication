@@ -383,6 +383,10 @@ describe Fabrication do
       person[:last_name].should == "Smith"
     end
 
+    it 'has the fabricator provided attributes' do
+      person[:shoes].length.should == 10
+    end
+
   end
 
 end

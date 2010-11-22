@@ -46,7 +46,7 @@ class Fabrication::Schematic
     new_schematic = merge(overrides, &block)
     new_schematic.instance_eval do
       if options[:attributes]
-        to_hash(attributes, overrides)
+        to_hash(generator.new(klass).generate({:save => false}, attributes, callbacks))
       else
         generator.new(klass).generate(options, attributes, callbacks)
       end
@@ -112,12 +112,12 @@ class Fabrication::Schematic
     Proc.new { Fabricate(name.to_sym) }
   end
 
-  def to_hash(attrs, overrides)
-    hash = defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}
-    attributes.inject(hash) do |hash, attribute|
-      value = Proc === attribute.value ? attribute.value.call : attribute.value
-      hash.merge(attribute.name => value)
-    end.merge(overrides)
+  def to_hash(object)
+    (defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}).tap do |hash|
+      attributes.map do |attribute|
+        hash[attribute.name] = object.send(attribute.name)
+      end
+    end
   end
 
 end
