@@ -1,3 +1,10 @@
+### 0.9.1 (11/21/2010) ###
+
+* Bugfix: respect fabricator provided attributes when generating with attributes_for
+* Basic support for Sequel
+* Refactoring of generator logic
+
+
 ### 0.9.0 (10/07/2010) ###
 
 * Bugfix: callbacks are copied to the local override (leshill and sandro)
