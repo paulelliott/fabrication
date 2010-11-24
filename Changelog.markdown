@@ -3,6 +3,7 @@
 * Bugfix: respect fabricator provided attributes when generating with attributes_for
 * Basic support for Sequel
 * Refactoring of generator logic
+* Singularize generated fabricator names
 
 
 ### 0.9.0 (10/07/2010) ###

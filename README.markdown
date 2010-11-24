@@ -169,3 +169,4 @@ To run rake successfully:
 * Christopher Hanks (chanks) - Chained callbacks
 * monsterlabs - Rails 3 Generators
 * Brandon Weiss (brandonweiss) - Sequal Model support
+* Tim Pope (tpope) - Singularize generated fabricator names
