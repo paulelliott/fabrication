@@ -1,3 +1,8 @@
+### 0.9.2 (11/24/2010) ###
+
+* Bugfix: Overrides should respect defined attribute generation order
+
+
 ### 0.9.1 (11/21/2010) ###
 
 * Bugfix: respect fabricator provided attributes when generating with attributes_for
