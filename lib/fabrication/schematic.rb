@@ -28,8 +28,12 @@ class Fabrication::Schematic
     attributes.select { |a| a.name == name }.first
   end
 
-  def delete_attribute(name)
-    attributes.reject! { |a| a.name == name }
+  def append_or_update_attribute(attribute)
+    if index = attributes.index { |a| a.name == attribute.name }
+      attributes[index] = attribute
+    else
+      attributes << attribute
+    end
   end
 
   attr_writer :attributes
@@ -70,8 +74,7 @@ class Fabrication::Schematic
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
-        schematic.delete_attribute(name)
-        schematic.attributes << Fabrication::Attribute.new(name, nil, value)
+        schematic.append_or_update_attribute(Fabrication::Attribute.new(name, nil, value))
       end
     end
   end
@@ -86,8 +89,7 @@ class Fabrication::Schematic
       value = args.first
     end
 
-    delete_attribute(method_name)
-    attributes.push(Fabrication::Attribute.new(method_name, params, value))
+    append_or_update_attribute(Fabrication::Attribute.new(method_name, params, value))
   end
 
   def on_init(&block)

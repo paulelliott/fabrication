@@ -122,8 +122,7 @@ describe Fabrication do
   context 'with the generation parameter' do
 
     let(:person) do
-      Fabricate(:person) do
-        first_name "Paul"
+      Fabricate(:person, :first_name => "Paul") do
         last_name { |person| "#{person.first_name}#{person.age}" }
         age 50
       end
