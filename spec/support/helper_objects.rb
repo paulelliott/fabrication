@@ -18,3 +18,11 @@ class City
     self.state = state
   end
 end
+
+class Address
+  attr_accessor :city, :state
+end
+
+class Contact
+  attr_accessor :name, :address
+end

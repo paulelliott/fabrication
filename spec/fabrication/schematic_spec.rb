@@ -180,4 +180,20 @@ describe Fabrication::Schematic do
       end
     end
   end
+
+  context "when overriding" do
+    let(:address) { Address.new }
+
+    it "symbolizes attribute keys" do
+      Fabricator(:address) do
+        city { raise 'should not be called' }
+      end
+      Fabricator(:contact) do
+        address
+      end
+      lambda do
+        Fabricate(:contact, 'address' => address)
+      end.should_not raise_error(RuntimeError)
+    end
+  end
 end
