@@ -22,7 +22,7 @@ describe Fabrication::Generator::ActiveRecord do
     before { generator.send(:instance=, instance) }
 
     it "saves with a true save flag" do
-      instance.should_receive(:save)
+      instance.should_receive(:save!)
       generator.send(:after_generation, {:save => true})
     end
 
