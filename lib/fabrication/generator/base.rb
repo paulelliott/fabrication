@@ -65,7 +65,7 @@ class Fabrication::Generator::Base
   attr_accessor :klass, :instance
 
   def after_generation(options)
-    instance.save if options[:save] && instance.respond_to?(:save)
+    instance.save! if options[:save] && instance.respond_to?(:save!)
   end
 
   def assign(method_name, param)
