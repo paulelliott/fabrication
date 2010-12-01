@@ -1,3 +1,8 @@
+### 0.9.3 - The Les/Tim release (12/01/2010) ###
+
+* Fail with an error when Fabricating an object fails validation
+* Allow mixed use of strings and symbols for attribute names
+
 ### 0.9.2 (11/24/2010) ###
 
 * Bugfix: Overrides should respect defined attribute generation order
