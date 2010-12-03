@@ -1,3 +1,7 @@
+### 0.9.4 (12/02/2010) ###
+
+* Bundle cucumber steps with gem (installable via a generator)
+
 ### 0.9.3 - The Les/Tim release (12/01/2010) ###
 
 * Fail with an error when Fabricating an object fails validation
