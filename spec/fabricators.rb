@@ -11,6 +11,7 @@ Fabricator(:location) do
   lat 35
   lng 40
 end
+Fabricator(:interesting_location, :from => :location)
 
 Fabricator(:person) do
   first_name "John"

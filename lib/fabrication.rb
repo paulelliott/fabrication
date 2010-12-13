@@ -57,3 +57,9 @@ class Fabricate
   end
 
 end
+
+class Fabricator
+  def self.name_for(name)
+    Fabrication::Support.name_for(name)
+  end
+end
