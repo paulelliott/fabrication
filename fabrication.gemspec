@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.summary = "Fabrication provides a robust solution for test object generation."
 
   s.add_development_dependency("rspec", [">= 2.2.0"])
+  s.add_development_dependency("cucumber", [">= 0.10.0"])
   s.add_development_dependency("ffaker", [">= 0.4.0"])
   s.add_development_dependency("activerecord", [">= 3.0.3"])
   s.add_development_dependency("sqlite3-ruby", ["= 1.3.1"])
