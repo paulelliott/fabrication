@@ -43,7 +43,7 @@ class Fabrication::Fabricator
 end
 
 # Adds support for reload! in the Rails 2.3.x console
-if defined? ActionController and ActionController::Dispatcher.respond_to? :reload_application
+if defined? ActionController::Dispatcher and ActionController::Dispatcher.respond_to? :reload_application
   ActionController::Dispatcher.to_prepare :fabrication do
     Fabrication.clear_definitions
   end
