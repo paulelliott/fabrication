@@ -48,13 +48,21 @@ They are really easy to configure! Just add this to your `config/application.rb`
 
 Packaged with the gem is a generator which will load some handy cucumber table steps into your step_definitions folder. You can get them by running `rails g fabrication:cucumber_steps`.
 
-To generating a single "widget" object (expecting a Fabricator(:widget) to be defined):
+To generate a single "widget" object (expecting a Fabricator(:widget) to be defined):
+
+    Given 1 widget
+
+To generate a single "widget" object with specified attributes:
 
     Given the following widget:
       | name  | widget_1 |
       | color | red      |
 
 To generate multiple "widget" objects:
+
+    Given 10 widgets
+
+To generate multiple "widget" objects with specified attributes:
 
     Given the following widgets:
       | name     | color |

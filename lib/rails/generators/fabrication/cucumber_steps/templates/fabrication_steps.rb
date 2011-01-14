@@ -1,6 +1,6 @@
 module FabricationMethods
   def create_from_table(model_name, table, extra = {})
-    fabricator_name = model_name.gsub(/\W+/, '_').downcase.singularize.to_sym
+    fabricator_name = generate_fabricator_name(model_name)
     is_singular = model_name.to_s.singularize == model_name.to_s
     hashes = if is_singular
                [table.rows_hash]
@@ -19,9 +19,27 @@ module FabricationMethods
       instance_variable_set("@#{fabricator_name}", @it)
     end
   end
+
+  def create_with_default_attributes(model_name, count, extra = {})
+    fabricator_name = generate_fabricator_name(model_name)
+    is_singular = count == 1
+    @they = count.times.map { Fabricate(fabricator_name, extra) }
+    if is_singular
+      @it = @they.last
+      instance_variable_set("@#{fabricator_name}", @it)
+    end
+  end
+
+  def generate_fabricator_name(model_name)
+    model_name.gsub(/\W+/, '_').downcase.singularize.to_sym
+  end
 end
 
 World(FabricationMethods)
+
+Given %r{^(\d+) ([\w\s]+)$} do |count, model_name|
+  create_with_default_attributes(model_name, count.to_i)
+end
 
 Given %r{^the following ([\w\s]+):$} do |model_name, table|
   create_from_table(model_name, table)
