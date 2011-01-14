@@ -7,6 +7,9 @@ load 'spec/support/sequel.rb'
 
 Before do
   TestMigration.up
+  Fabrication.clear_definitions
+  Fabrication::Support.find_definitions
+  Fabricator(:company)
 end
 
 After do

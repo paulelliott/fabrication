@@ -14,3 +14,14 @@ Feature: Active Record Objects
     Then they should be persisted
     And the first should have "Red Squadron" for a "name"
     And the second should have "Yellow Squadron" for a "name"
+
+  Scenario: a parented single detailed object
+    Given the following company:
+      | name | Hashrocket |
+    And that company has the following division:
+      | name | Everyone |
+    Then that company should be persisted
+    And that company should have "Hashrocket" for a "name"
+    And that division should be persisted
+    And that division should have "Everyone" for a "name"
+    And that division should reference that company

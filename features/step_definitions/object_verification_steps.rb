@@ -23,3 +23,9 @@ Then /^the ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |ordindal, value, 
   object = @they[ORDINALS[ordindal]]
   object.send(field).should == value
 end
+
+Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|
+  parent = instance_variable_get("@#{parent_name}")
+  child = instance_variable_get("@#{child_name}")
+  child.send(parent_name).should == parent
+end
