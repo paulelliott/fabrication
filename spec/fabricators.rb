@@ -42,7 +42,7 @@ end
 Fabricator(:author) do
   name 'George Orwell'
   books(:count => 4) do |author, i|
-    Fabricate(:book, :title => "book title #{i}", :author => author)
+    Fabricate.build(:book, :title => "book title #{i}", :author => author)
   end
 end
 
