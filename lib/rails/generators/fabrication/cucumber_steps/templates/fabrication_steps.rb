@@ -23,11 +23,11 @@ end
 
 World(FabricationMethods)
 
-Given %r{^the following (.+):$} do |model_name, table|
+Given %r{^the following ([\w\s]+):$} do |model_name, table|
   create_from_table(model_name, table)
 end
 
-Given %r{^that (.+) has the following (.+):$} do |parent, child, table|
+Given %r{^that ([\w\s]+) has the following ([\w\s]+):$} do |parent, child, table|
   child= child.gsub(/\W+/,'_')
   is_child_plural = child.pluralize == child
   parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
