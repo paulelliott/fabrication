@@ -1,4 +1,3 @@
-require 'active_support'
 require 'fabrication'
 load 'lib/rails/generators/fabrication/cucumber_steps/templates/fabrication_steps.rb'
 load 'spec/support/active_record.rb'
