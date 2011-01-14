@@ -9,12 +9,6 @@ def clear_mongodb
   Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
 end
 
-Rspec.configure do |config|
-  config.before(:all) do
-    clear_mongodb
-  end
-end
-
 class Author
   include Mongoid::Document
 
