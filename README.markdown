@@ -204,3 +204,4 @@ To run rake successfully:
 * monsterlabs - Rails 3 Generators
 * Brandon Weiss (brandonweiss) - Sequal Model support
 * Tim Pope (tpope) - Singularize generated fabricator names
+* hakanensari - Default attribute cucumber steps
