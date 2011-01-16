@@ -6,6 +6,7 @@ load 'spec/support/mongoid.rb'
 load 'spec/support/sequel.rb'
 
 Before do
+  clear_mongodb
   TestMigration.up
   Fabrication.clear_definitions
   Fabrication::Support.find_definitions
