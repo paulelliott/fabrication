@@ -19,6 +19,13 @@ Then /^they should be persisted$/ do
   end
 end
 
+Then /^they should reference that ([^"]*)$/ do |parent_name|
+  parent = instance_variable_get("@#{parent_name}")
+  @they.each do |object|
+    object.send(parent_name).should == parent
+  end
+end
+
 Then /^the ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |ordindal, value, field|
   object = @they[ORDINALS[ordindal]]
   object.send(field).should == value

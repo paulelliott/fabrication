@@ -69,6 +69,6 @@ end
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
   parent_instance = instance_variable_get("@#{parent}")
-  child = child.gsub(/\W+/,'_').downcase.singularize
+  child = child.gsub(/\W+/,'_').downcase
   create_from_table(child, table, parent => parent_instance)
 end
