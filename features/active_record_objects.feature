@@ -20,12 +20,10 @@ Feature: Active Record Objects
     And the second should have "Yellow Squadron" for a "name"
 
   Scenario: a parented single detailed object
-    Given the following company:
-      | name | Hashrocket |
+    Given 1 company
     And that company has the following division:
       | name | Everyone |
     Then that company should be persisted
-    And that company should have "Hashrocket" for a "name"
     And that division should be persisted
     And that division should have "Everyone" for a "name"
     And that division should reference that company
