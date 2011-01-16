@@ -1,5 +1,9 @@
 Feature: Active Record Objects
 
+  Scenario: for some generic objects
+    Given 5 divisions
+    Then there should be 5 divisions
+
   Scenario: a single detailed object
     Given the following division:
       | name | Rasczak's Roughnecks |
