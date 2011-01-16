@@ -58,15 +58,15 @@ end
 
 World(FabricationMethods)
 
-Given %r{^(\d+) ([\w\s]+)$} do |count, model_name|
+Given /^(\d+) ([^"]*)$/ do |count, model_name|
   create_with_default_attributes(model_name, count.to_i)
 end
 
-Given %r{^the following ([\w\s]+):$} do |model_name, table|
+Given /^the following ([^"]*):$/ do |model_name, table|
   create_from_table(model_name, table)
 end
 
-Given %r{^that ([\w\s]+) has the following ([\w\s]+):$} do |parent, child, table|
+Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   child= child.gsub(/\W+/,'_')
   is_child_plural = child.pluralize == child
   parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
