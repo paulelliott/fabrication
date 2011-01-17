@@ -2,11 +2,7 @@ module FabricationMethods
   def create_from_table(model_name, table, extra = {})
     fabricator_name = generate_fabricator_name(model_name)
     is_singular = model_name.to_s.singularize == model_name.to_s
-    hashes = if is_singular
-               [table.rows_hash]
-             else
-               table.hashes
-             end
+    hashes = is_singular ? [table.rows_hash] : table.hashes
     @they = hashes.map do |hash|
       hash = hash.merge(extra).inject({}) {|h,(k,v)| h.update(k.gsub(/\W+/,'_').to_sym => v)}
       object = Fabricate.build(fabricator_name, hash)
