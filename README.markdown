@@ -11,14 +11,6 @@ Currently supported object types are...
 
 By default it will lazily generate active record associations. So if you have a has_many :widgets defined, it will not actually generate the widgets until the association is accessed. You can override this by appending "!" to the name of the parameter when defining the field in the Fabricator.
 
-### Important Thing To Note! ###
-
-If you are fabricating an activerecord backed object and it has attributes that are not columns in the underlying table, Fabrication will lazily generate them even if they are not defined associations. You can easily work around this by adding a "!" to the end of the attribute definition in the Fabricator.
-
-    Fabricator(:user) do
-      some_delegated_something_or_other! { Fabricate(:something) }
-    end
-
 ### Installation ###
 
 Add this to your gemfile.
@@ -76,7 +68,7 @@ To generate "wockets" nested within "widget" objects:
       | title    | Amazing |
       | category | fancy   |
 
-That will use the most recently defined "widget" and pass it into the Fabricator. That obviously requires your "wocket" to have a setter for a "widget".
+That will use the most recently defined "widget" and pass it into the Fabricator. That requires your "wocket" to have a setter for a "widget".
 
 ### Usage ###
 
