@@ -33,27 +33,6 @@ module FabricationMethods
   def generate_fabricator_name(model_name)
     model_name.gsub(/\W+/, '_').downcase.singularize.to_sym
   end
-
-  def normalize_table_hash(hash)
-    hash.inject({}) do |hash, key_value|
-      key, value = key_value
-      key = key.gsub(/\W+/, '_')
-      hash[key] =
-        case value
-        when "nil"
-          nil
-        when /^true|false$/i
-          value.downcase == "true"
-        when  /^[\d,]+$/
-          value.tr(',', '').to_i
-        when  /^[\d.,]+$/
-          value.tr(',', '').to_f
-        else
-          value
-        end
-      hash
-    end
-  end
 end
 
 World(FabricationMethods)
