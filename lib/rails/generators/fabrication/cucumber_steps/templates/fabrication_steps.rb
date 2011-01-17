@@ -5,10 +5,7 @@ module FabricationMethods
     hashes = is_singular ? [table.rows_hash] : table.hashes
     @they = hashes.map do |hash|
       hash = hash.merge(extra).inject({}) {|h,(k,v)| h.update(k.gsub(/\W+/,'_').to_sym => v)}
-      object = Fabricate.build(fabricator_name, hash)
-      yield object if block_given?
-      object.save!
-      object
+      Fabricate(fabricator_name, hash)
     end
     if is_singular
       @it = @they.last
