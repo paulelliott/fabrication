@@ -1,3 +1,10 @@
+### 0.9.5 (01/17/2010) ###
+
+* Refactor cucumber step support code
+* Add default object construction cucumber step (hakanensari)
+
+NOTE: Be sure to run `rails generate fabrication:cucumber_steps` after upgrading!
+
 ### 0.9.4 (12/02/2010) ###
 
 * Bundle cucumber steps with gem (installable via a generator)
