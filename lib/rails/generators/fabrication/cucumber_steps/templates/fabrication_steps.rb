@@ -70,5 +70,12 @@ Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
   parent_instance = instance_variable_get("@#{parent}")
   child = child.gsub(/\W+/,'_').downcase
+
+  child_class = Fabrication::Support.class_for(child.singularize)
+  unless child_class.new.respond_to?("#{parent}=")
+    parent = parent.pluralize
+    parent_instance = [parent_instance]
+  end
+
   create_from_table(child, table, parent => parent_instance)
 end

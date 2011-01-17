@@ -27,3 +27,12 @@ Feature: Active Record Objects
     And that division should be persisted
     And that division should have "Everyone" for a "name"
     And that division should reference that company
+
+  Scenario: a parent from the child
+    Given 1 division
+    And that division has the following company:
+      | name | Hashrocket |
+    Then that company should be persisted
+    And that division should be persisted
+    And that company should have "Hashrocket" for a "name"
+    And that division should reference that company
