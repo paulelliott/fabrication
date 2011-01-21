@@ -40,21 +40,21 @@ They are really easy to configure! Just add this to your `config/application.rb`
 
 Packaged with the gem is a generator which will load some handy cucumber table steps into your step_definitions folder. You can get them by running `rails g fabrication:cucumber_steps`.
 
-To generate a single "widget" object (expecting a Fabricator(:widget) to be defined):
+To generate a single "widget" object, expecting a Fabricator(:widget) to be defined:
 
     Given 1 widget
 
-To generate a single "widget" object with specified attributes:
+To generate a single "widget" with specified attributes:
 
     Given the following widget:
       | name  | widget_1 |
       | color | red      |
 
-To generate multiple "widget" objects:
+To generate multiple "widgets":
 
     Given 10 widgets
 
-To generate multiple "widget" objects with specified attributes:
+To generate multiple "widgets" with specified attributes:
 
     Given the following widgets:
       | name     | color |
@@ -62,13 +62,21 @@ To generate multiple "widget" objects with specified attributes:
       | widget_2 | blue  |
       ...
 
-To generate "wockets" nested within "widget" objects:
+To generate "wockets" nested within "widgets":
+
+    And that widget has 10 wockets
+
+To generate "wockets" with specified attributes within "widgets":
 
     And that widget has the following wocket:
       | title    | Amazing |
       | category | fancy   |
 
 That will use the most recently defined "widget" and pass it into the Fabricator. That requires your "wocket" to have a setter for a "widget".
+
+In more complex cases where you have already created "widgets" and "wockets" and associated them with other objects, to set up an association between the former two:
+
+    And that wocket belongs to that widget
 
 ### Usage ###
 
