@@ -175,20 +175,20 @@ describe Fabrication do
     after  { TestMigration.down }
 
     before(:all) do
-      Fabricator(:company) do
+      Fabricator(:main_company, :from => :company) do
         name { Faker::Company.name }
         divisions!(:count => 4)
         non_field { "hi" }
         after_create { |o| o.update_attribute(:city, "Jacksonville Beach") }
       end
 
-      Fabricator(:other_company, :from => :company) do
+      Fabricator(:other_company, :from => :main_company) do
         divisions(:count => 2)
         after_build { |o| o.name = "Crazysauce" }
       end
     end
 
-    let(:company) { Fabricate(:company, :name => "Hashrocket") }
+    let(:company) { Fabricate(:main_company, :name => "Hashrocket") }
     let(:other_company) { Fabricate(:other_company) }
 
     it 'generates field blocks immediately' do
