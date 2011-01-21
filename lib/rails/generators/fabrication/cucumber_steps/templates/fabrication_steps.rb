@@ -26,6 +26,11 @@ module FabricationMethods
   def generate_fabricator_name(model_name)
     model_name.gsub(/\W+/, '_').downcase.singularize.to_sym
   end
+
+  def get_class(model_name)
+    fabricator_name = generate_fabricator_name(model_name)
+    Fabrication::Fabricator.schematics[fabricator_name].klass
+  end
 end
 
 World(FabricationMethods)
@@ -41,13 +46,15 @@ end
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
   parent_instance = instance_variable_get("@#{parent}")
+  parent_class = get_class(parent)
+  parent_class_name = parent_class.to_s.downcase
   child = child.gsub(/\W+/,'_').downcase
 
-  child_class = Fabrication::Support.class_for(child.singularize)
-  if child_class && !child_class.new.respond_to?("#{parent}=")
-    parent = parent.pluralize
+  child_class = get_class(child)
+  if child_class && !child_class.new.respond_to?("#{parent_class_name}=")
+    parent_class_name = parent_class_name.pluralize
     parent_instance = [parent_instance]
   end
 
-  create_from_table(child, table, parent => parent_instance)
+  create_from_table(child, table, parent_class_name => parent_instance)
 end

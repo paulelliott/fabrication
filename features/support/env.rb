@@ -10,7 +10,9 @@ Before do
   TestMigration.up
   Fabrication.clear_definitions
   Fabrication::Support.find_definitions
+  Fabricator(:squadron, :from => :division)
   Fabricator(:company)
+  Fabricator(:startup, :from => :company)
 end
 
 After do

@@ -21,8 +21,11 @@ end
 
 Then /^they should reference that ([^"]*)$/ do |parent_name|
   parent = instance_variable_get("@#{parent_name}")
+  parent_class = get_class(parent_name)
+  parent_class_name = parent_class.to_s.downcase
+
   @they.each do |object|
-    object.send(parent_name).should == parent
+    object.send(parent_class_name).should == parent
   end
 end
 
@@ -33,8 +36,10 @@ end
 
 Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|
   parent = instance_variable_get("@#{parent_name}")
+  parent_class = get_class(parent_name)
+  parent_class_name = parent_class.to_s.downcase
   child = instance_variable_get("@#{child_name}")
-  child.send(parent_name).should == parent
+  child.send(parent_class_name).should == parent
 end
 
 Then /^there should be (\d+) ([^"]*)$/ do |count, class_name|
