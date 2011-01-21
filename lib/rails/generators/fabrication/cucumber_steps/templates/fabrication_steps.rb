@@ -10,6 +10,8 @@ module FabricationMethods
     if is_singular
       @it = @they.last
       instance_variable_set("@#{fabricator_name}", @it)
+    else
+      instance_variable_set("@#{fabricator_name.to_s.pluralize}", @they)
     end
   end
 
@@ -20,6 +22,8 @@ module FabricationMethods
     if is_singular
       @it = @they.last
       instance_variable_set("@#{fabricator_name}", @it)
+    else
+      instance_variable_set("@#{fabricator_name.to_s.pluralize}", @they)
     end
   end
 
@@ -73,4 +77,15 @@ Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
   end
 
   create_with_default_attributes(child, count.to_i, parent_class_name => parent_instance)
+end
+
+Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |child_or_children, parent|
+  child_or_children_instance = instance_variable_get("@#{child_or_children}")
+  parent_instance = instance_variable_get("@#{parent}")
+  parent_class = get_class(parent)
+  parent_class_name = parent_class.to_s.downcase
+  [child_or_children_instance].flatten.each do |child_instance|
+    child_instance.send("#{parent_class_name}=", parent_instance)
+    child_instance.save
+  end
 end

@@ -114,3 +114,19 @@ Feature: Active Record Objects
     And that startup should have "Hashrocket" for a "name"
     And that division should reference that startup
 
+  Scenario: a child belongs to a parent
+    Given 1 company
+    And 1 division
+    And that division belongs to that company
+    Then that company should be persisted
+    And that division should be persisted
+    And that division should reference that company
+
+  Scenario: children belong to a parent
+    Given 1 company
+    And 2 divisions
+    And those divisions belong to that company
+    Then that company should be persisted
+    And they should be persisted
+    And they should reference that company
+
