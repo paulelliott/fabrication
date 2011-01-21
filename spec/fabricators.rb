@@ -39,6 +39,12 @@ Fabricator(:division) do
   name "Division Name"
 end
 
+Fabricator(:squadron, :from => :division)
+
+Fabricator(:company)
+Fabricator(:startup, :from => :company)
+
+
 # Mongoid Documents
 Fabricator(:author) do
   name 'George Orwell'
