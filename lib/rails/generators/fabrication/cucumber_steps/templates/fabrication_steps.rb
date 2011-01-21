@@ -48,7 +48,7 @@ Given /^the following ([^"]*):$/ do |model_name, table|
 end
 
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
-  parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
+  parent = parent.gsub(/\W+/,'_').downcase
   parent_instance = instance_variable_get("@#{parent}")
   parent_class = get_class(parent)
   parent_class_name = parent_class.to_s.downcase
@@ -64,7 +64,7 @@ Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
 end
 
 Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
-  parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
+  parent = parent.gsub(/\W+/,'_').downcase
   parent_instance = instance_variable_get("@#{parent}")
   parent_class = get_class(parent)
   parent_class_name = parent_class.to_s.downcase
@@ -80,7 +80,7 @@ Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
 end
 
 Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |child_or_children, parent|
-  parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
+  parent = parent.gsub(/\W+/,'_').downcase
   parent_instance = instance_variable_get("@#{parent}")
   parent_class = get_class(parent)
   parent_class_name = parent_class.to_s.downcase
