@@ -19,6 +19,13 @@ Feature: Active Record Objects
     And the first should have "Red Squadron" for a "name"
     And the second should have "Yellow Squadron" for a "name"
 
+  Scenario: a parented single generic object
+    Given 1 company
+    And that company has 1 division
+    Then that company should be persisted
+    And that division should be persisted
+    And that division should reference that company
+
   Scenario: a parented single detailed object
     Given 1 company
     And that company has the following division:
@@ -81,6 +88,13 @@ Feature: Active Record Objects
     And the first should have "Red Squadron" for a "name"
     And the second should have "Yellow Squadron" for a "name"
     And they should reference that startup
+
+  Scenario: a generic parent from the child
+    Given 1 division
+    And that division has 1 company
+    Then that company should be persisted
+    And that division should be persisted
+    And that division should reference that company
 
   Scenario: a detailed parent from the child
     Given 1 division

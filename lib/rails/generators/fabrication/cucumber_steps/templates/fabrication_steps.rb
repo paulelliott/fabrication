@@ -58,3 +58,19 @@ Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
 
   create_from_table(child, table, parent_class_name => parent_instance)
 end
+
+Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
+  parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
+  parent_instance = instance_variable_get("@#{parent}")
+  parent_class = get_class(parent)
+  parent_class_name = parent_class.to_s.downcase
+  child = child.gsub(/\W+/,'_').downcase
+
+  child_class = get_class(child)
+  if child_class && !child_class.new.respond_to?("#{parent_class_name}=")
+    parent_class_name = parent_class_name.pluralize
+    parent_instance = [parent_instance]
+  end
+
+  create_with_default_attributes(child, count.to_i, parent_class_name => parent_instance)
+end
