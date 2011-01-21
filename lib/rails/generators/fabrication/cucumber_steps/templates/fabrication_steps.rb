@@ -80,10 +80,13 @@ Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
 end
 
 Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |child_or_children, parent|
-  child_or_children_instance = instance_variable_get("@#{child_or_children}")
+  parent = parent.gsub(/\W+/,'_').downcase.sub(/^_/, '')
   parent_instance = instance_variable_get("@#{parent}")
   parent_class = get_class(parent)
   parent_class_name = parent_class.to_s.downcase
+  child_or_children = child_or_children.gsub(/\W+/,'_').downcase
+
+  child_or_children_instance = instance_variable_get("@#{child_or_children}")
   [child_or_children_instance].flatten.each do |child_instance|
     child_instance.send("#{parent_class_name}=", parent_instance)
     child_instance.save
