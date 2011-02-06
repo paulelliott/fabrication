@@ -10,6 +10,12 @@ Feature: Mongoid Objects
     Then that author should be persisted
     And that author should have "George Orwell" for a "name"
 
+  Scenario: a single detailed object with a multi-word name
+    Given the following publishing house:
+      | name | Random House |
+    Then that publishing house should be persisted
+    And that publishing house should have "Random House" for a "name"
+
   Scenario: multiple detailed objects
     Given the following authors:
       | name             |

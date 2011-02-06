@@ -4,12 +4,12 @@ ORDINALS = {
 }
 
 Then /^that ([^"]*) should be persisted$/ do |object_name|
-  object = instance_variable_get("@#{object_name}")
+  object = instance_variable_get("@#{object_name.gsub(/ /, "_")}")
   object.should be_persisted
 end
 
 Then /^that ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |object_name, value, field|
-  object = instance_variable_get("@#{object_name}")
+  object = instance_variable_get("@#{object_name.gsub(/ /, "_")}")
   object.send(field).should == value
 end
 
@@ -20,7 +20,7 @@ Then /^they should be persisted$/ do
 end
 
 Then /^they should reference that ([^"]*)$/ do |parent_name|
-  parent = instance_variable_get("@#{parent_name}")
+  parent = instance_variable_get("@#{parent_name.gsub(/ /, "_")}")
   parent_class = get_class(parent_name)
   parent_class_name = parent_class.to_s.downcase
 

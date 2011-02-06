@@ -60,3 +60,5 @@ end
 Fabricator(:book) do
   title "book title"
 end
+
+Fabricator(:publishing_house)

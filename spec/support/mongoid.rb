@@ -25,3 +25,9 @@ class Book
 
   embedded_in :author, :inverse_of => :books
 end
+
+class PublishingHouse
+  include Mongoid::Document
+
+  field :name
+end

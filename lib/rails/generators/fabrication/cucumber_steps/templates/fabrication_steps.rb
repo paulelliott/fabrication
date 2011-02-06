@@ -6,7 +6,7 @@ module FabricationMethods
     is_singular = model_name.to_s.singularize == model_name.to_s
     hashes = is_singular ? [table.rows_hash] : table.hashes
     @they = hashes.map do |hash|
-      hash = hash.merge(extra).inject({}) {|h,(k,v)| h.update(k.gsub(/\W+/,'_').to_sym => v)}
+      hash = parameterize_hash(hash.merge(extra))
       Fabricate(fabricator_name, hash)
     end
     instantize(fabricator_name, is_singular)
@@ -40,6 +40,10 @@ module FabricationMethods
     else
       instance_variable_set("@#{fabricator_name.to_s.pluralize}", @they)
     end
+  end
+
+  def parameterize_hash(hash)
+    hash.inject({}) {|h,(k,v)| h.update(dehumanize(k).to_sym => v)}
   end
 
   def parentship(parent, child)
