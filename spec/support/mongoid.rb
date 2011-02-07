@@ -29,5 +29,15 @@ end
 class PublishingHouse
   include Mongoid::Document
 
+  embeds_many :book_promoters
+
+  field :name
+end
+
+class BookPromoter
+  include Mongoid::Document
+
+  embedded_in :publishing_house
+
   field :name
 end

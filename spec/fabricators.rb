@@ -62,3 +62,4 @@ Fabricator(:book) do
 end
 
 Fabricator(:publishing_house)
+Fabricator(:book_promoter)

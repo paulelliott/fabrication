@@ -50,7 +50,7 @@ module FabricationMethods
     parent = dehumanize(parent)
     parent_instance = instance_variable_get("@#{parent}")
     parent_class = get_class(parent)
-    parent_class_name = parent_class.to_s.downcase
+    parent_class_name = parent_class.to_s.underscore
 
     child = dehumanize(child)
     child_class = get_class(child)
