@@ -35,10 +35,6 @@ class Fabrication::Support
       end
     end
 
-    def name_for(name)
-      name.gsub(" ", "_").singularize.to_sym
-    end
-
   end
 
 end

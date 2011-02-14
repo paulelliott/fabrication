@@ -51,30 +51,4 @@ describe Fabrication::Support do
 
   end
 
-  describe ".name_for" do
-
-    context "whitespace delimited" do
-      context "singular" do
-        subject { Fabrication::Support.name_for("interesting location") }
-        it { should == :interesting_location }
-      end
-      context "plural" do
-        subject { Fabrication::Support.name_for("interesting locations") }
-        it { should == :interesting_location }
-      end
-    end
-
-    context "underscored" do
-      context "singular" do
-        subject { Fabrication::Support.name_for("interesting_location") }
-        it { should == :interesting_location }
-      end
-      context "plural" do
-        subject { Fabrication::Support.name_for("interesting_locations") }
-        it { should == :interesting_location }
-      end
-    end
-
-  end
-
 end
