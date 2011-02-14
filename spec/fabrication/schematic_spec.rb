@@ -17,13 +17,13 @@ describe Fabrication::Schematic do
       end
     end
     context "for a mongoid object" do
-      it "uses the mongoid generator" do
-        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Mongoid
+      it "uses the base generator" do
+        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Base
       end
     end
     context "for a sequel object" do
-      it "uses the sequel generator" do
-        Fabrication::Schematic.new(Artist).generator.should == Fabrication::Generator::Sequel
+      it "uses the base generator" do
+        Fabrication::Schematic.new(Artist).generator.should == Fabrication::Generator::Base
       end
     end
   end
