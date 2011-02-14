@@ -1,6 +1,6 @@
 ### Fabrication ###
 
-Fabrication is an object generation library. It allows you to define Fabricators that are essentially the schematic for objects you want to generate. You can then generate them as needed anywhere in your app or specs.
+Fabrication is an object generation library. It allows you to define Fabricators, which are the schematics for objects you want to generate. You can then Fabricate objects as needed anywhere in your app or specs.
 
 Currently supported object types are...
 
@@ -17,23 +17,32 @@ Add this to your gemfile.
 
 `gem 'fabrication'`
 
-Now you can define fabricators in any of the following locations.
-
-* `spec/fabricators.rb`
-* `spec/fabricators/*.rb`
-
-* `test/fabricators.rb`
-* `test/fabricators/*.rb`
-
-They are automatically loaded, so no additional requires are necessary.
+Now you can define fabricators in either `spec/fabricators/*.rb` or `test/fabricators/*.rb`. They are automatically loaded, so no additional requires are necessary.
 
 ### Rails 3 Generators ###
 
-They are really easy to configure! Just add this to your `config/application.rb`:
+In your `config/application.rb` add this if you are using rspec
 
     config.generators do |g|
       g.test_framework      :rspec, :fixture => true
-      g.fixture_replacement :fabrication, :dir => "spec/fabricators"
+      g.fixture_replacement :fabrication
+    end
+
+And this if you are using test/unit:
+
+    config.generators do |g|
+      g.fixture_replacement :fabrication, :dir => "test/fabricators"
+    end
+
+Once it is setup, a fabricator will be generated when you generate a model.
+
+    rails generate model widget
+
+Will produce:
+
+    spec/fabricators/widget_fabricator.rb
+
+    Fabricator(:widget) do
     end
 
 ### Cucumber Steps ###
@@ -98,13 +107,11 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 * After the object is built but before it is saved, it will update the name to "Another Fun Factory".
 * After the object is created, it will update the "ceo" association with a new "drone" record.
 
-
 For a class with required arguments in its constructor, use the `on_init` method:
 
     Fabricator(:location) do
       on_init { init_with(30.284167, -81.396111) }
     end
-
 
 ### Inheritance ###
 
