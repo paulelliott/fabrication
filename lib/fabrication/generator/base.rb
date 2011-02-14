@@ -56,7 +56,7 @@ class Fabrication::Generator::Base
         assign(method_name, options, &block)
       end
     else
-      assign(method_name, args.first)
+      assign(method_name, {}, args.first)
     end
   end
 
@@ -68,13 +68,13 @@ class Fabrication::Generator::Base
     instance.save! if options[:save] && instance.respond_to?(:save!)
   end
 
-  def assign(method_name, param)
-    if param.is_a?(Hash) && param.has_key?(:count)
-      value = (1..param[:count]).map do |i|
-        block_given? ? yield(instance, i) : param
+  def assign(method_name, options, raw_value=nil)
+    if options.has_key?(:count)
+      value = (1..options[:count]).map do |i|
+        block_given? ? yield(instance, i) : raw_value
       end
     else
-      value = block_given? ? yield(instance) : param
+      value = block_given? ? yield(instance) : raw_value
     end
     instance.send("#{method_name}=", value)
   end
