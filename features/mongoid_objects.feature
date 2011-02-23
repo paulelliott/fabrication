@@ -43,6 +43,14 @@ Feature: Mongoid Objects
     And that book promoter should have "Vinnie" for a "name"
     And that book promoter should reference that publishing house
 
+  Scenario: a multi-word child belongs to a multi-word parent
+    Given 1 publishing house
+    And 1 book promoter
+    And that book promoter belongs to that publishing house
+    Then that publishing house should be persisted
+    And that book promoter should be persisted
+    And that book promoter should reference that publishing house
+
   Scenario: multiple parented detailed objects
     Given 1 author
     And that author has the following books:
