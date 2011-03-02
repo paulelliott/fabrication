@@ -69,6 +69,23 @@ describe Fabrication::Generator::Base do
       end
     end
 
+    context "using an after_create hook" do
+      let(:schematic) do
+        Fabrication::Schematic.new(Person) do
+          first_name "Guy"
+          after_create { |k| k.first_name.upcase! }
+        end
+      end
+
+      it "calls after_create when generated with saving" do
+        schematic.generate(:save => true).first_name.should == "GUY"
+      end
+
+      it "does not call after_create when generated without saving" do
+        schematic.generate(:save => false).first_name.should == "Guy"
+      end
+    end
+
   end
 
   describe "#after_generation" do

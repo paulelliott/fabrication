@@ -13,7 +13,7 @@ class Fabrication::Generator::Base
 
     callbacks[:after_build].each { |callback| callback.call(instance) } if callbacks[:after_build]
     after_generation(options)
-    callbacks[:after_create].each { |callback| callback.call(instance) } if callbacks[:after_create]
+    callbacks[:after_create].each { |callback| callback.call(instance) } if callbacks[:after_create] && options[:save]
 
     instance
   end
