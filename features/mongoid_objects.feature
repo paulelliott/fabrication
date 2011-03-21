@@ -45,11 +45,11 @@ Feature: Mongoid Objects
 
   Scenario: a multi-word child belongs to a multi-word parent
     Given 1 publishing house
-    And 1 book promoter
-    And that book promoter belongs to that publishing house
+    And 1 professional affiliation
+    And that publishing house belongs to that professional affiliation
     Then that publishing house should be persisted
-    And that book promoter should be persisted
-    And that book promoter should reference that publishing house
+    And that professional affiliation should be persisted
+    And that publishing house should reference that professional affiliation
 
   Scenario: multiple parented detailed objects
     Given 1 author

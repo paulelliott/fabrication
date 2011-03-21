@@ -29,6 +29,7 @@ end
 class PublishingHouse
   include Mongoid::Document
 
+  referenced_in :professional_affiliation
   embeds_many :book_promoters
 
   field :name
@@ -40,4 +41,10 @@ class BookPromoter
   embedded_in :publishing_house
 
   field :name
+end
+
+class ProfessionalAffiliation
+  include Mongoid::Document
+
+  references_many :publishing_houses
 end

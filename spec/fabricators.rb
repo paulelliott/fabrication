@@ -63,3 +63,4 @@ end
 
 Fabricator(:publishing_house)
 Fabricator(:book_promoter)
+Fabricator(:professional_affiliation)
