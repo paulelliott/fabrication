@@ -67,6 +67,11 @@ describe Fabrication do
     its(:state) { should == 'FL' }
   end
 
+  context 'with a class in a module' do
+    subject { Fabricate("Something::Amazing", stuff: "things") }
+    its(:stuff) { should == "things" }
+  end
+
   context "when referring to other fabricators" do
 
     let(:person) { Fabricate(:person) }

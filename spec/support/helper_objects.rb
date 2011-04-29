@@ -26,3 +26,9 @@ end
 class Contact
   attr_accessor :name, :address
 end
+
+module Something
+  class Amazing
+    attr_accessor :stuff
+  end
+end

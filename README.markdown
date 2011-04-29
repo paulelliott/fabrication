@@ -163,6 +163,16 @@ You can also fabricate the object as an attribute hash instead of an actual inst
 
     Fabricate.attributes_for(:company)
 
+If you are using namespaced objects, you can define your fabricators like so:
+
+    Fabricator("Something::Amazing") do
+      stuff "things"
+    end
+
+Then generate it like so:
+
+    Fabricate("Something::Amazing")
+
 ### Sequences ###
 
 Sometimes you need a sequence of numbers while you're generating data. Fabrication provides you with an easy and flexible means for keeping track of sequences.

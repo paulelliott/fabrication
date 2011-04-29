@@ -34,6 +34,10 @@ Fabricator(:city) do
   on_init { init_with('Boulder', 'CO') }
 end
 
+Fabricator("Something::Amazing") do
+  stuff "cool"
+end
+
 # ActiveRecord Objects
 Fabricator(:division) do
   name "Division Name"
