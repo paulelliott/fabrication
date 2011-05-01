@@ -49,6 +49,10 @@ describe Fabrication::Support do
       Fabrication::Fabricator.schematics[:cool_object].should be
     end
 
+    it "has a nested rad object" do
+      Fabrication::Fabricator.schematics[:nested_rad_object].should be
+    end
+
   end
 
 end

@@ -29,7 +29,7 @@ class Fabrication::Support
 
         load("#{path}.rb") if File.exists?("#{path}.rb")
 
-        File.directory? path and Dir[File.join(path, '*.rb')].each do |file|
+        File.directory? path and Dir[File.join(path, '**', '*.rb')].each do |file|
           load file
         end
       end
