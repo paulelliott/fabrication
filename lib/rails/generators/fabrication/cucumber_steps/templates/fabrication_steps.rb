@@ -13,8 +13,7 @@ module FabricationMethods
   end
 
   def create_with_default_attributes(model_name, count, extra = {})
-    model_name = dehumanize(model_name)
-    fabricator_name = generate_fabricator_name(model_name)
+    fabricator_name = generate_fabricator_name(dehumanize(model_name))
     is_singular = count == 1
     @they = count.times.map { Fabricate(fabricator_name, extra) }
     instantize(fabricator_name, is_singular)
@@ -47,13 +46,9 @@ module FabricationMethods
   end
 
   def parentship(parent, child)
-    parent = dehumanize(parent)
-    parent_instance = instance_variable_get("@#{parent}")
-    parent_class = get_class(parent)
-    parent_class_name = parent_class.to_s.underscore
-
-    child = dehumanize(child)
-    child_class = get_class(child)
+    parent_instance = instance_variable_get("@#{dehumanize(parent)}")
+    parent_class_name = parent_instance.class.to_s.underscore
+    child_class = get_class(dehumanize(child))
 
     if child_class && !child_class.new.respond_to?("#{parent_class_name}=")
       parent_class_name = parent_class_name.pluralize
