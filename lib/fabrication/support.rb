@@ -24,7 +24,7 @@ class Fabrication::Support
 
     def find_definitions
       base_path = defined?(Rails) ? Rails.root : "."
-      ['test', 'spec'].map do |folder|
+      ['test', 'spec'].each do |folder|
         path = File.expand_path(File.join(base_path, folder, 'fabricators'))
 
         load("#{path}.rb") if File.exists?("#{path}.rb")
