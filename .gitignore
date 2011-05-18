@@ -1,5 +1,4 @@
 .bundle
-.rvmrc
 .DS_Store
 pkg
 Gemfile.lock
