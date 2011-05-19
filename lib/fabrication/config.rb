@@ -9,10 +9,16 @@ module Fabrication
       OPTIONS[:fabricator_dir] = (Array.new << folders).flatten
     end
 
+    def self.reset_defaults
+      OPTIONS.clear
+      OPTIONS.merge!(DEFAULTS)
+    end
+
     private
 
-    OPTIONS = {
-      :fabricator_dir => ['test/fabricators', 'spec/fabricators']
+    DEFAULTS = {
+      :fabricator_dir => ['test', 'spec']
     }
+    OPTIONS = {}.merge!(DEFAULTS)
   end
 end

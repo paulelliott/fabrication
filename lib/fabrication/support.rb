@@ -23,13 +23,9 @@ class Fabrication::Support
     end
 
     def find_definitions
-      base_path = defined?(Rails) ? Rails.root : "."
-      ['test', 'spec'].each do |folder|
-        path = File.expand_path(File.join(base_path, folder, 'fabricators'))
-
-        load("#{path}.rb") if File.exists?("#{path}.rb")
-
-        File.directory? path and Dir[File.join(path, '*.rb')].sort.each do |file|
+      path_prefix = defined?(Rails) ? Rails.root : "."
+      Fabrication::Config.fabricator_dir.each do |folder|
+        Dir.glob(File.join(path_prefix, folder, '**', '*fabricator.rb')).sort.each do |file|
           load file
         end
       end
