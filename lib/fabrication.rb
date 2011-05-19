@@ -5,6 +5,7 @@ module Fabrication
   autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
 
   autoload :Attribute,  'fabrication/attribute'
+  autoload :Config,     'fabrication/config'
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
   autoload :Schematic,  'fabrication/schematic'
