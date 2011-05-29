@@ -219,6 +219,6 @@ To run rake successfully:
 * Justin Smestad (jsmestad)
 * Christopher Hanks (chanks) - Chained callbacks
 * monsterlabs - Rails 3 Generators
-* Brandon Weiss (brandonweiss) - Sequal Model support
+* Brandon Weiss (brandonweiss) - Sequel Model support
 * Tim Pope (tpope) - Singularize generated fabricator names
 * hakanensari - Default attribute cucumber steps
