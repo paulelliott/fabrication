@@ -23,6 +23,10 @@ module Fabrication
     Sequencer.sequences.clear
   end
 
+  def self.configure(&block)
+    Fabrication::Config.configure(&block)
+  end
+
 end
 
 def Fabricator(name, options={}, &block)
@@ -37,24 +41,20 @@ end
 
 class Fabricate
 
-  class << self
+  def self.attributes_for(name, options={}, &block)
+    Fabrication::Fabricator.generate(name, {
+      :save => false, :attributes => true
+    }, options, &block)
+  end
 
-    def attributes_for(name, options={}, &block)
-      Fabrication::Fabricator.generate(name, {
-        :save => false, :attributes => true
-      }, options, &block)
-    end
+  def self.build(name, options={}, &block)
+    Fabrication::Fabricator.generate(name, {
+      :save => false
+    }, options, &block)
+  end
 
-    def build(name, options={}, &block)
-      Fabrication::Fabricator.generate(name, {
-        :save => false
-      }, options, &block)
-    end
-
-    def sequence(name, start=0, &block)
-      Fabrication::Sequencer.sequence(name, start, &block)
-    end
-
+  def self.sequence(name, start=0, &block)
+    Fabrication::Sequencer.sequence(name, start, &block)
   end
 
 end

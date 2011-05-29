@@ -1,15 +1,20 @@
 module Fabrication
-  class Config < Hash
+  module Config
+    extend self
 
-    def self.fabricator_dir
+    def configure
+      yield self
+    end
+
+    def fabricator_dir
       OPTIONS[:fabricator_dir]
     end
 
-    def self.fabricator_dir=(folders)
+    def fabricator_dir=(folders)
       OPTIONS[:fabricator_dir] = (Array.new << folders).flatten
     end
 
-    def self.reset_defaults
+    def reset_defaults
       OPTIONS.clear
       OPTIONS.merge!(DEFAULTS)
     end

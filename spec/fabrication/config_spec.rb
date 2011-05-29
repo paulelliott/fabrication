@@ -11,7 +11,9 @@ describe Fabrication::Config do
   describe ".fabricator_dir" do
     context "with a single folder" do
       before do
-        Fabrication::Config.fabricator_dir = 'lib'
+        Fabrication.configure do |config|
+          config.fabricator_dir = 'lib'
+        end
       end
 
       its(:fabricator_dir) { should == ['lib'] }
@@ -19,7 +21,9 @@ describe Fabrication::Config do
 
     context "with multiple folders" do
       before do
-        Fabrication::Config.fabricator_dir = %w(lib support)
+        Fabrication.configure do |config|
+          config.fabricator_dir = %w(lib support)
+        end
       end
 
       its(:fabricator_dir) { should == ['lib', 'support'] }
