@@ -393,4 +393,18 @@ describe Fabrication do
 
   end
 
+  describe "Fabricate with a sequence" do
+    subject { Fabricate(:sequencer) }
+
+    its(:simple_iterator) { should == 0 }
+    its(:param_iterator)  { should == 10 }
+    its(:block_iterator)  { should == "block2" }
+
+    context "when namespaced" do
+      subject { Fabricate("Sequencer::Namespaced") }
+
+      its(:iterator) { should == 0 }
+    end
+  end
+
 end

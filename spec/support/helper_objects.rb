@@ -32,3 +32,11 @@ module Something
     attr_accessor :stuff
   end
 end
+
+class Sequencer
+  attr_accessor :simple_iterator, :param_iterator, :block_iterator
+
+  class Namespaced
+    attr_accessor :iterator
+  end
+end

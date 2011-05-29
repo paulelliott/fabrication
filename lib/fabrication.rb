@@ -14,7 +14,7 @@ module Fabrication
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
     autoload :Mongoid,      'fabrication/generator/mongoid'
-    autoload :Sequel,      'fabrication/generator/sequel'
+    autoload :Sequel,       'fabrication/generator/sequel'
     autoload :Base,         'fabrication/generator/base'
   end
 
