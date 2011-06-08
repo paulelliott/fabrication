@@ -23,16 +23,19 @@ Now you can define fabricators in either `spec/fabricators/*.rb` or `test/fabric
 
 In your `config/application.rb` add this if you are using rspec
 
-    config.generators do |g|
-      g.test_framework      :rspec, :fixture => true
-      g.fixture_replacement :fabrication
-    end
-
+```ruby
+config.generators do |g|
+  g.test_framework      :rspec, :fixture => true
+  g.fixture_replacement :fabrication
+end
+```
 And this if you are using test/unit:
 
-    config.generators do |g|
-      g.fixture_replacement :fabrication, :dir => "test/fabricators"
-    end
+```ruby
+config.generators do |g|
+  g.fixture_replacement :fabrication, :dir => "test/fabricators"
+end
+```
 
 Once it is setup, a fabricator will be generated when you generate a model.
 
@@ -40,10 +43,12 @@ Once it is setup, a fabricator will be generated when you generate a model.
 
 Will produce:
 
-    spec/fabricators/widget_fabricator.rb
+```ruby
+# spec/fabricators/widget_fabricator.rb
 
-    Fabricator(:widget) do
-    end
+Fabricator(:widget) do
+end
+```
 
 ### Cucumber Steps ###
 
@@ -51,13 +56,17 @@ Packaged with the gem is a generator which will load some handy cucumber table s
 
 To generate a single "widget" object, expecting a Fabricator(:widget) to be defined:
 
-    Given 1 widget
+```ruby
+Given 1 widget
+```
 
 To generate a single "widget" with specified attributes:
 
-    Given the following widget:
-      | name  | widget_1 |
-      | color | red      |
+```ruby
+Given the following widget:
+  | name  | widget_1 |
+  | color | red      |
+```
 
 To generate multiple "widgets":
 
@@ -65,40 +74,47 @@ To generate multiple "widgets":
 
 To generate multiple "widgets" with specified attributes:
 
-    Given the following widgets:
-      | name     | color |
-      | widget_1 | red   |
-      | widget_2 | blue  |
-      ...
-
+```ruby
+Given the following widgets:
+  | name     | color |
+  | widget_1 | red   |
+  | widget_2 | blue  |
+  ...
+```
 To generate "wockets" nested within "widgets":
 
-    And that widget has 10 wockets
+```ruby
+And that widget has 10 wockets
+```
 
 To generate "wockets" with specified attributes within "widgets":
 
-    And that widget has the following wocket:
-      | title    | Amazing |
-      | category | fancy   |
-
+```ruby
+And that widget has the following wocket:
+  | title    | Amazing |
+  | category | fancy   |
+```
 That will use the most recently defined "widget" and pass it into the Fabricator. That requires your "wocket" to have a setter for a "widget".
 
 In more complex cases where you have already created "widgets" and "wockets" and associated them with other objects, to set up an association between the former two:
 
-    And that wocket belongs to that widget
+```ruby
+   And that wocket belongs to that widget
+```
 
 ### Usage ###
 
 Define your fabricators.
 
-    Fabricator(:company) do
-      name "Fun Factory"
-      employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }
-      location!
-      after_build { |company| company.name = "Another #{company.name}" }
-      after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }
-    end
-
+```ruby
+Fabricator(:company) do
+  name "Fun Factory"
+  employees(:count => 20) { |company, i| Fabricate(:drone, :company => company, :name => "Drone #{i}") }
+  location!
+  after_build { |company| company.name = "Another #{company.name}" }
+  after_create { |company| company.update_attribute(:ceo, Fabricate(:drone, :name => 'Lead Drone') }
+end
+```
 Breaking down the above, we are defining a "company" fabricator, which will generate Company model objects.
 
 * The object has a name field, which is statically filled with "Fun Factory".
@@ -109,93 +125,108 @@ Breaking down the above, we are defining a "company" fabricator, which will gene
 
 For a class with required arguments in its constructor, use the `on_init` method:
 
-    Fabricator(:location) do
-      on_init { init_with(30.284167, -81.396111) }
-    end
-
+```ruby
+Fabricator(:location) do
+  on_init { init_with(30.284167, -81.396111) }
+end
+```
 ### Inheritance ###
 
 So you already have a company fabricator, but you need one that specifically generates an LLC. No problem!
 
-    Fabricator(:llc, :from => :company) do
-      type "LLC"
-    end
-
+```ruby
+Fabricator(:llc, :from => :company) do
+  type "LLC"
+end
+```
 Setting the :from option will inherit the class and all the attributes from the named Fabricator.
 
 You can also explicitly specify the class being fabricated with the :class_name parameter.
 
-    Fabricator(:llc, :class_name => :company) do
-      type "LLC"
-    end
+```ruby
+Fabricator(:llc, :class_name => :company) do
+  type "LLC"
+end
+```
 
 The callbacks will be stacked when inheriting from other fabricators. For example, when you define something like this:
 
-    Fabricator(:user) do
-      after_create { |user| user.confirm! }
-    end
+```ruby
+Fabricator(:user) do
+  after_create { |user| user.confirm! }
+end
 
-    Fabricator(:admin, :from => :user) do
-      after_create { |user| user.make_admin! }
-    end
-
+Fabricator(:admin, :from => :user) do
+  after_create { |user| user.make_admin! }
+end
+```
 When calling `Fabricate(:admin)`, the user callback will be executed first and then the admin callback.
 
 ### Fabricating ###
 
 Now that your Fabricators are defined, you can start generating some objects! To generate the LLC from the previous example, just do this:
 
-    llc = Fabricate(:llc, :name => "Awesome Labs", :location => "Earth")
+```ruby
+llc = Fabricate(:llc, :name => "Awesome Labs", :location => "Earth")
+```
 
 That will return an instance of the LLC using the fields defined in the Fabricators and overriding with anything passed into Fabricate.
 
 If you need to do something more complex, you can also pass a block to Fabricate. You can use all the features available to you when defining Fabricators, but they only apply to the object generated by this Fabricate call.
 
-    llc = Fabricate(:llc, :name => "Awesome, Inc.") do
-      location!(:count => 2) { Faker::Address.city }
-    end
-
+```ruby
+llc = Fabricate(:llc, :name => "Awesome, Inc.") do
+  location!(:count => 2) { Faker::Address.city }
+end
+```
 Sometimes you don't actually need to save an option when it is created but just build it. In that case, just call `Fabricate.build` and it will skip the saving step.
 
-    Fabricate.build(:company, :name => "Hashrocket")
+```ruby
+Fabricate.build(:company, :name => "Hashrocket")
+```
 
 You can also fabricate the object as an attribute hash instead of an actual instance. This is useful for controller or API testing where the receiver wants a hash representation of the object. If you have activesupport it will be a HashWithIndifferentAccess, otherwise it will be a regular Ruby Hash.
 
-    Fabricate.attributes_for(:company)
-
+```ruby
+Fabricate.attributes_for(:company)
+```
 If you are using namespaced objects, you can define your fabricators like so:
 
-    Fabricator("Something::Amazing") do
-      stuff "things"
-    end
-
+```ruby
+Fabricator("Something::Amazing") do
+  stuff "things"
+end
+```
 Then generate it like so:
-
-    Fabricate("Something::Amazing")
-
+```ruby
+Fabricate("Something::Amazing")
+```
 ### Sequences ###
 
 Sometimes you need a sequence of numbers while you're generating data. Fabrication provides you with an easy and flexible means for keeping track of sequences.
 
 This will create a sequence named ":number" that will start at 0. Every time you call it, it will increment by one.
 
-    Fabricate.sequence(:number)
-
+```ruby
+Fabricate.sequence(:number)
+```
 If you need to override the starting number, you can do it with a second parameter. It will always return the seed number on the first call and it will be ignored with subsequent calls.
 
-    Fabricate.sequence(:number, 99)
-
+```ruby
+Fabricate.sequence(:number, 99)
+```
 If you are generating something like an email address, you can pass it a block and the block response will be returned.
 
-    Fabricate.sequence(:name) { |i| "Name #{i}" }
-
+```ruby
+Fabricate.sequence(:name) { |i| "Name #{i}" }
+```
 And in a semi-real use case, it would look something like this:
-
-    Fabricate(:person) do
-      ssn { Fabricate.sequence :ssn, 111111111 }
-      email { Fabricate.sequence(:email) { |i| "user#{i}@example.com" } }
-    end
-
+```ruby
+Fabricate(:person) do
+  ssn { Fabricate.sequence :ssn, 111111111 }
+  email { Fabricate.sequence(:email) { |i| "user#{i}@example.com" } }
+end
+```
 ### Contributing ###
 
 I (paulelliott) am actively maintaining this project. If you would like to contribute, please fork the project, make your changes on a feature branch, and submit a pull request.
