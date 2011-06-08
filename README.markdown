@@ -15,7 +15,9 @@ By default it will lazily generate active record associations. So if you have a 
 
 Add this to your gemfile.
 
-`gem 'fabrication'`
+```ruby
+gem 'fabrication'
+ruby
 
 Now you can define fabricators in either `spec/fabricators/*.rb` or `test/fabricators/*.rb`. They are automatically loaded, so no additional requires are necessary.
 
@@ -70,7 +72,9 @@ Given the following widget:
 
 To generate multiple "widgets":
 
-    Given 10 widgets
+```ruby
+Given 10 widgets
+```
 
 To generate multiple "widgets" with specified attributes:
 
@@ -221,6 +225,7 @@ If you are generating something like an email address, you can pass it a block a
 Fabricate.sequence(:name) { |i| "Name #{i}" }
 ```
 And in a semi-real use case, it would look something like this:
+
 ```ruby
 Fabricate(:person) do
   ssn { Fabricate.sequence :ssn, 111111111 }
