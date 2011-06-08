@@ -17,7 +17,7 @@ Add this to your gemfile.
 
 ```ruby
 gem 'fabrication'
-ruby
+```
 
 Now you can define fabricators in either `spec/fabricators/*.rb` or `test/fabricators/*.rb`. They are automatically loaded, so no additional requires are necessary.
 
