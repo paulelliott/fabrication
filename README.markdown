@@ -103,7 +103,7 @@ That will use the most recently defined "widget" and pass it into the Fabricator
 In more complex cases where you have already created "widgets" and "wockets" and associated them with other objects, to set up an association between the former two:
 
 ```ruby
-   And that wocket belongs to that widget
+And that wocket belongs to that widget
 ```
 
 ### Usage ###
