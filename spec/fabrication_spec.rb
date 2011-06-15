@@ -68,7 +68,7 @@ describe Fabrication do
   end
 
   context 'with a class in a module' do
-    subject { Fabricate("Something::Amazing", stuff: "things") }
+    subject { Fabricate("Something::Amazing", :stuff => "things") }
     its(:stuff) { should == "things" }
   end
 
