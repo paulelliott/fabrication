@@ -1,3 +1,11 @@
+### 1.0.0 ###
+
+* New shorthand syntax for sequences
+* Configuration for fabrication directory location
+* Fabricator file loading enhancements
+* (bugfix) only call after_create when save is performed
+* Reworking of fabrication steps (run generate to get the updates)
+
 ### 0.9.5 (01/17/2010) ###
 
 * Refactor cucumber step support code
