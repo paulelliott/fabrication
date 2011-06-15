@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rspec'
 require 'fabrication'
 require 'ffaker'
@@ -7,7 +6,7 @@ require 'ffaker'
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
-Rspec.configure do |config|
+RSpec.configure do |config|
   config.before(:all) do
     clear_mongodb
   end
