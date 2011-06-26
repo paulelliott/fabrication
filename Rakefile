@@ -7,7 +7,7 @@ end
 
 begin
   require 'cucumber/rake/task'
-  Cucumber::Rake::Task.new(:features) do |t|
+  Cucumber::Rake::Task.new(:cucumber) do |t|
     t.cucumber_opts = "--format Cucumber::Formatter::Fuubar --tags ~@wip"
   end
 rescue LoadError
@@ -15,4 +15,4 @@ rescue LoadError
 end
 
 
-task :default => [:spec, :features]
+task :default => [:spec, :cucumber]
