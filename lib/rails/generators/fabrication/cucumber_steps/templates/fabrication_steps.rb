@@ -58,6 +58,10 @@ module FabricationMethods
     { parent_class_name => parent_instance }
   end
 
+  def class_from_model_name(model_name)
+    eval(dehumanize(model_name).singularize.classify)
+  end
+
 end
 
 World(FabricationMethods)
@@ -88,4 +92,12 @@ Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |child_or_children, paren
     child_instance.send("#{parent}=", parent_instance)
     child_instance.save
   end
+end
+
+Then /^I should see (\d+) ([^"]*) in the database$/ do |count, model_name|
+  get_class(dehumanize(model_name)).count.should == count.to_i
+end
+
+Then /^I should see the following (.*) in the database:$/ do |model_name, table|
+  get_class(dehumanize(model_name)).where(table.rows_hash).count.should == 1
 end

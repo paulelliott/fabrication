@@ -2,34 +2,38 @@ Feature: Mongoid Objects
 
   Scenario: for some generic objects
     Given 5 authors
-    Then there should be 5 authors
+    Then I should see 5 authors in the database
 
   Scenario: a single detailed object
     Given the following author:
       | name | George Orwell |
-    Then that author should be persisted
-    And that author should have "George Orwell" for a "name"
+    Then I should see 1 author in the database
+    And I should see the following author in the database:
+      | name | George Orwell |
 
   Scenario: a single detailed object with a multi-word name
     Given the following publishing house:
       | name | Random House |
-    Then that publishing house should be persisted
-    And that publishing house should have "Random House" for a "name"
+    Then I should see 1 publishing house in the database
+    And I should see the following publishing house in the database:
+      | name | Random House |
 
   Scenario: multiple detailed objects
     Given the following authors:
       | name             |
       | Dr. Seuss        |
       | Shel Silverstein |
-    Then they should be persisted
-    And the first should have "Dr. Seuss" for a "name"
-    And the second should have "Shel Silverstein" for a "name"
+    Then I should see 2 authors in the database
+    And I should see the following author in the database:
+      | name | Dr. Seuss |
+    And I should see the following author in the database:
+      | name | Shel Silverstein |
 
   Scenario: a parented single detailed object
     Given 1 author
     And that author has the following book:
       | title | 1984 |
-    Then that author should be persisted
+    Then I should see 1 author in the database
     And that book should be persisted
     And that book should have "1984" for a "title"
     And that book should reference that author
@@ -38,7 +42,7 @@ Feature: Mongoid Objects
     Given 1 publishing house
     And that publishing house has the following book promoter:
       | name | Vinnie |
-    Then that publishing house should be persisted
+    Then I should see 1 publishing house in the database
     And that book promoter should be persisted
     And that book promoter should have "Vinnie" for a "name"
     And that book promoter should reference that publishing house
@@ -47,8 +51,8 @@ Feature: Mongoid Objects
     Given 1 publishing house
     And 1 professional affiliation
     And that publishing house belongs to that professional affiliation
-    Then that publishing house should be persisted
-    And that professional affiliation should be persisted
+    Then I should see 1 publishing house in the database
+    And I should see 1 professional affiliation in the database
     And that publishing house should reference that professional affiliation
 
   Scenario: multiple parented detailed objects
@@ -57,7 +61,7 @@ Feature: Mongoid Objects
       | title       |
       | 1984        |
       | Animal Farm |
-    Then that author should be persisted
+    Then I should see 1 author in the database
     And they should be persisted
     And they should reference that author
     And the first should have "1984" for a "title"

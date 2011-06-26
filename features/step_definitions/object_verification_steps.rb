@@ -46,7 +46,3 @@ Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|
   child = instance_variable_get("@#{child_name}")
   child.send(parent_class_name).should == parent
 end
-
-Then /^there should be (\d+) ([^"]*)$/ do |count, class_name|
-  Fabrication::Support.class_for(class_name.singularize).count.should == count.to_i
-end
