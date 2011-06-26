@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency("bson_ext",     ["~> 1.3.1"])
   s.add_development_dependency("cucumber")
   s.add_development_dependency("ffaker")
+  s.add_development_dependency("fuubar")
+  s.add_development_dependency("fuubar-cucumber")
   s.add_development_dependency("mongoid",      ["~> 2.0.2"])
   s.add_development_dependency("rake")
   s.add_development_dependency("rspec")

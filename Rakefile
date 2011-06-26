@@ -8,7 +8,7 @@ end
 begin
   require 'cucumber/rake/task'
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format pretty --tags ~@wip"
+    t.cucumber_opts = "--format Cucumber::Formatter::Fuubar --tags ~@wip"
   end
 rescue LoadError
   puts "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
