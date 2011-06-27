@@ -6,6 +6,7 @@ describe Fabrication do
 
     let(:person) { Fabricate(:person, :last_name => 'Awesome') }
     let(:location) { Fabricate(:location) }
+    let(:wings) { Fabricate(:wings) }
     let(:dog) do
       Fabricate(:dog) do
         name nil
@@ -129,7 +130,7 @@ describe Fabrication do
 
         it "should not persist the airplane" do
           airplane.wings.size.should == 2
-          airplane.new_record?.should == true
+          airplane.should_not_receive(:create)
         end
       end
     end

@@ -41,7 +41,7 @@ describe Fabrication::Generator::Base do
         Fabrication::Schematic.new(Person) do
           first_name "Roger"
           shirts(:count => 2, :save => false) do |person, idx|
-            "#{person}'s shirt no. #{idx}"
+            "#{person.first_name}'s shirt no. #{idx}"
           end
         end.attributes
       end
@@ -49,7 +49,9 @@ describe Fabrication::Generator::Base do
       let(:person) { generator.generate({}, attributes) }
 
       it "should only build the shirts" do
-        person.shirts.map(&:new_record?).should == [true, true]
+        person.shirts.each do |s|
+          s.should_not_receive(:create)
+        end
       end
 
       it "should still call the block and set the seq string" do

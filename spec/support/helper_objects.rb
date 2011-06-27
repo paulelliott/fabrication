@@ -6,8 +6,17 @@ class Location
   attr_accessor :lat, :lng
 end
 
+class Wing
+  attr_accessor :airplane
+end
+
+class Airplane
+  attr_accessor :wings
+end
+
+
 class Person
-  attr_accessor :age, :first_name, :last_name, :shoes, :location
+  attr_accessor :age, :first_name, :last_name, :shoes, :location, :shirts
 end
 
 class City
