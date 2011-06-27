@@ -36,6 +36,29 @@ describe Fabrication::Generator::Base do
       person.instance_variable_get(:@first_name).should == 'Guy'
     end
 
+    context "when building and not creating" do
+      let(:attributes) do
+        Fabrication::Schematic.new(Person) do
+          first_name "Roger"
+          shirts(:count => 2, :save => false) do |person, idx|
+            "#{person}'s shirt no. #{idx}"
+          end
+        end.attributes
+      end
+
+      let(:person) { generator.generate({}, attributes) }
+
+      it "should only build the shirts" do
+        person.shirts.map(&:new_record?).should == [true, true]
+      end
+
+      it "should still call the block and set the seq string" do
+        person.shirts.should == (1..2).map {|i| "Roger's shirt no. #{i}" }
+      end
+
+    end
+
+
     context "with on_init block" do
       subject { schematic.generate }
 
