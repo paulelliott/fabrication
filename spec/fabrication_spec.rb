@@ -6,6 +6,7 @@ describe Fabrication do
 
     let(:person) { Fabricate(:person, :last_name => 'Awesome') }
     let(:location) { Fabricate(:location) }
+    let(:wings) { Fabricate(:wings) }
     let(:dog) do
       Fabricate(:dog) do
         name nil
@@ -120,6 +121,18 @@ describe Fabrication do
 
       end
 
+      context "when not saving" do
+        let(:airplane) do
+          Fabricate(:airplane) do
+            wings(:count => 2, :save => false)
+          end
+        end
+
+        it "should not persist the airplane" do
+          airplane.wings.size.should == 2
+          airplane.should_not_receive(:create)
+        end
+      end
     end
 
   end

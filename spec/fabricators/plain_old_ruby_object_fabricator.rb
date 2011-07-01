@@ -7,6 +7,11 @@ Fabricator(:greyhound, :from => :dog) do
   locations(:count => 2)
 end
 
+Fabricator(:wing)
+Fabricator(:airplane) do
+  wings
+end
+
 Fabricator(:location) do
   lat 35
   lng 40
