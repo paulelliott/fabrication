@@ -1,3 +1,9 @@
+### 1.0.1 ###
+
+* Bugfix: Sequel models do not save correctly
+* Add database verification cucumber step
+* Add :fabricator option for associations
+
 ### 1.0.0 ###
 
 * New shorthand syntax for sequences
