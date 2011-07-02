@@ -4,10 +4,12 @@ Fabricator(:parent_sequel_model) do
   number_field 5
   string_field 'content'
   after_create do |parent|
-    (1..2).each do |i|
-      Fabricate(:child_sequel_model, :parent => parent, :number_field => i)
+    2.times do
+      Fabricate(:child_sequel_model, :parent => parent)
     end
   end
 end
 
-Fabricator(:child_sequel_model)
+Fabricator(:child_sequel_model) do
+  number_field 10
+end

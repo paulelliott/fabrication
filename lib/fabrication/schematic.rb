@@ -115,7 +115,7 @@ class Fabrication::Schematic
     name = name.to_s
     name = name.singularize if name.respond_to?(:singularize)
     params[:count] ||= 1 if !params[:count] && name != name.to_s
-    Proc.new { Fabricate(name.to_sym) }
+    Proc.new { Fabricate(params[:fabricator] || name.to_sym) }
   end
 
   def to_hash(object)

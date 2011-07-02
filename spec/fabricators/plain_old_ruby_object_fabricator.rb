@@ -18,16 +18,16 @@ class ChildRubyObject
 end
 
 Fabricator(:parent_ruby_object) do
-  collection_field(:count => 2) do |parent, i|
-    Fabricate(:child_ruby_object, :parent => parent, :number_field => i)
-  end
+  collection_field(:count => 2, :fabricator => :child_ruby_object)
   dynamic_field { 'dynamic content' }
   nil_field nil
   number_field 5
   string_field 'content'
 end
 
-Fabricator(:child_ruby_object)
+Fabricator(:child_ruby_object) do
+  number_field 10
+end
 
 # Plain Ruby Objects
 Fabricator(:awesome_object, :from => :object)

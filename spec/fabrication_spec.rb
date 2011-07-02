@@ -22,8 +22,8 @@ shared_examples 'something fabricatable' do
       end
     end
     its('collection_field.size') { should == 2 }
-    its('collection_field.first.number_field') { should == 1 }
-    its('collection_field.last.number_field') { should == 2 }
+    its('collection_field.first.number_field') { should == 10 }
+    its('collection_field.last.number_field') { should == 10 }
     its(:dynamic_field) { should == 'new dynamic content' }
     its(:nil_field) { should be_nil }
     its(:number_field) { should == 10 }
