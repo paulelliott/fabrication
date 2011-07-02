@@ -28,6 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency("mongoid",      ["~> 2.0.2"])
   s.add_development_dependency("rake")
   s.add_development_dependency("rspec")
-  s.add_development_dependency("sequel",       ["~> 3.24.1"])
+  s.add_development_dependency("sequel",       ["~> 3.25.0"])
   s.add_development_dependency("sqlite3-ruby")
 end
