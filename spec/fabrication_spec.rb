@@ -69,7 +69,11 @@ describe Fabrication do
   context 'mongoid documents' do
     let(:fabricator_name) { :parent_mongoid_document }
     it_should_behave_like 'something fabricatable'
+  end
 
+  context 'sequel models' do
+    let(:fabricator_name) { :parent_sequel_model }
+    it_should_behave_like 'something fabricatable'
   end
 
   context 'when the class requires a constructor' do

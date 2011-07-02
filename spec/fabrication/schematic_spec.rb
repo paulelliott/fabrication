@@ -23,7 +23,7 @@ describe Fabrication::Schematic do
     end
     context "for a sequel object" do
       it "uses the base generator" do
-        Fabrication::Schematic.new(Artist).generator.should == Fabrication::Generator::Base
+        Fabrication::Schematic.new(ParentSequelModel).generator.should == Fabrication::Generator::Sequel
       end
     end
   end

@@ -2,6 +2,7 @@ class Fabrication::Schematic
 
   GENERATORS = [
     Fabrication::Generator::ActiveRecord,
+    Fabrication::Generator::Sequel,
     Fabrication::Generator::Base
   ]
 

@@ -1,13 +1,17 @@
 require 'sequel'
 
 DB = Sequel.sqlite # in memory
+Sequel.extension :migration
+Sequel::Migrator.run(DB, 'spec/support/sequel_migrations', :current => 0)
 
-class Artist < Sequel::Model
-  one_to_many :albums
+class ChildSequelModel < Sequel::Model
+  many_to_one :parent, :class => :ParentSequelModel, :key => :parent_sequel_model_id
 
-  attr_accessor :non_field
+  def persisted?; !new? end
 end
 
-class Album < Sequel::Model
-  many_to_one :artist
+class ParentSequelModel < Sequel::Model
+  one_to_many :collection_field, :class => :ChildSequelModel, :key => :parent_sequel_model_id
+
+  def persisted?; !new? end
 end
