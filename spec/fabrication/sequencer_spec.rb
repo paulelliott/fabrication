@@ -1,6 +1,15 @@
 require 'spec_helper'
 
-describe "Fabricate.sequence" do
+describe Fabrication::Sequencer do
+
+  context 'with no arguments' do
+    subject { Fabrication::Sequencer.sequence }
+
+    it { should == 0 }
+    it 'creates a default sequencer' do
+      Fabrication::Sequencer.sequences[:_default].should == 1
+    end
+  end
 
   context 'with only a name' do
 

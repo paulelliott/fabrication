@@ -1,19 +1,17 @@
 class Fabrication::Sequencer
 
-  class << self
+  DEFAULT = :_default
 
-    def sequence(name, start=0)
-      idx = sequences[name] ||= start
+  def self.sequence(name=DEFAULT, start=0)
+    idx = sequences[name] ||= start
 
-      (block_given? ? yield(idx) : idx).tap do
-        sequences[name] += 1
-      end
+    (block_given? ? yield(idx) : idx).tap do
+      sequences[name] += 1
     end
+  end
 
-    def sequences
-      @sequences ||= {}
-    end
-
+  def self.sequences
+    @sequences ||= {}
   end
 
 end

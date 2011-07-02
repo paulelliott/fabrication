@@ -104,7 +104,7 @@ class Fabrication::Schematic
     method_name
   end
 
-  def sequence(name, start=0, &block)
+  def sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
     name = "#{self.klass.to_s.downcase.gsub(/::/, '_')}_#{name}"
     Fabrication::Sequencer.sequence(name, start, &block)
   end

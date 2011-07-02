@@ -53,7 +53,7 @@ class Fabricate
     }, options, &block)
   end
 
-  def self.sequence(name, start=0, &block)
+  def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
     Fabrication::Sequencer.sequence(name, start, &block)
   end
 
