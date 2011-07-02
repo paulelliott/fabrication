@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe Fabrication::Generator::ActiveRecord do
 
-  before(:all) { TestMigration.up }
-  after(:all) { TestMigration.down }
-
   describe ".supports?" do
     subject { Fabrication::Generator::ActiveRecord }
     it "returns true for active record objects" do
