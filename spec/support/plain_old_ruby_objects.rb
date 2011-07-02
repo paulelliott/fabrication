@@ -1,3 +1,22 @@
+class ParentRubyObject
+  attr_accessor \
+    :collection_field,
+    :dynamic_field,
+    :nil_field,
+    :number_field,
+    :string_field
+
+  def persisted?; true end
+end
+
+class ChildRubyObject
+  attr_accessor \
+    :parent,
+    :number_field
+
+  def persisted?; true end
+end
+
 class Dog
   attr_accessor :name, :breed, :locations
 end

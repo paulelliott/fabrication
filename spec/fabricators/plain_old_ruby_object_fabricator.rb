@@ -1,22 +1,3 @@
-class ParentRubyObject
-  attr_accessor \
-    :collection_field,
-    :dynamic_field,
-    :nil_field,
-    :number_field,
-    :string_field
-
-  def persisted?; true end
-end
-
-class ChildRubyObject
-  attr_accessor \
-    :parent,
-    :number_field
-
-  def persisted?; true end
-end
-
 Fabricator(:parent_ruby_object) do
   collection_field(:count => 2, :fabricator => :child_ruby_object)
   dynamic_field { 'dynamic content' }
