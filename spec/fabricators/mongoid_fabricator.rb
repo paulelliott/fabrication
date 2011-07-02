@@ -1,3 +1,15 @@
+Fabricator(:parent_mongoid_document) do
+  collection_field(:count => 2) do |parent, i|
+    Fabricate(:child_mongoid_document, :parent => parent, :number_field => i)
+  end
+  dynamic_field { 'dynamic content' }
+  nil_field nil
+  number_field 5
+  string_field 'content'
+end
+
+Fabricator(:child_mongoid_document)
+
 # Mongoid Documents
 Fabricator(:author) do
   name 'George Orwell'

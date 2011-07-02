@@ -1,58 +1,74 @@
 require 'spec_helper'
 
-describe Fabrication do
+shared_examples 'something fabricatable' do
+  subject { Fabricate(fabricator_name) }
 
-  context 'static fields' do
-
-    let(:person) { Fabricate(:person, :last_name => 'Awesome') }
-    let(:location) { Fabricate(:location) }
-    let(:dog) do
-      Fabricate(:dog) do
-        name nil
-      end
-    end
-
-    it 'has the default first name' do
-      person.first_name.should == 'John'
-    end
-
-    it 'has an overridden last name' do
-      person.last_name.should == 'Awesome'
-    end
-
-    it 'generates a fresh object every time' do
-      Fabricate(:person).should_not == person
-    end
-
-    it "has the latitude" do
-      location.lat.should == 35
-    end
-
-    it "has the longitude" do
-      location.lng.should == 40
-    end
-
-    it "handles nil values" do
-      dog.name.should be_nil
-    end
-
+  context 'defaults from fabricator' do
+    its(:dynamic_field) { should == 'dynamic content' }
+    its(:nil_field) { should be_nil }
+    its(:number_field) { should == 5 }
+    its(:string_field) { should == 'content' }
   end
 
-  context 'block generated fields' do
+  context 'overriding at fabricate time' do
+    subject do
+      Fabricate(
+        fabricator_name,
+        :string_field => 'new content',
+        :number_field => 10,
+        :nil_field => nil
+      ) do
+        dynamic_field { 'new dynamic content' }
+      end
+    end
+    its('collection_field.size') { should == 2 }
+    its('collection_field.first.number_field') { should == 1 }
+    its('collection_field.last.number_field') { should == 2 }
+    its(:dynamic_field) { should == 'new dynamic content' }
+    its(:nil_field) { should be_nil }
+    its(:number_field) { should == 10 }
+    its(:string_field) { should == 'new content' }
+  end
 
-    let(:person) { Fabricate(:person) }
-
-    it 'has a last name' do
-      person.last_name.should be
+  context 'state of the object' do
+    it 'generates a fresh object every time' do
+      Fabricate(fabricator_name).should_not == subject
     end
 
-    it 'has an age' do
-      person.age.should be
-    end
+    it { should be_persisted }
+    its('collection_field.first') { should be_persisted }
+    its('collection_field.last') { should be_persisted }
+  end
 
-    it 'has 10 shoes' do
-      person.shoes.should == (1..10).map { |i| "shoe #{i}" }
+  context 'attributes for' do
+    subject { Fabricate.attributes_for(fabricator_name) }
+    it { should be_kind_of(HashWithIndifferentAccess) }
+    it 'serializes the attributes' do
+      should include({
+        :dynamic_field => 'dynamic content',
+        :nil_field => nil,
+        :number_field => 5,
+        :string_field => 'content'
+      })
     end
+  end
+end
+
+describe Fabrication do
+
+  context 'plain old ruby objects' do
+    let(:fabricator_name) { :parent_ruby_object }
+    it_should_behave_like 'something fabricatable'
+  end
+
+  context 'active_record models' do
+    let(:fabricator_name) { :parent_active_record_model }
+    it_should_behave_like 'something fabricatable'
+  end
+
+  context 'mongoid documents' do
+    let(:fabricator_name) { :parent_mongoid_document }
+    it_should_behave_like 'something fabricatable'
 
   end
 
@@ -70,58 +86,6 @@ describe Fabrication do
   context 'with a class in a module' do
     subject { Fabricate("Something::Amazing", :stuff => "things") }
     its(:stuff) { should == "things" }
-  end
-
-  context "when referring to other fabricators" do
-
-    let(:person) { Fabricate(:person) }
-
-    it "has the latitude" do
-      person.location.lat.should == 35
-    end
-
-    it "has the longitude" do
-      person.location.lng.should == 40
-    end
-
-    context "with a count" do
-
-      context "of one" do
-
-        let(:greyhound) do
-          Fabricate(:greyhound) do
-            locations(:count => 1)
-          end
-        end
-
-        it "should have one location" do
-          greyhound.locations.size.should == 1
-          greyhound.locations.first.lat.should == 35
-          greyhound.locations.first.lng.should == 40
-        end
-
-      end
-
-      context "of two" do
-
-        let(:greyhound) do
-          Fabricate(:greyhound) do
-            locations(:count => 2)
-          end
-        end
-
-        it "should have two locations" do
-          greyhound.locations.size.should == 2
-          greyhound.locations.each do |loc|
-            loc.lat.should == 35
-            loc.lng.should == 40
-          end
-        end
-
-      end
-
-    end
-
   end
 
   context 'with the generation parameter' do
@@ -293,43 +257,30 @@ describe Fabrication do
   end
 
   describe '.clear_definitions' do
-
-    before(:all) do
-      Fabrication.clear_definitions
-    end
-
-    after(:all) do
-      Fabrication::Support.find_definitions
-    end
+    before { Fabrication.clear_definitions }
+    after { Fabrication::Support.find_definitions }
 
     it 'should not generate authors' do
       Fabrication::Fabricator.schematics.has_key?(:author).should be_false
     end
-
   end
 
   context 'when defining a fabricator twice' do
-
     it 'throws an error' do
       lambda { Fabricator(:author) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
     end
-
   end
 
   context "when defining a fabricator for a class that doesn't exist" do
-
     it 'throws an error' do
       lambda { Fabricator(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
     end
-
   end
 
   context 'when generating from a non-existant fabricator' do
-
     it 'throws an error' do
       lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
-
   end
 
   context 'defining a fabricator without a block' do
@@ -341,54 +292,6 @@ describe Fabrication do
 
     it 'works fine' do
       Fabricate(:widget).should be
-    end
-
-  end
-
-  describe "Fabricate with a block" do
-
-    let(:person) do
-      Fabricate(:person) do
-        age nil
-        first_name "Paul"
-        last_name { "Elliott" }
-      end
-    end
-
-    it 'uses the class matching the passed-in symbol' do
-      person.kind_of?(Person).should be_true
-    end
-
-    it 'has the correct first_name' do
-      person.first_name.should == 'Paul'
-    end
-
-    it 'has the correct last_name' do
-      person.last_name.should == 'Elliott'
-    end
-
-    it 'has the correct age' do
-      person.age.should be_nil
-    end
-
-  end
-
-  describe "Fabricate.attributes_for" do
-
-    let(:person) do
-      Fabricate.attributes_for(:person, :first_name => "John", :last_name => "Smith")
-    end
-
-    it 'has the first name as a parameter' do
-      person['first_name'].should == "John"
-    end
-
-    it 'has the last name as a parameter' do
-      person[:last_name].should == "Smith"
-    end
-
-    it 'has the fabricator provided attributes' do
-      person[:shoes].length.should == 10
     end
 
   end

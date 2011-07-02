@@ -9,6 +9,25 @@ def clear_mongodb
   Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
 end
 
+class ChildMongoidDocument
+  include Mongoid::Document
+
+  field :number_field
+
+  referenced_in :parent, :class_name => 'ParentMongoidDocument'
+end
+
+class ParentMongoidDocument
+  include Mongoid::Document
+
+  field :dynamic_field
+  field :nil_field
+  field :number_field
+  field :string_field
+
+  references_many :collection_field, :class_name => 'ChildMongoidDocument'
+end
+
 class Author
   include Mongoid::Document
 

@@ -1,3 +1,34 @@
+class ParentRubyObject
+  attr_accessor \
+    :collection_field,
+    :dynamic_field,
+    :nil_field,
+    :number_field,
+    :string_field
+
+  def persisted?; true end
+end
+
+class ChildRubyObject
+  attr_accessor \
+    :parent,
+    :number_field
+
+  def persisted?; true end
+end
+
+Fabricator(:parent_ruby_object) do
+  collection_field(:count => 2) do |parent, i|
+    Fabricate(:child_ruby_object, :parent => parent, :number_field => i)
+  end
+  dynamic_field { 'dynamic content' }
+  nil_field nil
+  number_field 5
+  string_field 'content'
+end
+
+Fabricator(:child_ruby_object)
+
 # Plain Ruby Objects
 Fabricator(:awesome_object, :from => :object)
 
