@@ -18,7 +18,7 @@ describe Fabrication::Schematic do
     end
     context "for a mongoid object" do
       it "uses the base generator" do
-        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Base
+        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Mongoid
       end
     end
     context "for a sequel object" do
