@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class ParentRubyObject
   attr_accessor \
     :collection_field,
