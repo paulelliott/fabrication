@@ -18,6 +18,11 @@ Fabricator(:author) do
   end
 end
 
+Fabricator(:special_author, :from => :author) do
+  mongoid_dynamic_field 50
+  lazy_dynamic_field { "foo" }
+end
+
 Fabricator(:hemingway, :from => :author) do
   name 'Ernest Hemingway'
 end

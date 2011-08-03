@@ -206,6 +206,14 @@ describe Fabrication do
     it 'generates four books' do
       author.books.map(&:title).should == (1..4).map { |i| "book title #{i}" }
     end
+
+    it "sets dynamic fields" do
+      Fabricate(:special_author).mongoid_dynamic_field.should == 50
+    end
+
+    it "sets lazy dynamic fields" do
+      Fabricate(:special_author).lazy_dynamic_field.should == "foo"
+    end
   end
 
   context 'with multiple callbacks' do
