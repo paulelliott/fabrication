@@ -25,7 +25,7 @@ class ParentMongoidDocument
   field :number_field
   field :string_field
 
-  references_many :collection_field, :class_name => 'ChildMongoidDocument'
+  references_many :collection_field, :class_name => 'ChildMongoidDocument', :inverse_of => :parent
 end
 
 class Author
