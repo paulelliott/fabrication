@@ -322,4 +322,18 @@ describe Fabrication do
     end
   end
 
+  describe "with before_create callback" do
+    it "works fine without fabricator" do
+      author = Author.create(:name => "Jim")
+      book = Book.create(:author => author, :title => "Coolest Book")
+      book.title.equal? "Coolest Book"
+    end
+
+    it "works fine with fabricator" do
+      author = Fabricate :author
+      book = Fabricate :book, :author => author, :title => "Coolest Book"
+      book.title.equal? "Coolest Book"
+    end
+  end
+
 end
