@@ -10,6 +10,10 @@ shared_examples 'something fabricatable' do
     its(:string_field) { should == 'content' }
   end
 
+  context 'model callbacks are fired' do
+    its(:before_save_value) { should == 11 }
+  end
+
   context 'overriding at fabricate time' do
     subject do
       Fabricate(

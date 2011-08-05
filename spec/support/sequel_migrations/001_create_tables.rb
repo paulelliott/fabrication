@@ -8,6 +8,7 @@ Sequel.migration do
 
     create_table :parent_sequel_models do
       primary_key :id
+      Integer :before_save_value
       String :dynamic_field
       String :nil_field
       Integer :number_field

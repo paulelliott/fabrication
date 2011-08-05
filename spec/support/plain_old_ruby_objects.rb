@@ -2,11 +2,16 @@ require 'ostruct'
 
 class ParentRubyObject
   attr_accessor \
+    :before_save_value,
     :collection_field,
     :dynamic_field,
     :nil_field,
     :number_field,
     :string_field
+
+  def initialize
+    self.before_save_value = 11
+  end
 
   def persisted?; true end
 end

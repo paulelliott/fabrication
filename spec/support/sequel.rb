@@ -14,4 +14,9 @@ class ParentSequelModel < Sequel::Model
   one_to_many :collection_field, :class => :ChildSequelModel, :key => :parent_sequel_model_id
 
   def persisted?; !new? end
+
+  def before_save
+    self.before_save_value = 11
+    super
+  end
 end

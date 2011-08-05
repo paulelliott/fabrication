@@ -20,12 +20,17 @@ end
 class ParentMongoidDocument
   include Mongoid::Document
 
+  field :before_save_value
   field :dynamic_field
   field :nil_field
   field :number_field
   field :string_field
 
   references_many :collection_field, :class_name => 'ChildMongoidDocument', :inverse_of => :parent
+
+  before_save do
+    self.before_save_value = 11
+  end
 end
 
 class Author

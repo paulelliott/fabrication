@@ -16,6 +16,7 @@ class TestMigration < ActiveRecord::Migration
     end
 
     create_table :parent_active_record_models, :force => true do |t|
+      t.column :before_save_value, :integer
       t.column :dynamic_field, :string
       t.column :nil_field, :string
       t.column :number_field, :integer
@@ -47,6 +48,10 @@ end
 
 class ParentActiveRecordModel < ActiveRecord::Base
   has_many :collection_field, :class_name => 'ChildActiveRecordModel'
+
+  before_save do
+    self.before_save_value = 11
+  end
 end
 
 class Company < ActiveRecord::Base
