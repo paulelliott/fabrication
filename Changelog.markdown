@@ -1,3 +1,8 @@
+### 1.1.0 ###
+
+* Sequences no longer require a name
+* Add support for mongoid dynamic fields
+
 ### 1.0.1 ###
 
 * Bugfix: Sequel models do not save correctly
