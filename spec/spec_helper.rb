@@ -7,6 +7,6 @@ require 'ffaker'
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
 RSpec.configure do |config|
-  config.before(:suite) { TestMigration.up }
+  config.before(:all) { TestMigration.up }
   config.before(:all) { clear_mongodb }
 end
