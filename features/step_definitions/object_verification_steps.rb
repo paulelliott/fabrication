@@ -3,15 +3,29 @@ ORDINALS = {
   "second" => 1
 }
 
+def dehumanize(string)
+  string.gsub(/\W+/,'_').downcase
+end
+
+def generate_fabricator_name(model_name)
+  model_name.singularize.to_sym
+end
+
+def get_class(model_name)
+  fabricator_name = generate_fabricator_name(model_name)
+  Fabrication::Fabricator.schematics[fabricator_name].klass
+end
+
+
 Then /^that ([^"]*) should be persisted$/ do |object_name|
   object_name = dehumanize(object_name)
-  object = instance_variable_get("@#{object_name}")
+  object = fabrications[object_name]
   object.should be_persisted
 end
 
 Then /^that ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |object_name, value, field|
   object_name = dehumanize(object_name)
-  object = instance_variable_get("@#{object_name}")
+  object = fabrications[object_name]
   object.send(field).should == value
 end
 
@@ -23,7 +37,7 @@ end
 
 Then /^they should reference that ([^"]*)$/ do |parent_name|
   parent_name = dehumanize(parent_name)
-  parent = instance_variable_get("@#{parent_name}")
+  parent = fabrications[parent_name]
   parent_class = get_class(parent_name)
   parent_class_name = parent_class.to_s.underscore
 
@@ -39,10 +53,10 @@ end
 
 Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|
   parent_name = dehumanize(parent_name)
-  parent = instance_variable_get("@#{parent_name}")
+  parent = fabrications[parent_name]
   parent_class = get_class(parent_name)
   parent_class_name = parent_class.to_s.underscore
   child_name = dehumanize(child_name)
-  child = instance_variable_get("@#{child_name}")
+  child = fabrications[child_name]
   child.send(parent_class_name).should == parent
 end
