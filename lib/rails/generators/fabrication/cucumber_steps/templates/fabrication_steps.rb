@@ -1,5 +1,7 @@
 require 'fabrication/cucumber'
 
+World(FabricationMethods)
+
 Given /^(\d+) ([^"]*)$/ do |count, model_name|
   @they = Fabrication::Cucumber::StepFabricator.new(model_name).n(count.to_i)
 end
