@@ -24,7 +24,7 @@ module Fabrication
         instance = Fabrications[@fabricator]
         children = dehumanize(children)
         [Fabrications[children]].flatten.each do |child|
-          child.send("#@model=", instance)
+          child.send("#{klass.to_s.underscore.downcase}=", instance)
           child.respond_to?(:save!) && child.save!
         end
       end

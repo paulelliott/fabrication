@@ -135,6 +135,22 @@ Feature: Active Record Objects
     And I should see 1 company in the database
     And that division should reference that company
 
+  Scenario: an inherited child belongs to a parent
+    Given 1 company
+    And 1 squadron
+    And that squadron belongs to that company
+    Then I should see 1 squadron in the database
+    And I should see 1 company in the database
+    And that squadron should reference that company
+
+  Scenario: a child belongs to an inherited parent
+    Given 1 startup
+    And 1 division
+    And that division belongs to that startup
+    Then I should see 1 division in the database
+    And I should see 1 startup in the database
+    And that division should reference that startup
+
   Scenario: children belong to a parent
     Given 1 company
     And 2 divisions
