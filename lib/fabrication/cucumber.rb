@@ -1,6 +1,7 @@
 module Fabrication
   module Cucumber
     class StepFabricator
+      attr_reader :model
 
       def initialize(model_name, opts ={})
         @model = dehumanize(model_name)
