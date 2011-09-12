@@ -10,36 +10,17 @@ module Fabrication
 
       def from_table(table, extra={})
         hashes = singular? ? [table.rows_hash] : table.hashes
-        objects = hashes.map do |hash|
+        hashes.map do |hash|
           make(parameterize_hash(hash).merge(extra))
-        end
-        remember(objects)
-        objects
+        end.tap {|o| remember(o) }
       end
 
-      def n(count, extra={})
-        count.times.map { make(extra) }.tap {|o| remember(o) }
+      def n(count, attrs={})
+        count.times.map { make(attrs) }.tap {|o| remember(o) }
       end
 
       def one(extra={})
         make(extra).tap {|o| remember([o]) }
-      end
-
-      def make(attrs={})
-        Fabricate(@fabricator, attrs.merge(parentship))
-      end
-
-      def parentship
-        return {} unless parent
-        parent_class_name = parent.class.to_s.underscore
-
-        parent_instance = parent
-        unless klass.new.respond_to?("#{parent_class_name}=")
-          parent_class_name = parent_class_name.pluralize
-          parent_instance = [parent]
-        end
-
-        { parent_class_name => parent_instance }
       end
 
       def has_many(children)
@@ -60,9 +41,7 @@ module Fabrication
         schematic.klass
       end
 
-      def schematic
-        Fabrication::Fabricator.schematics[@fabricator]
-      end
+      private
 
       def remember(objects)
         if singular?
@@ -76,13 +55,35 @@ module Fabrication
         @model == @model.singularize
       end
 
-      private
+      def schematic
+        Fabrication::Fabricator.schematics[@fabricator]
+      end
+
       def dehumanize(string)
         string.gsub(/\W+/,'_').downcase
       end
+
       def parameterize_hash(hash)
         hash.inject({}) {|h,(k,v)| h.update(dehumanize(k).to_sym => v)}
       end
+
+      def make(attrs={})
+        Fabricate(@fabricator, attrs.merge(parentship))
+      end
+
+      def parentship
+        return {} unless parent
+        parent_class_name = parent.class.to_s.underscore
+
+        parent_instance = parent
+        unless klass.new.respond_to?("#{parent_class_name}=")
+          parent_class_name = parent_class_name.pluralize
+          parent_instance = [parent]
+        end
+
+        { parent_class_name => parent_instance }
+      end
+
     end
 
     module Fabrications
@@ -104,5 +105,3 @@ module FabricationMethods
     Fabrication::Cucumber::Fabrications
   end
 end
-
-World(FabricationMethods)
