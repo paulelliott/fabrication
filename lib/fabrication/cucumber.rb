@@ -19,10 +19,6 @@ module Fabrication
         count.times.map { make(attrs) }.tap {|o| remember(o) }
       end
 
-      def one(extra={})
-        make(extra).tap {|o| remember([o]) }
-      end
-
       def has_many(children)
         instance = Fabrications[@fabricator]
         children = dehumanize(children)
