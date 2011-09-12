@@ -2,24 +2,39 @@ require 'fabrication/cucumber'
 
 World(FabricationMethods)
 
+def with_ivars(fabricator)
+  @they = yield fabricator
+  instance_variable_set("@#{fabricator.model}", @they)
+end
+
 Given /^(\d+) ([^"]*)$/ do |count, model_name|
-  @they = Fabrication::Cucumber::StepFabricator.new(model_name).n(count.to_i)
+  with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
+    fab.n(count.to_i)
+  end
 end
 
 Given /^the following ([^"]*):$/ do |model_name, table|
-  @they = Fabrication::Cucumber::StepFabricator.new(model_name).from_table(table)
+  with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
+    fab.from_table(table)
+  end
 end
 
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
-  @they = Fabrication::Cucumber::StepFabricator.new(child, :parent => parent).from_table(table)
+  with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|
+    fab.from_table(table)
+  end
 end
 
 Given /^that ([^"]*) has (\d+) ([^"]*)$/ do |parent, count, child|
-  @they = Fabrication::Cucumber::StepFabricator.new(child, :parent => parent).n(count.to_i)
+  with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|
+    fab.n(count.to_i)
+  end
 end
 
 Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |children, parent|
-  Fabrication::Cucumber::StepFabricator.new(parent).has_many(children)
+  with_ivars Fabrication::Cucumber::StepFabricator.new(parent) do |fab|
+    fab.has_many(children)
+  end
 end
 
 Then /^I should see (\d+) ([^"]*) in the database$/ do |count, model_name|
