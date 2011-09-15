@@ -66,6 +66,33 @@ describe Fabrication::Sequencer do
       end.should == "user2@example.com"
     end
 
+    context 'and then without a block' do
+      it 'remembers the original block' do
+        Fabricate.sequence :ordinal, &:ordinalize
+        Fabricate.sequence(:ordinal).should == "1st"
+      end
+      context 'and then with a new block' do
+        it 'evaluates the new block' do
+          Fabricate.sequence(:ordinal) do |i|
+            i ** 2
+          end.should == 4
+        end
+        it 'remembers the new block' do
+          Fabricate.sequence(:ordinal).should == 9
+        end
+      end
+    end
   end
-
+  context 'with two sequences declared with blocks' do
+    it 'remembers both blocks' do
+      Fabricate.sequence(:shapes) do |i|
+        %w[square circle rectangle][i % 3]
+      end
+      Fabricate.sequence(:colors) do |i|
+        %w[red green blue][i % 3]
+      end
+      Fabricate.sequence(:shapes).should == 'circle'
+      Fabricate.sequence(:colors).should == 'green'
+    end
+  end
 end
