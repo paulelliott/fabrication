@@ -46,8 +46,20 @@ class Book
   include Mongoid::Document
 
   field :title
+  field :position
 
   embedded_in :author, :inverse_of => :books
+
+  before_create :set_position
+
+  def set_position
+    books = self.author.books
+    if books.present? && books.count > 0
+      self.position = books.last.position + 1
+    else
+      self.position = 1
+    end
+  end
 end
 
 class PublishingHouse
