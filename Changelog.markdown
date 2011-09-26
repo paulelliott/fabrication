@@ -1,3 +1,9 @@
+### 1.2.0 ###
+
+* Remove use of ivars in fabrication cucumber steps.
+    IMPORTANT: Replace "@whatver" in your custom steps with "fabrications[:whatever]"
+* Sequences will now remember and reuse the last block passed in.
+
 ### 1.1.0 ###
 
 * Sequences no longer require a name
