@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
 
   s.files = Dir.glob("{lib,spec}/**/*") + %w(README.markdown)
 
-  s.homepage = "http://github.com/paulelliott/fabrication"
+  s.homepage = "http://fabricationgem.org"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.3.7"
-  s.summary = "Fabrication provides a robust solution for test object generation."
+  s.summary = "Fabrication provides a simple solution for test object generation."
 
   s.add_development_dependency("activerecord", ["~> 3.0.9"])
   s.add_development_dependency("bson_ext",     ["~> 1.3.1"])
