@@ -96,9 +96,3 @@ module Fabrication
     end
   end
 end
-
-module FabricationMethods
-  def fabrications
-    Fabrication::Cucumber::Fabrications
-  end
-end

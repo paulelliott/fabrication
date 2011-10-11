@@ -11,6 +11,10 @@ module Fabrication
   autoload :Schematic,  'fabrication/schematic'
   autoload :Support,    'fabrication/support'
 
+  module Cucumber
+    autoload :StepFabricator, 'fabrication/cucumber/step_fabricator'
+  end
+
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
     autoload :Mongoid,      'fabrication/generator/mongoid'
@@ -57,4 +61,10 @@ class Fabricate
     Fabrication::Sequencer.sequence(name, start, &block)
   end
 
+end
+
+module FabricationMethods
+  def fabrications
+    Fabrication::Cucumber::Fabrications
+  end
 end

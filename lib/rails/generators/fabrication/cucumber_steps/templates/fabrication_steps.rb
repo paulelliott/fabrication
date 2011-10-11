@@ -1,5 +1,3 @@
-require 'fabrication/cucumber'
-
 World(FabricationMethods)
 
 def with_ivars(fabricator)
