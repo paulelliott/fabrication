@@ -78,7 +78,7 @@ GEM
     ruby-progressbar (0.0.10)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
-    sequel (3.25.0)
+    sequel (3.28.0)
     sqlite3 (1.3.3)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
@@ -101,5 +101,5 @@ DEPENDENCIES
   rspec
   ruby-debug
   ruby-debug19
-  sequel (~> 3.25.0)
+  sequel
   sqlite3-ruby
