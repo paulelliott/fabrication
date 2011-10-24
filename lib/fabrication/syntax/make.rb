@@ -12,19 +12,13 @@ module Fabrication
     #
     #
     module Make
-
       def make(overrides = {}, &block)
-        Fabrication::Fabricator.generate(name.underscore.to_sym,
-                                         {:save => false}, overrides,
-                                         &block)
+        Fabricate.build(name.underscore.to_sym, overrides, &block)
       end
 
       def make!(overrides = {}, &block)
-        Fabrication::Fabricator.generate(name.underscore.to_sym,
-                                         {:save => true}, overrides,
-                                         &block)
+        Fabricate(name.underscore.to_sym, overrides, &block)
       end
-
     end
   end
 end
