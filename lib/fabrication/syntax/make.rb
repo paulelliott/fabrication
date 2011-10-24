@@ -29,18 +29,4 @@ module Fabrication
   end
 end
 
-if Object.const_defined?("Sequel")
-  Sequel::Model.extend Fabrication::Syntax::Make
-end
-
-if Object.const_defined?("ActiveRecord")
-  ActiveRecord::Base.extend Fabrication::Syntax::Make
-end
-
-if Object.const_defined?("Mongoid")
-  module Mongoid::Document
-    def self.included(base)
-      base.send :extend, Fabrication::Syntax::Make
-    end
-  end
-end
+Object.extend Fabrication::Syntax::Make
