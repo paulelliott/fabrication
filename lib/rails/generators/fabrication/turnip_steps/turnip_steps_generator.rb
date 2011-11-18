@@ -5,7 +5,7 @@ module Fabrication::Generators
     argument :step_dir, :type => :string, :default => "spec/acceptance/steps/"
     
     def generate
-      template 'fabrication_steps.rb', turnip_step_dir
+      template 'fabrication_steps.rb', turnip_step_directory
     end
 
     def self.source_root
