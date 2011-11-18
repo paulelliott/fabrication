@@ -68,10 +68,10 @@ describe Fabrication::Cucumber do
 
   describe '#from_table' do
     it 'maps column names to attribute names' do
-      hashes = [{ 'Favorite Color' => 'pink' }]
+      table = stub(:hashes => [{ 'Favorite Color' => 'pink' }])
       Fabrication::Fabricator.should_receive(:generate).
         with(anything, anything, :favorite_color => 'pink')
-      Fabrication::Cucumber::StepFabricator.new('bears').from_hashes(hashes)
+      Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
     end
 
     context 'with table transforms' do
@@ -99,11 +99,11 @@ describe Fabrication::Cucumber do
           with(:dog, anything, {:some => 'thing'})
         Fabrication::Fabricator.should_receive(:generate).
           with(:dog, anything, {:some => 'panother'})
-        Fabrication::Cucumber::StepFabricator.new(name).from_hashes(hashes)
+        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
         Fabrication::Fabricator.stub(:generate).and_return('dog1', 'dog2')
-        Fabrication::Cucumber::StepFabricator.new(name).from_hashes(hashes)
+        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
         Fabrication::Cucumber::Fabrications[name].should == ["dog1", "dog2"]
       end
     end
@@ -111,16 +111,16 @@ describe Fabrication::Cucumber do
     context 'singular' do
       let(:name) { 'dog' }
       let(:table) { double("ASTable", :rows_hash => rows_hash) }
-      let(:hashes) do
-        [{'some' => 'thing'}]
+      let(:rows_hash) do
+        {'some' => 'thing'}
       end
       it 'fabricates with each row as an attribute' do
         Fabrication::Fabricator.should_receive(:generate).with(:dog, anything, {:some => 'thing'})
-        Fabrication::Cucumber::StepFabricator.new(name).from_hashes(hashes)
+        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
         Fabrication::Fabricator.stub(:generate).and_return('dog1')
-        Fabrication::Cucumber::StepFabricator.new(name).from_hashes(hashes)
+        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
         Fabrication::Cucumber::Fabrications[name].should == "dog1"
       end
     end

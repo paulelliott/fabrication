@@ -21,7 +21,7 @@ steps_for :global do
     @they = yield fabricator
     instance_variable_set("@#{fabricator.model}", @they)
   end
-  
+
   step ':fabrication_count :fabrication_model_name' do |count, model_name|
     with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
       fab.n(count)
@@ -30,13 +30,13 @@ steps_for :global do
 
   step 'the following :fabrication_model_name:' do |model_name, table|
     with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
-      fab.from_hashes(table.hashes)
+      fab.from_table(table)
     end
   end
 
   step 'that :fabrication_model_name has the following :fabrication_model_name:' do |parent, child, table|
     with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|
-      fab.from_hashes(table.hashes)
+      fab.from_table(table)
     end
   end
 
@@ -58,6 +58,6 @@ steps_for :global do
 
   step 'I should see the following :fabrication_model_name in the database:' do |model_name, table|
     klass = Fabrication::Cucumber::StepFabricator.new(model_name).klass
-    klass.where(table.hashes).count.should == 1
+    klass.where(table.rows_hash).count.should == 1
   end
 end
