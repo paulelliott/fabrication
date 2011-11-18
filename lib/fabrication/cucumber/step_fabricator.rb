@@ -9,7 +9,14 @@ module Fabrication
         @parent_name = opts.delete(:parent)
       end
 
-      def from_hashes(hashes, extra={})
+      def from_table(table, extra={})
+        hashes = []
+        # Temporary until Turnip supports rows_hash for vertical tables (soon)
+        if table.respond_to?(:rows_hash)
+          hashes = singular? ? [table.rows_hash] : table.hashes
+        else
+          hashes = table.hashes
+        end
         hashes.map do |hash|
           make(parameterize_hash(hash).merge(extra))
         end.tap {|o| remember(o) }

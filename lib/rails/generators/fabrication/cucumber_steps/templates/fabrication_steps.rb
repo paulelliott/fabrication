@@ -5,11 +5,6 @@ def with_ivars(fabricator)
   instance_variable_set("@#{fabricator.model}", @they)
 end
 
-def singular?(model_name)
-  m = model_name.gsub(/\W+/,'_').downcase
-  m == m.singularize
-end
-
 Given /^(\d+) ([^"]*)$/ do |count, model_name|
   with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
     fab.n(count.to_i)
@@ -18,13 +13,13 @@ end
 
 Given /^the following ([^"]*):$/ do |model_name, table|
   with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
-    fab.from_hashes(singular?(model_name) ? [table.rows_hash] : table.hashes)
+    fab.from_table(table)
   end
 end
 
 Given /^that ([^"]*) has the following ([^"]*):$/ do |parent, child, table|
   with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|
-    fab.from_hashes(singular?(child) ? [table.rows_hash] : table.hashes)
+    fab.from_table(table)
   end
 end
 

@@ -30,13 +30,13 @@ steps_for :global do
 
   step 'the following :fabrication_model_name:' do |model_name, table|
     with_ivars Fabrication::Cucumber::StepFabricator.new(model_name) do |fab|
-      fab.from_hashes(table.hashes)
+      fab.from_table(table)
     end
   end
 
   step 'that :fabrication_model_name has the following :fabrication_model_name:' do |parent, child, table|
     with_ivars Fabrication::Cucumber::StepFabricator.new(child, :parent => parent) do |fab|
-      fab.from_hashes(table.hashes)
+      fab.from_table(table)
     end
   end
 
@@ -58,6 +58,6 @@ steps_for :global do
 
   step 'I should see the following :fabrication_model_name in the database:' do |model_name, table|
     klass = Fabrication::Cucumber::StepFabricator.new(model_name).klass
-    klass.where(table.hashes).count.should == 1
+    klass.where(table.hashes[0]).count.should == 1
   end
 end
