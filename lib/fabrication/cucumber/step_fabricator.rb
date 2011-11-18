@@ -9,8 +9,7 @@ module Fabrication
         @parent_name = opts.delete(:parent)
       end
 
-      def from_table(table, extra={})
-        hashes = singular? ? [table.rows_hash] : table.hashes
+      def from_hashes(hashes, extra={})
         hashes.map do |hash|
           make(parameterize_hash(hash).merge(extra))
         end.tap {|o| remember(o) }
