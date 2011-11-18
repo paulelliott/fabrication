@@ -12,5 +12,8 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = "--format Cucumber::Formatter::Fuubar --tags ~@wip"
 end
 
+RSpec::Core::RakeTask.new(:turnip) do |spec|
+  spec.pattern = "turnip/**/*.feature"
+end
 
-task :default => [:spec, :cucumber]
+task :default => [:spec, :cucumber, :turnip]

@@ -83,6 +83,9 @@ GEM
     sequel (3.30.0)
     sqlite3 (1.3.5)
     term-ansicolor (1.0.7)
+    turnip (0.3.0)
+      gherkin (>= 2.5)
+      rspec (~> 2.0)
     tzinfo (0.3.31)
 
 PLATFORMS
@@ -105,3 +108,4 @@ DEPENDENCIES
   ruby-debug19
   sequel
   sqlite3
+  turnip (>= 0.3)
