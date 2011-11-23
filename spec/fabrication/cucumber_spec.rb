@@ -74,6 +74,20 @@ describe Fabrication::Cucumber do
       Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
     end
 
+    context 'with table transforms' do
+      let(:table) { stub(:hashes => [{ 'some' => 'thing' }]) }
+
+      before do
+        Fabrication::Fabricator.stub(:generate)
+      end
+
+      it 'applies transforms' do
+        Fabrication::Transform.should_receive(:apply).
+          with({:some => 'thing'}).and_return({})
+        Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
+      end
+    end
+
     context 'with a plural subject' do
       let(:table) { double("ASTable", :hashes => hashes) }
       let(:hashes) do

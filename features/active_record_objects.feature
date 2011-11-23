@@ -11,6 +11,23 @@ Feature: Active Record Objects
     And I should see the following division in the database:
       | name | Rasczak's Roughnecks |
 
+  Scenario: a single object with transform to apply
+    Given the following company:
+      | name | Widgets Inc |
+    Given the following division:
+      | name    | Southwest   |
+      | company | Widgets Inc |
+    Then that division should reference that company
+
+  Scenario: multiple objects with transform to apply
+    Given the following company:
+      | name | Widgets Inc |
+    Given the following divisions:
+      | name      | company     |
+      | Southwest | Widgets Inc |
+      | North     | Widgets Inc |
+    Then they should reference that company
+
   Scenario: multiple detailed objects
     Given the following divisions:
       | name            |
