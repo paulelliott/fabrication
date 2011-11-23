@@ -10,6 +10,7 @@ module Fabrication
   autoload :Sequencer,  'fabrication/sequencer'
   autoload :Schematic,  'fabrication/schematic'
   autoload :Support,    'fabrication/support'
+  autoload :Transform,  'fabrication/transform'
 
   module Cucumber
     autoload :StepFabricator, 'fabrication/cucumber/step_fabricator'
