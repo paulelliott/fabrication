@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rspec")
   s.add_development_dependency("sequel")
   s.add_development_dependency("sqlite3")
+  s.require_path = 'lib'
 end
