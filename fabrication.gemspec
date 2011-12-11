@@ -29,6 +29,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency("sequel")
   s.add_development_dependency("sqlite3")
 
-  s.files = Dir.glob("{lib,spec}/**/*") + %w(LICENSE README.markdown Rakefile)
+  s.files = Dir.glob("lib/**/*") + %w(LICENSE README.markdown Rakefile)
   s.require_path = 'lib'
 end
