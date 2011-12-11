@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.email = ["paul@hashrocket.com"]
   s.description = "Fabrication is an object generation framework for ActiveRecord, Mongoid, and Sequel. It has a sensible syntax and lazily generates ActiveRecord associations!"
 
-  s.files = Dir.glob("{lib,spec}/**/*") + %w(README.markdown)
-
   s.homepage = "http://fabricationgem.org"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.3.7"
@@ -30,5 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rspec")
   s.add_development_dependency("sequel")
   s.add_development_dependency("sqlite3")
+
+  s.files = Dir.glob("{lib,spec}/**/*") + %w(LICENSE README.markdown Rakefile)
   s.require_path = 'lib'
 end
