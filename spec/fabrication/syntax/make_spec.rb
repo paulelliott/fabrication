@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fabrication/syntax/make'
 
 describe Fabrication::Syntax::Make do
 

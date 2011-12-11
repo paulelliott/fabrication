@@ -1,5 +1,4 @@
 require 'mongoid'
-require 'fabrication/syntax/make'
 
 Mongoid.configure do |config|
   config.allow_dynamic_fields = true
