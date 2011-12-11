@@ -18,12 +18,14 @@ Gem::Specification.new do |s|
   s.summary = "Fabrication provides a simple solution for test object generation."
 
   s.add_development_dependency("activerecord")
-  s.add_development_dependency("bson_ext",     ["~> 1.3.1"])
+  s.add_development_dependency("bson", ["~> 1.3.1"])
+  s.add_development_dependency("bson_ext", ["~> 1.3.1"])
   s.add_development_dependency("cucumber")
   s.add_development_dependency("ffaker")
   s.add_development_dependency("fuubar")
   s.add_development_dependency("fuubar-cucumber")
-  s.add_development_dependency("mongoid",      ["~> 2.1.3"])
+  s.add_development_dependency("mongo", ["~> 1.3.1"])
+  s.add_development_dependency("mongoid", ["2.1.4"])
   s.add_development_dependency("rake", ['~> 0.8.7'])
   s.add_development_dependency("rspec")
   s.add_development_dependency("sequel")
