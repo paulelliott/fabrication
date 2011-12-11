@@ -10,7 +10,13 @@ module Fabrication
       end
 
       def from_table(table, extra={})
-        hashes = singular? ? [table.rows_hash] : table.hashes
+        hashes = []
+        # Temporary until Turnip supports rows_hash for vertical tables (soon)
+        if table.respond_to?(:rows_hash)
+          hashes = singular? ? [table.rows_hash] : table.hashes
+        else
+          hashes = table.hashes
+        end
         hashes.map do |hash|
           transformed_hash = Fabrication::Transform.apply(parameterize_hash(hash))
           make(transformed_hash.merge(extra))

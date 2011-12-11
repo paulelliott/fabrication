@@ -14,5 +14,8 @@ rescue LoadError
   puts "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
 end
 
+RSpec::Core::RakeTask.new(:turnip) do |spec|
+  spec.pattern = "turnip/**/*.feature"
+end
 
-task :default => [:spec, :cucumber]
+task :default => [:spec, :cucumber, :turnip]
