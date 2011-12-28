@@ -6,8 +6,10 @@ describe Fabrication::Fabricator do
 
   describe ".define" do
 
+    let(:options) { { aliases: ["thing_one", :thing_two] } }
+
     before(:all) do
-      subject.define(:open_struct) do
+      subject.define(:open_struct, options) do
         first_name "Joe"
         last_name { "Schmoe" }
       end
@@ -31,6 +33,13 @@ describe Fabrication::Fabricator do
       subject.schematics[:open_struct].attributes.size.should == 2
     end
 
+    context "with an alias" do
+
+      it "recognizes the aliases" do
+        subject.schematics[:thing_one].should == subject.schematics[:open_struct]
+        subject.schematics[:thing_two].should == subject.schematics[:open_struct]
+      end
+    end
   end
 
   describe ".generate" do

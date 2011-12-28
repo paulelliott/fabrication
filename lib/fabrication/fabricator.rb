@@ -4,7 +4,12 @@ class Fabrication::Fabricator
 
     def define(name, options={}, &block)
       raise Fabrication::DuplicateFabricatorError, "'#{name}' is already defined" if schematics.include?(name)
-      schematics[name] = schematic_for(name, options, &block)
+      aliases = Array(options.delete(:aliases))
+      schematic = schematics[name] = schematic_for(name, options, &block)
+      Array(aliases).each do |as|
+        schematics[as.to_sym] = schematic
+      end
+      schematic
     end
 
     def generate(name, options={}, overrides={}, &block)
