@@ -6,12 +6,10 @@ Feature: Active Record Objects
 
   Scenario: a single detailed object
     Given the following division:
-      | name                 |
-      | Rasczak's Roughnecks |
+      | name | Rasczak's Roughnecks |
     Then I should see 1 division in the database
     And I should see the following division in the database:
-      | name                 |
-      | Rasczak's Roughnecks |
+      | name | Rasczak's Roughnecks |
 
   Scenario: multiple detailed objects
     Given the following divisions:
@@ -20,11 +18,9 @@ Feature: Active Record Objects
       | Yellow Squadron |
     Then I should see 2 divisions in the database
     And I should see the following division in the database:
-      | name         |
-      | Red Squadron |
+      | name | Red Squadron |
     And I should see the following division in the database:
-      | name            |
-      | Yellow Squadron |
+      | name | Yellow Squadron |
 
   Scenario: a parented single generic object
     Given 1 company
@@ -35,37 +31,31 @@ Feature: Active Record Objects
   Scenario: a parented single detailed object
     Given 1 company
     And that company has the following division:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     Then I should see 1 company in the database
     And I should see 1 division in the database
     And I should see the following division in the database:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     And that division should reference that company
 
   Scenario: a parented single detailed object with inheritance
     Given 1 company
     And that company has the following squadron:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     Then I should see 1 company in the database
     And I should see 1 squadron in the database
     And I should see the following division in the database:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     And that squadron should reference that company
 
   Scenario: a parented single detailed object whose parent has inheritance
     Given 1 startup
     And that startup has the following division:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     Then I should see 1 startup in the database
     And I should see 1 division in the database
     And I should see the following division in the database:
-      | name     |
-      | Everyone |
+      | name | Everyone |
     And that division should reference that startup
 
   Scenario: multiple parented detailed objects
@@ -77,11 +67,9 @@ Feature: Active Record Objects
     Then I should see 1 company in the database
     And I should see 2 divisions in the database
     And I should see the following division in the database:
-      | name         |
-      | Red Squadron |
+      | name | Red Squadron |
     And I should see the following division in the database:
-      | name            |
-      | Yellow Squadron |
+      | name | Yellow Squadron |
     And they should reference that company
 
   Scenario: multiple parented detailed objects with inheritance
@@ -93,11 +81,9 @@ Feature: Active Record Objects
     Then I should see 1 company in the database
     And I should see 2 squadrons in the database
     And I should see the following division in the database:
-      | name         |
-      | Red Squadron |
+      | name | Red Squadron |
     And I should see the following division in the database:
-      | name            |
-      | Yellow Squadron |
+      | name | Yellow Squadron |
     And they should reference that company
 
     Scenario: multiple parented detailed objects whose parent has inheritance
@@ -109,11 +95,9 @@ Feature: Active Record Objects
     Then I should see 1 startup in the database
     And I should see 2 divisions in the database
     And I should see the following division in the database:
-      | name         |
-      | Red Squadron |
+      | name | Red Squadron |
     And I should see the following division in the database:
-      | name            |
-      | Yellow Squadron |
+      | name | Yellow Squadron |
     And they should reference that startup
 
   Scenario: a generic parent from the child
@@ -126,8 +110,7 @@ Feature: Active Record Objects
   Scenario: a detailed parent from the child
     Given 1 division
     And that division has the following company:
-      | name       |
-      | Hashrocket |
+      | name | Hashrocket |
     Then I should see 1 division in the database
     And I should see 1 company in the database
     And I should see the following company in the database:
@@ -137,13 +120,11 @@ Feature: Active Record Objects
   Scenario: a parent with inheritance from the child
     Given 1 division
     And that division has the following startup:
-      | name       |
-      | Hashrocket |
+      | name | Hashrocket |
     Then I should see 1 startup in the database
     And I should see 1 division in the database
     And I should see the following company in the database:
-      | name       |
-      | Hashrocket |
+      | name | Hashrocket |
     And that division should reference that startup
 
   Scenario: a child belongs to a parent

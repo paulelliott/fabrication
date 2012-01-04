@@ -6,21 +6,17 @@ Feature: Mongoid Objects
 
   Scenario: a single detailed object
     Given the following author:
-      | name          |
-      | George Orwell |
+      | name | George Orwell |
     Then I should see 1 author in the database
     And I should see the following author in the database:
-      | name          |
-      | George Orwell |
+      | name | George Orwell |
 
   Scenario: a single detailed object with a multi-word name
     Given the following "publishing house":
-      | name         |
-      | Random House |
+      | name | Random House |
     Then I should see 1 "publishing house" in the database
     And I should see the following "publishing house" in the database:
-      | name         |
-      | Random House |
+      | name | Random House |
 
   Scenario: multiple detailed objects
     Given the following authors:
@@ -29,17 +25,14 @@ Feature: Mongoid Objects
       | Shel Silverstein |
     Then I should see 2 authors in the database
     And I should see the following author in the database:
-      | name      |
-      | Dr. Seuss |
+      | name | Dr. Seuss |
     And I should see the following author in the database:
-      | name             |
-      | Shel Silverstein |
+      | name | Shel Silverstein |
 
   Scenario: a parented single detailed object
     Given 1 author
     And that author has the following book:
-      | title |
-      | 1984  |
+      | title | 1984 |
     Then I should see 1 author in the database
     And that book should be persisted
     And that book should have "1984" for a "title"
@@ -48,8 +41,7 @@ Feature: Mongoid Objects
   Scenario: a parented object with a multi-word name
     Given 1 "publishing house"
     And that "publishing house" has the following "book promoter":
-      | name   |
-      | Vinnie |
+      | name | Vinnie |
     Then I should see 1 "publishing house" in the database
     And that "book promoter" should be persisted
     And that "book promoter" should have "Vinnie" for a "name"

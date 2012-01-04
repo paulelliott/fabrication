@@ -52,6 +52,6 @@ steps_for :global do
 
   step 'I should see the following :model_name in the database:' do |model_name, table|
     klass = Fabrication::Cucumber::StepFabricator.new(model_name).klass
-    klass.where(table.hashes[0]).count.should == 1
+    klass.where(table.rows_hash).count.should == 1
   end
 end
