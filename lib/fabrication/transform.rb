@@ -3,11 +3,12 @@ class Fabrication::Transform
   class << self
 
     def apply(attributes_hash)
+      Fabrication::Support.find_definitions if transforms.empty?
       attributes_hash.inject({}) {|h,(k,v)| h.update(k => transforms[k].call(v)) }
     end
 
     def clear_all
-      @@transforms = nil
+      @transforms = nil
     end
 
     def define(attribute, transform)
@@ -17,7 +18,7 @@ class Fabrication::Transform
     private
 
     def transforms
-      @@transforms ||= Hash.new(lambda {|value| value})
+      @transforms ||= Hash.new(lambda {|value| value})
     end
 
   end
