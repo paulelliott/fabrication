@@ -22,7 +22,7 @@ module Fabrication
     private
 
     DEFAULTS = {
-      :fabricator_dir => ['test', 'spec']
+      :fabricator_dir => ['test/fabricators', 'spec/fabricators']
     }
     OPTIONS = {}.merge!(DEFAULTS)
   end

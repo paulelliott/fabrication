@@ -5,7 +5,7 @@ describe Fabrication::Config do
   after { Fabrication::Config.reset_defaults }
 
   context "default configs" do
-    its(:fabricator_dir) { should == ['test', 'spec'] }
+    its(:fabricator_dir) { should == ['test/fabricators', 'spec/fabricators'] }
   end
 
   describe ".fabricator_dir" do
