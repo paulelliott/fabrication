@@ -3,10 +3,28 @@ require 'spec_helper'
 describe Fabrication::Transform do
 
   before do
+    Fabrication.clear_definitions
     Fabrication::Transform.clear_all
   end
 
   describe '.apply' do
+    context 'find definitions' do
+      context 'transforms are empty' do
+        it 'loads the definitions' do
+          Fabrication::Support.should_receive(:find_definitions)
+          Fabrication::Transform.apply(:name => 'Shay')
+        end
+      end
+
+      context 'transforms are not empty' do
+        it 'does not load the definitions' do
+          Fabrication::Transform.apply(:name => 'Shay')
+          Fabrication::Support.should_not_receive(:find_definitions)
+          Fabrication::Transform.apply(:name => 'Gabriel')
+        end
+      end
+    end
+
     context 'attributes include a key with transform defined' do
       before do
         Fabrication::Transform.define(:name, lambda {|value| value.reverse})
