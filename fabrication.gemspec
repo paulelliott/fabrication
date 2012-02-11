@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("mongo", ["~> 1.3.1"])
   s.add_development_dependency("mongoid", ["2.1.4"])
   s.add_development_dependency("pry")
-  s.add_development_dependency("rake", ['~> 0.8.7'])
+  s.add_development_dependency("rake")
   s.add_development_dependency("rspec")
   s.add_development_dependency("sequel")
   s.add_development_dependency("sqlite3")
