@@ -1,3 +1,11 @@
+### 1.3.0 ###
+
+* Drop support for ruby 1.8
+* Add Fabrication Transforms
+* Optional machinist (.make) syntax support
+* Add generated turnip steps
+* Fabricator aliases
+
 ### 1.2.0 ###
 
 * Remove use of ivars in fabrication cucumber steps.
