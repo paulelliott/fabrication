@@ -1,5 +1,5 @@
 Fabricator(:parent_mongoid_document) do
-  collection_field(:count => 2, :fabricator => :child_mongoid_document)
+  collection_field(:count => 2) { |parent, i| Fabricate(:child_mongoid_document, :parent_id => parent.id)  }
   dynamic_field { 'dynamic content' }
   nil_field nil
   number_field 5
