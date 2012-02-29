@@ -3,6 +3,7 @@ module Fabrication
   autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
   autoload :UnfabricatableError,      'fabrication/errors/unfabricatable_error'
   autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
+  autoload :MisplacedFabricateError,   'fabrication/errors/misplaced_fabricate_error'
 
   autoload :Attribute,  'fabrication/attribute'
   autoload :Config,     'fabrication/config'
@@ -32,6 +33,14 @@ module Fabrication
     Fabrication::Config.configure(&block)
   end
 
+  def self.initializing=(value)
+    @initializing = value
+  end
+
+  def self.initializing?
+    @initializing
+  end
+
 end
 
 def Fabricator(name, options={}, &block)
@@ -39,6 +48,7 @@ def Fabricator(name, options={}, &block)
 end
 
 def Fabricate(name, overrides={}, &block)
+  raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.initializing?
   Fabrication::Fabricator.generate(name, {
     :save => true
   }, overrides, &block)

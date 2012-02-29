@@ -326,4 +326,13 @@ describe Fabrication do
     end
   end
 
+  describe 'Fabricating while initializing' do
+    before { Fabrication.initializing = true }
+    after { Fabrication.initializing = false }
+
+    it 'throws an error' do
+      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::MisplacedFabricateError)
+    end
+  end
+
 end
