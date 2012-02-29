@@ -1,3 +1,8 @@
+### 1.3.2 ###
+
+* Fixed module declaration for turnip steps generator
+* Raise an error when fabricating while initializing
+
 ### 1.3.0 ###
 
 * Drop support for ruby 1.8
