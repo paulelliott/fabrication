@@ -1,12 +1,12 @@
 Fabricator(:parent_mongoid_document) do
-  collection_field(:count => 2) { |parent, i| Fabricate(:child_mongoid_document, :parent_id => parent.id)  }
+  collection_field(:count => 2) { |parent, i| Fabricate(:referenced_mongoid_document, :parent_id => parent.id)  }
   dynamic_field { 'dynamic content' }
   nil_field nil
   number_field 5
   string_field 'content'
 end
 
-Fabricator(:child_mongoid_document) do
+Fabricator(:referenced_mongoid_document) do
   number_field 10
 end
 
