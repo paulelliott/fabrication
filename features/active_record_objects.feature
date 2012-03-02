@@ -1,12 +1,5 @@
 Feature: Active Record Objects
 
-  Scenario: a single detailed object
-    Given the following division:
-      | name | Rasczak's Roughnecks |
-    Then I should see 1 division in the database
-    And I should see the following division in the database:
-      | name | Rasczak's Roughnecks |
-
   Scenario: a single object with transform to apply
     Given the following company:
       | name | Widgets Inc |

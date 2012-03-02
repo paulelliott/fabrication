@@ -1,12 +1,5 @@
 Feature: Mongoid Objects
 
-  Scenario: a single detailed object
-    Given the following author:
-      | name | George Orwell |
-    Then I should see 1 author in the database
-    And I should see the following author in the database:
-      | name | George Orwell |
-
   Scenario: a single detailed object with a multi-word name
     Given the following publishing house:
       | name | Random House |
