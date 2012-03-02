@@ -48,7 +48,7 @@ end
 
 Then /^the ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |ordindal, value, field|
   object = @they[ORDINALS[ordindal]]
-  object.send(field).should == value
+  object.send(dehumanize(field)).to_s.should == value
 end
 
 Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|

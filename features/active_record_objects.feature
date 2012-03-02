@@ -37,20 +37,6 @@ Feature: Active Record Objects
       | name | Everyone |
     And that division should reference that startup
 
-  Scenario: multiple parented detailed objects
-    Given 1 company
-    And that company has the following divisions:
-      | name            |
-      | Red Squadron    |
-      | Yellow Squadron |
-    Then I should see 1 company in the database
-    And I should see 2 divisions in the database
-    And I should see the following division in the database:
-      | name | Red Squadron |
-    And I should see the following division in the database:
-      | name | Yellow Squadron |
-    And they should reference that company
-
   Scenario: multiple parented detailed objects with inheritance
     Given 1 company
     And that company has the following squadrons:
