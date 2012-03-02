@@ -1,12 +1,5 @@
 Feature: Mongoid Objects
 
-  Scenario: a single detailed object with a multi-word name
-    Given the following publishing house:
-      | name | Random House |
-    Then I should see 1 publishing house in the database
-    And I should see the following publishing house in the database:
-      | name | Random House |
-
   Scenario: a parented single detailed object
     Given 1 author
     And that author has the following book:
@@ -15,23 +8,6 @@ Feature: Mongoid Objects
     And that book should be persisted
     And that book should have "1984" for a "title"
     And that book should reference that author
-
-  Scenario: a parented object with a multi-word name
-    Given 1 publishing house
-    And that publishing house has the following book promoter:
-      | name | Vinnie |
-    Then I should see 1 publishing house in the database
-    And that book promoter should be persisted
-    And that book promoter should have "Vinnie" for a "name"
-    And that book promoter should reference that publishing house
-
-  Scenario: a multi-word child belongs to a multi-word parent
-    Given 1 publishing house
-    And 1 professional affiliation
-    And that publishing house belongs to that professional affiliation
-    Then I should see 1 publishing house in the database
-    And I should see 1 professional affiliation in the database
-    And that publishing house should reference that professional affiliation
 
   Scenario: multiple parented detailed objects
     Given 1 author
