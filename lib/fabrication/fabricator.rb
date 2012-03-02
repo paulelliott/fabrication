@@ -17,7 +17,7 @@ class Fabrication::Fabricator
   end
 
   def self.schematics
-    @schematics ||= {}
+    @schematics ||= defined?(HashWithIndifferentAccess) ? {}.with_indifferent_access : {}
   end
 
   private
