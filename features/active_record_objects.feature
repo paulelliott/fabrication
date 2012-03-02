@@ -1,9 +1,5 @@
 Feature: Active Record Objects
 
-  Scenario: some generic objects
-    Given 5 divisions
-    Then I should see 5 divisions in the database
-
   Scenario: a single detailed object
     Given the following division:
       | name | Rasczak's Roughnecks |

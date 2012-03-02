@@ -1,9 +1,5 @@
 Feature: Mongoid Objects
 
-  Scenario: for some generic objects
-    Given 5 authors
-    Then I should see 5 authors in the database
-
   Scenario: a single detailed object
     Given the following author:
       | name | George Orwell |
