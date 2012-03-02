@@ -7,17 +7,6 @@ Feature: Mongoid Objects
     And I should see the following publishing house in the database:
       | name | Random House |
 
-  Scenario: multiple detailed objects
-    Given the following authors:
-      | name             |
-      | Dr. Seuss        |
-      | Shel Silverstein |
-    Then I should see 2 authors in the database
-    And I should see the following author in the database:
-      | name | Dr. Seuss |
-    And I should see the following author in the database:
-      | name | Shel Silverstein |
-
   Scenario: a parented single detailed object
     Given 1 author
     And that author has the following book:
