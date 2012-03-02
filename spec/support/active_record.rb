@@ -43,11 +43,11 @@ class TestMigration < ActiveRecord::Migration
 end
 
 class ChildActiveRecordModel < ActiveRecord::Base
-  belongs_to :parent, :class_name => 'ParentActiveRecordModel'
+  belongs_to :parent_active_record_model
 end
 
 class ParentActiveRecordModel < ActiveRecord::Base
-  has_many :collection_field, :class_name => 'ChildActiveRecordModel'
+  has_many :child_active_record_models
 
   before_save do
     self.before_save_value = 11

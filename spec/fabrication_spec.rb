@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 shared_examples 'something fabricatable' do
-  subject { Fabricate(fabricator_name) }
+  subject { fabricated_object }
+  let(:fabricated_object) { Fabricate(fabricator_name) }
 
   context 'defaults from fabricator' do
     its(:dynamic_field) { should == 'dynamic content' }
@@ -15,9 +16,9 @@ shared_examples 'something fabricatable' do
   end
 
   context 'overriding at fabricate time' do
-    subject do
+    let(:fabricated_object) do
       Fabricate(
-        fabricator_name,
+        "#{fabricator_name}_with_children",
         :string_field => 'new content',
         :number_field => 10,
         :nil_field => nil
@@ -25,23 +26,27 @@ shared_examples 'something fabricatable' do
         dynamic_field { 'new dynamic content' }
       end
     end
-    its('collection_field.size') { should == 2 }
-    its('collection_field.first.number_field') { should == 10 }
-    its('collection_field.last.number_field') { should == 10 }
+
     its(:dynamic_field) { should == 'new dynamic content' }
     its(:nil_field) { should be_nil }
     its(:number_field) { should == 10 }
     its(:string_field) { should == 'new content' }
+
+    context 'child collections' do
+      subject { fabricated_object.send(collection_field) }
+      its(:size) { should == 2 }
+      its(:first) { should be_persisted }
+      its("first.number_field") { should == 10 }
+      its(:last) { should be_persisted }
+      its("last.number_field") { should == 10 }
+    end
   end
 
   context 'state of the object' do
     it 'generates a fresh object every time' do
       Fabricate(fabricator_name).should_not == subject
     end
-
     it { should be_persisted }
-    its('collection_field.first') { should be_persisted }
-    its('collection_field.last') { should be_persisted }
   end
 
   context 'attributes for' do
@@ -62,21 +67,25 @@ describe Fabrication do
 
   context 'plain old ruby objects' do
     let(:fabricator_name) { :parent_ruby_object }
+    let(:collection_field) { :child_ruby_objects }
     it_should_behave_like 'something fabricatable'
   end
 
   context 'active_record models' do
     let(:fabricator_name) { :parent_active_record_model }
+    let(:collection_field) { :child_active_record_models }
     it_should_behave_like 'something fabricatable'
   end
 
   context 'mongoid documents' do
     let(:fabricator_name) { :parent_mongoid_document }
+    let(:collection_field) { :referenced_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
   context 'sequel models' do
     let(:fabricator_name) { :parent_sequel_model }
+    let(:collection_field) { :child_sequel_models }
     it_should_behave_like 'something fabricatable'
   end
 

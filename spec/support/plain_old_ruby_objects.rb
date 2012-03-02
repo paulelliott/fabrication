@@ -3,7 +3,7 @@ require 'ostruct'
 class ParentRubyObject
   attr_accessor \
     :before_save_value,
-    :collection_field,
+    :child_ruby_objects,
     :dynamic_field,
     :nil_field,
     :number_field,

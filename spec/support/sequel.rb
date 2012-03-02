@@ -10,13 +10,13 @@ def clear_sequel_db
 end
 
 class ChildSequelModel < Sequel::Model
-  many_to_one :parent, :class => :ParentSequelModel, :key => :parent_sequel_model_id
+  many_to_one :parent_sequel_model
 
   def persisted?; !new? end
 end
 
 class ParentSequelModel < Sequel::Model
-  one_to_many :collection_field, :class => :ChildSequelModel, :key => :parent_sequel_model_id
+  one_to_many :child_sequel_models
 
   def persisted?; !new? end
 

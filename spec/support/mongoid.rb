@@ -18,7 +18,7 @@ class ParentMongoidDocument
   field :number_field
   field :string_field
 
-  references_many :collection_field, :class_name => 'ReferencedMongoidDocument', :inverse_of => :parent
+  references_many :referenced_mongoid_documents
 
   before_save do
     self.before_save_value = 11
@@ -30,7 +30,7 @@ class ReferencedMongoidDocument
 
   field :number_field
 
-  referenced_in :parent, :class_name => 'ParentMongoidDocument'
+  referenced_in :parent_mongoid_document
 end
 
 class Author

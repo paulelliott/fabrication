@@ -1,9 +1,12 @@
 Fabricator(:parent_ruby_object) do
-  collection_field(:count => 2, :fabricator => :child_ruby_object)
   dynamic_field { 'dynamic content' }
   nil_field nil
   number_field 5
   string_field 'content'
+end
+
+Fabricator(:parent_ruby_object_with_children, from: :parent_ruby_object) do
+  child_ruby_objects(:count => 2)
 end
 
 Fabricator(:child_ruby_object) do

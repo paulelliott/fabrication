@@ -1,9 +1,12 @@
 Fabricator(:parent_active_record_model) do
-  collection_field(:count => 2, :fabricator => :child_active_record_model)
   dynamic_field { 'dynamic content' }
   nil_field nil
   number_field 5
   string_field 'content'
+end
+
+Fabricator(:parent_active_record_model_with_children, from: :parent_active_record_model) do
+  child_active_record_models(count: 2)
 end
 
 Fabricator(:child_active_record_model) do

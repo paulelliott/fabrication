@@ -3,9 +3,12 @@ Fabricator(:parent_sequel_model) do
   nil_field nil
   number_field 5
   string_field 'content'
+end
+
+Fabricator(:parent_sequel_model_with_children, from: :parent_sequel_model) do
   after_create do |parent|
     2.times do
-      Fabricate(:child_sequel_model, :parent => parent)
+      Fabricate(:child_sequel_model, :parent_sequel_model => parent)
     end
   end
 end
