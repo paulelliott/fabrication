@@ -17,16 +17,6 @@ Feature: Active Record Objects
       | North     | Widgets Inc |
     Then they should reference that company
 
-  Scenario: a parented single detailed object
-    Given 1 company
-    And that company has the following division:
-      | name | Everyone |
-    Then I should see 1 company in the database
-    And I should see 1 division in the database
-    And I should see the following division in the database:
-      | name | Everyone |
-    And that division should reference that company
-
   Scenario: a parented single detailed object with inheritance
     Given 1 company
     And that company has the following squadron:

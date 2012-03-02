@@ -26,7 +26,7 @@ end
 Then /^that ([^"]*) should have "([^"]*)" for a "([^"]*)"$/ do |object_name, value, field|
   object_name = dehumanize(object_name)
   object = fabrications[object_name]
-  object.send(field).should == value
+  object.send(dehumanize(field)).to_s.should == value
 end
 
 Then /^they should be persisted$/ do
