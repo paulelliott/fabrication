@@ -1,5 +1,6 @@
 require 'fabrication'
 require 'ffaker'
+require 'active_support'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
