@@ -60,3 +60,9 @@ Then /^that ([^"]*) should reference that ([^"]*)$/ do |child_name, parent_name|
   child = fabrications[child_name]
   child.send(parent_class_name).should == parent
 end
+
+Then /^that (.*) should have (\d+) (.*)$/ do |parent_name, count, child_name|
+  parent_name = dehumanize(parent_name)
+  parent = fabrications[parent_name]
+  parent.send(dehumanize(child_name).pluralize).count.should == count.to_i
+end
