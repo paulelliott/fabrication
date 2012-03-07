@@ -227,6 +227,15 @@ describe Fabrication do
     it "sets lazy dynamic fields" do
       Fabricate(:special_author).lazy_dynamic_field.should == "foo"
     end
+
+    context "with disabled dynamic fields" do
+      before { Mongoid.allow_dynamic_fields = false }
+      after { Mongoid.allow_dynamic_fields = true }
+
+      it "raises NoMethodError for mongoid_dynamic_field=" do
+        expect { Fabricate(:special_author) }.should raise_error(NoMethodError, /mongoid_dynamic_field=/)
+      end
+    end
   end
 
   context 'with multiple callbacks' do

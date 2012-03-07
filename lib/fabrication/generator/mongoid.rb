@@ -12,10 +12,10 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
       value = block_given? ? yield(instance) : raw_value
     end
 
-    if instance.respond_to?("#{method_name}=")
-      instance.send("#{method_name}=", value)
-    else
+    if Mongoid.allow_dynamic_fields && !instance.respond_to?("#{method_name}=")
       instance[method_name] = value
+    else
+      instance.send("#{method_name}=", value)
     end
   end
 end
