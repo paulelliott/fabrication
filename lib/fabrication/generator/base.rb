@@ -1,25 +1,25 @@
 class Fabrication::Generator::Base
 
-  def self.supports?(klass); true end
+  def self.supports?(__klass); true end
 
   def generate(options={:save => true}, attributes=[], callbacks={})
     if callbacks[:on_init]
-      self.instance = klass.new(*callbacks[:on_init].call)
+      self.__instance = __klass.new(*callbacks[:on_init].call)
     else
-      self.instance = klass.new
+      self.__instance = __klass.new
     end
 
     process_attributes(attributes)
 
-    callbacks[:after_build].each { |callback| callback.call(instance) } if callbacks[:after_build]
+    callbacks[:after_build].each { |callback| callback.call(__instance) } if callbacks[:after_build]
     after_generation(options)
-    callbacks[:after_create].each { |callback| callback.call(instance) } if callbacks[:after_create] && options[:save]
+    callbacks[:after_create].each { |callback| callback.call(__instance) } if callbacks[:after_create] && options[:save]
 
-    instance
+    __instance
   end
 
   def initialize(klass)
-    self.klass = klass
+    self.__klass = klass
   end
 
   def association?(method_name); false end
@@ -32,13 +32,13 @@ class Fabrication::Generator::Base
         count = options[:count] || 0
 
         # copy the original getter
-        instance.instance_variable_set("@__#{method_name}_original", instance.method(method_name))
+        __instance.instance_variable_set("@__#{method_name}_original", __instance.method(method_name))
 
         # store the block for lazy generation
-        instance.instance_variable_set("@__#{method_name}_block", block)
+        __instance.instance_variable_set("@__#{method_name}_block", block)
 
         # redefine the getter
-        instance.instance_eval %<
+        __instance.instance_eval %<
           def #{method_name}
             original_value = @__#{method_name}_original.call
             if @__#{method_name}_block
@@ -62,21 +62,21 @@ class Fabrication::Generator::Base
 
   protected
 
-  attr_accessor :klass, :instance
+  attr_accessor :__klass, :__instance
 
   def after_generation(options)
-    instance.save! if options[:save] && instance.respond_to?(:save!)
+    __instance.save! if options[:save] && __instance.respond_to?(:save!)
   end
 
   def assign(method_name, options, raw_value=nil)
     if options.has_key?(:count)
       value = (1..options[:count]).map do |i|
-        block_given? ? yield(instance, i) : raw_value
+        block_given? ? yield(__instance, i) : raw_value
       end
     else
-      value = block_given? ? yield(instance) : raw_value
+      value = block_given? ? yield(__instance) : raw_value
     end
-    instance.send("#{method_name}=", value)
+    __instance.send("#{method_name}=", value)
   end
 
   def post_initialize; end

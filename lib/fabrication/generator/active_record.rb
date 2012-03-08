@@ -5,7 +5,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def associations
-    @associations ||= klass.reflections.keys
+    @associations ||= __klass.reflections.keys
   end
 
   def association?(method_name)

@@ -5,7 +5,7 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
   end
 
   def after_generation(options)
-    instance.save if options[:save]
+    __instance.save if options[:save]
   end
 
 end

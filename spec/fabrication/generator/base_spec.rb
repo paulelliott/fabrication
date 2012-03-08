@@ -92,7 +92,7 @@ describe Fabrication::Generator::Base do
     let(:instance) { mock(:instance) }
     let(:generator) { Fabrication::Generator::Base.new(Object) }
 
-    before { generator.send(:instance=, instance) }
+    before { generator.send(:__instance=, instance) }
 
     it "saves with a true save flag" do
       instance.should_receive(:save!)
