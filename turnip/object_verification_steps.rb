@@ -1,4 +1,4 @@
-steps_for :global do 
+steps_for :global do
   ORDINALS = {
     "first" => 0,
     "second" => 1
