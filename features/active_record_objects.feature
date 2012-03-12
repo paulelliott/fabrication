@@ -1,13 +1,5 @@
 Feature: Active Record Objects
 
-  Scenario: a single object with transform to apply
-    Given the following company:
-      | name | Widgets Inc |
-    Given the following division:
-      | name    | Southwest   |
-      | company | Widgets Inc |
-    Then that division should reference that company
-
   Scenario: multiple objects with transform to apply
     Given the following company:
       | name | Widgets Inc |
