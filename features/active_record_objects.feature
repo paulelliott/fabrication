@@ -1,14 +1,5 @@
 Feature: Active Record Objects
 
-  Scenario: multiple objects with transform to apply
-    Given the following company:
-      | name | Widgets Inc |
-    Given the following divisions:
-      | name      | company     |
-      | Southwest | Widgets Inc |
-      | North     | Widgets Inc |
-    Then they should reference that company
-
   Scenario: a parented single detailed object with inheritance
     Given 1 company
     And that company has the following squadron:
