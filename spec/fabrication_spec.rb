@@ -75,6 +75,17 @@ describe Fabrication do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
     it_should_behave_like 'something fabricatable'
+
+    context 'associations in attributes_for' do
+      let(:parent_model) { Fabricate(:parent_active_record_model) }
+      subject do
+        Fabricate.attributes_for(:child_active_record_model, parent_active_record_model: parent_model)
+      end
+
+      it 'serializes the belongs_to as an id' do
+        should include({ parent_active_record_model_id: parent_model.id })
+      end
+    end
   end
 
   context 'mongoid documents' do

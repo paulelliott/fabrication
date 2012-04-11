@@ -122,7 +122,12 @@ class Fabrication::Schematic
   def to_hash(object)
     (defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}).tap do |hash|
       attributes.map do |attribute|
-        hash[attribute.name] = object.send(attribute.name)
+        value = object.send(attribute.name)
+        if value.respond_to? :id
+          hash["#{attribute.name}_id"] = value.id
+        else
+          hash[attribute.name] = value
+        end
       end
     end
   end
