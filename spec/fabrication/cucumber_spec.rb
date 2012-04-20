@@ -82,8 +82,8 @@ describe Fabrication::Cucumber do
       end
 
       it 'applies transforms' do
-        Fabrication::Transform.should_receive(:apply).
-          with({:some => 'thing'}).and_return({})
+        Fabrication::Transform.should_receive(:apply_to).
+          with('bears', {:some => 'thing'}).and_return({})
         Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
       end
     end

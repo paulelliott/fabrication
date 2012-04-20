@@ -12,7 +12,7 @@ module Fabrication
       def from_table(table, extra={})
         hashes = singular? ? [table.rows_hash] : table.hashes
         hashes.map do |hash|
-          transformed_hash = Fabrication::Transform.apply(parameterize_hash(hash))
+          transformed_hash = Fabrication::Transform.apply_to(@model, parameterize_hash(hash))
           make(transformed_hash.merge(extra))
         end.tap {|o| remember(o) }
       end
