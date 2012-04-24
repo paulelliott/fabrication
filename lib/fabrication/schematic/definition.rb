@@ -74,7 +74,7 @@ class Fabrication::Schematic::Definition
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
-        schematic.append_or_update_attribute(Fabrication::Attribute.new(name.to_sym, nil, value))
+        schematic.append_or_update_attribute(Fabrication::Schematic::Attribute.new(name.to_sym, nil, value))
       end
     end
   end
@@ -89,7 +89,7 @@ class Fabrication::Schematic::Definition
       value = args.first
     end
 
-    append_or_update_attribute(Fabrication::Attribute.new(method_name, params, value))
+    append_or_update_attribute(Fabrication::Schematic::Attribute.new(method_name, params, value))
   end
 
   def on_init(&block)

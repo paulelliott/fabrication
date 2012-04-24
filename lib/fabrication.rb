@@ -6,11 +6,11 @@ module Fabrication
   autoload :MisplacedFabricateError,   'fabrication/errors/misplaced_fabricate_error'
 
   module Schematic
+    autoload :Attribute,  'fabrication/schematic/attribute'
     autoload :Definition, 'fabrication/schematic/definition'
     autoload :Manager,    'fabrication/schematic/manager'
   end
 
-  autoload :Attribute,  'fabrication/attribute'
   autoload :Config,     'fabrication/config'
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'

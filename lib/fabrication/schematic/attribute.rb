@@ -1,4 +1,4 @@
-class Fabrication::Attribute
+class Fabrication::Schematic::Attribute
 
   attr_accessor :name, :params, :value
 

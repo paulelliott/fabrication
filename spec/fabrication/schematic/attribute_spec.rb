@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Fabrication::Attribute do
+describe Fabrication::Schematic::Attribute do
 
   describe ".new" do
 
     context "with name, params, and a static value" do
 
       subject do
-        Fabrication::Attribute.new("a", {:b => 1}, "c")
+        Fabrication::Schematic::Attribute.new("a", {:b => 1}, "c")
       end
 
       its(:name)   { should == "a" }
@@ -19,7 +19,7 @@ describe Fabrication::Attribute do
     context "with a block value" do
 
       subject do
-        Fabrication::Attribute.new("a", nil, Proc.new { "c" })
+        Fabrication::Schematic::Attribute.new("a", nil, Proc.new { "c" })
       end
 
       it "has a proc for a value" do
@@ -31,7 +31,7 @@ describe Fabrication::Attribute do
     context "with a nil value" do
 
       subject do
-        Fabrication::Attribute.new("a", nil, nil)
+        Fabrication::Schematic::Attribute.new("a", nil, nil)
       end
 
       its(:value) { should be_nil }
@@ -41,7 +41,7 @@ describe Fabrication::Attribute do
     context "with nil params" do
 
       subject do
-        Fabrication::Attribute.new("a", nil, nil)
+        Fabrication::Schematic::Attribute.new("a", nil, nil)
       end
 
       its(:params) { should be_nil }
