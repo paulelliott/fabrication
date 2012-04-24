@@ -42,11 +42,11 @@ describe Fabrication::Support do
     end
 
     it "has an awesome object" do
-      Fabrication::Fabricator.schematics[:awesome_object].should be
+      Fabrication.schematics[:awesome_object].should be
     end
 
     it "has a cool object" do
-      Fabrication::Fabricator.schematics[:cool_object].should be
+      Fabrication.schematics[:cool_object].should be
     end
 
   end

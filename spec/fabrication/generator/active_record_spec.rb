@@ -32,7 +32,7 @@ describe Fabrication::Generator::ActiveRecord do
   describe "#generate" do
 
     let(:attributes) do
-      Fabrication::Schematic.new(Company) do
+      Fabrication::Schematic::Definition.new(Company) do
         name 'Company Name'
         city { |c| c.name.downcase }
         divisions(:count => 2) { |c, i| Division.create(:company => c, :name => "Division #{i}") }

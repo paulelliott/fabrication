@@ -306,7 +306,7 @@ describe Fabrication do
     after { Fabrication::Support.find_definitions }
 
     it 'should not generate authors' do
-      Fabrication::Fabricator.schematics.has_key?(:author).should be_false
+      Fabrication.schematics[:author].should be_nil
     end
   end
 
@@ -328,17 +328,23 @@ describe Fabrication do
     end
   end
 
-  context 'defining a fabricator without a block' do
+  context 'defining a fabricator' do
+    context 'without a block' do
+      before(:all) do
+        class Widget; end
+        Fabricator(:widget)
+      end
 
-    before(:all) do
-      class Widget; end
-      Fabricator(:widget)
+      it 'works fine' do
+        Fabricate(:widget).should be
+      end
     end
 
-    it 'works fine' do
-      Fabricate(:widget).should be
+    context 'for a non-existant class' do
+      it "raises an error if the class cannot be located" do
+        lambda { Fabricator(:somenonexistantclass) }.should raise_error(Fabrication::UnfabricatableError)
+      end
     end
-
   end
 
   describe "Fabricate with a sequence" do

@@ -54,7 +54,7 @@ module Fabrication
       end
 
       def schematic
-        Fabrication::Fabricator.schematics[@fabricator]
+        Fabrication.schematics[@fabricator]
       end
 
       def dehumanize(string)

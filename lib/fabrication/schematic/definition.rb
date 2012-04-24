@@ -1,4 +1,4 @@
-class Fabrication::Schematic
+class Fabrication::Schematic::Definition
 
   GENERATORS = [
     Fabrication::Generator::ActiveRecord,

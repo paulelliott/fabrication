@@ -14,7 +14,7 @@ describe Fabrication::Generator::Base do
     let(:generator) { Fabrication::Generator::Base.new(Person) }
 
     let(:attributes) do
-      Fabrication::Schematic.new(Person) do
+      Fabrication::Schematic::Definition.new(Person) do
         first_name 'Guy'
         shoes(:count => 4) do |person, index|
           "#{person.first_name}'s shoe #{index}"
@@ -43,7 +43,7 @@ describe Fabrication::Generator::Base do
 
       context "using init_with" do
         let(:schematic) do
-          Fabrication::Schematic.new(klass) do
+          Fabrication::Schematic::Definition.new(klass) do
             on_init { init_with(:a, :b) }
           end
         end
@@ -56,7 +56,7 @@ describe Fabrication::Generator::Base do
 
       context "not using init_with" do
         let(:schematic) do
-          Fabrication::Schematic.new(klass) do
+          Fabrication::Schematic::Definition.new(klass) do
             on_init { [ :a, :b ] }
           end
         end
@@ -71,7 +71,7 @@ describe Fabrication::Generator::Base do
 
     context "using an after_create hook" do
       let(:schematic) do
-        Fabrication::Schematic.new(Person) do
+        Fabrication::Schematic::Definition.new(Person) do
           first_name "Guy"
           after_create { |k| k.first_name.upcase! }
         end

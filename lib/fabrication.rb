@@ -5,11 +5,15 @@ module Fabrication
   autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
   autoload :MisplacedFabricateError,   'fabrication/errors/misplaced_fabricate_error'
 
+  module Schematic
+    autoload :Definition, 'fabrication/schematic/definition'
+    autoload :Manager,    'fabrication/schematic/manager'
+  end
+
   autoload :Attribute,  'fabrication/attribute'
   autoload :Config,     'fabrication/config'
   autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
-  autoload :Schematic,  'fabrication/schematic'
   autoload :Support,    'fabrication/support'
   autoload :Transform,  'fabrication/transform'
 
@@ -25,7 +29,7 @@ module Fabrication
   end
 
   def self.clear_definitions
-    Fabricator.schematics.clear
+    @schematics = nil
     Sequencer.sequences.clear
   end
 
@@ -41,10 +45,14 @@ module Fabrication
     @initializing
   end
 
+  def self.schematics
+    @schematics ||= Fabrication::Schematic::Manager.new
+  end
+
 end
 
 def Fabricator(name, options={}, &block)
-  Fabrication::Fabricator.define(name, options, &block)
+  Fabrication.schematics.register(name, options, &block)
 end
 
 def Fabricate(name, overrides={}, &block)

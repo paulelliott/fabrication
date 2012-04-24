@@ -14,7 +14,7 @@ steps_for :global do
 
   def get_class(model_name)
     fabricator_name = generate_fabricator_name(model_name)
-    Fabrication::Fabricator.schematics[fabricator_name].klass
+    Fabrication.schematics[fabricator_name].klass
   end
 
 

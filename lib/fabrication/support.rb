@@ -3,7 +3,7 @@ class Fabrication::Support
   class << self
 
     def fabricatable?(name)
-      Fabrication::Fabricator.schematics.include?(name) || class_for(name)
+      Fabrication.schematics[name] || class_for(name)
     end
 
     def class_for(class_or_to_s)

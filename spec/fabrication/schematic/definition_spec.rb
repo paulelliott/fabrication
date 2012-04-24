@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Fabrication::Schematic do
+describe Fabrication::Schematic::Definition do
 
   let(:schematic) do
-    Fabrication::Schematic.new(OpenStruct) do
+    Fabrication::Schematic::Definition.new(OpenStruct) do
       name "Orgasmo"
       something(:param => 2) { "hi!" }
       another_thing { 25 }
@@ -13,17 +13,17 @@ describe Fabrication::Schematic do
   describe "generator selection" do
     context "for an activerecord object" do
       it "uses the activerecord generator" do
-        Fabrication::Schematic.new(Division).generator.should == Fabrication::Generator::ActiveRecord
+        Fabrication::Schematic::Definition.new(Division).generator.should == Fabrication::Generator::ActiveRecord
       end
     end
     context "for a mongoid object" do
       it "uses the base generator" do
-        Fabrication::Schematic.new(Author).generator.should == Fabrication::Generator::Mongoid
+        Fabrication::Schematic::Definition.new(Author).generator.should == Fabrication::Generator::Mongoid
       end
     end
     context "for a sequel object" do
       it "uses the base generator" do
-        Fabrication::Schematic.new(ParentSequelModel).generator.should == Fabrication::Generator::Sequel
+        Fabrication::Schematic::Definition.new(ParentSequelModel).generator.should == Fabrication::Generator::Sequel
       end
     end
   end
@@ -157,7 +157,7 @@ describe Fabrication::Schematic do
     let(:init_block) { lambda {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic.new(OpenStruct) do
+      Fabrication::Schematic::Definition.new(OpenStruct) do
         on_init &block
       end
     end
