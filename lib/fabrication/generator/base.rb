@@ -22,39 +22,9 @@ class Fabrication::Generator::Base
     self.__klass = klass
   end
 
-  def association?(method_name); false end
-
   def method_missing(method_name, *args, &block)
     if block_given?
-      options = args.first || {}
-      if !options[:force] && association?(method_name)
-        method_name = method_name.to_s
-        count = options[:count] || 0
-
-        # copy the original getter
-        __instance.instance_variable_set("@__#{method_name}_original", __instance.method(method_name))
-
-        # store the block for lazy generation
-        __instance.instance_variable_set("@__#{method_name}_block", block)
-
-        # redefine the getter
-        __instance.instance_eval %<
-          def #{method_name}
-            original_value = @__#{method_name}_original.call
-            if @__#{method_name}_block
-              if #{count} \>= 1
-                original_value = #{method_name}= (1..#{count}).map { |i| @__#{method_name}_block.call(self, i) }
-              else
-                original_value = #{method_name}= @__#{method_name}_block.call(self)
-              end
-              @__#{method_name}_block = nil
-            end
-            original_value
-          end
-        >
-      else
-        assign(method_name, options, &block)
-      end
+      assign(method_name, args.first || {}, &block)
     else
       assign(method_name, {}, args.first)
     end

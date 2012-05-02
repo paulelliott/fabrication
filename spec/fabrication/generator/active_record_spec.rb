@@ -40,12 +40,8 @@ describe Fabrication::Generator::ActiveRecord do
     end
 
     let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
-    let(:company) { generator.generate({:save => true}, attributes) }
-    before { company }
-
-    it 'does not persist the divisions immediately' do
-      Division.count.should == 0
-    end
+    let!(:company) { generator.generate({:save => true}, attributes) }
+    let(:divisions) { company.divisions }
 
     it 'passes the object to blocks' do
       company.city.should == 'company name'
@@ -59,23 +55,13 @@ describe Fabrication::Generator::ActiveRecord do
       Company.find_by_name('Company Name').should be
     end
 
-    context 'upon accessing the divisions association' do
 
-      let(:divisions) { company.divisions }
+    it 'generates the divisions' do
+      divisions.length.should == 2
+    end
 
-      it 'generates the divisions' do
-        divisions.length.should == 2
-      end
-
-      it 'persists the divisions' do
-        divisions
-        Division.find_all_by_company_id(company.id).count.should == 2
-      end
-
-      it 'can load the divisions from the database' do
-        company.reload.divisions.length.should == 2
-      end
-
+    it 'persists the divisions' do
+      Division.find_all_by_company_id(company.id).count.should == 2
     end
 
   end
