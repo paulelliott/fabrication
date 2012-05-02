@@ -34,8 +34,8 @@ describe Fabrication::Generator::ActiveRecord do
     let(:attributes) do
       Fabrication::Schematic::Definition.new(Company) do
         name 'Company Name'
-        city { |c| c.name.downcase }
-        divisions(:count => 2) { |c, i| Division.create(:company => c, :name => "Division #{i}") }
+        city { |attrs| attrs[:name].downcase }
+        divisions(count: 2) { |attrs, i| Division.new(name: "Division #{i}") }
       end.attributes
     end
 

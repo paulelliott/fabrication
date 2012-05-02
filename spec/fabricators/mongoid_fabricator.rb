@@ -6,7 +6,11 @@ Fabricator(:parent_mongoid_document) do
 end
 
 Fabricator(:parent_mongoid_document_with_children, from: :parent_mongoid_document) do
-  referenced_mongoid_documents(:count => 2) { |parent, i| Fabricate(:referenced_mongoid_document, :parent_mongoid_document_id => parent.id)  }
+  after_create do |doc|
+    2.times do
+      doc.referenced_mongoid_documents << Fabricate(:referenced_mongoid_document)
+    end
+  end
 end
 
 Fabricator(:referenced_mongoid_document) do
@@ -16,8 +20,8 @@ end
 # Mongoid Documents
 Fabricator(:author) do
   name 'George Orwell'
-  books(:count => 4) do |author, i|
-    Fabricate.build(:book, :title => "book title #{i}", :author => author)
+  books(:count => 4) do |attrs, i|
+    Fabricate.build(:book, :title => "book title #{i}")
   end
 end
 

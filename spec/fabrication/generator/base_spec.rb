@@ -16,8 +16,8 @@ describe Fabrication::Generator::Base do
     let(:attributes) do
       Fabrication::Schematic::Definition.new(Person) do
         first_name 'Guy'
-        shoes(:count => 4) do |person, index|
-          "#{person.first_name}'s shoe #{index}"
+        shoes(:count => 4) do |attrs, index|
+          "#{attrs[:first_name]}'s shoe #{index}"
         end
       end.attributes
     end

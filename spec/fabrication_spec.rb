@@ -140,7 +140,7 @@ describe Fabrication do
 
     let(:person) do
       Fabricate(:person, :first_name => "Paul") do
-        last_name { |person| "#{person.first_name}#{person.age}" }
+        last_name { |attrs| "#{attrs[:first_name]}#{attrs[:age]}" }
         age 50
       end
     end
