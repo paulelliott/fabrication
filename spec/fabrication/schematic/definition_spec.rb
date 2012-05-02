@@ -11,20 +11,21 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe "generator selection" do
+    subject { Fabrication::Schematic::Definition.new(klass).generator }
+
     context "for an activerecord object" do
-      it "uses the activerecord generator" do
-        Fabrication::Schematic::Definition.new(Division).generator.should == Fabrication::Generator::ActiveRecord
-      end
+      let(:klass) { ParentActiveRecordModel }
+      it { should == Fabrication::Generator::Base }
     end
+
     context "for a mongoid object" do
-      it "uses the base generator" do
-        Fabrication::Schematic::Definition.new(Author).generator.should == Fabrication::Generator::Mongoid
-      end
+      let(:klass) { ParentMongoidDocument }
+      it { should == Fabrication::Generator::Mongoid }
     end
+
     context "for a sequel object" do
-      it "uses the base generator" do
-        Fabrication::Schematic::Definition.new(ParentSequelModel).generator.should == Fabrication::Generator::Sequel
-      end
+      let(:klass) { ParentSequelModel }
+      it { should == Fabrication::Generator::Sequel }
     end
   end
 
