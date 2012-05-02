@@ -15,7 +15,7 @@ describe Fabrication::Schematic::Definition do
 
     context "for an activerecord object" do
       let(:klass) { ParentActiveRecordModel }
-      it { should == Fabrication::Generator::Base }
+      it { should == Fabrication::Generator::ActiveRecord }
     end
 
     context "for a mongoid object" do
