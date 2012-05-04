@@ -9,7 +9,7 @@ describe Fabrication::Generator::Base do
     end
   end
 
-  describe "#generate" do
+  describe "#build" do
 
     let(:generator) { Fabrication::Generator::Base.new(Person) }
 
@@ -22,7 +22,7 @@ describe Fabrication::Generator::Base do
       end.attributes
     end
 
-    let(:person) { generator.generate({}, attributes) }
+    let(:person) { generator.build(attributes) }
 
     it 'generates an instance' do
       person.instance_of?(Person).should be_true
@@ -88,20 +88,15 @@ describe Fabrication::Generator::Base do
 
   end
 
-  describe "#after_generation" do
+  describe "#persist" do
     let(:instance) { mock(:instance) }
     let(:generator) { Fabrication::Generator::Base.new(Object) }
 
     before { generator.send(:__instance=, instance) }
 
-    it "saves with a true save flag" do
+    it 'saves' do
       instance.should_receive(:save!)
-      generator.send(:after_generation, {:save => true})
-    end
-
-    it "does not save without a true save flag" do
-      instance.should_not_receive(:save)
-      generator.send(:after_generation, {})
+      generator.send(:persist)
     end
   end
 

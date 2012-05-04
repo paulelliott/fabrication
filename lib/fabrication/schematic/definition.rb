@@ -49,19 +49,19 @@ class Fabrication::Schematic::Definition
 
   def build(overrides={}, &block)
     merge(overrides, &block).instance_eval do
-      generator.new(klass).generate({save: false}, attributes, callbacks)
+      generator.new(klass).build(attributes, callbacks)
     end
   end
 
   def fabricate(overrides={}, &block)
     merge(overrides, &block).instance_eval do
-      generator.new(klass).generate({save: true}, attributes, callbacks)
+      generator.new(klass).create(attributes, callbacks)
     end
   end
 
   def to_attributes(overrides={}, &block)
     merge(overrides, &block).instance_eval do
-      to_hash(generator.new(klass).generate({save: false}, attributes, callbacks))
+      to_hash(generator.new(klass).build(attributes, callbacks))
     end
   end
 

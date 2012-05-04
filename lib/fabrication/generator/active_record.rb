@@ -4,7 +4,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
   end
 
-  def build
+  def build_instance
     self.__instance = __klass.new(__attributes)
   end
 

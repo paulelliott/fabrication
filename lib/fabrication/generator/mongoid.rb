@@ -4,7 +4,7 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
     defined?(Mongoid) && klass.ancestors.include?(Mongoid::Document)
   end
 
-  def build
+  def build_instance
     self.__instance = __klass.new(__attributes)
   end
 

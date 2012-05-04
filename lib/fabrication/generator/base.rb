@@ -2,30 +2,35 @@ class Fabrication::Generator::Base
 
   def self.supports?(__klass); true end
 
-  def generate(options={:save => true}, attributes=[], callbacks={})
+  def build(attributes=[], callbacks={})
     process_attributes(attributes)
 
     if callbacks[:on_init]
-      build_with_init_callback(callbacks[:on_init])
+      build_instance_with_init_callback(callbacks[:on_init])
     else
-      build
+      build_instance
     end
 
     callbacks[:after_build].each { |callback| callback.call(__instance) } if callbacks[:after_build]
-    after_generation(options)
-    callbacks[:after_create].each { |callback| callback.call(__instance) } if callbacks[:after_create] && options[:save]
 
     __instance
   end
 
-  def build_with_init_callback(callback)
+  def create(attributes=[], callbacks=[])
+    build(attributes, callbacks)
+    persist
+    callbacks[:after_create].each { |callback| callback.call(__instance) } if callbacks[:after_create]
+    __instance
+  end
+
+  def build_instance_with_init_callback(callback)
     self.__instance = __klass.new(*callback.call)
     __attributes.each do |k,v|
       __instance.send("#{k}=", v)
     end
   end
 
-  def build
+  def build_instance
     self.__instance = __klass.new
     __attributes.each do |k,v|
       __instance.send("#{k}=", v)
@@ -52,8 +57,8 @@ class Fabrication::Generator::Base
     @__attributes ||= {}
   end
 
-  def after_generation(options)
-    __instance.save! if options[:save] && __instance.respond_to?(:save!)
+  def persist
+    __instance.save! if __instance.respond_to?(:save!)
   end
 
   def assign(method_name, options, raw_value=nil)

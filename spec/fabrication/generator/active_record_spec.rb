@@ -12,24 +12,19 @@ describe Fabrication::Generator::ActiveRecord do
     end
   end
 
-  describe "#after_generation" do
+  describe "#persist" do
     let(:instance) { mock(:instance) }
     let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
 
     before { generator.send(:__instance=, instance) }
 
-    it "saves with a true save flag" do
+    it "saves" do
       instance.should_receive(:save!)
-      generator.send(:after_generation, {:save => true})
-    end
-
-    it "does not save without a true save flag" do
-      instance.should_not_receive(:save)
-      generator.send(:after_generation, {})
+      generator.send(:persist)
     end
   end
 
-  describe "#generate" do
+  describe "#create" do
 
     let(:attributes) do
       Fabrication::Schematic::Definition.new(Company) do
@@ -40,7 +35,7 @@ describe Fabrication::Generator::ActiveRecord do
     end
 
     let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
-    let!(:company) { generator.generate({:save => true}, attributes) }
+    let!(:company) { generator.create(attributes, {}) }
     let(:divisions) { company.divisions }
 
     it 'passes the object to blocks' do
@@ -54,7 +49,6 @@ describe Fabrication::Generator::ActiveRecord do
     it 'persists the company upon creation' do
       Company.find_by_name('Company Name').should be
     end
-
 
     it 'generates the divisions' do
       divisions.length.should == 2

@@ -4,8 +4,8 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
     defined?(Sequel) && klass.ancestors.include?(Sequel::Model)
   end
 
-  def after_generation(options)
-    __instance.save if options[:save]
+  def persist
+    __instance.save
   end
 
 end
