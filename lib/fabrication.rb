@@ -58,29 +58,21 @@ end
 
 def Fabricate(name, overrides={}, &block)
   raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.initializing?
-  Fabrication::Fabricator.generate(name, {
-    :save => true
-  }, overrides, &block)
+  Fabrication::Fabricator.fabricate(name, overrides, &block)
 end
 
 class Fabricate
-
-  def self.attributes_for(name, options={}, &block)
-    Fabrication::Fabricator.generate(name, {
-      :save => false, :attributes => true
-    }, options, &block)
+  def self.attributes_for(name, overrides={}, &block)
+    Fabrication::Fabricator.to_attributes(name, overrides, &block)
   end
 
-  def self.build(name, options={}, &block)
-    Fabrication::Fabricator.generate(name, {
-      :save => false
-    }, options, &block)
+  def self.build(name, overrides={}, &block)
+    Fabrication::Fabricator.build(name, overrides, &block)
   end
 
   def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
     Fabrication::Sequencer.sequence(name, start, &block)
   end
-
 end
 
 module FabricationMethods
