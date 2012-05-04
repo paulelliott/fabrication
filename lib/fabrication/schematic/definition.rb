@@ -47,14 +47,21 @@ class Fabrication::Schematic::Definition
     @callbacks ||= {}
   end
 
-  def generate(options={}, overrides={}, &block)
-    new_schematic = merge(overrides, &block)
-    new_schematic.instance_eval do
-      if options[:attributes]
-        to_hash(generator.new(klass).generate({:save => false}, attributes, callbacks))
-      else
-        generator.new(klass).generate(options, attributes, callbacks)
-      end
+  def build(overrides={}, &block)
+    merge(overrides, &block).instance_eval do
+      generator.new(klass).generate({save: false}, attributes, callbacks)
+    end
+  end
+
+  def fabricate(overrides={}, &block)
+    merge(overrides, &block).instance_eval do
+      generator.new(klass).generate({save: true}, attributes, callbacks)
+    end
+  end
+
+  def to_attributes(overrides={}, &block)
+    merge(overrides, &block).instance_eval do
+      to_hash(generator.new(klass).generate({save: false}, attributes, callbacks))
     end
   end
 

@@ -37,7 +37,7 @@ describe Fabrication::Generator::Base do
     end
 
     context "with on_init block" do
-      subject { schematic.generate }
+      subject { schematic.fabricate }
 
       let(:klass) { Struct.new :arg1, :arg2 }
 
@@ -78,11 +78,11 @@ describe Fabrication::Generator::Base do
       end
 
       it "calls after_create when generated with saving" do
-        schematic.generate(:save => true).first_name.should == "GUY"
+        schematic.fabricate.first_name.should == "GUY"
       end
 
       it "does not call after_create when generated without saving" do
-        schematic.generate(:save => false).first_name.should == "Guy"
+        schematic.build.first_name.should == "Guy"
       end
     end
 

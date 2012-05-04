@@ -1,15 +1,15 @@
 class Fabrication::Fabricator
 
   def self.build(name, overrides={}, &block)
-    schematic(name).generate({save: false}, overrides, &block)
+    schematic(name).build(overrides, &block)
   end
 
   def self.fabricate(name, overrides={}, &block)
-    schematic(name).generate({save: true}, overrides, &block)
+    schematic(name).fabricate(overrides, &block)
   end
 
   def self.to_attributes(name, overrides={}, &block)
-    schematic(name).generate({save: false, attributes: true}, overrides, &block)
+    schematic(name).to_attributes(overrides, &block)
   end
 
   private

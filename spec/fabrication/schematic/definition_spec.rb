@@ -57,33 +57,27 @@ describe Fabrication::Schematic::Definition do
     end
   end
 
-  describe "#generate" do
-
+  describe "#fabricate" do
     context "an instance" do
-
       it "generates a new instance" do
-        schematic.generate.should be_kind_of(OpenStruct)
+        schematic.fabricate.should be_kind_of(OpenStruct)
       end
+    end
+  end
 
+  describe "#to_attributes" do
+    let(:hash) { schematic.to_attributes }
+
+    it "generates a hash with the object's attributes" do
+      hash.should be_kind_of(Hash)
     end
 
-    context "an attributes hash" do
-
-      let(:hash) { schematic.generate(:attributes => true) }
-
-      it "generates a hash with the object's attributes" do
-        hash.should be_kind_of(Hash)
-      end
-
-      it "has the correct attributes" do
-        hash.size.should == 3
-        hash[:name].should == 'Orgasmo'
-        hash[:something].should == "hi!"
-        hash[:another_thing].should == 25
-      end
-
+    it "has the correct attributes" do
+      hash.size.should == 3
+      hash[:name].should == 'Orgasmo'
+      hash[:something].should == "hi!"
+      hash[:another_thing].should == 25
     end
-
   end
 
   describe "#merge" do
