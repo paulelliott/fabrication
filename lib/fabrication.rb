@@ -23,6 +23,7 @@ module Fabrication
 
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
+    autoload :DataMapper,   'fabrication/generator/data_mapper'
     autoload :Mongoid,      'fabrication/generator/mongoid'
     autoload :Sequel,       'fabrication/generator/sequel'
     autoload :Base,         'fabrication/generator/base'
