@@ -88,6 +88,26 @@ describe Fabrication do
     end
   end
 
+  context 'data_mapper models' do
+    let(:fabricator_name) { :parent_data_mapper_model }
+    let(:collection_field) { :child_data_mapper_models }
+
+    it_should_behave_like 'something fabricatable'
+
+    context 'associations in attributes_for' do
+      let(:parent_model) { Fabricate(:parent_data_mapper_model) }
+      subject do
+        Fabricate.attributes_for(
+          :child_data_mapper_model, parent_data_mapper_model: parent_model
+        )
+      end
+
+      it 'serializes the belongs_to as an id' do
+        should include({ parent_data_mapper_model_id: parent_model.id })
+      end
+    end
+  end
+
   context 'mongoid documents' do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
