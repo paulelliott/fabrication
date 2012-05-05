@@ -1,3 +1,10 @@
+### 1.4.0 ###
+
+* Add DataMapper support (thanks to Matt Beetle!)
+* Better class resolution
+* Handle mongoid dynamic fields
+* Use id fields in attribute hashes
+
 ### 1.3.2 ###
 
 * Fixed module declaration for turnip steps generator
