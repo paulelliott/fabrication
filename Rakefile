@@ -9,7 +9,7 @@ end
 
 require 'cucumber/rake/task'
 Cucumber::Rake::Task.new(:cucumber) do |t|
-  t.cucumber_opts = "--format Cucumber::Formatter::Fuubar --tags ~@wip"
+  t.cucumber_opts = "--format progress --tags ~@wip"
 end
 
 RSpec::Core::RakeTask.new(:turnip) do |spec|
