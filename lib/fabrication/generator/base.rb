@@ -61,15 +61,22 @@ class Fabrication::Generator::Base
     __instance.save! if __instance.respond_to?(:save!)
   end
 
-  def assign(method_name, options, raw_value=nil)
+  def assign(method_name, options, value=nil, &block)
     if options.has_key?(:count)
-      value = (1..options[:count]).map do |i|
-        block_given? ? yield(__attributes, i) : raw_value
-      end
+      assign_collection(method_name, options[:count], value, &block)
     else
-      value = block_given? ? yield(__attributes) : raw_value
+      assign_field(method_name, value, &block)
     end
-    __attributes[method_name] = value
+  end
+
+  def assign_field(field_name, value, &block)
+    __attributes[field_name] = block_given? ? yield(__attributes) : value
+  end
+
+  def assign_collection(field_name, count, value, &block)
+    __attributes[field_name] = block_given? ?
+      (1..count).map { |i| yield(__attributes, i) } :
+      value * count
   end
 
   def post_initialize; end
