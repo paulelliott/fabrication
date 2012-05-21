@@ -7,6 +7,7 @@ describe Fabrication::Schematic::Definition do
       name "Orgasmo"
       something(:param => 2) { "hi!" }
       another_thing { 25 }
+      nil_thing nil
     end
   end
 
@@ -36,7 +37,7 @@ describe Fabrication::Schematic::Definition do
       schematic.generator.should == Fabrication::Generator::Base
     end
     it "stores the attributes" do
-      schematic.attributes.size.should == 3
+      schematic.attributes.size.should == 4
     end
   end
 
@@ -75,10 +76,11 @@ describe Fabrication::Schematic::Definition do
       end
 
       it "has the correct attributes" do
-        hash.size.should == 3
+        hash.size.should == 4
         hash[:name].should == 'Orgasmo'
         hash[:something].should == "hi!"
         hash[:another_thing].should == 25
+        hash[:nil_thing].should be_nil
       end
 
     end
@@ -114,6 +116,13 @@ describe Fabrication::Schematic::Definition do
         attribute.value.call.should == 25
       end
 
+      it "stored 'nil_thing' correctly" do
+        attribute = subject.attribute(:nil_thing)
+        attribute.name.should == :nil_thing
+        attribute.params.should == {}
+        attribute.value.should be_nil
+      end
+
     end
 
     context "with inheritance" do
@@ -123,6 +132,7 @@ describe Fabrication::Schematic::Definition do
           name { "Willis" }
           something "Else!"
           another_thing(:thats_what => 'she_said') { "Boo-ya!" }
+          nil_thing { "Not Nil No'mo!" }
         end
       end
 
@@ -149,6 +159,13 @@ describe Fabrication::Schematic::Definition do
         attribute.value.call.should == "Boo-ya!"
       end
 
+      it "stored 'nil_thing' correctly" do
+        attribute = subject.attribute(:nil_thing)
+        attribute.name.should == :nil_thing
+        attribute.params.should == {}
+        Proc.should === attribute.value
+        attribute.value.call.should == "Not Nil No'mo!"
+      end
     end
 
   end
