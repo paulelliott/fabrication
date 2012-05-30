@@ -13,6 +13,10 @@ describe Fabrication::Syntax::Make do
       Author.make(:name => "N.Rodrigues").name.should eql("N.Rodrigues")
     end
 
+    it "should treat a first non-hash argument as fabrication name suffix" do
+      Author.make(:with_handle).handle.should eql("@1984")
+    end
+
     it "should work the same as Fabricate.build" do
       Author.make.should be_new_record
     end

@@ -30,6 +30,10 @@ Fabricator(:hemingway, :from => :author) do
   name 'Ernest Hemingway'
 end
 
+Fabricator(:author_with_handle, :from => :author) do
+  handle '@1984'
+end
+
 Fabricator(:book) do
   title "book title"
 end
