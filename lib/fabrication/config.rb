@@ -19,6 +19,10 @@ module Fabrication
       OPTIONS.merge!(DEFAULTS)
     end
 
+    def active_support?
+      @active_support ||= defined?(ActiveSupport)
+    end
+
     private
 
     DEFAULTS = {

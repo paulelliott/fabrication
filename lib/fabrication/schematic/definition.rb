@@ -127,7 +127,7 @@ class Fabrication::Schematic::Definition
   end
 
   def to_hash(object)
-    (defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess.new : {}).tap do |hash|
+    (Fabrication::Config.active_support? ? HashWithIndifferentAccess.new : {}).tap do |hash|
       attributes.map do |attribute|
         value = object.send(attribute.name)
         if value && value.respond_to?(:id)
