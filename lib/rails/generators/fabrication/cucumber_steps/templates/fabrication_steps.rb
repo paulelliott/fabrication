@@ -2,7 +2,8 @@ World(FabricationMethods)
 
 def with_ivars(fabricator)
   @they = yield fabricator
-  instance_variable_set("@#{fabricator.model}", @they)
+  instance_variable_set("@#{fabricator.model.pluralize}", @they) unless @they.one?
+  instance_variable_set("@#{fabricator.model}", @they.last)
 end
 
 Given /^(\d+) ([^"]*)$/ do |count, model_name|
