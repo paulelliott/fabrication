@@ -25,10 +25,19 @@ module Fabrication
       @active_support ||= defined?(ActiveSupport)
     end
 
+    def register_with_steps?
+      OPTIONS[:register_with_steps]
+    end
+
+    def register_with_steps=(register)
+      OPTIONS[:register_with_steps] = register
+    end
+
     private
 
     DEFAULTS = {
-      fabricator_path: ['test/fabricators', 'spec/fabricators']
+      fabricator_path: ['test/fabricators', 'spec/fabricators'],
+      register_with_steps: false
     }
     OPTIONS = {}.merge!(DEFAULTS)
   end

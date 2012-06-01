@@ -1,5 +1,7 @@
 World(FabricationMethods)
 
+Fabrication::Config.register_with_steps = true
+
 def with_ivars(fabricator)
   @they = yield fabricator
   instance_variable_set("@#{fabricator.model}", @they)

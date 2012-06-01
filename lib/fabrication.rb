@@ -58,7 +58,9 @@ end
 
 def Fabricate(name, overrides={}, &block)
   raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.initializing?
-  Fabrication::Fabricator.fabricate(name, overrides, &block)
+  Fabrication::Fabricator.fabricate(name, overrides, &block).tap do |object|
+    Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
+  end
 end
 
 class Fabricate
@@ -67,7 +69,9 @@ class Fabricate
   end
 
   def self.build(name, overrides={}, &block)
-    Fabrication::Fabricator.build(name, overrides, &block)
+    Fabrication::Fabricator.build(name, overrides, &block).tap do |object|
+      Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
+    end
   end
 
   def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
