@@ -61,7 +61,7 @@ class Fabrication::Schematic::Definition
 
   def to_attributes(overrides={}, &block)
     merge(overrides, &block).instance_eval do
-      to_hash(generator.new(klass).build(attributes, callbacks))
+      generator.new(klass).to_hash(attributes, callbacks)
     end
   end
 
@@ -125,18 +125,4 @@ class Fabrication::Schematic::Definition
     params[:count] ||= 1 if !params[:count] && name != name.to_s
     Proc.new { Fabricate(params[:fabricator] || name.to_sym) }
   end
-
-  def to_hash(object)
-    (Fabrication::Config.active_support? ? HashWithIndifferentAccess.new : {}).tap do |hash|
-      attributes.map do |attribute|
-        value = object.send(attribute.name)
-        if value && value.respond_to?(:id)
-          hash["#{attribute.name}_id"] = value.id
-        else
-          hash[attribute.name] = value
-        end
-      end
-    end
-  end
-
 end

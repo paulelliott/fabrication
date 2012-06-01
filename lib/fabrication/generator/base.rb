@@ -23,6 +23,19 @@ class Fabrication::Generator::Base
     __instance
   end
 
+  def to_hash(attributes=[], callbacks=[])
+    process_attributes(attributes)
+    (Fabrication::Config.active_support? ? HashWithIndifferentAccess.new : {}).tap do |hash|
+      __attributes.map do |name, value|
+        if value && value.respond_to?(:id)
+          hash["#{name}_id"] = value.id
+        else
+          hash[name] = value
+        end
+      end
+    end
+  end
+
   def build_instance_with_init_callback(callback)
     self.__instance = __klass.new(*callback.call)
     __attributes.each do |k,v|
