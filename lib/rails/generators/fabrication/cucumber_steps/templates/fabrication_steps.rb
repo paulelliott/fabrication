@@ -4,7 +4,10 @@ Fabrication::Config.register_with_steps = true
 
 def with_ivars(fabricator)
   @they = yield fabricator
-  instance_variable_set("@#{fabricator.model}", @they)
+  model = @they.last.class.to_s.underscore
+  instance_variable_set("@#{model.pluralize}", @they)
+  instance_variable_set("@#{model.singularize}", @they.last)
+  Fabrication::Cucumber::Fabrications[model.singularize.gsub(/\W+/,'_').downcase] = @they.last
 end
 
 Given /^(\d+) ([^"]*)$/ do |count, model_name|
