@@ -2,7 +2,7 @@ require 'spec_helper'
 
 shared_examples 'something fabricatable' do
   subject { fabricated_object }
-  let(:fabricated_object) { Fabricate(fabricator_name) }
+  let(:fabricated_object) { Fabricate(fabricator_name, placeholder: 'dynamic content') }
 
   context 'defaults from fabricator' do
     its(:dynamic_field) { should == 'dynamic content' }
@@ -19,9 +19,10 @@ shared_examples 'something fabricatable' do
     let(:fabricated_object) do
       Fabricate(
         "#{fabricator_name}_with_children",
-        :string_field => 'new content',
-        :number_field => 10,
-        :nil_field => nil
+        string_field: 'new content',
+        number_field: 10,
+        nil_field: nil,
+        placeholder: 'is not invoked'
       ) do
         dynamic_field { 'new dynamic content' }
       end
@@ -49,12 +50,16 @@ shared_examples 'something fabricatable' do
     it { should be_persisted }
   end
 
+  context 'transient attributes' do
+    it { should_not respond_to(:placeholder) }
+  end
+
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
     it { should be_kind_of(HashWithIndifferentAccess) }
     it 'serializes the attributes' do
       should include({
-        :dynamic_field => 'dynamic content',
+        :dynamic_field => nil,
         :nil_field => nil,
         :number_field => 5,
         :string_field => 'content'

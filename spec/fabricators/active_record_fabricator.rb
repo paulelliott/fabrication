@@ -1,5 +1,6 @@
 Fabricator(:parent_active_record_model) do
-  dynamic_field { 'dynamic content' }
+  transient :placeholder
+  dynamic_field { |attrs| attrs[:placeholder] }
   nil_field nil
   number_field 5
   string_field 'content'

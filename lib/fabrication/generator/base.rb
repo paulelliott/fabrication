@@ -96,12 +96,18 @@ class Fabrication::Generator::Base
 
   def process_attributes(attributes)
     attributes.each do |attribute|
+      __transient_fields << attribute.name if attribute.transient?
       if Proc === attribute.value
         method_missing(attribute.name, attribute.params, &attribute.value)
       else
         method_missing(attribute.name, attribute.value)
       end
     end
+    __attributes.reject! { |k| __transient_fields.include?(k) }
+  end
+
+  def __transient_fields
+    @__transient_fields ||= []
   end
 
 end

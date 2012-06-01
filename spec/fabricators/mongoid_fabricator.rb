@@ -1,5 +1,6 @@
 Fabricator(:parent_mongoid_document) do
-  dynamic_field { 'dynamic content' }
+  transient :placeholder
+  dynamic_field { |attrs| attrs[:placeholder] }
   nil_field nil
   number_field 5
   string_field 'content'

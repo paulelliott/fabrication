@@ -176,6 +176,18 @@ describe Fabrication::Schematic::Definition do
     end
   end
 
+  describe '#transient' do
+    let(:definition) do
+      Fabrication::Schematic::Definition.new(OpenStruct) do
+        transient :one, :two
+      end
+    end
+
+    it 'stores the attributes as transient' do
+      definition.attributes.map(&:transient?).should == [true, true]
+    end
+  end
+
   context "when overriding" do
     let(:address) { Address.new }
 

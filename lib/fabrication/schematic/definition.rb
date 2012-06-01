@@ -31,6 +31,7 @@ class Fabrication::Schematic::Definition
 
   def append_or_update_attribute(attribute)
     if index = attributes.index { |a| a.name == attribute.name }
+      attribute.transient! if attributes[index].transient?
       attributes[index] = attribute
     else
       attributes << attribute
@@ -110,6 +111,12 @@ class Fabrication::Schematic::Definition
       method_name = method_name.to_s.chomp("!").to_sym
     end
     method_name
+  end
+
+  def transient(*field_names)
+    field_names.each do |field_name|
+      append_or_update_attribute(Fabrication::Schematic::Attribute.new(field_name, transient: true))
+    end
   end
 
   def sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
