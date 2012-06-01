@@ -91,6 +91,12 @@ describe Fabrication do
         should include({ parent_active_record_model_id: parent_model.id })
       end
     end
+
+    context 'association proxies' do
+      subject { parent_model.child_active_record_models.build }
+      let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
+      it { should be_kind_of(ChildActiveRecordModel) }
+    end
   end
 
   context 'data_mapper models' do
