@@ -54,7 +54,9 @@ module Fabrication
       end
 
       def schematic
-        Fabrication.schematics[@fabricator]
+        Fabrication.schematics[@fabricator].tap do |schematic|
+          raise Fabrication::UnknownFabricatorError, "No Fabricator defined for '#{@model}'" unless schematic
+        end
       end
 
       def dehumanize(string)
