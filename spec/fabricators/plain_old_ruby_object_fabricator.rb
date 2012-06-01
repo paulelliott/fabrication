@@ -14,8 +14,6 @@ Fabricator(:child_ruby_object) do
 end
 
 # Plain Ruby Objects
-Fabricator(:awesome_object, :from => :object)
-
 Fabricator(:dog)
 Fabricator(:greyhound, :from => :dog) do
   breed "greyhound"

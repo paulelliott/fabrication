@@ -41,12 +41,8 @@ describe Fabrication::Support do
       Fabrication::Support.find_definitions
     end
 
-    it "has an awesome object" do
-      Fabrication.schematics[:awesome_object].should be
-    end
-
-    it "has a cool object" do
-      Fabrication.schematics[:cool_object].should be
+    it "loaded definitions" do
+      Fabrication.schematics[:parent_ruby_object].should be
     end
 
   end
