@@ -1,3 +1,8 @@
+### 1.4.1 ###
+
+* Check for nil objects when generating ids for hashes
+* Add support for make suffixes
+
 ### 1.4.0 ###
 
 * Add DataMapper support (thanks to Matt Beetle!)
