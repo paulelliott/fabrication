@@ -15,14 +15,14 @@ module Fabrication
       def make(*args, &block)
         overrides = args.extract_options!
         klass = name.underscore.to_sym
-        fabricator_name = args.length > overrides.length ? "#{klass}_#{args.first}" : klass
+        fabricator_name = args.first.is_a?(Symbol) ? "#{klass}_#{args.first}" : klass
         Fabricate.build(fabricator_name, overrides, &block)
       end
 
       def make!(*args, &block)
         overrides = args.extract_options!
         klass = name.underscore.to_sym
-        fabricator_name = args.length > overrides.length ? "#{klass}_#{args.first}" : klass
+        fabricator_name = args.first.is_a?(Symbol) ? "#{klass}_#{args.first}" : klass
         Fabricate(fabricator_name, overrides, &block)
       end
     end
