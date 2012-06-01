@@ -6,13 +6,15 @@ module Fabrication
       yield self
     end
 
-    def fabricator_dir
-      OPTIONS[:fabricator_dir]
+    def fabricator_path
+      OPTIONS[:fabricator_path]
     end
+    alias fabricator_dir fabricator_path
 
-    def fabricator_dir=(folders)
-      OPTIONS[:fabricator_dir] = (Array.new << folders).flatten
+    def fabricator_path=(folders)
+      OPTIONS[:fabricator_path] = (Array.new << folders).flatten
     end
+    alias fabricator_dir= fabricator_path=
 
     def reset_defaults
       OPTIONS.clear
@@ -26,7 +28,7 @@ module Fabrication
     private
 
     DEFAULTS = {
-      :fabricator_dir => ['test/fabricators', 'spec/fabricators']
+      fabricator_path: ['test/fabricators', 'spec/fabricators']
     }
     OPTIONS = {}.merge!(DEFAULTS)
   end
