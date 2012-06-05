@@ -5,7 +5,7 @@ describe Fabrication::Schematic::Attribute do
   describe ".new" do
     context "with name, params, and a static value" do
       subject do
-        Fabrication::Schematic::Attribute.new("a", {:b => 1}, "c")
+        Fabrication::Schematic::Attribute.new("a", "c", {:b => 1})
       end
 
       its(:name)   { should == "a" }
@@ -16,7 +16,7 @@ describe Fabrication::Schematic::Attribute do
 
     context "with a block value" do
       subject do
-        Fabrication::Schematic::Attribute.new("a", nil, Proc.new { "c" })
+        Fabrication::Schematic::Attribute.new("a", Proc.new { "c" })
       end
 
       it "has a proc for a value" do
@@ -25,14 +25,14 @@ describe Fabrication::Schematic::Attribute do
     end
 
     context "with nils" do
-      subject { Fabrication::Schematic::Attribute.new("a", nil, nil) }
+      subject { Fabrication::Schematic::Attribute.new("a", nil) }
       its(:params) { should == {} }
       its(:value) { should be_nil }
     end
   end
 
   describe '#transient?' do
-    subject { Fabrication::Schematic::Attribute.new("a", transient: true) }
+    subject { Fabrication::Schematic::Attribute.new("a", nil, transient: true) }
     it { should be_transient }
   end
 end

@@ -86,7 +86,7 @@ class Fabrication::Schematic::Definition
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
-        schematic.append_or_update_attribute(Fabrication::Schematic::Attribute.new(name.to_sym, nil, value))
+        schematic.append_or_update_attribute(Fabrication::Schematic::Attribute.new(name.to_sym, value))
       end
     end
   end
@@ -94,13 +94,9 @@ class Fabrication::Schematic::Definition
   def method_missing(method_name, *args, &block)
     method_name = parse_method_name(method_name)
     params = args.extract_options!
-    if args.empty?
-      value = block_given? ? block : generate_value(method_name, params)
-    else
-      value = args.first
-    end
-
-    append_or_update_attribute(Fabrication::Schematic::Attribute.new(method_name, params, value))
+    value = args.first
+    block = generate_value(method_name, params) if args.empty? && !block_given?
+    append_or_update_attribute(Fabrication::Schematic::Attribute.new(method_name, value, params, &block))
   end
 
   def on_init(&block)
@@ -117,7 +113,7 @@ class Fabrication::Schematic::Definition
 
   def transient(*field_names)
     field_names.each do |field_name|
-      append_or_update_attribute(Fabrication::Schematic::Attribute.new(field_name, transient: true))
+      append_or_update_attribute(Fabrication::Schematic::Attribute.new(field_name, nil, transient: true))
     end
   end
 

@@ -2,10 +2,10 @@ class Fabrication::Schematic::Attribute
 
   attr_accessor :name, :params, :value
 
-  def initialize(name, params, value=nil)
+  def initialize(name, value, params={}, &block)
     self.name = name
     self.params = params
-    self.value = value
+    self.value = value || block
   end
 
   def params
