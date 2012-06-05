@@ -8,10 +8,9 @@ class Fabrication::Schematic::Definition
     Fabrication::Generator::Base
   ]
 
-  attr_accessor :generator, :klass
+  attr_accessor :klass
   def initialize(klass, &block)
     self.klass = klass
-    self.generator = GENERATORS.detect { |gen| gen.supports?(klass) }
     instance_eval(&block) if block_given?
   end
 
@@ -46,6 +45,10 @@ class Fabrication::Schematic::Definition
   attr_writer :callbacks
   def callbacks
     @callbacks ||= {}
+  end
+
+  def generator
+    @generator ||= GENERATORS.detect { |gen| gen.supports?(klass) }
   end
 
   def build(overrides={}, &block)
