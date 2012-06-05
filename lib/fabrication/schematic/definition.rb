@@ -28,7 +28,8 @@ class Fabrication::Schematic::Definition
     attributes.select { |a| a.name == name }.first
   end
 
-  def append_or_update_attribute(attribute)
+  def append_or_update_attribute(attribute_name, value, params={}, &block)
+    attribute = Fabrication::Schematic::Attribute.new(attribute_name, value, params, &block)
     if index = attributes.index { |a| a.name == attribute.name }
       attribute.transient! if attributes[index].transient?
       attributes[index] = attribute
@@ -86,7 +87,7 @@ class Fabrication::Schematic::Definition
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
-        schematic.append_or_update_attribute(Fabrication::Schematic::Attribute.new(name.to_sym, value))
+        schematic.append_or_update_attribute(name.to_sym, value)
       end
     end
   end
@@ -96,7 +97,7 @@ class Fabrication::Schematic::Definition
     params = args.extract_options!
     value = args.first
     block = generate_value(method_name, params) if args.empty? && !block_given?
-    append_or_update_attribute(Fabrication::Schematic::Attribute.new(method_name, value, params, &block))
+    append_or_update_attribute(method_name, value, params, &block)
   end
 
   def on_init(&block)
@@ -113,7 +114,7 @@ class Fabrication::Schematic::Definition
 
   def transient(*field_names)
     field_names.each do |field_name|
-      append_or_update_attribute(Fabrication::Schematic::Attribute.new(field_name, nil, transient: true))
+      append_or_update_attribute(field_name, nil, transient: true)
     end
   end
 
