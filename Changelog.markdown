@@ -1,3 +1,20 @@
+### 2.0.0 ###
+
+!!! THIS MAY BREAK YOUR TESTS !!!
+
+* Remove lazy generation of associations
+* Set attributes via mass assignment
+* Deprecate "!" option to attribute values
+* Pass attributes hash into blocks
+* Cascade `Fabricate.build` to associations (#68)
+* lots of internal API refactoring
+* Support for transient attributes (#99)
+* Maintain integrity of association proxies (#28)
+* Change fabricator_dir config to fabricator_path
+* Record both singular and collection ovjects in step defs (#97)
+* Raise meaningful errors when cucumber steps can't find fabricators (#101)
+* Rails generator creates fabricator file correctly for namespaced classes (#47)
+
 ### 1.4.1 ###
 
 * Check for nil objects when generating ids for hashes
