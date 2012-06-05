@@ -4,6 +4,7 @@ Fabricator(:parent_mongoid_document) do
   nil_field nil
   number_field 5
   string_field 'content'
+  false_field false
 end
 
 Fabricator(:parent_mongoid_document_with_children, from: :parent_mongoid_document) do

@@ -13,6 +13,7 @@ class ParentDataMapperModel
   property :nil_field, String
   property :number_field, Integer
   property :string_field, String
+  property :false_field, Boolean
 
   has n, :child_data_mapper_models
 

@@ -17,6 +17,7 @@ class ParentMongoidDocument
   field :nil_field
   field :number_field
   field :string_field
+  field :false_field, type: Boolean
 
   references_many :referenced_mongoid_documents
 

@@ -9,6 +9,7 @@ shared_examples 'something fabricatable' do
     its(:nil_field) { should be_nil }
     its(:number_field) { should == 5 }
     its(:string_field) { should == 'content' }
+    its(:false_field) { should == false }
   end
 
   context 'model callbacks are fired' do

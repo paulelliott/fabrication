@@ -4,6 +4,7 @@ Fabricator(:parent_ruby_object) do
   nil_field nil
   number_field 5
   string_field 'content'
+  false_field false
 end
 
 Fabricator(:parent_ruby_object_with_children, from: :parent_ruby_object) do

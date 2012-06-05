@@ -21,6 +21,7 @@ class TestMigration < ActiveRecord::Migration
       t.column :nil_field, :string
       t.column :number_field, :integer
       t.column :string_field, :string
+      t.column :false_field, :boolean
     end
 
     create_table :companies, :force => true do |t|

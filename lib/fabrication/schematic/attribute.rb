@@ -5,7 +5,7 @@ class Fabrication::Schematic::Attribute
   def initialize(name, value, params={}, &block)
     self.name = name
     self.params = params
-    self.value = value || block
+    self.value = value.nil? ? block : value
   end
 
   def params

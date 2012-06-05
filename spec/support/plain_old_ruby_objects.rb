@@ -7,7 +7,8 @@ class ParentRubyObject
     :dynamic_field,
     :nil_field,
     :number_field,
-    :string_field
+    :string_field,
+    :false_field
 
   def initialize
     self.before_save_value = 11

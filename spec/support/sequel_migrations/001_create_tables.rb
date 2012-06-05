@@ -13,6 +13,7 @@ Sequel.migration do
       String :nil_field
       Integer :number_field
       String :string_field
+      Boolean :false_field
     end
   end
 

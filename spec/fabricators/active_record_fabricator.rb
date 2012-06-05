@@ -4,6 +4,7 @@ Fabricator(:parent_active_record_model) do
   nil_field nil
   number_field 5
   string_field 'content'
+  false_field false
 end
 
 Fabricator(:parent_active_record_model_with_children, from: :parent_active_record_model) do
