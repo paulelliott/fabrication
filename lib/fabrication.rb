@@ -17,9 +17,7 @@ module Fabrication
   autoload :Support,    'fabrication/support'
   autoload :Transform,  'fabrication/transform'
 
-  module Cucumber
-    autoload :StepFabricator, 'fabrication/cucumber/step_fabricator'
-  end
+  autoload :Cucumber, 'fabrication/cucumber/step_fabricator'
 
   module Generator
     autoload :ActiveRecord, 'fabrication/generator/active_record'
