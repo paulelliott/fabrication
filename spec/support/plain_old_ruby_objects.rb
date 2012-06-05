@@ -14,7 +14,8 @@ class ParentRubyObject
     self.before_save_value = 11
   end
 
-  def persisted?; true end
+  def persisted?; @persisted end
+  def save!; @persisted = true end
 end
 
 class ChildRubyObject
@@ -22,7 +23,8 @@ class ChildRubyObject
     :parent,
     :number_field
 
-  def persisted?; true end
+  def persisted?; @persisted end
+  def save!; @persisted = true end
 end
 
 class Dog

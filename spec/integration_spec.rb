@@ -55,6 +55,17 @@ shared_examples 'something fabricatable' do
     it { should_not respond_to(:placeholder) }
   end
 
+  context 'build' do
+    subject { Fabricate.build("#{fabricator_name}_with_children") }
+    it { should_not be_persisted }
+
+    it 'cascades to child records' do
+      subject.send(collection_field).each do |o|
+        o.should_not be_persisted
+      end
+    end
+  end
+
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
     it { should be_kind_of(HashWithIndifferentAccess) }

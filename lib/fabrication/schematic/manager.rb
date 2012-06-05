@@ -33,6 +33,10 @@ class Fabrication::Schematic::Manager
     @schematics ||= {}
   end
 
+  def build_stack
+    @build_stack ||= []
+  end
+
   protected
 
   def raise_if_registered(name)
