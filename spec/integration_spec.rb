@@ -393,8 +393,8 @@ describe Fabrication do
   end
 
   describe 'Fabricating while initializing' do
-    before { Fabrication.initializing = true }
-    after { Fabrication.initializing = false }
+    before { Fabrication.schematics.preinitialize }
+    after { Fabrication.schematics.freeze }
 
     it 'throws an error' do
       lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::MisplacedFabricateError)

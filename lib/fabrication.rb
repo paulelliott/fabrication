@@ -1,5 +1,4 @@
 module Fabrication
-
   autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
   autoload :UnfabricatableError,      'fabrication/errors/unfabricatable_error'
   autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
@@ -36,18 +35,9 @@ module Fabrication
     Fabrication::Config.configure(&block)
   end
 
-  def self.initializing=(value)
-    @initializing = value
-  end
-
-  def self.initializing?
-    @initializing
-  end
-
   def self.schematics
     @schematics ||= Fabrication::Schematic::Manager.new
   end
-
 end
 
 def Fabricator(name, options={}, &block)
@@ -55,7 +45,7 @@ def Fabricator(name, options={}, &block)
 end
 
 def Fabricate(name, overrides={}, &block)
-  raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.initializing?
+  raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.schematics.initializing?
   Fabrication::Fabricator.fabricate(name, overrides, &block).tap do |object|
     Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
   end

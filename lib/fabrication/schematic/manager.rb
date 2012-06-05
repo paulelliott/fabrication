@@ -1,5 +1,16 @@
 class Fabrication::Schematic::Manager
 
+  def preinitialize
+    @initializing = true
+    clear
+  end
+
+  def initializing?; @initializing end
+
+  def freeze
+    @initializing = false
+  end
+
   def clear
     schematics.clear
   end

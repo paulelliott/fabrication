@@ -23,14 +23,14 @@ class Fabrication::Support
     end
 
     def find_definitions
-      Fabrication.initializing = true
+      Fabrication.schematics.preinitialize
       path_prefix = defined?(Rails) ? Rails.root : "."
       Fabrication::Config.fabricator_dir.each do |folder|
         Dir.glob(File.join(path_prefix, folder, '**', '*.rb')).sort.each do |file|
           load file
         end
       end
-      Fabrication.initializing = false
+      Fabrication.schematics.freeze
     end
 
   end
