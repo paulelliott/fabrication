@@ -93,11 +93,10 @@ class Fabrication::Schematic::Definition
 
   def method_missing(method_name, *args, &block)
     method_name = parse_method_name(method_name)
-    if args.empty? or args.first.is_a?(Hash)
-      params = args.first || {}
+    params = args.extract_options!
+    if args.empty?
       value = block_given? ? block : generate_value(method_name, params)
     else
-      params = {}
       value = args.first
     end
 
