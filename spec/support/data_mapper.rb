@@ -2,7 +2,6 @@ require 'dm-active_model'
 require 'dm-core'
 require 'dm-migrations'
 
-# DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, "sqlite3::memory:")
 
 class ParentDataMapperModel
