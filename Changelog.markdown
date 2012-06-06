@@ -1,3 +1,7 @@
+### 2.0.1 ###
+
+* Fix a bug where empty fabricators that extend each other didn't clone properly
+
 ### 2.0.0 ###
 
 !!! THIS MAY BREAK YOUR TESTS !!!
