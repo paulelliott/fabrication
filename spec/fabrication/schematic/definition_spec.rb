@@ -84,7 +84,9 @@ describe Fabrication::Schematic::Definition do
 
     context "without inheritance" do
 
-      subject { schematic }
+      subject { schematic.merge }
+
+      it { should_not == schematic }
 
       it "stored 'name' correctly" do
         attribute = subject.attribute(:name)
@@ -120,6 +122,8 @@ describe Fabrication::Schematic::Definition do
           another_thing(:thats_what => 'she_said') { "Boo-ya!" }
         end
       end
+
+      it { should_not == schematic }
 
       it "stored 'name' correctly" do
         attribute = subject.attribute(:name)

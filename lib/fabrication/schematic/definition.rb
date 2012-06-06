@@ -89,7 +89,6 @@ class Fabrication::Schematic::Definition
   end
 
   def merge(overrides={}, &block)
-    return self unless overrides.any? or block_given?
     clone.tap do |schematic|
       schematic.instance_eval(&block) if block_given?
       overrides.each do |name, value|
