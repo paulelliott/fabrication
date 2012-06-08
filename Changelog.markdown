@@ -15,9 +15,11 @@
 * Support for transient attributes (#99)
 * Maintain integrity of association proxies (#28)
 * Change fabricator_dir config to fabricator_path
-* Record both singular and collection ovjects in step defs (#97)
+* Record both singular and collection objects in step defs (#97)
 * Raise meaningful errors when cucumber steps can't find fabricators (#101)
 * Rails generator creates fabricator file correctly for namespaced classes (#47)
+
+Upgrade Guide: http://blog.hashrocket.com/posts/fabrication-2-0-upgrade-guide
 
 ### 1.4.1 ###
 
