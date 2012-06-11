@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fabrication (2.0.1)
+    fabrication (2.0.2)
 
 GEM
   remote: http://rubygems.org/

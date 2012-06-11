@@ -1,3 +1,7 @@
+### 2.0.2 ###
+
+* Bypass mass assignment protection for AR and Mongoid (Issue #108)
+
 ### 2.0.1 ###
 
 * Fix a bug where empty fabricators that extend each other didn't clone properly
