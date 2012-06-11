@@ -5,7 +5,7 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes)
+    self.__instance = __klass.new(__attributes, without_protection: true)
   end
 
 end

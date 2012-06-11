@@ -21,6 +21,8 @@ class ParentMongoidDocument
 
   references_many :referenced_mongoid_documents
 
+  attr_protected :number_field
+
   before_save do
     self.before_save_value = 11
   end
