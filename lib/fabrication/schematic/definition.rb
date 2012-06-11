@@ -25,7 +25,7 @@ class Fabrication::Schematic::Definition
   end
 
   def attribute(name)
-    attributes.select { |a| a.name == name }.first
+    attributes.detect { |a| a.name == name }
   end
 
   def append_or_update_attribute(attribute_name, value, params={}, &block)
