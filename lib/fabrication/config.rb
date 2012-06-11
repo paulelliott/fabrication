@@ -17,8 +17,7 @@ module Fabrication
     alias fabricator_dir= fabricator_path=
 
     def reset_defaults
-      OPTIONS.clear
-      OPTIONS.merge!(DEFAULTS)
+      OPTIONS.replace(DEFAULTS)
     end
 
     def active_support?
