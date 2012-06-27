@@ -24,7 +24,7 @@ class Fabrication::Support
 
     def find_definitions
       Fabrication.schematics.preinitialize
-      path_prefix = defined?(Rails) ? Rails.root : "."
+      path_prefix = defined?(Rails) ? (find_engine_path || Rails.root) : "."
       Fabrication::Config.fabricator_dir.each do |folder|
         Dir.glob(File.join(path_prefix, folder, '**', '*.rb')).sort.each do |file|
           load file
@@ -33,6 +33,21 @@ class Fabrication::Support
       Fabrication.schematics.freeze
     end
 
+    private
+      def find_engine_path
+        match = Rails.root.to_s.match /(.*)\/(spec|test)\/dummy$/
+        if match
+          maybe_engine_path = match[1]
+          if Rails.application.railties.engines.map{|e| e.root.to_s}.delete_if do |e|
+              e != maybe_engine_path
+            end.size == 1
+            maybe_engine_path
+          else
+            nil
+          end
+        else
+          nil
+        end
+      end
   end
-
 end
