@@ -18,6 +18,10 @@ class Fabrication::Support
     rescue NameError
     end
 
+    def extract_options!(args)
+      args.last.is_a?(::Hash) ? args.pop : {}
+    end
+
     def variable_name_to_class_name(name)
       name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
     end
