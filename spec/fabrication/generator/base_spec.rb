@@ -69,6 +69,50 @@ describe Fabrication::Generator::Base do
       end
     end
 
+    context "with initialize_with block" do
+      subject { schematic.fabricate }
+
+      let(:klass) { Struct.new :arg1, :arg2 }
+
+      context "using only raw values" do
+        let(:schematic) do
+          Fabrication::Schematic::Definition.new(klass) do
+            initialize_with { Struct.new(:arg1, :arg2).new(:fixed_value) }
+          end
+        end
+
+        it "saves the return value of the block as instance" do
+          subject.arg1.should == :fixed_value
+          subject.arg2.should == nil
+        end
+      end
+
+      context "using attributes inside block" do
+        let(:schematic) do
+           Fabrication::Schematic::Definition.new(klass) do
+             arg1 10
+             initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1 + 10) }
+          end
+        end
+
+        context "without override" do
+          it "saves the return value of the block as instance" do
+            subject.arg1.should == 10
+            subject.arg2.should == 20
+          end
+        end
+
+        context "with override" do
+          subject { schematic.fabricate(arg1: 30) }
+          it "saves the return value of the block as instance" do
+            subject.arg1.should == 30
+            subject.arg2.should == 40
+          end
+        end
+
+      end
+    end
+
     context "using an after_create hook" do
       let(:schematic) do
         Fabrication::Schematic::Definition.new(Person) do
