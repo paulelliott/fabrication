@@ -1,3 +1,7 @@
+### 2.0.3 ###
+
+* Fix accidental dependency on ActiveSupport (extract_options!)
+
 ### 2.0.2 ###
 
 * Bypass mass assignment protection for AR and Mongoid (Issue #108)
