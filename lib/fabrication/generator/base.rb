@@ -5,7 +5,9 @@ class Fabrication::Generator::Base
   def build(attributes=[], callbacks={})
     process_attributes(attributes)
 
-    if callbacks[:on_init]
+    if callbacks[:initialize_with]
+      build_instance_with_constructor_override(callbacks[:initialize_with])
+    elsif callbacks[:on_init]
       build_instance_with_init_callback(callbacks[:on_init])
     else
       build_instance
@@ -36,15 +38,22 @@ class Fabrication::Generator::Base
     end
   end
 
+  def build_instance_with_constructor_override(callback)
+    self.__instance = instance_eval &callback
+    set_attributes
+  end
+
   def build_instance_with_init_callback(callback)
     self.__instance = __klass.new(*callback.call)
-    __attributes.each do |k,v|
-      __instance.send("#{k}=", v)
-    end
+    set_attributes
   end
 
   def build_instance
     self.__instance = __klass.new
+    set_attributes
+  end
+
+  def set_attributes
     __attributes.each do |k,v|
       __instance.send("#{k}=", v)
     end
@@ -55,6 +64,8 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
+    return __attributes[method_name] if args.empty? && !block_given? && __attributes[method_name]
+
     if block_given?
       assign(method_name, args.first || {}, &block)
     else

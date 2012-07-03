@@ -180,6 +180,34 @@ describe Fabrication::Schematic::Definition do
     end
   end
 
+  describe "#initialize_with" do
+    let(:init_block) { lambda {} }
+    let(:init_schematic) do
+      block = init_block
+      Fabrication::Schematic::Definition.new(OpenStruct) do
+        initialize_with &block
+      end
+    end
+
+    it "stores the initialize_with callback" do
+      init_schematic.callbacks[:initialize_with].should == init_block
+    end
+
+    context "with inheritance" do
+      let(:child_block) { lambda {} }
+      let(:child_schematic) do
+        block = child_block
+        init_schematic.merge do
+          initialize_with &block
+        end
+      end
+
+      it "overwrites the initialize_with callback" do
+        child_schematic.callbacks[:initialize_with].should == child_block
+      end
+    end
+  end
+
   describe '#transient' do
     let(:definition) do
       Fabrication::Schematic::Definition.new(OpenStruct) do

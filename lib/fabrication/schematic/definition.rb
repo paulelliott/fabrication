@@ -109,6 +109,10 @@ class Fabrication::Schematic::Definition
     callbacks[:on_init] = block
   end
 
+  def initialize_with(&block)
+    callbacks[:initialize_with] = block
+  end
+
   def parse_method_name(method_name)
     if method_name.to_s.end_with?("!")
       warn("DEPRECATION WARNING: Using the \"!\" in Fabricators is no longer supported. Please remove all occurrances")
