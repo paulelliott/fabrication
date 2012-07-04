@@ -35,16 +35,29 @@ describe Fabrication::Support do
   end
 
   describe ".find_definitions" do
-
-    before(:all) do
+    before(:each) do
       Fabrication.clear_definitions
-      Fabrication::Support.find_definitions
+    end
+    describe "Rails app" do
+      it "loaded definitions" do
+        Fabrication::Support.find_definitions
+        Fabrication.schematics[:parent_ruby_object].should be
+      end
     end
 
-    it "loaded definitions" do
-      Fabrication.schematics[:parent_ruby_object].should be
-    end
+    describe "Engine" do
+      it "should load the engine path" do
+        engine_root = "."
+        dummy_application_root = File.join(engine_root, "spec", "dummy")
+        
+        Fabrication::Support.stub!(:rails_defined?).and_return(true)
+        Fabrication::Support.stub!(:rails_root).and_return(dummy_application_root)
+        Fabrication::Support.stub!(:find_rails_engines).and_return(['/', engine_root])
 
+        Fabrication::Support.find_definitions
+        Fabrication.schematics[:parent_ruby_object].should be
+      end
+    end
   end
 
 end
