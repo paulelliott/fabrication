@@ -1,3 +1,7 @@
+### 2.1.0 ###
+
+* Add initialize_with option to Fabricators
+
 ### 2.0.3 ###
 
 * Fix accidental dependency on ActiveSupport (extract_options!)
