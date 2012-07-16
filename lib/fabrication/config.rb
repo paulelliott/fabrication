@@ -16,6 +16,14 @@ module Fabrication
     end
     alias fabricator_dir= fabricator_path=
 
+    def path_prefix
+      OPTIONS[:path_prefix]
+    end
+
+    def path_prefix=(prefix)
+      OPTIONS[:path_prefix] = prefix
+    end
+
     def reset_defaults
       OPTIONS.replace(DEFAULTS)
     end
@@ -36,7 +44,8 @@ module Fabrication
 
     DEFAULTS = {
       fabricator_path: ['test/fabricators', 'spec/fabricators'],
-      register_with_steps: false
+      register_with_steps: false,
+      path_prefix: defined?(Rails) ? Rails.root : "."
     }
     OPTIONS = {}.merge!(DEFAULTS)
   end
