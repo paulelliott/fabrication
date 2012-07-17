@@ -1,3 +1,7 @@
+### 2.2.0 ###
+
+* Add Rails engine support via the path_prefix config option
+
 ### 2.1.0 ###
 
 * Add initialize_with option to Fabricators
