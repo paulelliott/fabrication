@@ -15,7 +15,14 @@ class ParentRubyObject
   end
 
   def persisted?; @persisted end
-  def save!; @persisted = true end
+  def save!;
+    @persisted = true
+    child_ruby_objects.each(&:save!)
+  end
+
+  def child_ruby_objects
+    @child_ruby_objects ||= []
+  end
 end
 
 class ChildRubyObject
