@@ -1,3 +1,8 @@
+### 2.2.1 ###
+
+* Improve ORM support for default fabricators (build instead of create)
+* Evenly space generated Fabricator attribute values
+
 ### 2.2.0 ###
 
 * Add Rails engine support via the path_prefix config option
