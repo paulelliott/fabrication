@@ -1,3 +1,7 @@
+### 2.2.2 ###
+
+* Only build when association is `has_many` or equivalent
+
 ### 2.2.1 ###
 
 * Improve ORM support for default fabricators (build instead of create)
