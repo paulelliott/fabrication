@@ -1,11 +1,7 @@
-require 'fabrication'
+Bundler.require(:default, :development)
 
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'..','..','spec','support','**','*.rb'))].each {|f| require f}
 load 'lib/rails/generators/fabrication/cucumber_steps/templates/fabrication_steps.rb'
-load 'spec/support/active_record.rb'
-load 'spec/support/data_mapper.rb'
-load 'spec/support/plain_old_ruby_objects.rb'
-load 'spec/support/mongoid.rb'
-load 'spec/support/sequel.rb'
 
 Before do
   clear_mongodb
