@@ -78,6 +78,18 @@ shared_examples 'something fabricatable' do
       })
     end
   end
+
+  context 'belongs_to associations' do
+    subject { Fabricate("#{collection_field.to_s.singularize}_with_parent") }
+
+    it 'sets the parent association' do
+      subject.send(fabricator_name).should be
+    end
+
+    it 'sets the id of the associated object' do
+      subject.send("#{fabricator_name}_id").should == subject.send(fabricator_name).id
+    end
+  end
 end
 
 describe Fabrication do

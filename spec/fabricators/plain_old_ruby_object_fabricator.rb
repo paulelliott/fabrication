@@ -15,6 +15,10 @@ Fabricator(:child_ruby_object) do
   number_field 10
 end
 
+Fabricator(:child_ruby_object_with_parent, from: :child_ruby_object) do
+  parent_ruby_object
+end
+
 # Plain Ruby Objects
 Fabricator(:dog)
 Fabricator(:greyhound, :from => :dog) do

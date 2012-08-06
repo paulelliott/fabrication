@@ -19,6 +19,10 @@ Fabricator(:referenced_mongoid_document) do
   number_field 10
 end
 
+Fabricator(:referenced_mongoid_document_with_parent, from: :referenced_mongoid_document) do
+  parent_mongoid_document
+end
+
 # Mongoid Documents
 Fabricator(:author) do
   name 'George Orwell'

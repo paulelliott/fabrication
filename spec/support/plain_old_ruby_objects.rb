@@ -8,9 +8,11 @@ class ParentRubyObject
     :nil_field,
     :number_field,
     :string_field,
-    :false_field
+    :false_field,
+    :id
 
   def initialize
+    self.id = 23
     self.before_save_value = 11
   end
 
@@ -27,11 +29,17 @@ end
 
 class ChildRubyObject
   attr_accessor \
-    :parent,
+    :parent_ruby_object,
+    :parent_ruby_object_id,
     :number_field
 
   def persisted?; @persisted end
   def save!; @persisted = true end
+
+  def parent_ruby_object=(parent_ruby_object)
+    @parent_ruby_object = parent_ruby_object
+    @parent_ruby_object_id = parent_ruby_object.id
+  end
 end
 
 class Dog

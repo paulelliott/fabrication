@@ -15,6 +15,10 @@ Fabricator(:child_data_mapper_model) do
   number_field 10
 end
 
+Fabricator(:child_data_mapper_model_with_parent, from: :child_data_mapper_model) do
+  parent_data_mapper_model
+end
+
 # DataMapper Objects
 Fabricator(:movie) do
   name "One Night in Paris"

@@ -18,3 +18,7 @@ end
 Fabricator(:child_sequel_model) do
   number_field 10
 end
+
+Fabricator(:child_sequel_model_with_parent, from: :child_sequel_model) do
+  parent_sequel_model
+end

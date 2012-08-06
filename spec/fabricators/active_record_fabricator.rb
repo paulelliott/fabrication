@@ -15,6 +15,10 @@ Fabricator(:child_active_record_model) do
   number_field 10
 end
 
+Fabricator(:child_active_record_model_with_parent, from: :child_active_record_model) do
+  parent_active_record_model
+end
+
 # ActiveRecord Objects
 Fabricator(:division) do
   name "Division Name"
