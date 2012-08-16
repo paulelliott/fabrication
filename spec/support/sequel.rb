@@ -17,6 +17,7 @@ end
 
 class ParentSequelModel < Sequel::Model
   one_to_many :child_sequel_models
+  set_restricted_columns :string_field
 
   def persisted?; !new? end
 
