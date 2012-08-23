@@ -1,3 +1,7 @@
+### 2.2.3 ###
+
+* Allow setting of protected attributes in sequel models
+
 ### 2.2.2 ###
 
 * Only build when association is `has_many` or equivalent
