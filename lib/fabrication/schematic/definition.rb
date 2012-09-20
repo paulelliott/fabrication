@@ -136,12 +136,12 @@ class Fabrication::Schematic::Definition
 
   def generate_value(name, params)
     name = name.to_s
-    name = name.singularize if name.respond_to?(:singularize)
-    if name != name.to_s
-      params[:count] ||= 1 if !params[:count]
-      Proc.new { Fabricate.build(params[:fabricator] || name.to_sym) }
+    fab  = name.respond_to?(:singularize) ? name.singularize : name
+    if fab != name  # if plural
+      params[:count] ||= 1
+      Proc.new { Fabricate.build(params[:fabricator] || fab.to_sym) }
     else
-      Proc.new { Fabricate(params[:fabricator] || name.to_sym) }
+      Proc.new { Fabricate(params[:fabricator] || fab.to_sym) }
     end
   end
 end
