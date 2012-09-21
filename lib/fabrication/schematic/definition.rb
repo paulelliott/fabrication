@@ -56,7 +56,9 @@ class Fabrication::Schematic::Definition
     Fabrication.schematics.build_stack << self
     merge(overrides, &block).instance_eval do
       generator.new(klass).build(attributes, callbacks)
-    end.tap { Fabrication.schematics.build_stack.pop }
+    end
+  ensure
+    Fabrication.schematics.build_stack.pop
   end
 
   def fabricate(overrides={}, &block)
