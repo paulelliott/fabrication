@@ -62,7 +62,7 @@ class Fabricate
     end
   end
 
-  def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
+  def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=nil, &block)
     Fabrication::Sequencer.sequence(name, start, &block)
   end
 end
