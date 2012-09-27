@@ -127,7 +127,7 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  def sequence(name=Fabrication::Sequencer::DEFAULT, start=0, &block)
+  def sequence(name=Fabrication::Sequencer::DEFAULT, start=nil, &block)
     name = "#{self.klass.to_s.downcase.gsub(/::/, '_')}_#{name}"
     Fabrication::Sequencer.sequence(name, start, &block)
   end

@@ -95,4 +95,23 @@ describe Fabrication::Sequencer do
       Fabricate.sequence(:colors).should == 'green'
     end
   end
+
+  context "with a default sequence start" do
+    before do
+      Fabrication::Sequencer.reset
+      Fabrication::Sequencer.default_sequence_start 10000
+    end
+
+    it "starts a new sequence at the default" do
+      Fabricate.sequence(:default_test).should == 10000
+    end
+
+    it "respects start value passed as an argument" do
+      Fabricate.sequence(:default_test2, 9).should == 9
+    end
+
+    after do
+      Fabrication::Sequencer.reset
+    end
+  end
 end
