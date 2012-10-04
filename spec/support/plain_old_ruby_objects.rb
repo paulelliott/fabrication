@@ -1,24 +1,32 @@
 require 'ostruct'
 
-class ParentRubyObject
+class Persistable
+  def persisted?
+    @persisted
+  end
+  def save!
+    @persisted = true
+  end
+end
+
+class ParentRubyObject < Persistable
   attr_accessor \
     :before_save_value,
-    :child_ruby_objects,
     :dynamic_field,
     :nil_field,
     :number_field,
     :string_field,
     :false_field,
     :id
+  attr_writer :child_ruby_objects
 
   def initialize
     self.id = 23
     self.before_save_value = 11
   end
 
-  def persisted?; @persisted end
-  def save!;
-    @persisted = true
+  def save!
+    super
     child_ruby_objects.each(&:save!)
   end
 
@@ -27,18 +35,21 @@ class ParentRubyObject
   end
 end
 
-class ChildRubyObject
+class ChildRubyObject < Persistable
   attr_accessor \
     :parent_ruby_object,
     :parent_ruby_object_id,
     :number_field
 
-  def persisted?; @persisted end
-  def save!; @persisted = true end
-
   def parent_ruby_object=(parent_ruby_object)
     @parent_ruby_object = parent_ruby_object
     @parent_ruby_object_id = parent_ruby_object.id
+  end
+end
+
+class Troublemaker
+  def raise_exception=(value)
+    raise "Troublemaker exception" if value
   end
 end
 

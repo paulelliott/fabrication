@@ -56,3 +56,7 @@ end
 Fabricator("Something::Amazing") do
   stuff "cool"
 end
+
+Fabricator(:troublemaker)
+
+Fabricator(:persistable)

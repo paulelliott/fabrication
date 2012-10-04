@@ -144,4 +144,11 @@ describe Fabrication::Generator::Base do
     end
   end
 
+  describe 'robustness tests' do
+    it 'maintains valid state on exceptions while building' do
+      expect { Fabricate.build(:troublemaker, raise_exception: true) }.to raise_exception "Troublemaker exception"
+      Fabricate(:persistable).persisted?.should be_true
+    end
+  end
+
 end
