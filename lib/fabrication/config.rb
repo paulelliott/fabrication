@@ -5,7 +5,11 @@ module Fabrication
     def configure; yield self end
 
     def reset_defaults
-      @fabricator_path = @path_prefix = @active_support = nil
+      @fabricator_path =
+        @path_prefix =
+        @active_support =
+        @sequence_start =
+        nil
     end
 
     def fabricator_path
@@ -17,6 +21,9 @@ module Fabrication
       @fabricator_path = (Array.new << folders).flatten
     end
     alias fabricator_dir= fabricator_path=
+
+    attr_writer :sequence_start
+    def sequence_start; @sequence_start ||= 0 end
 
     attr_writer :path_prefix
     def path_prefix

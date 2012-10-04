@@ -6,6 +6,7 @@ describe Fabrication::Config do
 
   context "default configs" do
     its(:fabricator_dir) { should == ['test/fabricators', 'spec/fabricators'] }
+    its(:sequence_start) { should == 0 }
   end
 
   describe ".fabricator_dir" do

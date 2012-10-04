@@ -99,7 +99,7 @@ describe Fabrication::Sequencer do
   context "with a default sequence start" do
     before do
       Fabrication::Sequencer.reset
-      Fabrication::Sequencer.default_sequence_start 10000
+      Fabrication::Config.sequence_start = 10000
     end
 
     it "starts a new sequence at the default" do

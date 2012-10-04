@@ -2,12 +2,8 @@ class Fabrication::Sequencer
 
   DEFAULT = :_default
 
-  def self.default_sequence_start(value)
-    @default_sequence_start = value
-  end
-
   def self.sequence(name=DEFAULT, start=nil, &block)
-    idx = sequences[name] ||= start || @default_sequence_start || 0
+    idx = sequences[name] ||= start || Fabrication::Config.sequence_start
     if block_given?
       sequence_blocks[name] = block.to_proc
     else
@@ -26,8 +22,8 @@ class Fabrication::Sequencer
   end
 
   def self.reset
+    Fabrication::Config.sequence_start = nil
     @sequences = nil
     @sequence_blocks = nil
-    @default_sequence_start = nil
   end
 end
