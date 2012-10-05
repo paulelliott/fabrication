@@ -1,3 +1,10 @@
+### 2.3.0 ###
+
+* Remove handling and deprecation warning for "!" association suffix
+* Rely on presence of :count option when building associations (#127)
+* Add support for overriding the global sequence default
+* Improve build flag handling when generating object graphs (#119)
+
 ### 2.2.3 ###
 
 * Allow setting of protected attributes in sequel models
