@@ -100,7 +100,6 @@ class Fabrication::Schematic::Definition
   end
 
   def method_missing(method_name, *args, &block)
-    method_name = parse_method_name(method_name)
     params = Fabrication::Support.extract_options!(args)
     value = args.first
     block = generate_value(method_name, params) if args.empty? && !block_given?
@@ -113,14 +112,6 @@ class Fabrication::Schematic::Definition
 
   def initialize_with(&block)
     callbacks[:initialize_with] = block
-  end
-
-  def parse_method_name(method_name)
-    if method_name.to_s.end_with?("!")
-      warn("DEPRECATION WARNING: Using the \"!\" in Fabricators is no longer supported. Please remove all occurrances")
-      method_name = method_name.to_s.chomp("!").to_sym
-    end
-    method_name
   end
 
   def transient(*field_names)
