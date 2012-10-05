@@ -5,7 +5,9 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes, without_protection: true)
+    self.__instance = __klass.new.tap do |obj|
+      __attributes.each { |attr, val| obj.send(:"#{attr}=", val) }
+    end
   end
 
 end
