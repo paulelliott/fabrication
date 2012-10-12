@@ -8,11 +8,7 @@ Fabricator(:parent_sequel_model) do
 end
 
 Fabricator(:parent_sequel_model_with_children, from: :parent_sequel_model) do
-  after_create do |parent|
-    2.times do
-      Fabricate(:child_sequel_model, :parent_sequel_model => parent)
-    end
-  end
+  child_sequel_models(count: 2)
 end
 
 Fabricator(:child_sequel_model) do
