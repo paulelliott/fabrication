@@ -1,3 +1,7 @@
+### 2.4.0 ###
+
+* Improve handling of sequel associations (#123)
+
 ### 2.3.0 ###
 
 * Remove handling and deprecation warning for "!" association suffix
