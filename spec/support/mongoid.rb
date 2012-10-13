@@ -1,12 +1,9 @@
 require 'mongoid'
 
-Mongoid.configure do |config|
-  config.allow_dynamic_fields = true
-  config.master = Mongo::Connection.new.db("fabrication_test")
-end
+Mongoid.load!("spec/support/mongoid.yml", :test)
 
 def clear_mongodb
-  Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+  Mongoid::Config.purge!
 end
 
 class ParentMongoidDocument
@@ -19,7 +16,7 @@ class ParentMongoidDocument
   field :string_field
   field :false_field, type: Boolean
 
-  references_many :referenced_mongoid_documents
+  has_many :referenced_mongoid_documents
 
   attr_protected :number_field
 
@@ -33,7 +30,7 @@ class ReferencedMongoidDocument
 
   field :number_field
 
-  referenced_in :parent_mongoid_document
+  belongs_to :parent_mongoid_document
 end
 
 class Author
@@ -56,7 +53,7 @@ end
 class PublishingHouse
   include Mongoid::Document
 
-  referenced_in :professional_affiliation
+  belongs_to :professional_affiliation
   embeds_many :book_promoters
 
   field :name
@@ -73,5 +70,5 @@ end
 class ProfessionalAffiliation
   include Mongoid::Document
 
-  references_many :publishing_houses
+  has_many :publishing_houses
 end

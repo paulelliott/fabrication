@@ -299,7 +299,7 @@ describe Fabrication do
       after { Mongoid.allow_dynamic_fields = true }
 
       it "raises NoMethodError for mongoid_dynamic_field=" do
-        expect { Fabricate(:special_author) }.to raise_error(NoMethodError, /mongoid_dynamic_field=/)
+        expect { Fabricate(:special_author) }.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
       end
     end
   end

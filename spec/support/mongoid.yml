@@ -1,0 +1,7 @@
+test:
+  allow_dynamic_fields: true
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: fabrication_test
