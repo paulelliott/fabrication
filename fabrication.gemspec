@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("dm-sqlite-adapter")
   s.add_development_dependency("turnip", [">= 0.3"])
   s.add_development_dependency("ffaker")
+  s.add_development_dependency("keymaker")
   s.add_development_dependency("mongoid")
   s.add_development_dependency("pry")
   s.add_development_dependency("rake")

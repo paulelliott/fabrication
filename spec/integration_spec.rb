@@ -155,6 +155,73 @@ describe Fabrication do
     it_should_behave_like 'something fabricatable'
   end
 
+  context 'keymaker models' do
+    let(:fabricator_name) { :parent_keymaker_node }
+
+    subject { fabricated_object }
+    let(:fabricated_object) { Fabricate(fabricator_name, placeholder: 'dynamic content') }
+
+    context 'defaults from fabricator' do
+      its(:dynamic_field) { should == 'dynamic content' }
+      its(:nil_field) { should be_nil }
+      its(:number_field) { should == 5 }
+      its(:string_field) { should == 'content' }
+      its(:false_field) { should == false }
+    end
+
+    context 'model callbacks are fired' do
+      its(:before_save_value) { should == 11 }
+    end
+
+    context 'overriding at fabricate time' do
+      let(:fabricated_object) do
+        Fabricate(
+          fabricator_name,
+          string_field: 'new content',
+          number_field: 10,
+          nil_field: nil,
+          placeholder: 'is not invoked'
+        ) do
+          dynamic_field { 'new dynamic content' }
+        end
+      end
+
+      its(:dynamic_field) { should == 'new dynamic content' }
+      its(:nil_field) { should be_nil }
+      its(:number_field) { should == 10 }
+      its(:string_field) { should == 'new content' }
+    end
+
+    context 'state of the object' do
+      it 'generates a fresh object every time' do
+        Fabricate(fabricator_name).should_not == subject
+      end
+      it { should be_persisted }
+    end
+
+    context 'transient attributes' do
+      it { should_not respond_to(:placeholder) }
+    end
+
+    context 'build' do
+      subject { Fabricate.build(fabricator_name) }
+      it { should_not be_persisted }
+    end
+
+    context 'attributes for' do
+      subject { Fabricate.attributes_for(fabricator_name) }
+      it { should be_kind_of(HashWithIndifferentAccess) }
+      it 'serializes the attributes' do
+        should include({
+          :dynamic_field => nil,
+          :nil_field => nil,
+          :number_field => 5,
+          :string_field => 'content'
+        })
+      end
+    end
+  end
+
   context 'when the class requires a constructor' do
     subject do
       Fabricate(:city) do

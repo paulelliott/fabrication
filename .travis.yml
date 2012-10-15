@@ -3,4 +3,6 @@ rvm:
   - 1.9.3
   - rbx-19mode
 
-services: mongodb
+services:
+  - mongodb
+  - neo4j

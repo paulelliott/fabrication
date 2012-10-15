@@ -47,11 +47,23 @@ GEM
       do_sqlite3 (~> 0.10.6)
     do_sqlite3 (0.10.10)
       data_objects (= 0.10.10)
+    faraday (0.8.4)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.8.8)
+      faraday (>= 0.7.4, < 0.9)
     ffaker (1.15.0)
     gherkin (2.11.4)
       json (>= 1.4.6)
+    hashie (1.2.0)
     i18n (0.6.1)
     json (1.7.5)
+    keymaker (0.1.0)
+      activemodel
+      activesupport
+      addressable
+      faraday
+      faraday_middleware
+      hashie
     method_source (0.8)
     mongoid (3.0.9)
       activemodel (~> 3.1)
@@ -60,6 +72,7 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.2.7)
     multi_json (1.3.6)
+    multipart-post (1.1.5)
     origin (1.0.9)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -95,6 +108,7 @@ DEPENDENCIES
   dm-sqlite-adapter
   fabrication!
   ffaker
+  keymaker
   mongoid
   pry
   rake
