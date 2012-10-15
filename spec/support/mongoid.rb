@@ -17,6 +17,7 @@ class ParentMongoidDocument
   field :false_field, type: Boolean
 
   has_many :referenced_mongoid_documents
+  embeds_many :embedded_mongoid_documents
 
   attr_protected :number_field
 
@@ -31,6 +32,16 @@ class ReferencedMongoidDocument
   field :number_field
 
   belongs_to :parent_mongoid_document
+end
+
+class EmbeddedMongoidDocument
+  include Mongoid::Document
+
+  field :number_field
+
+  embedded_in :parent_mongoid_document
+
+  delegate :id, to: :parent_mongoid_document, prefix: true
 end
 
 class Author

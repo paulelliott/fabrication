@@ -143,9 +143,15 @@ describe Fabrication do
     end
   end
 
-  context 'mongoid documents' do
+  context 'referenced mongoid documents' do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
+    it_should_behave_like 'something fabricatable'
+  end
+
+  context 'embedded mongoid documents' do
+    let(:fabricator_name) { :parent_mongoid_document }
+    let(:collection_field) { :embedded_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 

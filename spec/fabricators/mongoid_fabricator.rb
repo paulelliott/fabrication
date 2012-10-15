@@ -8,6 +8,7 @@ Fabricator(:parent_mongoid_document) do
 end
 
 Fabricator(:parent_mongoid_document_with_children, from: :parent_mongoid_document) do
+  embedded_mongoid_documents(count: 2)
   after_create do |doc|
     2.times do
       doc.referenced_mongoid_documents << Fabricate(:referenced_mongoid_document)
@@ -20,6 +21,14 @@ Fabricator(:referenced_mongoid_document) do
 end
 
 Fabricator(:referenced_mongoid_document_with_parent, from: :referenced_mongoid_document) do
+  parent_mongoid_document
+end
+
+Fabricator(:embedded_mongoid_document) do
+  number_field 10
+end
+
+Fabricator(:embedded_mongoid_document_with_parent, from: :embedded_mongoid_document) do
   parent_mongoid_document
 end
 
