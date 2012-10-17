@@ -8,6 +8,7 @@ module Fabrication
     autoload :Attribute,  'fabrication/schematic/attribute'
     autoload :Definition, 'fabrication/schematic/definition'
     autoload :Manager,    'fabrication/schematic/manager'
+    autoload :Evaluator,  'fabrication/schematic/evaluator'
   end
 
   autoload :Config,     'fabrication/config'
