@@ -68,13 +68,7 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    return __attributes[method_name] if args.empty? && !block_given? && __attributes[method_name]
-
-    if block_given?
-      assign(method_name, args.first || {}, &block)
-    else
-      assign(method_name, {}, args.first)
-    end
+    __attributes[method_name] || super
   end
 
   protected
@@ -87,6 +81,28 @@ class Fabrication::Generator::Base
 
   def persist
     __instance.save! if __instance.respond_to?(:save!)
+  end
+
+  def post_initialize; end
+
+  def process_attributes(attributes)
+    attributes.each do |attribute|
+      __transient_fields << attribute.name if attribute.transient?
+      if Proc === attribute.value
+        process_attribute(attribute.name, attribute.params, &attribute.value)
+      else
+        process_attribute(attribute.name, attribute.value)
+      end
+    end
+    __attributes.reject! { |k| __transient_fields.include?(k) }
+  end
+
+  def process_attribute(method_name, *args, &block)
+    if block_given?
+      assign(method_name, args.first || {}, &block)
+    else
+      assign(method_name, {}, args.first)
+    end
   end
 
   def assign(method_name, options, value=nil, &block)
@@ -105,20 +121,6 @@ class Fabrication::Generator::Base
     __attributes[field_name] = block_given? ?
       (1..count).map { |i| block.call(__attributes, i) } :
       value * count
-  end
-
-  def post_initialize; end
-
-  def process_attributes(attributes)
-    attributes.each do |attribute|
-      __transient_fields << attribute.name if attribute.transient?
-      if Proc === attribute.value
-        method_missing(attribute.name, attribute.params, &attribute.value)
-      else
-        method_missing(attribute.name, attribute.value)
-      end
-    end
-    __attributes.reject! { |k| __transient_fields.include?(k) }
   end
 
   def __transient_fields
