@@ -13,15 +13,19 @@ class Fabrication::Generator::Base
       build_instance
     end
 
-    callbacks[:after_build].each { |callback| callback.call(__instance) } if callbacks[:after_build]
+    execute_callbacks(callbacks[:after_build])
 
     __instance
+  end
+
+  def execute_callbacks(callbacks)
+    callbacks.each { |callback| __instance.instance_eval(&callback) } if callbacks
   end
 
   def create(attributes=[], callbacks=[])
     build(attributes, callbacks)
     persist
-    callbacks[:after_create].each { |callback| callback.call(__instance) } if callbacks[:after_create]
+    execute_callbacks(callbacks[:after_create])
     __instance
   end
 
