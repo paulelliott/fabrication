@@ -98,12 +98,12 @@ class Fabrication::Generator::Base
   end
 
   def assign_field(field_name, value, &block)
-    __attributes[field_name] = block_given? ? yield(__attributes) : value
+    __attributes[field_name] = block_given? ? block.call(__attributes) : value
   end
 
   def assign_collection(field_name, count, value, &block)
     __attributes[field_name] = block_given? ?
-      (1..count).map { |i| yield(__attributes, i) } :
+      (1..count).map { |i| block.call(__attributes, i) } :
       value * count
   end
 
