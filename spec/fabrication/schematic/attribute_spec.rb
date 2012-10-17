@@ -35,4 +35,27 @@ describe Fabrication::Schematic::Attribute do
     subject { Fabrication::Schematic::Attribute.new("a", nil, transient: true) }
     it { should be_transient }
   end
+
+  describe '#processed_value' do
+    subject { attribute.processed_value({}) }
+
+    context 'singular value' do
+      let(:attribute) { Fabrication::Schematic::Attribute.new("a", "something") }
+      it { should == 'something' }
+    end
+
+    context 'singular block' do
+      let(:attribute) do
+        Fabrication::Schematic::Attribute.new("a", nil, {}) { 'something' }
+      end
+      it { should == 'something' }
+    end
+
+    context 'collection block' do
+      let(:attribute) do
+        Fabrication::Schematic::Attribute.new("a", nil, {count: 2}) { 'something' }
+      end
+      it { should == %w(something something) }
+    end
+  end
 end

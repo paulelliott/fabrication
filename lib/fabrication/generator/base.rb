@@ -88,39 +88,9 @@ class Fabrication::Generator::Base
   def process_attributes(attributes)
     attributes.each do |attribute|
       __transient_fields << attribute.name if attribute.transient?
-      if Proc === attribute.value
-        process_attribute(attribute.name, attribute.params, &attribute.value)
-      else
-        process_attribute(attribute.name, attribute.value)
-      end
+      __attributes[attribute.name] = attribute.processed_value(__attributes)
     end
     __attributes.reject! { |k| __transient_fields.include?(k) }
-  end
-
-  def process_attribute(method_name, *args, &block)
-    if block_given?
-      assign(method_name, args.first || {}, &block)
-    else
-      assign(method_name, {}, args.first)
-    end
-  end
-
-  def assign(method_name, options, value=nil, &block)
-    if options.has_key?(:count)
-      assign_collection(method_name, options[:count], value, &block)
-    else
-      assign_field(method_name, value, &block)
-    end
-  end
-
-  def assign_field(field_name, value, &block)
-    __attributes[field_name] = block_given? ? block.call(__attributes) : value
-  end
-
-  def assign_collection(field_name, count, value, &block)
-    __attributes[field_name] = block_given? ?
-      (1..count).map { |i| block.call(__attributes, i) } :
-      value * count
   end
 
   def __transient_fields

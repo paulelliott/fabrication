@@ -20,4 +20,19 @@ class Fabrication::Schematic::Attribute
     params[:transient]
   end
 
+  def processed_value(processed_attributes)
+    if count
+      (1..count).map { |i| value.call(processed_attributes, i) }
+    elsif value_proc?
+      value.call(processed_attributes)
+    else
+      value
+    end
+  end
+
+  private
+
+  def count; params[:count] end
+  def value_proc?; Proc === value end
+
 end
