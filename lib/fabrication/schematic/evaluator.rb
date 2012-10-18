@@ -1,4 +1,4 @@
-class Fabrication::Schematic::Evaluator
+class Fabrication::Schematic::Evaluator < BasicObject
 
   def process(definition, &block)
     @_definition = definition
@@ -45,4 +45,7 @@ class Fabrication::Schematic::Evaluator
     ::Fabrication::Sequencer.sequence(name, start, &block)
   end
 
+  def p(*args); ::Kernel.p(*args) end
+  def puts(*args); ::Kernel.puts(*args) end
+  def rand(*args); ::Kernel.rand(*args) end
 end

@@ -26,5 +26,7 @@ end
 
 Fabricator(:squadron, :from => :division)
 
-Fabricator(:company)
+Fabricator(:company) do
+  display 'for sure'
+end
 Fabricator(:startup, :from => :company)

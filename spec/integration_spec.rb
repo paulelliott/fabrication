@@ -259,6 +259,11 @@ describe Fabrication do
 
   end
 
+  context 'with a field named the same as an Object method' do
+    subject { Fabricate(:company) }
+    its(:display) { should == 'for sure' }
+  end
+
   context 'multiple instance' do
 
     let(:person1) { Fabricate(:person, :first_name => 'Jane') }

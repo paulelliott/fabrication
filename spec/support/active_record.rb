@@ -27,6 +27,7 @@ class TestMigration < ActiveRecord::Migration
     create_table :companies, :force => true do |t|
       t.column :name, :string
       t.column :city, :string
+      t.column :display, :string
     end
 
     create_table :divisions, :force => true do |t|
