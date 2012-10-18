@@ -93,9 +93,9 @@ class Fabrication::Schematic::Definition
   def generate_value(name, params)
     if params[:count]
       name = name.to_s.singularize if name.to_s.respond_to?(:singularize)
-      Proc.new { Fabricate.build(params[:fabricator] || name) }
+      proc { Fabricate.build(params[:fabricator] || name) }
     else
-      Proc.new { Fabricate(params[:fabricator] || name) }
+      proc { Fabricate(params[:fabricator] || name) }
     end
   end
 end
