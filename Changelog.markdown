@@ -1,3 +1,8 @@
+### 2.5.0 ###
+
+* Add support for Keymaker
+* Evaluate Fabricator blocks against BasicObject to prevent method collisions (#124)
+
 ### 2.4.0 ###
 
 * Improve handling of sequel associations (#123)
