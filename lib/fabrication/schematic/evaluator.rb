@@ -39,13 +39,4 @@ class Fabrication::Schematic::Evaluator < BasicObject
       @_definition.append_or_update_attribute(field_name, nil, transient: true)
     end
   end
-
-  def sequence(name=::Fabrication::Sequencer::DEFAULT, start=nil, &block)
-    name = "#{@_definition.klass.to_s.downcase.gsub(/::/, '_')}_#{name}"
-    ::Fabrication::Sequencer.sequence(name, start, &block)
-  end
-
-  def p(*args); ::Kernel.p(*args) end
-  def puts(*args); ::Kernel.puts(*args) end
-  def rand(*args); ::Kernel.rand(*args) end
 end
