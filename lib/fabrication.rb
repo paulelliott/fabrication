@@ -21,12 +21,14 @@ module Fabrication
   autoload :Cucumber, 'fabrication/cucumber/step_fabricator'
 
   module Generator
-    autoload :ActiveRecord, 'fabrication/generator/active_record'
-    autoload :DataMapper,   'fabrication/generator/data_mapper'
-    autoload :Mongoid,      'fabrication/generator/mongoid'
-    autoload :Sequel,       'fabrication/generator/sequel'
-    autoload :Keymaker,     'fabrication/generator/keymaker'
-    autoload :Base,         'fabrication/generator/base'
+    autoload :ActiveRecord,  'fabrication/generator/active_record'
+    autoload :ActiveRecord3, 'fabrication/generator/active_record/active_record_3'
+    autoload :ActiveRecord4, 'fabrication/generator/active_record/active_record_4'
+    autoload :DataMapper,    'fabrication/generator/data_mapper'
+    autoload :Mongoid,       'fabrication/generator/mongoid'
+    autoload :Sequel,        'fabrication/generator/sequel'
+    autoload :Keymaker,      'fabrication/generator/keymaker'
+    autoload :Base,          'fabrication/generator/base'
   end
 
   def self.clear_definitions
