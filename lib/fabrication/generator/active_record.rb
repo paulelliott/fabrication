@@ -4,8 +4,8 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
   end
 
-  def build_instance
-    self.__instance = __klass.new(__attributes, without_protection: true)
+  private
+  def self.active_record_4?
+    ActiveRecord::VERSION::MAJOR == 4
   end
-
 end
