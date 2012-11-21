@@ -1,3 +1,5 @@
+require 'bundler'
+
 Bundler.require(:default, :development)
 
 # Requires supporting files with custom matchers and macros, etc,
