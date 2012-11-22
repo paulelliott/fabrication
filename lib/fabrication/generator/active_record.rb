@@ -5,7 +5,11 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes, without_protection: true)
+    if defined?(ActiveRecord) && ActiveRecord::VERSION::MAJOR >= 4
+      self.__instance = __klass.new(__attributes)
+    else
+      self.__instance = __klass.new(__attributes, without_protection: true)
+    end
   end
 
 end
