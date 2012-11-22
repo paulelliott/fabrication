@@ -6,12 +6,12 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
 
   private
 
-  def self.active_record_4?
-    ActiveRecord::VERSION::MAJOR == 4
-  end
-
   def validate_instance
     __instance.valid?
+  end
+
+  def build_instance
+    self.__instance = __klass.new(__attributes, without_protection: true)
   end
 
 end
