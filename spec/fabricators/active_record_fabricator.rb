@@ -30,3 +30,11 @@ Fabricator(:company) do
   display 'for sure'
 end
 Fabricator(:startup, :from => :company)
+
+Fabricator('namespaced/team') do
+  name 'A Random Team'
+end
+
+Fabricator(:team_with_members_count, :from => 'namespaced/team') do
+  members_count 7
+end

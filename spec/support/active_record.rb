@@ -34,6 +34,12 @@ class TestMigration < ActiveRecord::Migration
       t.column :name, :string
       t.references :company
     end
+
+    create_table :namespaced_teams, :force => true do |t|
+      t.column :name, :string
+      t.column :members_count, :integer
+      t.references :company
+    end
   end
 
   def self.down
@@ -41,6 +47,7 @@ class TestMigration < ActiveRecord::Migration
     drop_table :parent_active_record_models
     drop_table :companies
     drop_table :divisions
+    drop_table :namespaced_teams
   end
 end
 
@@ -65,4 +72,12 @@ end
 
 class Division < ActiveRecord::Base
   belongs_to :company
+end
+
+module Namespaced
+  class Team < ActiveRecord::Base
+    belongs_to :company, :class_name => Company
+  end
+
+  Team.table_name = :namespaced_teams
 end

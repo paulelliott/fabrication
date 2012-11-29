@@ -350,6 +350,32 @@ describe Fabrication do
       Division.count.should == 2
     end
 
+    context 'in a namespace' do
+      let(:namespaced_team) { Fabricate('namespaced/team') }
+      let(:from_namespaced_team) { Fabricate(:team_with_members_count) }
+
+      it 'includes defined or inherited attributes' do
+        namespaced_team.name.should eq('A Random Team')
+        namespaced_team.members_count.should be_nil
+
+        from_namespaced_team.name.should eq('A Random Team')
+        from_namespaced_team.members_count.should eq(7)
+      end
+
+      context 'using #build' do
+        let(:namespaced_team) { Fabricate.build('namespaced/team') }
+        let(:from_namespaced_team) { Fabricate.build(:team_with_members_count) }
+
+        it 'includes defined or inherited attributes' do
+          namespaced_team['name'].should eq('A Random Team')
+          namespaced_team['members_count'].should be_nil
+
+          from_namespaced_team['name'].should eq('A Random Team')
+          from_namespaced_team['members_count'].should eq(7)
+        end
+      end
+    end
+
   end
 
   context 'with a mongoid document' do
