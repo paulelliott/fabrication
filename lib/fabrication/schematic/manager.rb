@@ -26,7 +26,7 @@ class Fabrication::Schematic::Manager
   end
 
   def [](name)
-    schematics[name.to_sym]
+    schematics[name.try(:to_sym)]
   end
 
   def schematics
@@ -62,7 +62,7 @@ class Fabrication::Schematic::Manager
   end
 
   def schematic_for(name, options, &block)
-    parent = schematics[options[:from]]
+    parent = self[options[:from]]
     klass = resolve_class(name, parent, options)
 
     if parent

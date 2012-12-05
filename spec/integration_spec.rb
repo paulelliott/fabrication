@@ -305,6 +305,7 @@ describe Fabrication do
     after  { TestMigration.down }
 
     before(:all) do
+      Fabrication.schematics
       Fabricator(:main_company, :from => :company) do
         name { Faker::Company.name }
         divisions(:count => 4)
@@ -350,32 +351,20 @@ describe Fabrication do
       Division.count.should == 2
     end
 
-    context 'in a namespace' do
-      let(:namespaced_team) { Fabricate('namespaced/team') }
-      let(:from_namespaced_team) { Fabricate(:team_with_members_count) }
+  end
 
-      it 'includes defined or inherited attributes' do
-        namespaced_team.name.should eq('A Random Team')
-        namespaced_team.members_count.should be_nil
-
-        from_namespaced_team.name.should eq('A Random Team')
-        from_namespaced_team.members_count.should eq(7)
-      end
-
-      context 'using #build' do
-        let(:namespaced_team) { Fabricate.build('namespaced/team') }
-        let(:from_namespaced_team) { Fabricate.build(:team_with_members_count) }
-
-        it 'includes defined or inherited attributes' do
-          namespaced_team['name'].should eq('A Random Team')
-          namespaced_team['members_count'].should be_nil
-
-          from_namespaced_team['name'].should eq('A Random Team')
-          from_namespaced_team['members_count'].should eq(7)
-        end
-      end
+  context 'for namespaced classes' do
+    context 'the namespaced class' do
+      subject { Fabricate('namespaced/team') }
+      its(:name) { should eq('A Random Team') }
+      its(:members_count) { should be_nil }
     end
 
+    context 'descendant from namespaced class' do
+      subject { Fabricate(:team_with_members_count) }
+      its(:name) { should eq('A Random Team') }
+      its(:members_count) { should == 7 }
+    end
   end
 
   context 'with a mongoid document' do
