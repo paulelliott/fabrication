@@ -1,3 +1,7 @@
+### 2.5.1 ###
+
+* Fix bug where strings used in :from attribute would not resolve correctly
+
 ### 2.5.0 ###
 
 * Add support for Keymaker
