@@ -48,7 +48,6 @@ def Fabricator(name, options={}, &block)
 end
 
 def Fabricate(name, overrides={}, &block)
-  raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.schematics.initializing?
   Fabrication::Fabricator.fabricate(name, overrides, &block).tap do |object|
     Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
   end
