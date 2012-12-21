@@ -1,3 +1,7 @@
+### 2.5.2 ###
+
+* Improve error explanation for MisplacedFabricateError
+
 ### 2.5.1 ###
 
 * Fix bug where strings used in :from attribute would not resolve correctly
