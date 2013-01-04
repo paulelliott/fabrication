@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
 
-  subject { Fabrication::Schematic::Manager.new }
+  let(:manager) { Fabrication::Schematic::Manager.new }
 
   describe "#register" do
+    subject { manager }
 
     let(:options) { { aliases: ["thing_one", :thing_two] } }
 
@@ -36,4 +37,18 @@ describe Fabrication::Schematic::Manager do
 
   end
 
+  describe '#[]' do
+    subject { manager[key] }
+    before { manager.schematics[:some] = 'thing' }
+
+    context 'with a symbol' do
+      let(:key) { :some }
+      it { should == 'thing' }
+    end
+
+    context 'with a string' do
+      let(:key) { 'some' }
+      it { should == 'thing' }
+    end
+  end
 end
