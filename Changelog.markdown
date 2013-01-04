@@ -1,3 +1,7 @@
+### 2.5.3 ###
+
+* Remove try from Schematic::Manager. Some ruby versions were having issues with this (Issue #141)
+
 ### 2.5.2 ###
 
 * Improve error explanation for MisplacedFabricateError
