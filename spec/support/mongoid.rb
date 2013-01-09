@@ -15,6 +15,7 @@ class ParentMongoidDocument
   field :number_field
   field :string_field
   field :false_field, type: Boolean
+  field :extra_fields, type: Hash
 
   has_many :referenced_mongoid_documents
   embeds_many :embedded_mongoid_documents

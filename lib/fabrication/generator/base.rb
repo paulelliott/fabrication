@@ -19,7 +19,7 @@ class Fabrication::Generator::Base
   end
 
   def execute_callbacks(callbacks)
-    callbacks.each { |callback| __instance.instance_eval(&callback) } if callbacks
+    callbacks.each { |callback| __instance.instance_exec(__instance, __transient_attributes, &callback) } if callbacks
   end
 
   def create(attributes=[], callbacks=[])
@@ -73,7 +73,7 @@ class Fabrication::Generator::Base
 
   protected
 
-  attr_accessor :__klass, :__instance
+  attr_accessor :__klass, :__instance, :__transient_attributes
 
   def __attributes
     @__attributes ||= {}
@@ -86,15 +86,12 @@ class Fabrication::Generator::Base
   def post_initialize; end
 
   def process_attributes(attributes)
+    self.__transient_attributes = Hash.new
     attributes.each do |attribute|
-      __transient_fields << attribute.name if attribute.transient?
       __attributes[attribute.name] = attribute.processed_value(__attributes)
+      __transient_attributes[attribute.name] = __attributes[attribute.name] if attribute.transient?
     end
-    __attributes.reject! { |k| __transient_fields.include?(k) }
-  end
-
-  def __transient_fields
-    @__transient_fields ||= []
+    __attributes.reject! { |k| __transient_attributes.keys.include?(k) }
   end
 
 end

@@ -58,6 +58,7 @@ end
 class ParentActiveRecordModel < ActiveRecord::Base
   has_many :child_active_record_models
   attr_protected :number_field
+  attr_accessor :extra_fields
 
   before_save do
     self.before_save_value = 11

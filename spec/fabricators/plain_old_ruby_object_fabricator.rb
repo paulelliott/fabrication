@@ -5,6 +5,10 @@ Fabricator(:parent_ruby_object) do
   number_field 5
   string_field 'content'
   false_field false
+  extra_fields { Hash.new }
+  after_build do |object, transients|
+    object.extra_fields[:transient_value] = transients[:placeholder]
+  end
 end
 
 Fabricator(:parent_ruby_object_with_children, from: :parent_ruby_object) do

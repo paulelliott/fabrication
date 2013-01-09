@@ -17,7 +17,8 @@ class ParentRubyObject < Persistable
     :number_field,
     :string_field,
     :false_field,
-    :id
+    :id,
+    :extra_fields
   attr_writer :child_ruby_objects
 
   def initialize

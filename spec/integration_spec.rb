@@ -53,6 +53,7 @@ shared_examples 'something fabricatable' do
 
   context 'transient attributes' do
     it { should_not respond_to(:placeholder) }
+    its(:extra_fields) { should == { transient_value: 'dynamic content' } }
   end
 
   context 'build' do

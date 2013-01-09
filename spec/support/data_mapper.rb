@@ -14,6 +14,7 @@ class ParentDataMapperModel
   property :number_field, Integer
   property :string_field, String
   property :false_field, Boolean
+  attr_accessor :extra_fields
 
   has n, :child_data_mapper_models
 
