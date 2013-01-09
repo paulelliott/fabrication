@@ -1,3 +1,8 @@
+### 2.5.4 ###
+
+* Make transient attributes available in callbacks (Issue #143)
+* Fix build parameters for mongoid 2.x line (Issue #144)
+
 ### 2.5.3 ###
 
 * Remove try from Schematic::Manager. Some ruby versions were having issues with this (Issue #141)
