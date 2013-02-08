@@ -1,3 +1,7 @@
+### 2.6.0 ###
+
+* Use activemodel style callbacks. The old after_build callback is equivalent to the new before_validation. See documentation for a full list.
+
 ### 2.5.4 ###
 
 * Make transient attributes available in callbacks (Issue #143)
