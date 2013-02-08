@@ -130,6 +130,37 @@ describe Fabrication::Generator::Base do
       end
     end
 
+    context 'all the callbacks' do
+      subject { schematic.build }
+      let(:schematic) do
+        Fabrication::Schematic::Definition.new(Person) do
+          first_name ""
+          after_build { |k| k.first_name += '1' }
+          before_validation { |k| k.first_name += '2' }
+          after_validation { |k| k.first_name += '3' }
+        end
+      end
+      its(:first_name) { should == '123' }
+    end
+  end
+
+  describe '#create' do
+    context 'all the callbacks' do
+      subject { schematic.fabricate }
+      let(:schematic) do
+        Fabrication::Schematic::Definition.new(Person) do
+          first_name ""
+          after_build { |k| k.first_name += '1' }
+          before_validation { |k| k.first_name += '2' }
+          after_validation { |k| k.first_name += '3' }
+          before_save { |k| k.first_name += '4' }
+          before_create { |k| k.first_name += '5' }
+          after_create { |k| k.first_name += '6' }
+          after_save { |k| k.first_name += '7' }
+        end
+      end
+      its(:first_name) { should == '1234567' }
+    end
   end
 
   describe "#persist" do

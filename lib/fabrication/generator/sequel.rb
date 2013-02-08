@@ -26,4 +26,8 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
     __instance.save
   end
 
+  def validate_instance
+    __instance.valid?
+  end
+
 end

@@ -6,7 +6,7 @@ Fabricator(:parent_ruby_object) do
   string_field 'content'
   false_field false
   extra_fields { Hash.new }
-  after_build do |object, transients|
+  before_validation do |object, transients|
     object.extra_fields[:transient_value] = transients[:placeholder]
   end
 end
@@ -45,12 +45,12 @@ Fabricator(:person) do
 end
 
 Fabricator(:child, :from => :person) do
-  after_build { |child| child.first_name = 'Johnny' }
-  after_build { |child| child.age = 10 }
+  before_validation { |child| child.first_name = 'Johnny' }
+  before_validation { |child| child.age = 10 }
 end
 
 Fabricator(:senior, :from => :child) do
-  after_build { |senior| senior.age *= 7 }
+  before_validation { |senior| senior.age *= 7 }
 end
 
 Fabricator(:city) do

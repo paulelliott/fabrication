@@ -6,7 +6,7 @@ Fabricator(:parent_active_record_model) do
   string_field 'content'
   false_field false
   extra_fields { Hash.new }
-  after_build do |object, transients|
+  before_validation do |object, transients|
     object.extra_fields[:transient_value] = transients[:placeholder]
   end
 end

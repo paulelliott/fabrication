@@ -316,7 +316,7 @@ describe Fabrication do
 
       Fabricator(:other_company, :from => :main_company) do
         divisions(:count => 2)
-        after_build { |o| o.name = "Crazysauce" }
+        before_validation { |o| o.name = "Crazysauce" }
       end
     end
 

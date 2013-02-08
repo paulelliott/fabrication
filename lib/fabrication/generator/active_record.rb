@@ -8,4 +8,8 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     self.__instance = __klass.new(__attributes, without_protection: true)
   end
 
+  def validate_instance
+    __instance.valid?
+  end
+
 end

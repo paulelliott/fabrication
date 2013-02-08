@@ -12,21 +12,25 @@ class Fabrication::Generator::Base
     else
       build_instance
     end
-
     execute_callbacks(callbacks[:after_build])
+    execute_callbacks(callbacks[:before_validation])
+    validate_instance
+    execute_callbacks(callbacks[:after_validation])
+    __instance
+  end
 
+  def create(attributes=[], callbacks=[])
+    build(attributes, callbacks)
+    execute_callbacks(callbacks[:before_save])
+    execute_callbacks(callbacks[:before_create])
+    persist
+    execute_callbacks(callbacks[:after_create])
+    execute_callbacks(callbacks[:after_save])
     __instance
   end
 
   def execute_callbacks(callbacks)
     callbacks.each { |callback| __instance.instance_exec(__instance, __transient_attributes, &callback) } if callbacks
-  end
-
-  def create(attributes=[], callbacks=[])
-    build(attributes, callbacks)
-    persist
-    execute_callbacks(callbacks[:after_create])
-    __instance
   end
 
   def to_hash(attributes=[], callbacks=[])
@@ -70,6 +74,8 @@ class Fabrication::Generator::Base
   def method_missing(method_name, *args, &block)
     __attributes[method_name] || super
   end
+
+  def validate_instance; end
 
   protected
 
