@@ -91,7 +91,9 @@ describe Fabrication::Generator::Base do
         let(:schematic) do
            Fabrication::Schematic::Definition.new(klass) do
              arg1 10
-             initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1 + 10) }
+             initialize_with do
+               Struct.new(:arg1, :arg2).new(arg1, arg2 || arg1 + 10)
+             end
           end
         end
 
@@ -109,8 +111,9 @@ describe Fabrication::Generator::Base do
             subject.arg2.should == 40
           end
         end
-
+        
       end
+      
     end
 
     context "using an after_create hook" do
