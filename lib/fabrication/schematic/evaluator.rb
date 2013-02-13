@@ -13,7 +13,6 @@ class Fabrication::Schematic::Evaluator < BasicObject
   end
 
   def after_build(&block)
-    ::Kernel.puts "DEPRECATION WARNING: after_build callbacks will be removed in fabrication 2.7"
     @_definition.callbacks[:after_build] ||= []
     @_definition.callbacks[:after_build] << block
   end
