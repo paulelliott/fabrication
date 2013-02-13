@@ -1,3 +1,7 @@
+### 2.6.1 ###
+
+* Only run validation callbacks when creating. Calling `Fabricate.build` will now only run after_build and the deprecation warning on that callback has been removed.
+
 ### 2.6.0 ###
 
 * Use activemodel style callbacks. The old after_build callback is equivalent to the new before_validation. See documentation for a full list.
