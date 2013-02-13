@@ -140,7 +140,7 @@ describe Fabrication::Generator::Base do
           after_validation { |k| k.first_name += '3' }
         end
       end
-      its(:first_name) { should == '123' }
+      its(:first_name) { should == '1' }
     end
   end
 

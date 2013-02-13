@@ -13,14 +13,14 @@ class Fabrication::Generator::Base
       build_instance
     end
     execute_callbacks(callbacks[:after_build])
-    execute_callbacks(callbacks[:before_validation])
-    validate_instance
-    execute_callbacks(callbacks[:after_validation])
     __instance
   end
 
   def create(attributes=[], callbacks=[])
     build(attributes, callbacks)
+    execute_callbacks(callbacks[:before_validation])
+    validate_instance
+    execute_callbacks(callbacks[:after_validation])
     execute_callbacks(callbacks[:before_save])
     execute_callbacks(callbacks[:before_create])
     persist
