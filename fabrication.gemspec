@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency("dm-core")
   s.add_development_dependency("dm-migrations")
   s.add_development_dependency("dm-sqlite-adapter")
-  s.add_development_dependency("turnip", [">= 0.3"])
   s.add_development_dependency("ffaker")
   s.add_development_dependency("keymaker")
   s.add_development_dependency("mongoid")

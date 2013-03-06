@@ -8,8 +8,4 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = "--format progress --tags ~@wip"
 end
 
-RSpec::Core::RakeTask.new(:turnip) do |spec|
-  spec.pattern = "turnip/**/*.feature"
-end
-
-task :default => [:spec, :cucumber, :turnip]
+task :default => [:spec, :cucumber]

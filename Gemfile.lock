@@ -115,4 +115,3 @@ DEPENDENCIES
   rspec
   sequel
   sqlite3
-  turnip (>= 0.3)

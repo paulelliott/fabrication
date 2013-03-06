@@ -7,7 +7,6 @@ Bundler.require(:default, :development)
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
 RSpec.configure do |config|
-  Turnip::Config.step_dirs = ['turnip', File.expand_path('lib/rails/generators/fabrication/turnip_steps/templates/')]
   config.before(:each) do
     TestMigration.up
     clear_mongodb
