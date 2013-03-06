@@ -1,3 +1,7 @@
+### 2.6.2 ###
+
+* Add preliminary support for ActiveRecord 4 models.
+
 ### 2.6.1 ###
 
 * Only run validation callbacks when creating. Calling `Fabricate.build` will now only run after_build and the deprecation warning on that callback has been removed.
