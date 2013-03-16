@@ -1,3 +1,7 @@
+### 2.6.3 ###
+
+* Add preliminary support for Mongoid 4.
+
 ### 2.6.2 ###
 
 * Add preliminary support for ActiveRecord 4 models.
