@@ -1,4 +1,3 @@
-require 'dm-active_model'
 require 'dm-core'
 require 'dm-migrations'
 
@@ -18,6 +17,8 @@ class ParentDataMapperModel
 
   has n, :child_data_mapper_models
 
+  alias persisted? saved?
+
   before :save do
     self.before_save_value = 11
   end
@@ -28,6 +29,8 @@ class ChildDataMapperModel
 
   property :id, Serial
   property :number_field, Integer
+
+  alias persisted? saved?
 
   belongs_to :parent_data_mapper_model
 end
