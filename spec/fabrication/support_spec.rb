@@ -47,4 +47,25 @@ describe Fabrication::Support do
 
   end
 
+  describe '.hash_class' do
+    subject { Fabrication::Support.hash_class }
+
+    context 'with HashWithIndifferentAccess defined' do
+      it { should == HashWithIndifferentAccess }
+    end
+
+    context 'without HashWithIndifferentAccess defined' do
+      before do
+        TempHashWithIndifferentAccess = HashWithIndifferentAccess
+        Fabrication::Support.instance_variable_set('@hash_class', nil)
+        Object.send(:remove_const, :HashWithIndifferentAccess)
+      end
+      after do
+        Fabrication::Support.instance_variable_set('@hash_class', nil)
+        HashWithIndifferentAccess = TempHashWithIndifferentAccess
+      end
+      it { should == Hash }
+    end
+  end
+
 end

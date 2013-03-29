@@ -30,10 +30,6 @@ module Fabrication
       @path_prefix ||= defined?(Rails) ? Rails.root : "."
     end
 
-    def active_support_hash?
-      @active_support ||= defined?(ActiveSupport::HashWithIndifferentAccess)
-    end
-
     attr_writer :register_with_steps
     def register_with_steps?; @register_with_steps end
   end

@@ -35,7 +35,7 @@ class Fabrication::Generator::Base
 
   def to_hash(attributes=[], callbacks=[])
     process_attributes(attributes)
-    (Fabrication::Config.active_support_hash? ? ActiveSupport::HashWithIndifferentAccess.new : {}).tap do |hash|
+    Fabrication::Support.hash_class.new.tap do |hash|
       __attributes.map do |name, value|
         if value && value.respond_to?(:id)
           hash["#{name}_id"] = value.id

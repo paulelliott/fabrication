@@ -36,6 +36,10 @@ class Fabrication::Support
       Fabrication.schematics.freeze
     end
 
+    def hash_class
+      @hash_class ||= defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess : Hash
+    end
+
   end
 
 end
