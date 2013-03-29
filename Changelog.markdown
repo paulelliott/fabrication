@@ -1,3 +1,7 @@
+### 2.6.4 ###
+
+* Refactor how HashWithIndifferentAccess existance is determined (Fixes #153)
+
 ### 2.6.3 ###
 
 * Add preliminary support for Mongoid 4.
