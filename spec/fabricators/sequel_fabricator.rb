@@ -22,3 +22,9 @@ end
 Fabricator(:child_sequel_model_with_parent, from: :child_sequel_model) do
   parent_sequel_model
 end
+
+Fabricator(:sequel_farmer) do
+end
+
+Fabricator(:sequel_knight) do
+end
