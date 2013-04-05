@@ -27,3 +27,10 @@ class ParentSequelModel < Sequel::Model
     super
   end
 end
+
+class SequelFarmer < Sequel::Model
+  plugin :class_table_inheritance, key: :kind
+end
+
+class SequelKnight < SequelFarmer
+end

@@ -17,6 +17,16 @@ Sequel.migration do
       String :string_field
       Boolean :false_field
     end
+
+    create_table :sequel_farmers do
+      primary_key :id
+      String :kind
+    end
+
+    create_table :sequel_knights do
+      foreign_key :id, :sequel_farmers, null: false, key: [:id], on_delete: :cascade
+      primary_key [:id]
+    end
   end
 
   down do
