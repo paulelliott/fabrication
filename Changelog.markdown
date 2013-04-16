@@ -1,3 +1,7 @@
+### 2.6.5 ###
+
+* Fix bug that could prevent sequel's class table inheritance from working (#152)
+
 ### 2.6.4 ###
 
 * Refactor how HashWithIndifferentAccess existance is determined (Fixes #153)
