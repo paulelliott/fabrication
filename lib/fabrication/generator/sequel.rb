@@ -2,7 +2,7 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
 
   def initialize(klass)
     super
-    __klass.plugin :instance_hooks unless __klass.new.respond_to? :after_save_hook
+    load_instance_hooks
   end
 
   def self.supports?(klass)
@@ -28,6 +28,13 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
 
   def validate_instance
     __instance.valid?
+  end
+
+  private
+
+  def load_instance_hooks
+    klass = __klass.respond_to?(:cti_base_model) ? __klass.cti_base_model : __klass
+    klass.plugin :instance_hooks unless klass.new.respond_to? :after_save_hook
   end
 
 end

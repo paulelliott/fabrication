@@ -160,6 +160,19 @@ describe Fabrication do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
     it_should_behave_like 'something fabricatable'
+
+    context 'with class table inheritance' do
+      before do
+        Fabricate(:sequel_knight)
+        Fabricate(:sequel_farmer)
+        Fabricate(:sequel_knight)
+      end
+
+      it 'generates the right number of objects' do
+        SequelFarmer.count.should == 3
+        SequelKnight.count.should == 2
+      end
+    end
   end
 
   context 'keymaker models' do

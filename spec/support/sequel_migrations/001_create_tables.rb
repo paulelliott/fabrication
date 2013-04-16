@@ -32,5 +32,7 @@ Sequel.migration do
   down do
     drop_table :child_sequel_models
     drop_table :parent_sequel_models
+    drop_table :sequel_farmers
+    drop_table :sequel_knights
   end
 end
