@@ -1,3 +1,7 @@
+### 2.7.0 ###
+
+* Add support for default values on transients.
+
 ### 2.6.5 ###
 
 * Fix bug that could prevent sequel's class table inheritance from working (#152)
