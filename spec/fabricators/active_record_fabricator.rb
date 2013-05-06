@@ -1,5 +1,5 @@
 Fabricator(:parent_active_record_model) do
-  transient :placeholder
+  transient :placeholder, :transient_with_default => 'my custom value'
   dynamic_field { |attrs| attrs[:placeholder] }
   nil_field nil
   number_field 5

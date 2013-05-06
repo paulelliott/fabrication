@@ -211,12 +211,19 @@ describe Fabrication::Schematic::Definition do
   describe '#transient' do
     let(:definition) do
       Fabrication::Schematic::Definition.new(OpenStruct) do
-        transient :one, :two
+        transient :one, :two => 'with a default value', :three => 200
       end
     end
 
     it 'stores the attributes as transient' do
-      definition.attributes.map(&:transient?).should == [true, true]
+      definition.attributes.map(&:transient?).should == [true, true, true]
+    end
+
+    it "accept default value" do
+      definition.attributes[1].name.should == :two
+      definition.attributes[1].value.should == 'with a default value'
+      definition.attributes[2].name.should == :three
+      definition.attributes[2].value.should == 200
     end
   end
 
