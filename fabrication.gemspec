@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rake")
   s.add_development_dependency("rspec")
   s.add_development_dependency("sequel")
+  s.add_development_dependency("guard-rspec")
 
   s.files = Dir.glob("lib/**/*") + %w(LICENSE README.markdown Rakefile)
   s.require_path = 'lib'
