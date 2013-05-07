@@ -72,6 +72,7 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
+    return __attributes[method_name] if __klass.public_instance_methods.include? method_name
     __attributes[method_name] || super
   end
 
