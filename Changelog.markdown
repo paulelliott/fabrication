@@ -1,3 +1,7 @@
+### 2.7.1 ###
+
+* Accept actual classes for `from` and `class_name` Fabricator options. (#160)
+
 ### 2.7.0 ###
 
 * Add support for default values on transients.
