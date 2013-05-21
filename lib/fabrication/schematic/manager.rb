@@ -53,12 +53,10 @@ class Fabrication::Schematic::Manager
   def resolve_class(name, parent, options)
     Fabrication::Support.class_for(
       options[:class_name] ||
-        (parent && parent.klass.name) ||
+        (parent && parent.klass) ||
         options[:from] ||
         name
-    ).tap do |klass|
-      raise Fabrication::UnfabricatableError, "No class found for '#{name}'" unless klass
-    end
+    ) || (raise Fabrication::UnfabricatableError, "No class found for '#{name}'")
   end
 
   def schematic_for(name, options, &block)
