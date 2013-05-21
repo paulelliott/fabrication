@@ -60,7 +60,7 @@ class Fabrication::Schematic::Manager
   end
 
   def schematic_for(name, options, &block)
-    parent = self[options[:from]] if options[:from]
+    parent = self[options[:from].to_s] if options[:from]
     klass = resolve_class(name, parent, options)
 
     if parent

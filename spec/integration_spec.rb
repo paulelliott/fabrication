@@ -532,4 +532,31 @@ describe Fabrication do
     end
   end
 
+  describe 'using an actual class in options' do
+    let(:some_company) { Fabricate(:some_company) }
+    subject { some_company }
+
+    context 'from' do
+      before do
+        Fabricator(:some_company, :from => Company) do
+          name 'Hashrocket'
+        end
+      end
+      after { Fabrication.clear_definitions }
+      its(:name) { should == 'Hashrocket' }
+      it { should be_kind_of(Company) }
+    end
+
+    context 'class_name' do
+      before do
+        Fabricator(:some_company, :class_name => Company) do
+          name 'Hashrocket'
+        end
+      end
+      after { Fabrication.clear_definitions }
+      its(:name) { should == 'Hashrocket' }
+      it { should be_kind_of(Company) }
+    end
+  end
+
 end
