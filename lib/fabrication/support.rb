@@ -3,7 +3,7 @@ class Fabrication::Support
   class << self
 
     def fabricatable?(name)
-      Fabrication.schematics[name] || class_for(name)
+      Fabrication.manager[name] || class_for(name)
     end
 
     def class_for(class_or_to_s)
@@ -27,13 +27,13 @@ class Fabrication::Support
     end
 
     def find_definitions
-      Fabrication.schematics.preinitialize
+      Fabrication.manager.preinitialize
       Fabrication::Config.fabricator_dir.each do |folder|
         Dir.glob(File.join(Fabrication::Config.path_prefix, folder, '**', '*.rb')).sort.each do |file|
           load file
         end
       end
-      Fabrication.schematics.freeze
+      Fabrication.manager.freeze
     end
 
     def hash_class

@@ -20,12 +20,12 @@ class Fabrication::Fabricator
   def self.fail_if_initializing(name)
     raise Fabrication::MisplacedFabricateError.new(
       "You tried to fabricate `#{name}` while Fabricators were still loading. Check your fabricator files and make sure you didn't accidentally type `Fabricate` instead of `Fabricator` in there somewhere."
-    ) if Fabrication.schematics.initializing?
+    ) if Fabrication.manager.initializing?
   end
 
   def self.schematic(name)
-    Fabrication::Support.find_definitions if Fabrication.schematics.empty?
-    Fabrication.schematics[name].tap do |schematic|
+    Fabrication::Support.find_definitions if Fabrication.manager.empty?
+    Fabrication.manager[name].tap do |schematic|
       raise Fabrication::UnknownFabricatorError, "No Fabricator defined for '#{name}'" unless schematic
     end
   end

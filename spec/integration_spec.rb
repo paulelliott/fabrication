@@ -319,7 +319,7 @@ describe Fabrication do
     after  { TestMigration.down }
 
     before(:all) do
-      Fabrication.schematics
+      Fabrication.manager
       Fabricator(:main_company, :from => :company) do
         name { Faker::Company.name }
         divisions(:count => 4)
@@ -468,7 +468,7 @@ describe Fabrication do
     after { Fabrication::Support.find_definitions }
 
     it 'should not generate authors' do
-      Fabrication.schematics[:author].should be_nil
+      Fabrication.manager[:author].should be_nil
     end
   end
 
@@ -524,8 +524,8 @@ describe Fabrication do
   end
 
   describe 'Fabricating while initializing' do
-    before { Fabrication.schematics.preinitialize }
-    after { Fabrication.schematics.freeze }
+    before { Fabrication.manager.preinitialize }
+    after { Fabrication.manager.freeze }
 
     it 'throws an error' do
       lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::MisplacedFabricateError)

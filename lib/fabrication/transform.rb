@@ -3,7 +3,7 @@ class Fabrication::Transform
   class << self
 
     def apply_to(schematic, attributes_hash)
-      Fabrication::Support.find_definitions if Fabrication.schematics.empty?
+      Fabrication::Support.find_definitions if Fabrication.manager.empty?
       attributes_hash.inject({}) {|h,(k,v)| h.update(k => apply_transform(schematic, k, v)) }
     end
 

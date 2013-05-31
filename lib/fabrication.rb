@@ -31,7 +31,7 @@ module Fabrication
   end
 
   def self.clear_definitions
-    @schematics = nil
+    @manager = nil
     Sequencer.sequences.clear
   end
 
@@ -39,13 +39,18 @@ module Fabrication
     Fabrication::Config.configure(&block)
   end
 
+  def self.manager
+    @manager ||= Fabrication::Schematic::Manager.new
+  end
+
   def self.schematics
-    @schematics ||= Fabrication::Schematic::Manager.new
+    puts "DEPRECATION WARNING: Fabrication.schematics has been replaced by Fabrication.manager"
+    manager
   end
 end
 
 def Fabricator(name, options={}, &block)
-  Fabrication.schematics.register(name, options, &block)
+  Fabrication.manager.register(name, options, &block)
 end
 
 def Fabricate(name, overrides={}, &block)

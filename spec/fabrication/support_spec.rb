@@ -42,7 +42,7 @@ describe Fabrication::Support do
     end
 
     it "loaded definitions" do
-      Fabrication.schematics[:parent_ruby_object].should be
+      Fabrication.manager[:parent_ruby_object].should be
     end
 
   end

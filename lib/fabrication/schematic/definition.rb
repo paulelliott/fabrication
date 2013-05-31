@@ -49,16 +49,16 @@ class Fabrication::Schematic::Definition
   end
 
   def build(overrides={}, &block)
-    Fabrication.schematics.build_stack << self
+    Fabrication.manager.build_stack << self
     merge(overrides, &block).instance_eval do
       generator.new(klass).build(attributes, callbacks)
     end
   ensure
-    Fabrication.schematics.build_stack.pop
+    Fabrication.manager.build_stack.pop
   end
 
   def fabricate(overrides={}, &block)
-    if Fabrication.schematics.build_stack.empty?
+    if Fabrication.manager.build_stack.empty?
       merge(overrides, &block).instance_eval do
         generator.new(klass).create(attributes, callbacks)
       end
