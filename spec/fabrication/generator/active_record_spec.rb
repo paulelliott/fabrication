@@ -16,7 +16,7 @@ describe Fabrication::Generator::ActiveRecord do
     let(:instance) { mock(:instance) }
     let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
 
-    before { generator.send(:__instance=, instance) }
+    before { generator.send(:_instance=, instance) }
 
     it "saves" do
       instance.should_receive(:save!)

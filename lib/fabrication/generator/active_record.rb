@@ -7,11 +7,11 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   private
 
   def validate_instance
-    __instance.valid?
+    _instance.valid?
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes, without_protection: true)
+    self._instance = _klass.new(_attributes, without_protection: true)
   end
 
 end

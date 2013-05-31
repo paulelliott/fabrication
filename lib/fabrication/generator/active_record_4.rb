@@ -5,7 +5,7 @@ class Fabrication::Generator::ActiveRecord4 < Fabrication::Generator::ActiveReco
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes)
+    self._instance = _klass.new(_attributes)
   end
 
   private

@@ -5,17 +5,17 @@ class Fabrication::Generator::DataMapper < Fabrication::Generator::Base
   end
 
   def build_instance
-    self.__instance = __klass.new(__attributes)
+    self._instance = _klass.new(_attributes)
   end
 
   def validate_instance
-    __instance.valid?
+    _instance.valid?
   end
 
   protected
 
   def persist
-    __instance.save
+    _instance.save
   end
 
 end

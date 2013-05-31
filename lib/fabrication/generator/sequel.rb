@@ -10,30 +10,30 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
   end
 
   def set_attributes
-    __attributes.each do |key, value|
-      if (reflection = __klass.association_reflections[key]) && value.is_a?(Array)
-        __instance.associations[key] = value
-        __instance.after_save_hook do
-          value.each { |o| __instance.send(reflection.add_method, o) }
+    _attributes.each do |key, value|
+      if (reflection = _klass.association_reflections[key]) && value.is_a?(Array)
+        _instance.associations[key] = value
+        _instance.after_save_hook do
+          value.each { |o| _instance.send(reflection.add_method, o) }
         end
       else
-        __instance.send("#{key}=", value)
+        _instance.send("#{key}=", value)
       end
     end
   end
 
   def persist
-    __instance.save
+    _instance.save
   end
 
   def validate_instance
-    __instance.valid?
+    _instance.valid?
   end
 
   private
 
   def load_instance_hooks
-    klass = __klass.respond_to?(:cti_base_model) ? __klass.cti_base_model : __klass
+    klass = _klass.respond_to?(:cti_base_model) ? _klass.cti_base_model : _klass
     klass.plugin :instance_hooks unless klass.new.respond_to? :after_save_hook
   end
 

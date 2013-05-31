@@ -167,7 +167,7 @@ describe Fabrication::Generator::Base do
     let(:instance) { mock(:instance) }
     let(:generator) { Fabrication::Generator::Base.new(Object) }
 
-    before { generator.send(:__instance=, instance) }
+    before { generator.send(:_instance=, instance) }
 
     it 'saves' do
       instance.should_receive(:save!)

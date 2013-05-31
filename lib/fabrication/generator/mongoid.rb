@@ -6,14 +6,14 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
 
   def build_instance
     if Gem::Version.new(Mongoid::VERSION).between?(Gem::Version.new('2.3.0'), Gem::Version.new('3.9'))
-      self.__instance = __klass.new(__attributes, without_protection: true)
+      self._instance = _klass.new(_attributes, without_protection: true)
     else
-      self.__instance = __klass.new(__attributes)
+      self._instance = _klass.new(_attributes)
     end
   end
 
   def validate_instance
-    __instance.valid?
+    _instance.valid?
   end
 
 end

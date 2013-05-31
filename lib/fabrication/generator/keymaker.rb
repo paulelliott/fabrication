@@ -5,11 +5,11 @@ class Fabrication::Generator::Keymaker < Fabrication::Generator::Base
   end
 
   def persist
-    __instance.save
+    _instance.save
   end
 
   def validate_instance
-    __instance.valid?
+    _instance.valid?
   end
 
 end
