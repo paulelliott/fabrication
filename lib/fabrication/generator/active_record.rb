@@ -4,14 +4,22 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     defined?(ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
   end
 
-  private
+  def build_instance
+    if self.class.without_protection?
+      self._instance = _klass.new(_attributes, without_protection: true)
+    else
+      self._instance = _klass.new(_attributes)
+    end
+  end
+
+  protected
+
+  def self.without_protection?
+    Gem::Version.new(ActiveRecord::VERSION::STRING).between?(Gem::Version.new('3.1.0'), Gem::Version.new('3.9'))
+  end
 
   def validate_instance
     _instance.valid?
-  end
-
-  def build_instance
-    self._instance = _klass.new(_attributes, without_protection: true)
   end
 
 end
