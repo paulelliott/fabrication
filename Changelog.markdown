@@ -1,3 +1,7 @@
+### 2.7.2 ###
+
+* Do not pass without_protection to AR 3.0.
+
 ### 2.7.1 ###
 
 * Accept actual classes for `from` and `class_name` Fabricator options. (#160)
