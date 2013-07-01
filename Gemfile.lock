@@ -46,23 +46,11 @@ GEM
       dm-core (~> 1.2.0)
     do_sqlite3 (0.10.12)
       data_objects (= 0.10.12)
-    faraday (0.8.6)
-      multipart-post (~> 1.1)
-    faraday_middleware (0.9.0)
-      faraday (>= 0.7.4, < 0.9)
     ffaker (1.15.0)
     gherkin (2.11.6)
       json (>= 1.7.6)
-    hashie (2.0.2)
     i18n (0.6.4)
     json (1.7.7)
-    keymaker (0.1.0)
-      activemodel
-      activesupport
-      addressable
-      faraday
-      faraday_middleware
-      hashie
     method_source (0.8.1)
     mongoid (3.1.2)
       activemodel (~> 3.2)
@@ -71,7 +59,6 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.4.3)
     multi_json (1.6.1)
-    multipart-post (1.2.0)
     origin (1.0.11)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -104,7 +91,6 @@ DEPENDENCIES
   dm-validations
   fabrication!
   ffaker
-  keymaker
   mongoid
   pry
   rake

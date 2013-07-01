@@ -5,7 +5,6 @@ class Fabrication::Schematic::Definition
     Fabrication::Generator::DataMapper,
     Fabrication::Generator::Sequel,
     Fabrication::Generator::Mongoid,
-    Fabrication::Generator::Keymaker,
     Fabrication::Generator::Base
   ]
 
