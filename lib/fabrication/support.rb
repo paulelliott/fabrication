@@ -15,7 +15,9 @@ class Fabrication::Support
       else
         class_or_to_s
       end
-    rescue NameError
+    rescue NameError => e
+      puts e.message
+      puts e.backtrace.join("\n")
     end
 
     def extract_options!(args)
