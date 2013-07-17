@@ -7,6 +7,7 @@ require 'fabrication/version'
 Gem::Specification.new do |s|
   s.name = "fabrication"
   s.version = Fabrication::VERSION
+  s.license = "WTFPL"
 
   s.authors = ["Paul Elliott"]
   s.email = ["paul@hashrocket.com"]
