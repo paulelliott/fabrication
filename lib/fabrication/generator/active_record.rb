@@ -15,7 +15,8 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   protected
 
   def self.without_protection?
-    Gem::Version.new(ActiveRecord::VERSION::STRING).between?(Gem::Version.new('3.1.0'), Gem::Version.new('3.9'))
+    @without_protection = Gem::Version.new(ActiveRecord::VERSION::STRING).between?(Gem::Version.new('3.1.0'), Gem::Version.new('3.9')) if @without_protection.nil?
+    @without_protection
   end
 
   def validate_instance
