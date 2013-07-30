@@ -231,15 +231,9 @@ describe Fabrication::Schematic::Definition do
     let(:address) { Address.new }
 
     it "symbolizes attribute keys" do
-      Fabricator(:address) do
-        city { raise 'should not be called' }
-      end
-      Fabricator(:contact) do
-        address
-      end
-      lambda do
-        Fabricate(:contact, 'address' => address)
-      end.should_not raise_error(RuntimeError)
+      Fabricator(:address) { city { raise 'should not be called' } }
+      Fabricator(:contact) { address }
+      expect { Fabricate(:contact, 'address' => address) }.not_to raise_error
     end
   end
 end

@@ -164,7 +164,7 @@ describe Fabrication::Generator::Base do
   end
 
   describe "#persist" do
-    let(:instance) { mock(:instance) }
+    let(:instance) { double }
     let(:generator) { Fabrication::Generator::Base.new(Object) }
 
     before { generator.send(:_instance=, instance) }

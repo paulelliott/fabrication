@@ -13,7 +13,7 @@ describe Fabrication::Generator::ActiveRecord do
   end
 
   describe "#persist" do
-    let(:instance) { mock(:instance) }
+    let(:instance) { double }
     let(:generator) { Fabrication::Generator::ActiveRecord.new(Company) }
 
     before { generator.send(:_instance=, instance) }

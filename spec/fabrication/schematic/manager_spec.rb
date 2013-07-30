@@ -9,8 +9,8 @@ describe Fabrication::Schematic::Manager do
 
     let(:options) { { aliases: ["thing_one", :thing_two] } }
 
-    before(:all) do
-      subject.register(:open_struct, options) do
+    before do
+      manager.register(:open_struct, options) do
         first_name "Joe"
         last_name { "Schmoe" }
       end

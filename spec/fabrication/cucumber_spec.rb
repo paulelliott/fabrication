@@ -12,7 +12,7 @@ describe Fabrication::Cucumber do
 
       before do
         Fabrication.manager.stub(:[]).
-          with(fabricator_name).and_return(stub(:klass => "Boom"))
+          with(fabricator_name).and_return(double(klass: "Boom"))
       end
 
       it { should == "Boom" }
@@ -68,14 +68,14 @@ describe Fabrication::Cucumber do
 
   describe '#from_table' do
     it 'maps column names to attribute names' do
-      table = stub(:hashes => [{ 'Favorite Color' => 'pink' }])
+      table = double(hashes: [{ 'Favorite Color' => 'pink' }])
       Fabrication::Fabricator.should_receive(:fabricate).
         with(:bear, :favorite_color => 'pink')
       Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
     end
 
     context 'with table transforms' do
-      let(:table) { stub(:hashes => [{ 'some' => 'thing' }]) }
+      let(:table) { double(hashes: [{ 'some' => 'thing' }]) }
 
       before do
         Fabrication::Fabricator.stub(:fabricate)
