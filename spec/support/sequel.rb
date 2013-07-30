@@ -17,7 +17,9 @@ end
 
 class ParentSequelModel < Sequel::Model
   one_to_many :child_sequel_models
-  set_restricted_columns :string_field
+
+  strict_param_setting = true
+
   attr_accessor :extra_fields
 
   def persisted?; !new? end
