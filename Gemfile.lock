@@ -10,9 +10,9 @@ GEM
       activesupport (= 2.3.18)
     activesupport (2.3.18)
     addressable (2.3.5)
-    bson (1.9.1)
-    bson_ext (1.9.1)
-      bson (~> 1.9.1)
+    bson (1.9.2)
+    bson_ext (1.9.2)
+      bson (~> 1.9.2)
     builder (3.2.2)
     coderay (1.0.9)
     cucumber (1.3.6)
@@ -44,8 +44,8 @@ GEM
       multi_json (~> 1.3)
     leshill-will_paginate (2.3.11)
     method_source (0.8.2)
-    mongo (1.9.1)
-      bson (~> 1.9.1)
+    mongo (1.9.2)
+      bson (~> 1.9.2)
     mongoid (1.0.6)
       activesupport (>= 2.2.2)
       durran-validatable (>= 2.0.1)
@@ -68,7 +68,7 @@ GEM
     rspec-mocks (2.14.3)
     sequel (4.1.1)
     slop (3.4.6)
-    sqlite3 (1.3.7)
+    sqlite3 (1.3.8)
 
 PLATFORMS
   ruby
