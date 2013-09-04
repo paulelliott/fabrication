@@ -59,6 +59,10 @@ def Fabricate(name, overrides={}, &block)
 end
 
 class Fabricate
+  def self.times(count, name, overrides={}, &block)
+    count.times.map { Fabricate(name, overrides, &block) }
+  end
+
   def self.attributes_for(name, overrides={}, &block)
     Fabrication::Fabricator.to_attributes(name, overrides, &block)
   end
