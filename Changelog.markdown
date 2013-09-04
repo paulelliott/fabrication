@@ -1,3 +1,9 @@
+### 2.8.0 ###
+
+* Add support for multiple generations within a single call (#172)
+* Fix module declaration in cucumber step generator (#164)
+* Drop keymaker support and Neo4J dev dependency
+
 ### 2.7.2 ###
 
 * Do not pass without_protection to AR 3.0.
