@@ -18,9 +18,7 @@ class Fabrication::Fabricator
   private
 
   def self.fail_if_initializing(name)
-    raise Fabrication::MisplacedFabricateError.new(
-      "You tried to fabricate `#{name}` while Fabricators were still loading. Check your fabricator files and make sure you didn't accidentally type `Fabricate` instead of `Fabricator` in there somewhere."
-    ) if Fabrication.manager.initializing?
+    raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
   end
 
   def self.schematic(name)
