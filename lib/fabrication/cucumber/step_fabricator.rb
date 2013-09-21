@@ -55,7 +55,7 @@ module Fabrication
 
       def schematic
         Fabrication.manager[@fabricator].tap do |schematic|
-          raise Fabrication::UnknownFabricatorError, "No Fabricator defined for '#{@model}'" unless schematic
+          raise Fabrication::UnknownFabricatorError.new(@model) unless schematic
         end
       end
 
