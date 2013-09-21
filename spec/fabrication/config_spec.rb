@@ -5,29 +5,29 @@ describe Fabrication::Config do
   after { Fabrication::Config.reset_defaults }
 
   context "default configs" do
-    its(:fabricator_dir) { should == ['test/fabricators', 'spec/fabricators'] }
+    its(:fabricator_path) { should == ['test/fabricators', 'spec/fabricators'] }
     its(:sequence_start) { should == 0 }
   end
 
-  describe ".fabricator_dir" do
+  describe ".fabricator_path" do
     context "with a single folder" do
       before do
         Fabrication.configure do |config|
-          config.fabricator_dir = 'lib'
+          config.fabricator_path = 'lib'
         end
       end
 
-      its(:fabricator_dir) { should == ['lib'] }
+      its(:fabricator_path) { should == ['lib'] }
     end
 
     context "with multiple folders" do
       before do
         Fabrication.configure do |config|
-          config.fabricator_dir = %w(lib support)
+          config.fabricator_path = %w(lib support)
         end
       end
 
-      its(:fabricator_dir) { should == ['lib', 'support'] }
+      its(:fabricator_path) { should == ['lib', 'support'] }
     end
   end
 end
