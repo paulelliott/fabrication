@@ -1,3 +1,7 @@
+### 2.8.1 ###
+
+* Allow exceptions during fabricator load to pass through (#174)
+
 ### 2.8.0 ###
 
 * Add support for multiple generations within a single call (#172)
