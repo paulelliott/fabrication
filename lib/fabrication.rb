@@ -2,7 +2,7 @@ module Fabrication
   autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
   autoload :UnfabricatableError,      'fabrication/errors/unfabricatable_error'
   autoload :UnknownFabricatorError,   'fabrication/errors/unknown_fabricator_error'
-  autoload :MisplacedFabricateError,   'fabrication/errors/misplaced_fabricate_error'
+  autoload :MisplacedFabricateError,  'fabrication/errors/misplaced_fabricate_error'
 
   module Schematic
     autoload :Attribute,  'fabrication/schematic/attribute'
