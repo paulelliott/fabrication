@@ -33,6 +33,9 @@ class Fabrication::Support
           load file
         end
       end
+    rescue Exception => e
+      raise e
+    ensure
       Fabrication.manager.freeze
     end
 

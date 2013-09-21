@@ -35,14 +35,21 @@ describe Fabrication::Support do
   end
 
   describe ".find_definitions" do
+    before { Fabrication.clear_definitions }
 
-    before(:all) do
-      Fabrication.clear_definitions
-      Fabrication::Support.find_definitions
+    context 'happy path' do
+      it "loaded definitions" do
+        Fabrication::Support.find_definitions
+        Fabrication.manager[:parent_ruby_object].should be
+      end
     end
 
-    it "loaded definitions" do
-      Fabrication.manager[:parent_ruby_object].should be
+    context 'when an error occurs during the load' do
+      it 'still freezes the manager' do
+        Fabrication::Config.should_receive(:fabricator_path).and_raise(Exception)
+        expect { Fabrication::Support.find_definitions }.to raise_error
+        Fabrication.manager.should_not be_initializing
+      end
     end
 
   end
