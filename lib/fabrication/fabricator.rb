@@ -23,9 +23,7 @@ class Fabrication::Fabricator
 
   def self.schematic(name)
     Fabrication::Support.find_definitions if Fabrication.manager.empty?
-    Fabrication.manager[name].tap do |schematic|
-      raise Fabrication::UnknownFabricatorError.new(name) unless schematic
-    end
+    Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
   end
 
 end
