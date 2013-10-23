@@ -22,7 +22,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    arel (4.0.0)
+    arel (4.0.1)
     atomic (1.1.14)
     bson (1.9.2)
     bson_ext (1.9.2)
