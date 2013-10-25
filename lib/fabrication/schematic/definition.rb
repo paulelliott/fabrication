@@ -23,12 +23,24 @@ class Fabrication::Schematic::Definition
   end
 
   def append_or_update_attribute(attribute_name, value, params={}, &block)
+    add_or_update_attribute(:append, attribute_name, value, params, &block)
+  end
+
+  def prepend_or_update_attribute(attribute_name, value, params={}, &block)
+    add_or_update_attribute(:prepend, attribute_name, value, params, &block)
+  end
+
+  def add_or_update_attribute(add_method, attribute_name, value, params={}, &block)
     attribute = Fabrication::Schematic::Attribute.new(klass, attribute_name, value, params, &block)
     if index = attributes.index { |a| a.name == attribute.name }
       attribute.transient! if attributes[index].transient?
       attributes[index] = attribute
     else
-      attributes << attribute
+      if add_method == :append
+        attributes << attribute
+      elsif add_method == :prepend
+        attributes.unshift(attribute)
+      end
     end
   end
 
@@ -84,7 +96,7 @@ class Fabrication::Schematic::Definition
     clone.tap do |definition|
       definition.process_block(&block)
       overrides.each do |name, value|
-        definition.append_or_update_attribute(name.to_sym, value)
+        definition.prepend_or_update_attribute(name.to_sym, value)
       end
     end
   end

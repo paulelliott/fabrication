@@ -9,6 +9,7 @@ class ParentDataMapperModel
   property :id, Serial
   property :before_save_value, Integer
   property :dynamic_field, String
+  property :dependent_dynamic_field, String
   property :nil_field, String
   property :number_field, Integer
   property :string_field, String

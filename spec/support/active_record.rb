@@ -18,6 +18,7 @@ class TestMigration < ActiveRecord::Migration
     create_table :parent_active_record_models, :force => true do |t|
       t.column :before_save_value, :integer
       t.column :dynamic_field, :string
+      t.column :dependent_dynamic_field, :string
       t.column :nil_field, :string
       t.column :number_field, :integer
       t.column :string_field, :string

@@ -26,10 +26,12 @@ shared_examples 'something fabricatable' do
         placeholder: 'is not invoked'
       ) do
         dynamic_field { 'new dynamic content' }
+        dependent_dynamic_field { |attrs| "#{attrs[:string_field]} is awesome" }
       end
     end
 
     its(:dynamic_field) { should == 'new dynamic content' }
+    its(:dependent_dynamic_field) { should == 'new content is awesome' }
     its(:nil_field) { should be_nil }
     its(:number_field) { should == 10 }
     its(:string_field) { should == 'new content' }
