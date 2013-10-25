@@ -13,6 +13,7 @@ class ParentRubyObject < Persistable
   attr_accessor \
     :before_save_value,
     :dynamic_field,
+    :dependent_dynamic_field,
     :nil_field,
     :number_field,
     :string_field,

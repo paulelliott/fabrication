@@ -11,6 +11,7 @@ class ParentMongoidDocument
 
   field :before_save_value
   field :dynamic_field
+  field :dependent_dynamic_field
   field :nil_field
   field :number_field
   field :string_field

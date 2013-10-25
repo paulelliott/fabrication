@@ -12,6 +12,7 @@ Sequel.migration do
       primary_key :id
       Integer :before_save_value
       String :dynamic_field
+      String :dependent_dynamic_field
       String :nil_field
       Integer :number_field
       String :string_field

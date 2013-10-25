@@ -150,6 +150,41 @@ describe Fabrication::Schematic::Definition do
 
     end
 
+    context 'when overriding' do
+      subject do
+        schematic.merge(:something => 42) do
+          another_thing { |attrs| "#{attrs[:name]} says #{attrs[:something]}" }
+        end
+      end
+
+      it "stored 'name' correctly" do
+        attribute = subject.attribute(:name)
+        attribute.name.should == :name
+        attribute.params.should == {}
+        attribute.value.should == "Orgasmo"
+        # Attributes in Fabricator first
+        subject.attributes[0].name.should == :name
+      end
+
+      it "stored 'something' correctly" do
+        attribute = subject.attribute(:something)
+        attribute.name.should == :something
+        attribute.params.should == {}
+        attribute.value.should == 42
+        # Attributes in override next
+        subject.attributes[1].name.should == :something
+      end
+
+      it "stored 'another_thing' correctly" do
+        attribute = subject.attribute(:another_thing)
+        attribute.name.should == :another_thing
+        attribute.params.should == {}
+        Proc.should === attribute.value
+        # Finally, attributes in Fabricate block last
+        subject.attributes[2].name.should == :another_thing
+      end
+    end
+
   end
 
   describe "#on_init" do
