@@ -37,6 +37,10 @@ class Fabrication::Schematic::Manager
     @build_stack ||= []
   end
 
+  def to_params_stack
+    @to_params_stack ||= []
+  end
+
   protected
 
   def raise_if_registered(name)

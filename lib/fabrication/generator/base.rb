@@ -33,6 +33,11 @@ class Fabrication::Generator::Base
     callbacks.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) } if callbacks
   end
 
+  def to_params(attributes=[])
+    process_attributes(attributes)
+    _attributes
+  end
+
   def to_hash(attributes=[], callbacks=[])
     process_attributes(attributes)
     Fabrication::Support.hash_class.new.tap do |hash|

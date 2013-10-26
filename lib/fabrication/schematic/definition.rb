@@ -47,22 +47,39 @@ class Fabrication::Schematic::Definition
   end
 
   def build(overrides={}, &block)
-    Fabrication.manager.build_stack << self
-    merge(overrides, &block).instance_eval do
-      generator.new(klass).build(attributes, callbacks)
+    if Fabrication.manager.to_params_stack.any?
+      to_params(overrides, &block)
+    else
+      begin
+        Fabrication.manager.build_stack << self
+        merge(overrides, &block).instance_eval do
+          generator.new(klass).build(attributes, callbacks)
+        end
+      ensure
+        Fabrication.manager.build_stack.pop
+      end
     end
-  ensure
-    Fabrication.manager.build_stack.pop
   end
 
   def fabricate(overrides={}, &block)
-    if Fabrication.manager.build_stack.empty?
+    if Fabrication.manager.build_stack.any?
+      build(overrides, &block)
+    elsif Fabrication.manager.to_params_stack.any?
+      to_params(overrides, &block)
+    else
       merge(overrides, &block).instance_eval do
         generator.new(klass).create(attributes, callbacks)
       end
-    else
-      build(overrides, &block)
     end
+  end
+
+  def to_params(overrides={}, &block)
+    Fabrication.manager.to_params_stack << self
+    merge(overrides, &block).instance_eval do
+      generator.new(klass).to_params(attributes)
+    end
+  ensure
+    Fabrication.manager.to_params_stack.pop
   end
 
   def to_attributes(overrides={}, &block)

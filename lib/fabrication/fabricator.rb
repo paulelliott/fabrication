@@ -15,6 +15,11 @@ class Fabrication::Fabricator
     schematic(name).to_attributes(overrides, &block)
   end
 
+  def self.to_params(name, overrides={}, &block)
+    fail_if_initializing(name)
+    schematic(name).to_params(overrides, &block)
+  end
+
   private
 
   def self.fail_if_initializing(name)
