@@ -35,18 +35,24 @@ describe Fabricate do
 
   describe ".to_params" do
     subject { Fabricate.to_params(:parent_active_record_model_with_children) }
+
     it do
       should == {
-        dynamic_field: nil,
-        nil_field: nil,
-        number_field: 5,
-        string_field: 'content',
-        false_field: false,
-        extra_fields: {},
-        child_active_record_models: [
-          { number_field: 10 }, { number_field: 10 }
+        'dynamic_field' => nil,
+        'nil_field' => nil,
+        'number_field' => 5,
+        'string_field' => 'content',
+        'false_field' => false,
+        'extra_fields' => {},
+        'child_active_record_models' => [
+          { 'number_field' => 10 }, { 'number_field' => 10 }
         ]
       }
+    end
+
+    it 'is accessible as symbols' do
+      expect(subject['number_field']).to eq(5)
+      expect(subject['child_active_record_models'].first['number_field']).to eq(10)
     end
   end
 end

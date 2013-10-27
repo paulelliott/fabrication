@@ -35,7 +35,7 @@ class Fabrication::Generator::Base
 
   def to_params(attributes=[])
     process_attributes(attributes)
-    _attributes
+    _attributes.respond_to?(:with_indifferent_access) ? _attributes.with_indifferent_access : _attributes
   end
 
   def to_hash(attributes=[], callbacks=[])
