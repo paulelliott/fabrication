@@ -1,3 +1,9 @@
+### 2.9.0 ###
+
+* Add `Fabricate.build_times` method
+* Deprecate `Fabricate.attributes_for` in favor of `Fabricate.to_params`
+* Add `Fabricate.to_params` for generating hashes
+
 ### 2.8.1 ###
 
 * Allow exceptions during fabricator load to pass through (#174)
