@@ -1,3 +1,7 @@
+### 2.9.1 ###
+
+* Fix attributes_for deprecation warning message wording (#191)
+
 ### 2.9.0 ###
 
 * Add `Fabricate.build_times` method
