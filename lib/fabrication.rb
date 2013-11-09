@@ -68,7 +68,6 @@ class Fabricate
   end
 
   def self.attributes_for(name, overrides={}, &block)
-    puts "DEPRECATION WARNING: Fabricate.attributes_for has been replaced by Fabricate.to_params and will be removed in 3.0.0."
     Fabrication::Fabricator.to_attributes(name, overrides, &block)
   end
 
