@@ -1,3 +1,7 @@
+### 2.9.2 ###
+
+* Remove deprecation warning for `Fabricate.attributes_for` (#182)
+
 ### 2.9.1 ###
 
 * Fix attributes_for deprecation warning message wording (#181)
