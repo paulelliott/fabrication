@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.3.7"
   s.summary = "Fabrication provides a simple solution for test object generation."
+  
+  s.required_ruby_version = '>= 1.9.3'
 
   s.add_development_dependency("activerecord")
   s.add_development_dependency("bson_ext")
