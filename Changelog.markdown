@@ -1,6 +1,6 @@
 ### 2.9.1 ###
 
-* Fix attributes_for deprecation warning message wording (#191)
+* Fix attributes_for deprecation warning message wording (#181)
 
 ### 2.9.0 ###
 
