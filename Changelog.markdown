@@ -1,3 +1,7 @@
+### 2.9.3 ###
+
+* Use standard schematic fetch in cucumber step fabricator (#185)
+
 ### 2.9.2 ###
 
 * Remove deprecation warning for `Fabricate.attributes_for` (#182)
