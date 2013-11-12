@@ -20,15 +20,15 @@ class Fabrication::Fabricator
     schematic(name).to_params(overrides, &block)
   end
 
+  def self.schematic(name)
+    Fabrication::Support.find_definitions if Fabrication.manager.empty?
+    Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
+  end
+
   private
 
   def self.fail_if_initializing(name)
     raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
-  end
-
-  def self.schematic(name)
-    Fabrication::Support.find_definitions if Fabrication.manager.empty?
-    Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
   end
 
 end

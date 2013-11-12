@@ -11,7 +11,7 @@ describe Fabrication::Cucumber do
       let(:fabricator_name) { :dog }
 
       before do
-        Fabrication.manager.stub(:[]).
+        Fabrication::Fabricator.stub(:schematic).
           with(fabricator_name).and_return(double(klass: "Boom"))
       end
 

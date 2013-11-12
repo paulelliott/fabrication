@@ -36,7 +36,7 @@ module Fabrication
       end
 
       def klass
-        schematic.klass
+        Fabrication::Fabricator.schematic(@fabricator).klass
       end
 
       private
@@ -51,12 +51,6 @@ module Fabrication
 
       def singular?
         @model == @model.singularize
-      end
-
-      def schematic
-        Fabrication.manager[@fabricator].tap do |schematic|
-          raise Fabrication::UnknownFabricatorError.new(@model) unless schematic
-        end
       end
 
       def dehumanize(string)
