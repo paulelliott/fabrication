@@ -8,16 +8,13 @@ class Fabrication::Schematic::Manager
 
   def initializing?; @initializing end
 
+  def schematics
+    @schematics ||= {}
+  end
+  delegate :clear, :empty?, to: :schematics
+
   def freeze
     @initializing = false
-  end
-
-  def clear
-    schematics.clear
-  end
-
-  def empty?
-    schematics.empty?
   end
 
   def register(name, options, &block)
@@ -28,10 +25,6 @@ class Fabrication::Schematic::Manager
 
   def [](name)
     schematics[name.to_sym]
-  end
-
-  def schematics
-    @schematics ||= {}
   end
 
   def build_stack
