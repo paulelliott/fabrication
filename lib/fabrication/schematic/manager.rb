@@ -54,7 +54,7 @@ class Fabrication::Schematic::Manager
         (parent && parent.klass) ||
         options[:from] ||
         name
-    ) || (raise Fabrication::UnfabricatableError.new(name))
+    )
   end
 
   def schematic_for(name, options, &block)

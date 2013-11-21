@@ -7,15 +7,13 @@ class Fabrication::Support
     end
 
     def class_for(class_or_to_s)
-      if class_or_to_s.respond_to?(:to_sym)
-        class_name = variable_name_to_class_name(class_or_to_s)
-        class_name.split('::').inject(Object) do |object, string|
-          object.const_get(string)
-        end
-      else
-        class_or_to_s
+      class_name = variable_name_to_class_name(class_or_to_s)
+      klass = class_name.split('::').inject(Object) do |object, string|
+        object.const_get(string)
       end
     rescue NameError
+    ensure
+      raise Fabrication::UnfabricatableError.new(class_or_to_s) unless klass
     end
 
     def extract_options!(args)

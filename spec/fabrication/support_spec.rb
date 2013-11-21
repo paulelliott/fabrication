@@ -23,11 +23,13 @@ describe Fabrication::Support do
     context "with a class that doesn't exist" do
 
       it "returns nil for a class name string" do
-        Fabrication::Support.class_for('your_mom').should be_nil
+        lambda { Fabrication::Support.class_for('your_mom') }.
+          should raise_error(Fabrication::UnfabricatableError)
       end
 
       it "returns nil for a class name symbol" do
-        Fabrication::Support.class_for(:your_mom).should be_nil
+        lambda { Fabrication::Support.class_for(:your_mom) }.
+          should raise_error(Fabrication::UnfabricatableError)
       end
 
     end
