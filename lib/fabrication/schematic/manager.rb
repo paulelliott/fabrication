@@ -38,9 +38,7 @@ class Fabrication::Schematic::Manager
   protected
 
   def raise_if_registered(name)
-    if self[name]
-      raise Fabrication::DuplicateFabricatorError, "'#{name}' is already defined"
-    end
+    (raise Fabrication::DuplicateFabricatorError, name) if self[name]
   end
 
   def store(name, aliases, options, &block)
