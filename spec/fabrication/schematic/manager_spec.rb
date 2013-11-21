@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
 
-  let(:manager) { Fabrication::Schematic::Manager.new }
+  let(:manager) { Fabrication::Schematic::Manager.instance }
+  before { manager.clear }
 
   describe "#register" do
     subject { manager }

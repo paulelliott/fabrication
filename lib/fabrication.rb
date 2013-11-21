@@ -30,7 +30,7 @@ module Fabrication
   end
 
   def self.clear_definitions
-    @manager = nil
+    manager.clear
     Sequencer.sequences.clear
   end
 
@@ -39,7 +39,7 @@ module Fabrication
   end
 
   def self.manager
-    @manager ||= Fabrication::Schematic::Manager.new
+    @manager ||= Fabrication::Schematic::Manager.instance
   end
 
   def self.schematics
