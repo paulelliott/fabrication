@@ -6,6 +6,7 @@ describe Fabrication::Config do
 
   context "default configs" do
     its(:fabricator_path) { should == ['test/fabricators', 'spec/fabricators'] }
+    its(:path_prefix) { should == ['.'] }
     its(:sequence_start) { should == 0 }
   end
 
@@ -28,6 +29,28 @@ describe Fabrication::Config do
       end
 
       its(:fabricator_path) { should == ['lib', 'support'] }
+    end
+  end
+
+  describe ".path_prefix" do
+    context "with a single folder" do
+      before do
+        Fabrication.configure do |config|
+          config.path_prefix = '/path/to/app'
+        end
+      end
+
+      its(:path_prefix) { should == ['/path/to/app'] }
+    end
+
+    context "with multiple folders" do
+      before do
+        Fabrication.configure do |config|
+          config.path_prefix = %w(/path/to/app /path/to/gem/fabricators)
+        end
+      end
+
+      its(:path_prefix) { should == ['/path/to/app', '/path/to/gem/fabricators'] }
     end
   end
 end

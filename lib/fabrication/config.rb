@@ -33,9 +33,12 @@ module Fabrication
     attr_writer :sequence_start
     def sequence_start; @sequence_start ||= 0 end
 
-    attr_writer :path_prefix
+    def path_prefix=(folders)
+      @path_prefix = (Array.new << folders).flatten
+    end
+
     def path_prefix
-      @path_prefix ||= defined?(Rails) ? Rails.root : "."
+      @path_prefix ||= [defined?(Rails) ? Rails.root : "."]
     end
 
     attr_writer :register_with_steps
