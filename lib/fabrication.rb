@@ -1,5 +1,7 @@
 autoload :Fabricate, 'fabricate'
 
+Dir[File.join(File.dirname(__FILE__),'tasks/*.rake')].each { |f| load f } if defined?(Rake)
+
 module Fabrication
   autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
   autoload :UnfabricatableError,      'fabrication/errors/unfabricatable_error'
