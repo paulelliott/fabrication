@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.3.7"
   s.summary = "Fabrication provides a simple solution for test object generation."
-  
+
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_development_dependency("activerecord")
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("dm-sqlite-adapter")
   s.add_development_dependency("dm-validations")
   s.add_development_dependency("ffaker")
-  s.add_development_dependency("mongoid")
+  s.add_development_dependency("mongoid", ['~> 3.0'])
   s.add_development_dependency("pry")
   s.add_development_dependency("rake")
   s.add_development_dependency("rspec")
