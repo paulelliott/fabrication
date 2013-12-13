@@ -36,7 +36,7 @@ module Fabrication
       end
 
       def klass
-        Fabrication::Fabricator.schematic(@fabricator).klass
+        Fabricate.schematic(@fabricator).klass
       end
 
       private

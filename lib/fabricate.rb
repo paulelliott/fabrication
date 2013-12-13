@@ -8,20 +8,40 @@ class Fabricate
   end
 
   def self.attributes_for(name, overrides={}, &block)
-    Fabrication::Fabricator.to_attributes(name, overrides, &block)
+    fail_if_initializing(name)
+    schematic(name).to_attributes(overrides, &block)
   end
 
   def self.to_params(name, overrides={}, &block)
-    Fabrication::Fabricator.to_params(name, overrides, &block)
+    fail_if_initializing(name)
+    schematic(name).to_params(overrides, &block)
   end
 
   def self.build(name, overrides={}, &block)
-    Fabrication::Fabricator.build(name, overrides, &block).tap do |object|
+    fail_if_initializing(name)
+    schematic(name).build(overrides, &block).tap do |object|
       Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
     end
+  end
+
+  def self.create(name, overrides={}, &block)
+    fail_if_initializing(name)
+    schematic(name).fabricate(overrides, &block)
   end
 
   def self.sequence(name=Fabrication::Sequencer::DEFAULT, start=nil, &block)
     Fabrication::Sequencer.sequence(name, start, &block)
   end
+
+  def self.schematic(name)
+    Fabrication::Support.find_definitions if Fabrication.manager.empty?
+    Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
+  end
+
+  private
+
+  def self.fail_if_initializing(name)
+    raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
+  end
+
 end

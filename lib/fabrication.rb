@@ -15,7 +15,6 @@ module Fabrication
   end
 
   autoload :Config,     'fabrication/config'
-  autoload :Fabricator, 'fabrication/fabricator'
   autoload :Sequencer,  'fabrication/sequencer'
   autoload :Support,    'fabrication/support'
   autoload :Transform,  'fabrication/transform'
@@ -55,7 +54,7 @@ def Fabricator(name, options={}, &block)
 end
 
 def Fabricate(name, overrides={}, &block)
-  Fabrication::Fabricator.fabricate(name, overrides, &block).tap do |object|
+  Fabricate.create(name, overrides, &block).tap do |object|
     Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
   end
 end
