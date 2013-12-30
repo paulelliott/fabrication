@@ -1,3 +1,8 @@
+### 2.9.4 ###
+
+* Improve support for Rails 4 projects using protected attributes (#190)
+* Add rake task to list all known fabricators (#187)
+
 ### 2.9.3 ###
 
 * Use standard schematic fetch in cucumber step fabricator (#185)
