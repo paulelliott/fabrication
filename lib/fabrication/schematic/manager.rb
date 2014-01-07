@@ -11,7 +11,9 @@ class Fabrication::Schematic::Manager
   def schematics
     @schematics ||= {}
   end
-  delegate :clear, :empty?, to: :schematics
+
+  def clear; schematics.clear end
+  def empty?; schematics.empty? end
 
   def freeze
     @initializing = false
