@@ -1,3 +1,7 @@
+### 2.9.5 ###
+
+* Replace `delegate` calls with actual methods (#197)
+
 ### 2.9.4 ###
 
 * Improve support for Rails 4 projects using protected attributes (#190)
