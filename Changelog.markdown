@@ -1,3 +1,7 @@
+### 2.9.6 ###
+
+* Explicitly require singleton in schematic manager (#198)
+
 ### 2.9.5 ###
 
 * Replace `delegate` calls with actual methods (#197)
