@@ -1,3 +1,5 @@
+require 'singleton'
+
 class Fabrication::Schematic::Manager
   include Singleton
 
