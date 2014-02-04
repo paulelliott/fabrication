@@ -1,3 +1,7 @@
+### 2.9.7 ###
+
+* Support multiple path prefixes for fabricator definitions (#188)
+
 ### 2.9.6 ###
 
 * Explicitly require singleton in schematic manager (#198)
