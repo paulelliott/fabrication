@@ -1,6 +1,9 @@
 autoload :Fabricate, 'fabricate'
 
-Dir[File.join(File.dirname(__FILE__),'tasks/*.rake')].each { |f| load f } if defined?(Rake)
+if defined?(Rake)
+  require 'rake'
+  Dir[File.join(File.dirname(__FILE__), 'tasks', '**/*.rake')].each { |rake| load rake }
+end
 
 module Fabrication
   autoload :DuplicateFabricatorError, 'fabrication/errors/duplicate_fabricator_error'
