@@ -1,3 +1,7 @@
+### 2.9.8 ###
+
+* Explicitly require rake for compatibility with certain IDE's. (#203, #204)
+
 ### 2.9.7 ###
 
 * Support multiple path prefixes for fabricator definitions (#188)
