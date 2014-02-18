@@ -3,18 +3,12 @@ source 'https://rubygems.org'
 ruby '2.1.0'
 #ruby-gemset=fabrication
 
-gem 'activerecord', require: 'active_record'
-gem 'bson_ext'
+gemspec
+
+gem 'appraisal', '1.0.0.beta2'
 gem 'cucumber'
-gem 'dm-core'
-gem 'dm-migrations'
-gem 'dm-sqlite-adapter'
-gem 'dm-validations'
-gem 'fabrication', path: '.'
 gem 'ffaker'
-gem 'mongoid', '~> 3.0'
 gem 'pry'
 gem 'rake'
 gem 'rspec'
-gem 'sequel'
 gem 'sqlite3'
