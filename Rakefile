@@ -1,3 +1,7 @@
+require "bundler/setup"
+
+Bundler.require
+
 require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = "spec/**/*_spec.rb"
@@ -8,4 +12,4 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = "--format progress --tags ~@wip"
 end
 
-task :default => [:spec, :cucumber]
+task default: %i(spec cucumber)

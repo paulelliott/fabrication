@@ -1,6 +1,3 @@
-require 'dm-core'
-require 'dm-migrations'
-
 DataMapper.setup(:default, "sqlite3::memory:")
 
 class ParentDataMapperModel

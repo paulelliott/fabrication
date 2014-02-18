@@ -1,5 +1,3 @@
-require 'sequel'
-
 DB = Sequel.sqlite # in memory
 Sequel.extension :migration
 Sequel::Migrator.run(DB, 'spec/support/sequel_migrations', :current => 0)

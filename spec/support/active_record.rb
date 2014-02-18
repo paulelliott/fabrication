@@ -1,5 +1,3 @@
-require 'active_record'
-
 dbconfig = {
   :adapter => 'sqlite3',
   :database => ':memory:'

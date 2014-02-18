@@ -1,6 +1,6 @@
-require 'bundler'
+require 'bundler/setup'
 
-Bundler.require(:default, :development)
+Bundler.require
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

@@ -1,5 +1,3 @@
-require 'sequel/extensions/migration'
-
 Sequel.migration do
   up do
     create_table :child_sequel_models do

@@ -1,5 +1,3 @@
-require 'mongoid'
-
 Mongoid.load!("spec/support/mongoid.yml", :test)
 
 def clear_mongodb
