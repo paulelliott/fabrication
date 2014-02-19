@@ -19,7 +19,7 @@ if defined?(Mongoid)
     has_many :referenced_mongoid_documents
     embeds_many :embedded_mongoid_documents
 
-    attr_protected :number_field
+    attr_protected :number_field if respond_to?(:attr_protected)
 
     before_save do
       self.before_save_value = 11
@@ -46,6 +46,7 @@ if defined?(Mongoid)
 
   class Author
     include Mongoid::Document
+    include Mongoid::Attributes::Dynamic if defined?(Mongoid::Attributes::Dynamic)
 
     embeds_many :books
 

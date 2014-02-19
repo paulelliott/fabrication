@@ -280,11 +280,12 @@ describe Fabrication do
     end
 
     context "with disabled dynamic fields" do
-      before { Mongoid.allow_dynamic_fields = false if defined?(Mongoid) }
-      after { Mongoid.allow_dynamic_fields = true if defined?(Mongoid) }
-
       it "raises NoMethodError for mongoid_dynamic_field=" do
-        expect { Fabricate(:special_author) }.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
+        if Mongoid.respond_to?(:allow_dynamic_fields=)
+          Mongoid.allow_dynamic_fields = false
+          expect { Fabricate(:special_author) }.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
+          Mongoid.allow_dynamic_fields = true
+        end
       end
     end
   end
