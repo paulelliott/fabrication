@@ -1,7 +1,3 @@
-def pend_without_data_mapper
-  pending('DataMapper is not defined') unless defined?(DataMapper)
-end
-
 if defined?(DataMapper)
   DataMapper.setup(:default, "sqlite3::memory:")
 

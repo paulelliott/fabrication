@@ -1,7 +1,3 @@
-def pend_without_sequel
-  pending('Sequel is not defined') unless defined?(Sequel)
-end
-
 if defined?(Sequel)
   DB = Sequel.sqlite # in memory
   Sequel.extension :migration

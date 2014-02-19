@@ -124,9 +124,7 @@ describe Fabrication do
     end
   end
 
-  context 'data_mapper models' do
-    before { pend_without_data_mapper }
-
+  context 'data_mapper models', depends_on: :data_mapper do
     let(:fabricator_name) { :parent_data_mapper_model }
     let(:collection_field) { :child_data_mapper_models }
 
@@ -146,25 +144,19 @@ describe Fabrication do
     end
   end
 
-  context 'referenced mongoid documents' do
-    before { pend_without_mongoid }
-
+  context 'referenced mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'embedded mongoid documents' do
-    before { pend_without_mongoid }
-
+  context 'embedded mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'sequel models' do
-    before { pend_without_sequel }
-
+  context 'sequel models', depends_on: :sequel do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
     it_should_behave_like 'something fabricatable'
@@ -314,9 +306,7 @@ describe Fabrication do
     end
   end
 
-  context 'with a mongoid document' do
-    before { pend_without_mongoid }
-
+  context 'with a mongoid document', depends_on: :mongoid do
     let(:author) { Fabricate(:author) }
 
     it "sets the author name" do

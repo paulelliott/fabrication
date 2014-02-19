@@ -18,14 +18,12 @@ describe Fabrication::Schematic::Definition do
       it { should == Fabrication::Generator::ActiveRecord }
     end
 
-    context "for a mongoid object" do
-      before { pend_without_mongoid }
+    context "for a mongoid object", depends_on: :mongoid do
       let(:klass) { ParentMongoidDocument }
       it { should == Fabrication::Generator::Mongoid }
     end
 
-    context "for a sequel object" do
-      before { pend_without_sequel }
+    context "for a sequel object", depends_on: :sequel do
       let(:klass) { ParentSequelModel }
       it { should == Fabrication::Generator::Sequel }
     end

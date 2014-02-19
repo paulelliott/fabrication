@@ -1,7 +1,3 @@
-def pend_without_mongoid
-  pending("Mongoid is not defined") unless defined?(Mongoid)
-end
-
 if defined?(Mongoid)
   Mongoid.load!("spec/support/mongoid.yml", :test)
 

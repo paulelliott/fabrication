@@ -3,9 +3,7 @@ require 'fabrication/syntax/make'
 
 describe Fabrication::Syntax::Make do
 
-  describe "#make mongoid" do
-    before { pend_without_mongoid }
-
+  describe "#make mongoid", depends_on: :mongoid do
     it "should return a fabricated object" do
       Author.make.should be_instance_of Author
     end
@@ -25,7 +23,6 @@ describe Fabrication::Syntax::Make do
     it "bang should be the same as Fabricate" do
       Author.make!.should_not be_new_record
     end
-
   end
 
   describe "#make activerecord" do
@@ -44,9 +41,7 @@ describe Fabrication::Syntax::Make do
 
   end
 
-  describe "#make sequel" do
-    before { pend_without_sequel }
-
+  describe "#make sequel", depends_on: :sequel do
     it "should return a fabricated object" do
       ParentSequelModel.make.should be_instance_of ParentSequelModel
     end

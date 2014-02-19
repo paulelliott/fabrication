@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-describe Fabrication::Generator::DataMapper do
-  before { pend_without_data_mapper }
-
+describe Fabrication::Generator::DataMapper, depends_on: :data_mapper do
   describe '.supports?' do
     subject { Fabrication::Generator::DataMapper }
 
