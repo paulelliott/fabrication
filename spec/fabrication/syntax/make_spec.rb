@@ -4,6 +4,7 @@ require 'fabrication/syntax/make'
 describe Fabrication::Syntax::Make do
 
   describe "#make mongoid" do
+    before { pend_without_mongoid }
 
     it "should return a fabricated object" do
       Author.make.should be_instance_of Author
@@ -44,6 +45,7 @@ describe Fabrication::Syntax::Make do
   end
 
   describe "#make sequel" do
+    before { pend_without_sequel }
 
     it "should return a fabricated object" do
       ParentSequelModel.make.should be_instance_of ParentSequelModel

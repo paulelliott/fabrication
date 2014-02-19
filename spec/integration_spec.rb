@@ -125,6 +125,8 @@ describe Fabrication do
   end
 
   context 'data_mapper models' do
+    before { pend_without_data_mapper }
+
     let(:fabricator_name) { :parent_data_mapper_model }
     let(:collection_field) { :child_data_mapper_models }
 
@@ -145,18 +147,24 @@ describe Fabrication do
   end
 
   context 'referenced mongoid documents' do
+    before { pend_without_mongoid }
+
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
   context 'embedded mongoid documents' do
+    before { pend_without_mongoid }
+
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
   context 'sequel models' do
+    before { pend_without_sequel }
+
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
     it_should_behave_like 'something fabricatable'
@@ -248,11 +256,7 @@ describe Fabrication do
 
   context 'with an active record object' do
 
-    before { TestMigration.up }
-    after  { TestMigration.down }
-
     before(:all) do
-      Fabrication.manager
       Fabricator(:main_company, :from => :company) do
         name { Faker::Company.name }
         divisions(:count => 4)
@@ -271,10 +275,6 @@ describe Fabrication do
 
     it 'generates field blocks immediately' do
       company.name.should == "Hashrocket"
-    end
-
-    it 'generates associations immediately when forced' do
-      Division.find_all_by_company_id(company.id).count.should == 4
     end
 
     it 'generates non-database backed fields immediately' do
@@ -315,6 +315,7 @@ describe Fabrication do
   end
 
   context 'with a mongoid document' do
+    before { pend_without_mongoid }
 
     let(:author) { Fabricate(:author) }
 
@@ -335,8 +336,8 @@ describe Fabrication do
     end
 
     context "with disabled dynamic fields" do
-      before { Mongoid.allow_dynamic_fields = false }
-      after { Mongoid.allow_dynamic_fields = true }
+      before { Mongoid.allow_dynamic_fields = false if defined?(Mongoid) }
+      after { Mongoid.allow_dynamic_fields = true if defined?(Mongoid) }
 
       it "raises NoMethodError for mongoid_dynamic_field=" do
         expect { Fabricate(:special_author) }.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
@@ -364,36 +365,16 @@ describe Fabrication do
     end
   end
 
-  context 'with a parent fabricator' do
+  context 'defined with from pointing to a class' do
+    let(:greyhound) { Fabricate(:greyhound) }
 
-    context 'and a previously defined parent' do
-
-      let(:ernie) { Fabricate(:hemingway) }
-
-      it 'has the values from the parent' do
-        ernie.books.count.should == 4
-      end
-
-      it 'overrides specified values from the parent' do
-        ernie.name.should == 'Ernest Hemingway'
-      end
-
+    it 'has the breed defined' do
+      greyhound.breed.should == 'greyhound'
     end
 
-    context 'and a class name as a parent' do
-
-      let(:greyhound) { Fabricate(:greyhound) }
-
-      it 'has the breed defined' do
-        greyhound.breed.should == 'greyhound'
-      end
-
-      it 'does not have a name' do
-        greyhound.name.should be_nil
-      end
-
+    it 'does not have a name' do
+      greyhound.name.should be_nil
     end
-
   end
 
   describe '.clear_definitions' do
@@ -407,19 +388,19 @@ describe Fabrication do
 
   context 'when defining a fabricator twice' do
     it 'throws an error' do
-      lambda { Fabricator(:author) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
+      lambda { Fabricator(:parent_ruby_object) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
     end
   end
 
   context "when defining a fabricator for a class that doesn't exist" do
     it 'throws an error' do
-      lambda { Fabricator(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
+      lambda { Fabricator(:class_that_does_not_exist) }.should raise_error(Fabrication::UnfabricatableError)
     end
   end
 
   context 'when generating from a non-existant fabricator' do
     it 'throws an error' do
-      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
+      lambda { Fabricate(:misspelled_fabricator_name) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
   end
 

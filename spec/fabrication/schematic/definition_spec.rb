@@ -19,11 +19,13 @@ describe Fabrication::Schematic::Definition do
     end
 
     context "for a mongoid object" do
+      before { pend_without_mongoid }
       let(:klass) { ParentMongoidDocument }
       it { should == Fabrication::Generator::Mongoid }
     end
 
     context "for a sequel object" do
+      before { pend_without_sequel }
       let(:klass) { ParentSequelModel }
       it { should == Fabrication::Generator::Sequel }
     end

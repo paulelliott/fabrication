@@ -55,7 +55,7 @@ describe Fabrication::Generator::ActiveRecord do
     end
 
     it 'persists the divisions' do
-      Division.find_all_by_company_id(company.id).count.should == 2
+      Division.where(company_id: company.id).count.should == 2
     end
 
   end
