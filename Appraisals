@@ -28,3 +28,7 @@ end
 appraise 'mongoid-3.1' do
   gem 'mongoid', '~> 3.1.0'
 end
+
+appraise 'mongoid-3.0' do
+  gem 'mongoid', '~> 3.0.0'
+end
