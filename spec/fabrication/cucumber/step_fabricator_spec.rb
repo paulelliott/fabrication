@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-describe Fabrication::Cucumber do
-  include described_class
-
+describe Fabrication::Cucumber::StepFabricator do
   let(:name) { 'dogs' }
 
   describe '#klass' do
