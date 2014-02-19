@@ -23,14 +23,4 @@ if defined?(DataMapper)
   Fabricator(:child_data_mapper_model_with_parent, from: :child_data_mapper_model) do
     parent_data_mapper_model
   end
-
-  # DataMapper Objects
-  Fabricator(:movie) do
-    name "One Night in Paris"
-  end
-
-  Fabricator(:porn, :from => :movie)
-
-  Fabricator(:store)
-  Fabricator(:xxx_movies, :from => :store)
 end

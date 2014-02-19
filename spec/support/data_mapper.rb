@@ -33,25 +33,5 @@ if defined?(DataMapper)
     belongs_to :parent_data_mapper_model
   end
 
-  class Store
-    include DataMapper::Resource
-
-    property :id, Serial
-    property :name, String
-
-    has n, :movies
-
-    attr_accessor :non_field
-  end
-
-  class Movie
-    include DataMapper::Resource
-
-    property :id, Serial
-    property :name, String
-
-    belongs_to :store
-  end
-
   DataMapper.auto_migrate!
 end

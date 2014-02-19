@@ -29,44 +29,4 @@ Fabricator(:predefined_namespaced_class, from: 'namespaced_classes/ruby_object')
   name 'aaa'
 end
 
-# Plain Ruby Objects
-Fabricator(:dog)
-Fabricator(:greyhound, :from => :dog) do
-  breed "greyhound"
-  locations(:count => 2)
-end
-
-Fabricator(:location) do
-  lat 35
-  lng 40
-end
-Fabricator(:interesting_location, :from => :location)
-
-Fabricator(:person) do
-  first_name "John"
-  last_name { Faker::Name.last_name }
-  age { rand(100) }
-  shoes(:count => 10) { |person, i| "shoe #{i}" }
-  location
-end
-
-Fabricator(:child, :from => :person) do
-  before_validation { |child| child.first_name = 'Johnny' }
-  before_validation { |child| child.age = 10 }
-end
-
-Fabricator(:senior, :from => :child) do
-  before_validation { |senior| senior.age *= 7 }
-end
-
-Fabricator(:city) do
-  on_init { init_with('Boulder', 'CO') }
-end
-
-Fabricator("Something::Amazing") do
-  stuff "cool"
-end
-
 Fabricator(:troublemaker)
-
-Fabricator(:persistable)

@@ -7,6 +7,7 @@ if defined?(Mongoid)
 
   class ParentMongoidDocument
     include Mongoid::Document
+    include Mongoid::Attributes::Dynamic if defined?(Mongoid::Attributes::Dynamic)
 
     field :before_save_value
     field :dynamic_field
@@ -42,47 +43,6 @@ if defined?(Mongoid)
     embedded_in :parent_mongoid_document
 
     delegate :id, to: :parent_mongoid_document, prefix: true
-  end
-
-  class Author
-    include Mongoid::Document
-    include Mongoid::Attributes::Dynamic if defined?(Mongoid::Attributes::Dynamic)
-
-    embeds_many :books
-
-    field :name
-    field :handle
-  end
-
-  class Book
-    include Mongoid::Document
-
-    field :title
-
-    embedded_in :author, :inverse_of => :books
-  end
-
-  class PublishingHouse
-    include Mongoid::Document
-
-    belongs_to :professional_affiliation
-    embeds_many :book_promoters
-
-    field :name
-  end
-
-  class BookPromoter
-    include Mongoid::Document
-
-    embedded_in :publishing_house
-
-    field :name
-  end
-
-  class ProfessionalAffiliation
-    include Mongoid::Document
-
-    has_many :publishing_houses
   end
 else
   def clear_mongodb; end

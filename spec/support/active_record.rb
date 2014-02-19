@@ -22,31 +22,11 @@ if defined?(ActiveRecord)
         t.column :string_field, :string
         t.column :false_field, :boolean
       end
-
-      create_table :companies, :force => true do |t|
-        t.column :name, :string
-        t.column :city, :string
-        t.column :display, :string
-      end
-
-      create_table :divisions, :force => true do |t|
-        t.column :name, :string
-        t.references :company
-      end
-
-      create_table :namespaced_teams, :force => true do |t|
-        t.column :name, :string
-        t.column :members_count, :integer
-        t.references :company
-      end
     end
 
     def self.down
       drop_table :child_active_record_models
       drop_table :parent_active_record_models
-      drop_table :companies
-      drop_table :divisions
-      drop_table :namespaced_teams
     end
   end
 
@@ -62,23 +42,5 @@ if defined?(ActiveRecord)
     before_save do
       self.before_save_value = 11
     end
-  end
-
-  class Company < ActiveRecord::Base
-    has_many :divisions
-
-    attr_accessor :non_field
-  end
-
-  class Division < ActiveRecord::Base
-    belongs_to :company
-  end
-
-  module Namespaced
-    class Team < ActiveRecord::Base
-      belongs_to :company, :class_name => Company
-    end
-
-    Team.table_name = :namespaced_teams
   end
 end

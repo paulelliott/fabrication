@@ -24,9 +24,5 @@ if defined?(Sequel)
     parent_sequel_model
   end
 
-  Fabricator(:sequel_farmer) do
-  end
-
-  Fabricator(:sequel_knight) do
-  end
+  Fabricator(:inherited_sequel_model)
 end

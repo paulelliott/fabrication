@@ -11,29 +11,27 @@ describe Fabrication::Generator::Base do
 
   describe "#build" do
 
-    let(:generator) { Fabrication::Generator::Base.new(Person) }
+    let(:generator) { Fabrication::Generator::Base.new(ParentRubyObject) }
 
     let(:attributes) do
-      Fabrication::Schematic::Definition.new(Person) do
-        first_name 'Guy'
-        shoes(:count => 4) do |attrs, index|
-          "#{attrs[:first_name]}'s shoe #{index}"
-        end
+      Fabrication::Schematic::Definition.new(ParentRubyObject) do
+        string_field 'different content'
+        extra_fields(count: 4) { |attrs, index| "field #{index}" }
       end.attributes
     end
 
-    let(:person) { generator.build(attributes) }
+    let(:parent_ruby_object) { generator.build(attributes) }
 
     it 'generates an instance' do
-      person.instance_of?(Person).should be_true
+      expect(parent_ruby_object).to be_instance_of(ParentRubyObject)
     end
 
     it 'passes the object and count to blocks' do
-      person.shoes.should == (1..4).map { |i| "Guy's shoe #{i}" }
+      expect(parent_ruby_object.extra_fields).to eq (1..4).map { |i| "field #{i}" }
     end
 
     it 'sets the static value' do
-      person.instance_variable_get(:@first_name).should == 'Guy'
+      expect(parent_ruby_object.instance_variable_get(:@string_field)).to eq 'different content'
     end
 
     context "with on_init block" do
@@ -115,32 +113,32 @@ describe Fabrication::Generator::Base do
 
     context "using an after_create hook" do
       let(:schematic) do
-        Fabrication::Schematic::Definition.new(Person) do
-          first_name "Guy"
-          after_create { |k| k.first_name.upcase! }
+        Fabrication::Schematic::Definition.new(ParentRubyObject) do
+          string_field 'something'
+          after_create { |k| k.string_field.upcase! }
         end
       end
 
       it "calls after_create when generated with saving" do
-        schematic.fabricate.first_name.should == "GUY"
+        expect(schematic.fabricate.string_field).to eq 'SOMETHING'
       end
 
       it "does not call after_create when generated without saving" do
-        schematic.build.first_name.should == "Guy"
+        expect(schematic.build.string_field).to eq 'something'
       end
     end
 
     context 'all the callbacks' do
       subject { schematic.build }
       let(:schematic) do
-        Fabrication::Schematic::Definition.new(Person) do
-          first_name ""
-          after_build { |k| k.first_name += '1' }
-          before_validation { |k| k.first_name += '2' }
-          after_validation { |k| k.first_name += '3' }
+        Fabrication::Schematic::Definition.new(ParentRubyObject) do
+          string_field ""
+          after_build { |k| k.string_field += '1' }
+          before_validation { |k| k.string_field += '2' }
+          after_validation { |k| k.string_field += '3' }
         end
       end
-      its(:first_name) { should == '1' }
+      its(:string_field) { should == '1' }
     end
   end
 
@@ -148,18 +146,18 @@ describe Fabrication::Generator::Base do
     context 'all the callbacks' do
       subject { schematic.fabricate }
       let(:schematic) do
-        Fabrication::Schematic::Definition.new(Person) do
-          first_name ""
-          after_build { |k| k.first_name += '1' }
-          before_validation { |k| k.first_name += '2' }
-          after_validation { |k| k.first_name += '3' }
-          before_save { |k| k.first_name += '4' }
-          before_create { |k| k.first_name += '5' }
-          after_create { |k| k.first_name += '6' }
-          after_save { |k| k.first_name += '7' }
+        Fabrication::Schematic::Definition.new(ParentRubyObject) do
+          string_field ""
+          after_build { |k| k.string_field += '1' }
+          before_validation { |k| k.string_field += '2' }
+          after_validation { |k| k.string_field += '3' }
+          before_save { |k| k.string_field += '4' }
+          before_create { |k| k.string_field += '5' }
+          after_create { |k| k.string_field += '6' }
+          after_save { |k| k.string_field += '7' }
         end
       end
-      its(:first_name) { should == '1234567' }
+      its(:string_field) { should == '1234567' }
     end
   end
 
@@ -178,7 +176,7 @@ describe Fabrication::Generator::Base do
   describe 'robustness tests' do
     it 'maintains valid state on exceptions while building' do
       expect { Fabricate.build(:troublemaker, raise_exception: true) }.to raise_exception "Troublemaker exception"
-      Fabricate(:persistable).persisted?.should be_true
+      expect(Fabricate(:parent_ruby_object)).to be_persisted
     end
   end
 

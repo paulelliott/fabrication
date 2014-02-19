@@ -15,6 +15,8 @@ if defined?(Sequel)
   end
 
   class ParentSequelModel < Sequel::Model
+    plugin :class_table_inheritance, key: :kind
+
     one_to_many :child_sequel_models
 
     strict_param_setting = true
@@ -29,10 +31,5 @@ if defined?(Sequel)
     end
   end
 
-  class SequelFarmer < Sequel::Model
-    plugin :class_table_inheritance, key: :kind
-  end
-
-  class SequelKnight < SequelFarmer
-  end
+  class InheritedSequelModel < ParentSequelModel; end
 end

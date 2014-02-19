@@ -228,12 +228,8 @@ describe Fabrication::Schematic::Definition do
   end
 
   context "when overriding" do
-    let(:address) { Address.new }
-
     it "symbolizes attribute keys" do
-      Fabricator(:address) { city { raise 'should not be called' } }
-      Fabricator(:contact) { address }
-      expect { Fabricate(:contact, 'address' => address) }.not_to raise_error
+      expect(Fabricate.build(:parent_ruby_object, 'string_field' => 'valid').string_field).to eq 'valid'
     end
   end
 end

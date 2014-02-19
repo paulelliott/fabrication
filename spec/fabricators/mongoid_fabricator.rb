@@ -36,29 +36,4 @@ if defined?(Mongoid)
   Fabricator(:embedded_mongoid_document_with_parent, from: :embedded_mongoid_document) do
     parent_mongoid_document
   end
-
-  # Mongoid Documents
-  Fabricator(:author) do
-    name 'George Orwell'
-    books(:count => 4) do |attrs, i|
-      Fabricate.build(:book, :title => "book title #{i}")
-    end
-  end
-
-  Fabricator(:special_author, :from => :author) do
-    mongoid_dynamic_field 50
-    lazy_dynamic_field { "foo" }
-  end
-
-  Fabricator(:author_with_handle, :from => :author) do
-    handle '@1984'
-  end
-
-  Fabricator(:book) do
-    title "book title"
-  end
-
-  Fabricator(:publishing_house)
-  Fabricator(:book_promoter)
-  Fabricator(:professional_affiliation)
 end

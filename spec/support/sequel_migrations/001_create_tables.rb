@@ -9,6 +9,7 @@ if defined?(Sequel)
 
       create_table :parent_sequel_models do
         primary_key :id
+        String :kind
         Integer :before_save_value
         String :dynamic_field
         String :nil_field
@@ -17,13 +18,8 @@ if defined?(Sequel)
         Boolean :false_field
       end
 
-      create_table :sequel_farmers do
-        primary_key :id
-        String :kind
-      end
-
-      create_table :sequel_knights do
-        foreign_key :id, :sequel_farmers, null: false, key: [:id], on_delete: :cascade
+      create_table :inherited_sequel_models do
+        foreign_key :id, :parent_sequel_models, null: false, key: [:id], on_delete: :cascade
         primary_key [:id]
       end
     end
@@ -31,8 +27,7 @@ if defined?(Sequel)
     down do
       drop_table :child_sequel_models
       drop_table :parent_sequel_models
-      drop_table :sequel_farmers
-      drop_table :sequel_knights
+      drop_table :inherited_sequel_models
     end
   end
 end
