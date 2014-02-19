@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Fabrication::Generator::ActiveRecord do
+describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
 
   describe ".supports?" do
     subject { Fabrication::Generator::ActiveRecord }

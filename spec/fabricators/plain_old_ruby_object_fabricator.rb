@@ -23,6 +23,12 @@ Fabricator(:child_ruby_object_with_parent, from: :child_ruby_object) do
   parent_ruby_object
 end
 
+Fabricator('namespaced_classes/ruby_object')
+
+Fabricator(:predefined_namespaced_class, from: 'namespaced_classes/ruby_object') do
+  name 'aaa'
+end
+
 # Plain Ruby Objects
 Fabricator(:dog)
 Fabricator(:greyhound, :from => :dog) do

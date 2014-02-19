@@ -69,7 +69,7 @@ shared_examples 'something fabricatable' do
 
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
-    it { should be_kind_of(HashWithIndifferentAccess) }
+    it { should be_kind_of(Fabrication::Support.hash_class) }
     it 'serializes the attributes' do
       should include({
         :dynamic_field => nil,
@@ -101,7 +101,7 @@ describe Fabrication do
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'active_record models' do
+  context 'active_record models', depends_on: :active_record do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
     it_should_behave_like 'something fabricatable'
@@ -207,8 +207,8 @@ describe Fabrication do
   end
 
   context 'with a field named the same as an Object method' do
-    subject { Fabricate(:company) }
-    its(:display) { should == 'for sure' }
+    subject { Fabricate(:predefined_namespaced_class, display: 'working') }
+    its(:display) { should == 'working' }
   end
 
   context 'multiple instance' do
@@ -246,63 +246,17 @@ describe Fabrication do
 
   end
 
-  context 'with an active record object' do
-
-    before(:all) do
-      Fabricator(:main_company, :from => :company) do
-        name { Faker::Company.name }
-        divisions(:count => 4)
-        non_field { "hi" }
-        after_create { |o| o.update_attributes(city: "Jacksonville Beach") }
-      end
-
-      Fabricator(:other_company, :from => :main_company) do
-        divisions(:count => 2)
-        before_validation { |o| o.name = "Crazysauce" }
-      end
-    end
-
-    let(:company) { Fabricate(:main_company, :name => "Hashrocket") }
-    let(:other_company) { Fabricate(:other_company) }
-
-    it 'generates field blocks immediately' do
-      company.name.should == "Hashrocket"
-    end
-
-    it 'generates non-database backed fields immediately' do
-      company.instance_variable_get(:@non_field).should == 'hi'
-    end
-
-    it 'executes after build blocks' do
-      other_company.name.should == 'Crazysauce'
-    end
-
-    it 'executes after create blocks' do
-      company.city.should == 'Jacksonville Beach'
-    end
-
-    it 'overrides associations' do
-      Fabricate(:company, :divisions => []).divisions.should == []
-    end
-
-    it 'overrides inherited associations' do
-      other_company.divisions.count.should == 2
-      Division.count.should == 2
-    end
-
-  end
-
   context 'for namespaced classes' do
     context 'the namespaced class' do
-      subject { Fabricate('namespaced/team') }
-      its(:name) { should eq('A Random Team') }
-      its(:members_count) { should be_nil }
+      subject { Fabricate('namespaced_classes/ruby_object', name: 'working') }
+      its(:name) { should eq('working') }
+      it { should be_a(NamespacedClasses::RubyObject) }
     end
 
     context 'descendant from namespaced class' do
-      subject { Fabricate(:team_with_members_count) }
-      its(:name) { should eq('A Random Team') }
-      its(:members_count) { should == 7 }
+      subject { Fabricate(:predefined_namespaced_class) }
+      its(:name) { should eq('aaa') }
+      it { should be_a(NamespacedClasses::RubyObject) }
     end
   end
 
@@ -352,18 +306,6 @@ describe Fabrication do
 
     it "runs the parent callbacks first" do
       senior.age.should == 70
-    end
-  end
-
-  context 'defined with from pointing to a class' do
-    let(:greyhound) { Fabricate(:greyhound) }
-
-    it 'has the breed defined' do
-      greyhound.breed.should == 'greyhound'
-    end
-
-    it 'does not have a name' do
-      greyhound.name.should be_nil
     end
   end
 
@@ -437,29 +379,28 @@ describe Fabrication do
   end
 
   describe 'using an actual class in options' do
-    let(:some_company) { Fabricate(:some_company) }
-    subject { some_company }
+    subject { Fabricate(:actual_class) }
 
     context 'from' do
       before do
-        Fabricator(:some_company, :from => Company) do
+        Fabricator(:actual_class, from: OpenStruct) do
           name 'Hashrocket'
         end
       end
       after { Fabrication.clear_definitions }
       its(:name) { should == 'Hashrocket' }
-      it { should be_kind_of(Company) }
+      it { should be_kind_of(OpenStruct) }
     end
 
     context 'class_name' do
       before do
-        Fabricator(:some_company, :class_name => Company) do
+        Fabricator(:actual_class, class_name: OpenStruct) do
           name 'Hashrocket'
         end
       end
       after { Fabrication.clear_definitions }
       its(:name) { should == 'Hashrocket' }
-      it { should be_kind_of(Company) }
+      it { should be_kind_of(OpenStruct) }
     end
   end
 

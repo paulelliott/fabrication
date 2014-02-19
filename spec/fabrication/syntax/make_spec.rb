@@ -25,7 +25,7 @@ describe Fabrication::Syntax::Make do
     end
   end
 
-  describe "#make activerecord" do
+  describe "#make activerecord", depends_on: :active_record do
 
     it "should return a fabricated object" do
       Company.make.should be_instance_of Company

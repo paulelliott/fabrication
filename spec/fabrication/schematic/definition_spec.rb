@@ -13,7 +13,7 @@ describe Fabrication::Schematic::Definition do
   describe "generator selection" do
     subject { Fabrication::Schematic::Definition.new(klass).generator }
 
-    context "for an activerecord object" do
+    context "for an activerecord object", depends_on: :active_record do
       let(:klass) { ParentActiveRecordModel }
       it { should == Fabrication::Generator::ActiveRecord }
     end

@@ -48,6 +48,12 @@ class ChildRubyObject < Persistable
   end
 end
 
+module NamespacedClasses
+  class RubyObject < OpenStruct
+    attr_accessor :display
+  end
+end
+
 class Troublemaker
   def raise_exception=(value)
     raise "Troublemaker exception" if value

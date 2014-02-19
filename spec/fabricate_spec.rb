@@ -3,37 +3,37 @@ require 'spec_helper'
 describe Fabricate do
   describe ".times" do
     it "fabricates an object X times" do
-      expect {
-        expect(Fabricate.times(3, :company)).to have(3).elements
-      }.to change(Company, :count).by(3)
+      objects = Fabricate.times(3, :parent_ruby_object)
+      expect(objects).to have(3).elements
+      expect(objects.all?(&:persisted?)).to be_true
     end
 
     it "delegates overrides and blocks properly" do
-      company = Fabricate.times(1, :company, display: 'different').first
-      expect(company.display).to eql('different')
+      object = Fabricate.times(1, :parent_ruby_object, string_field: 'different').first
+      expect(object.string_field).to eql('different')
 
-      company = Fabricate.times(1, :company) { display 'other' }.first
-      expect(company.display).to eql('other')
+      object = Fabricate.times(1, :parent_ruby_object) { string_field 'other' }.first
+      expect(object.string_field).to eql('other')
     end
   end
 
   describe ".build_times" do
     it "fabricates an object X times" do
-      expect {
-        expect(Fabricate.build_times(3, :company)).to have(3).elements
-      }.to change(Company, :count).by(0)
+      objects = Fabricate.build_times(3, :parent_ruby_object)
+      expect(objects).to have(3).elements
+      expect(objects.all?(&:persisted?)).to be_false
     end
 
     it "delegates overrides and blocks properly" do
-      company = Fabricate.times(1, :company, display: 'different').first
-      expect(company.display).to eql('different')
+      object = Fabricate.build_times(1, :parent_ruby_object, string_field: 'different').first
+      expect(object.string_field).to eql('different')
 
-      company = Fabricate.times(1, :company) { display 'other' }.first
-      expect(company.display).to eql('other')
+      object = Fabricate.build_times(1, :parent_ruby_object) { string_field 'other' }.first
+      expect(object.string_field).to eql('other')
     end
   end
 
-  describe ".to_params" do
+  describe ".to_params", depends_on: :active_record do
     subject { Fabricate.to_params(:parent_active_record_model_with_children) }
 
     it do
@@ -51,8 +51,8 @@ describe Fabricate do
     end
 
     it 'is accessible as symbols' do
-      expect(subject['number_field']).to eq(5)
-      expect(subject['child_active_record_models'].first['number_field']).to eq(10)
+      expect(subject[:number_field]).to eq(5)
+      expect(subject[:child_active_record_models].first[:number_field]).to eq(10)
     end
   end
 end

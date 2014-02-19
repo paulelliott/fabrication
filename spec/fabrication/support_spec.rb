@@ -56,7 +56,7 @@ describe Fabrication::Support do
 
   end
 
-  describe '.hash_class' do
+  describe '.hash_class', depends_on: :active_support do
     subject { Fabrication::Support.hash_class }
 
     context 'with HashWithIndifferentAccess defined' do

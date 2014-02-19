@@ -9,6 +9,9 @@ appraise 'kitchen-sink' do
   gem "sequel"
 end
 
+appraise 'blank-slate' do
+end
+
 appraise 'rails-4' do
   gem 'activerecord', '~> 4.0.0', require: 'active_record'
   gem 'protected_attributes'

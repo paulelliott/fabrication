@@ -3,6 +3,8 @@ require 'bundler/setup'
 Bundler.require
 
 DEFINED_CLASSES = {
+  active_record: defined?(ActiveRecord),
+  active_support: defined?(ActiveSupport),
   data_mapper: defined?(DataMapper),
   mongoid: defined?(Mongoid),
   sequel: defined?(Sequel)
@@ -24,7 +26,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    TestMigration.up
+    TestMigration.up if DEFINED_CLASSES[:active_record]
     clear_mongodb
   end
 end
