@@ -5,7 +5,7 @@ module Fabrication
 
       def initialize(model_name, opts ={})
         @model = dehumanize(model_name)
-        @fabricator = @model.singularize.to_sym
+        @fabricator = Fabrication::Support.singularize(@model).to_sym
         @parent_name = opts.delete(:parent)
       end
 
@@ -50,7 +50,7 @@ module Fabrication
       end
 
       def singular?
-        @model == @model.singularize
+        @model == Fabrication::Support.singularize(@model)
       end
 
       def dehumanize(string)

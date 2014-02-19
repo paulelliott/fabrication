@@ -43,6 +43,12 @@ class Fabrication::Support
       @hash_class ||= defined?(HashWithIndifferentAccess) ? HashWithIndifferentAccess : Hash
     end
 
+    def singularize(string)
+      string.singularize
+    rescue
+      string.end_with?('s') ? string[0..-2] : string
+    end
+
   end
 
 end

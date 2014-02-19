@@ -81,7 +81,7 @@ shared_examples 'something fabricatable' do
   end
 
   context 'belongs_to associations' do
-    subject { Fabricate("#{collection_field.to_s.singularize}_with_parent") }
+    subject { Fabricate("#{Fabrication::Support.singularize(collection_field.to_s)}_with_parent") }
 
     it 'sets the parent association' do
       subject.send(fabricator_name).should be
