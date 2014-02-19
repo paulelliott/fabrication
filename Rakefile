@@ -8,9 +8,13 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = "spec/**/*_spec.rb"
 end
 
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new(:cucumber) do |t|
-  t.cucumber_opts = "--format progress --tags ~@wip"
+desc 'All cucumber features with kitchen sink appraisal'
+task :cucumber do
+  system('appraisal kitchen-sink cucumber -f progress')
 end
 
-task default: %i(spec cucumber)
+if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
+  task default: %i(cucumber appraisal)
+else
+  task default: :spec
+end
