@@ -11,7 +11,6 @@ gem "pry"
 gem "rake"
 gem "rspec"
 gem "sqlite3"
-gem "activerecord", "~> 4.0.0", :require=>"active_record"
-gem "protected_attributes"
+gem "activerecord", "~> 3.1.0", :require=>"active_record"
 
 gemspec :path=>".././"

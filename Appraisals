@@ -10,10 +10,14 @@ appraise 'kitchen-sink' do
 end
 
 appraise 'rails-4' do
-  gem 'activerecord', '~> 4.0', require: 'active_record'
+  gem 'activerecord', '~> 4.0.0', require: 'active_record'
   gem 'protected_attributes'
 end
 
 appraise 'rails-3.2' do
-  gem 'activerecord', '~> 3.2', require: 'active_record'
+  gem 'activerecord', '~> 3.2.0', require: 'active_record'
+end
+
+appraise 'rails-3.1' do
+  gem 'activerecord', '~> 3.1.0', require: 'active_record'
 end
