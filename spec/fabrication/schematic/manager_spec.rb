@@ -52,4 +52,24 @@ describe Fabrication::Schematic::Manager do
       it { should == 'thing' }
     end
   end
+
+  describe ".load_definitions" do
+    before { Fabrication.clear_definitions }
+
+    context 'happy path' do
+      it "loaded definitions" do
+        Fabrication.manager.load_definitions
+        Fabrication.manager[:parent_ruby_object].should be
+      end
+    end
+
+    context 'when an error occurs during the load' do
+      it 'still freezes the manager' do
+        Fabrication::Config.should_receive(:fabricator_path).and_raise(Exception)
+        expect { Fabrication.manager.load_definitions }.to raise_error
+        Fabrication.manager.should_not be_initializing
+      end
+    end
+  end
+
 end

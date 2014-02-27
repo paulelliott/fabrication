@@ -301,7 +301,7 @@ describe Fabrication do
     before { Fabrication.clear_definitions }
     subject { Fabrication.manager }
     it { should be_empty }
-    after { Fabrication::Support.find_definitions }
+    after { Fabrication.manager.load_definitions }
   end
 
   context 'when defining a fabricator twice' do

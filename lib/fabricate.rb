@@ -34,7 +34,7 @@ class Fabricate
   end
 
   def self.schematic(name)
-    Fabrication::Support.find_definitions if Fabrication.manager.empty?
+    Fabrication.manager.load_definitions if Fabrication.manager.empty?
     Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
   end
 

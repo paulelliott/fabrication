@@ -49,26 +49,6 @@ describe Fabrication::Support do
     end
   end
 
-  describe ".find_definitions" do
-    before { Fabrication.clear_definitions }
-
-    context 'happy path' do
-      it "loaded definitions" do
-        Fabrication::Support.find_definitions
-        Fabrication.manager[:parent_ruby_object].should be
-      end
-    end
-
-    context 'when an error occurs during the load' do
-      it 'still freezes the manager' do
-        Fabrication::Config.should_receive(:fabricator_path).and_raise(Exception)
-        expect { Fabrication::Support.find_definitions }.to raise_error
-        Fabrication.manager.should_not be_initializing
-      end
-    end
-
-  end
-
   describe '.hash_class', depends_on: :active_support do
     subject { Fabrication::Support.hash_class }
 

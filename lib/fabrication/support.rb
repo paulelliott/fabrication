@@ -24,18 +24,8 @@ class Fabrication::Support
     end
 
     def find_definitions
-      Fabrication.manager.preinitialize
-      Fabrication::Config.path_prefix.each do |prefix|
-        Fabrication::Config.fabricator_path.each do |folder|
-          Dir.glob(File.join(prefix, folder, '**', '*.rb')).sort.each do |file|
-            load file
-          end
-        end
-      end
-    rescue Exception => e
-      raise e
-    ensure
-      Fabrication.manager.freeze
+      puts "DEPRECATION WARNING: Fabrication::Support.find_definitions has been replaced by Fabrication.manager.load_definitions and will be removed in 3.0.0."
+      Fabrication.manager.load_definitions
     end
 
     def hash_class

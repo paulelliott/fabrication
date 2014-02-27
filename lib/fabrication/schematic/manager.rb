@@ -39,6 +39,19 @@ class Fabrication::Schematic::Manager
     @to_params_stack ||= []
   end
 
+  def load_definitions
+    preinitialize
+    Fabrication::Config.fabricator_path.each do |folder|
+      Dir.glob(File.join(Fabrication::Config.path_prefix, folder, '**', '*.rb')).sort.each do |file|
+        load file
+      end
+    end
+  rescue Exception => e
+    raise e
+  ensure
+    freeze
+  end
+
   protected
 
   def raise_if_registered(name)
@@ -69,4 +82,5 @@ class Fabrication::Schematic::Manager
       Fabrication::Schematic::Definition.new(klass, &block)
     end
   end
+
 end

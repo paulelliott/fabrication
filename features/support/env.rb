@@ -10,7 +10,6 @@ Before do
   clear_sequel_db
   TestMigration.up
   Fabrication.clear_definitions
-  Fabrication::Support.find_definitions
 end
 
 After do
