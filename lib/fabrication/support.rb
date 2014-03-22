@@ -11,9 +11,8 @@ class Fabrication::Support
       klass = class_name.split('::').inject(Object) do |object, string|
         object.const_get(string)
       end
-    rescue NameError
-    ensure
-      raise Fabrication::UnfabricatableError.new(class_or_to_s) unless klass
+    rescue NameError => original_error
+      raise Fabrication::UnfabricatableError.new(class_or_to_s, original_error)
     end
 
     def extract_options!(args)
