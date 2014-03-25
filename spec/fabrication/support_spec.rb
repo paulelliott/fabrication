@@ -34,23 +34,15 @@ describe Fabrication::Support do
 
       context "and custom const_missing is defined" do
         before do
-          class Object
+          module Family
             def self.const_missing(name)
               raise NameError, "original message"
             end
           end
         end
 
-        after do
-          class Object
-            class << self
-              undef :const_missing
-            end
-          end
-        end
-
         it "raises an exception with the message from the original exception" do
-          lambda { Fabrication::Support.class_for(:your_mom) }.
+          lambda { Fabrication::Support.class_for("Family::Mom") }.
             should raise_error(Fabrication::UnfabricatableError, /original message/)
         end
       end
