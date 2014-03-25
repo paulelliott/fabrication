@@ -1,3 +1,3 @@
 module Fabrication
-  VERSION = '2.9.8'
+  VERSION = '2.10.0'
 end

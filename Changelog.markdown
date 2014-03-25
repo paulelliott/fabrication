@@ -1,3 +1,8 @@
+### 2.10.0 ###
+
+* Add `rand` option when generating collections in fabricators (#207)
+* Include original exception when catching NameError in fabricators (#206)
+
 ### 2.9.8 ###
 
 * Explicitly require rake for compatibility with certain IDE's. (#203, #204)
