@@ -94,7 +94,7 @@ DEPENDENCIES
   dm-validations
   fabrication!
   ffaker
-  mongoid (~> 3.0)
+  mongoid
   pry
   rake
   rspec
