@@ -14,7 +14,7 @@ task :cucumber do
 end
 
 if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
-  task default: %i(cucumber appraisal)
+  task default: [:cucumber, :appraisal]
 else
   task default: :spec
 end
