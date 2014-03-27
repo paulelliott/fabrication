@@ -1,3 +1,7 @@
+### 2.11.0 ###
+
+* Process attributes with static values before ones with dynamic values at fabricate time (#208)
+
 ### 2.10.0 ###
 
 * Add `rand` option when generating collections in fabricators (#207)
