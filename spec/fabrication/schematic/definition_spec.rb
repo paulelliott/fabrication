@@ -232,4 +232,16 @@ describe Fabrication::Schematic::Definition do
       expect(Fabricate.build(:parent_ruby_object, 'string_field' => 'valid').string_field).to eq 'valid'
     end
   end
+
+  describe '#sorted_attributes' do
+    subject { definition.sorted_attributes.map(&:name) }
+    let(:definition) do
+      Fabrication::Schematic::Definition.new(OpenStruct) do
+        three { nil }
+        one ''
+        transient :two
+      end
+    end
+    it { should == [:one, :two, :three] }
+  end
 end

@@ -1,6 +1,6 @@
 Fabricator(:parent_ruby_object) do
-  transient :placeholder, :transient_with_default => 'my custom value'
   dynamic_field { |attrs| attrs[:placeholder] }
+  transient :placeholder, :transient_with_default => 'my custom value'
   nil_field nil
   number_field 5
   string_field 'content'

@@ -31,6 +31,9 @@ class Fabrication::Schematic::Attribute
     end
   end
 
+  def value_static?; !value_proc? end
+  def value_proc?; Proc === value end
+
   private
 
   def execute(*args, &block)
@@ -48,7 +51,5 @@ class Fabrication::Schematic::Attribute
   def rand
     Kernel.rand((1..params[:rand])) if params[:rand]
   end
-
-  def value_proc?; Proc === value end
 
 end
