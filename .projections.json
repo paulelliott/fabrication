@@ -1,0 +1,3 @@
+{
+  "spec/fabricators/*_fabricator.rb": { "command": "fabricator" }
+}
