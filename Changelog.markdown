@@ -1,3 +1,7 @@
+### 2.11.1 ###
+
+* Update string constantize to handle more edge cases (#209)
+
 ### 2.11.0 ###
 
 * Process attributes with static values before ones with dynamic values at fabricate time (#208)
