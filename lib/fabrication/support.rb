@@ -8,11 +8,30 @@ class Fabrication::Support
 
     def class_for(class_or_to_s)
       class_name = variable_name_to_class_name(class_or_to_s)
-      klass = class_name.split('::').inject(Object) do |object, string|
-        object.const_get(string)
-      end
+      klass = constantize(class_name)
     rescue NameError => original_error
       raise Fabrication::UnfabricatableError.new(class_or_to_s, original_error)
+    end
+
+    def constantize(camel_cased_word)
+      names = camel_cased_word.split('::')
+      Object.const_get(camel_cased_word) if names.empty?
+      names.shift if names.size > 1 && names.first.empty?
+      names.inject(Object) do |constant, name|
+        if constant == Object
+          constant.const_get(name)
+        else
+          candidate = constant.const_get(name)
+          next candidate if constant.const_defined?(name, false)
+          next candidate unless Object.const_defined?(name)
+          constant = constant.ancestors.inject do |const, ancestor|
+            break const    if ancestor == Object
+            break ancestor if ancestor.const_defined?(name, false)
+            const
+          end
+          constant.const_get(name, false)
+        end
+      end
     end
 
     def extract_options!(args)
