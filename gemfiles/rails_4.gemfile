@@ -2,14 +2,14 @@
 
 source "https://rubygems.org"
 
-gem "appraisal", "1.0.0.beta2"
+gem "appraisal"
 gem "cucumber"
 gem "ffaker"
 gem "pry"
 gem "rake"
 gem "rspec"
 gem "sqlite3"
-gem "activerecord", "~> 4.0.0", :require=>"active_record"
+gem "activerecord", "~> 4.0.0", :require => "active_record"
 gem "protected_attributes"
 
-gemspec :path=>".././"
+gemspec :path => "../"

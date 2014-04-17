@@ -1,12 +1,12 @@
 PATH
-  remote: .././
+  remote: ../
   specs:
     fabrication (2.11.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    appraisal (1.0.0.beta2)
+    appraisal (1.0.0)
       bundler
       rake
       thor (>= 0.14.0)
@@ -46,7 +46,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal (= 1.0.0.beta2)
+  appraisal
   cucumber
   fabrication!
   ffaker
