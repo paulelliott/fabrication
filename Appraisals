@@ -4,7 +4,7 @@ appraise 'kitchen-sink' do
   gem "dm-migrations"
   gem "dm-sqlite-adapter"
   gem "dm-validations"
-  gem "mongoid"
+  gem "mongoid", '>= 3.0'
   gem "sequel"
 end
 
