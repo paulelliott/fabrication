@@ -1,4 +1,7 @@
+require 'singleton'
+
 class Fabrication::Schematic::Manager
+  include Singleton
 
   def preinitialize
     @initializing = true
@@ -7,16 +10,15 @@ class Fabrication::Schematic::Manager
 
   def initializing?; @initializing end
 
+  def schematics
+    @schematics ||= {}
+  end
+
+  def clear; schematics.clear end
+  def empty?; schematics.empty? end
+
   def freeze
     @initializing = false
-  end
-
-  def clear
-    schematics.clear
-  end
-
-  def empty?
-    schematics.empty?
   end
 
   def register(name, options, &block)
@@ -29,10 +31,6 @@ class Fabrication::Schematic::Manager
     schematics[name.to_sym]
   end
 
-  def schematics
-    @schematics ||= {}
-  end
-
   def build_stack
     @build_stack ||= []
   end
@@ -41,12 +39,25 @@ class Fabrication::Schematic::Manager
     @to_params_stack ||= []
   end
 
+  def load_definitions
+    preinitialize
+    Fabrication::Config.fabricator_path.each do |folder|
+      Dir.glob(File.join([Fabrication::Config.path_prefix, folder, '**', '*.rb'].compact)).sort.each do |file|
+        load file
+      end
+    end
+  rescue Exception => e
+    puts e.message
+    puts e.backtrace.join("\n")
+    raise e
+  ensure
+    freeze
+  end
+
   protected
 
   def raise_if_registered(name)
-    if self[name]
-      raise Fabrication::DuplicateFabricatorError, "'#{name}' is already defined"
-    end
+    (raise Fabrication::DuplicateFabricatorError, name) if self[name]
   end
 
   def store(name, aliases, options, &block)
@@ -60,7 +71,7 @@ class Fabrication::Schematic::Manager
         (parent && parent.klass) ||
         options[:from] ||
         name
-    ) || (raise Fabrication::UnfabricatableError.new(name))
+    )
   end
 
   def schematic_for(name, options, &block)
@@ -73,4 +84,5 @@ class Fabrication::Schematic::Manager
       Fabrication::Schematic::Definition.new(klass, &block)
     end
   end
+
 end

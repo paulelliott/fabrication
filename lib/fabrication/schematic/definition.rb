@@ -46,6 +46,10 @@ class Fabrication::Schematic::Definition
     @generator ||= GENERATORS.detect { |gen| gen.supports?(klass) }
   end
 
+  def sorted_attributes
+    attributes.select(&:value_static?) + attributes.select(&:value_proc?)
+  end
+
   def build(overrides={}, &block)
     if Fabrication.manager.to_params_stack.any?
       to_params(overrides, &block)
@@ -53,7 +57,7 @@ class Fabrication::Schematic::Definition
       begin
         Fabrication.manager.build_stack << self
         merge(overrides, &block).instance_eval do
-          generator.new(klass).build(attributes, callbacks)
+          generator.new(klass).build(sorted_attributes, callbacks)
         end
       ensure
         Fabrication.manager.build_stack.pop
@@ -68,7 +72,7 @@ class Fabrication::Schematic::Definition
       to_params(overrides, &block)
     else
       merge(overrides, &block).instance_eval do
-        generator.new(klass).create(attributes, callbacks)
+        generator.new(klass).create(sorted_attributes, callbacks)
       end
     end
   end
@@ -76,7 +80,7 @@ class Fabrication::Schematic::Definition
   def to_params(overrides={}, &block)
     Fabrication.manager.to_params_stack << self
     merge(overrides, &block).instance_eval do
-      generator.new(klass).to_params(attributes)
+      generator.new(klass).to_params(sorted_attributes)
     end
   ensure
     Fabrication.manager.to_params_stack.pop
@@ -84,7 +88,7 @@ class Fabrication::Schematic::Definition
 
   def to_attributes(overrides={}, &block)
     merge(overrides, &block).instance_eval do
-      generator.new(klass).to_hash(attributes, callbacks)
+      generator.new(klass).to_hash(sorted_attributes, callbacks)
     end
   end
 
@@ -108,7 +112,7 @@ class Fabrication::Schematic::Definition
 
   def generate_value(name, params)
     if params[:count]
-      name = name.to_s.singularize if name.to_s.respond_to?(:singularize)
+      name = Fabrication::Support.singularize(name.to_s)
       proc { Fabricate.build(params[:fabricator] || name) }
     else
       proc { Fabricate(params[:fabricator] || name) }

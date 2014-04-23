@@ -1,6 +1,6 @@
 class Fabrication::UnfabricatableError < StandardError
 
-  def initialize(name)
-    super("No class found for '#{name}'")
+  def initialize(name, original_error)
+    super("No class found for '#{name}' (original exception: #{original_error.message})")
   end
 end

@@ -69,7 +69,7 @@ shared_examples 'something fabricatable' do
 
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
-    it { should be_kind_of(HashWithIndifferentAccess) }
+    it { should be_kind_of(Fabrication::Support.hash_class) }
     it 'serializes the attributes' do
       should include({
         :dynamic_field => nil,
@@ -81,7 +81,7 @@ shared_examples 'something fabricatable' do
   end
 
   context 'belongs_to associations' do
-    subject { Fabricate("#{collection_field.to_s.singularize}_with_parent") }
+    subject { Fabricate("#{Fabrication::Support.singularize(collection_field.to_s)}_with_parent") }
 
     it 'sets the parent association' do
       subject.send(fabricator_name).should be
@@ -101,7 +101,7 @@ describe Fabrication do
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'active_record models' do
+  context 'active_record models', depends_on: :active_record do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
     it_should_behave_like 'something fabricatable'
@@ -124,7 +124,7 @@ describe Fabrication do
     end
   end
 
-  context 'data_mapper models' do
+  context 'data_mapper models', depends_on: :data_mapper do
     let(:fabricator_name) { :parent_data_mapper_model }
     let(:collection_field) { :child_data_mapper_models }
 
@@ -144,282 +144,181 @@ describe Fabrication do
     end
   end
 
-  context 'referenced mongoid documents' do
+  context 'referenced mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'embedded mongoid documents' do
+  context 'embedded mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
     it_should_behave_like 'something fabricatable'
   end
 
-  context 'sequel models' do
+  context 'sequel models', depends_on: :sequel do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
     it_should_behave_like 'something fabricatable'
 
     context 'with class table inheritance' do
       before do
-        Fabricate(:sequel_knight)
-        Fabricate(:sequel_farmer)
-        Fabricate(:sequel_knight)
+        clear_sequel_db
+        Fabricate(:inherited_sequel_model)
+        Fabricate(:parent_sequel_model)
+        Fabricate(:inherited_sequel_model)
       end
 
       it 'generates the right number of objects' do
-        SequelFarmer.count.should == 3
-        SequelKnight.count.should == 2
+        ParentSequelModel.count.should == 3
+        InheritedSequelModel.count.should == 2
       end
     end
   end
 
   context 'when the class requires a constructor' do
+    before(:all) do
+      class CustomInitializer < Struct.new(:field1, :field2); end
+      Fabricator(:custom_initializer)
+    end
+
     subject do
-      Fabricate(:city) do
-        on_init { init_with('Jacksonville Beach', 'FL') }
+      Fabricate(:custom_initializer) do
+        on_init { init_with('value1', 'value2') }
       end
     end
 
-    its(:city)  { should == 'Jacksonville Beach' }
-    its(:state) { should == 'FL' }
-  end
-
-  context 'with a class in a module' do
-    subject { Fabricate("Something::Amazing", :stuff => "things") }
-    its(:stuff) { should == "things" }
+    its(:field1)  { should == 'value1' }
+    its(:field2) { should == 'value2' }
   end
 
   context 'with the generation parameter' do
-
-    let(:person) do
-      Fabricate(:person, :first_name => "Paul") do
-        last_name { |attrs| "#{attrs[:first_name]}#{attrs[:age]}" }
-        age 50
+    let(:parent_ruby_object) do
+      Fabricate(:parent_ruby_object, string_field: "Paul") do
+        placeholder { |attrs| "#{attrs[:string_field]}#{attrs[:number_field]}" }
+        number_field 50
       end
     end
 
     it 'evaluates the fields in order of declaration' do
-      person.last_name.should == "Paul"
+      parent_ruby_object.string_field.should == "Paul"
     end
-
   end
 
   context 'with a field named the same as an Object method' do
-    subject { Fabricate(:company) }
-    its(:display) { should == 'for sure' }
+    subject { Fabricate(:predefined_namespaced_class, display: 'working') }
+    its(:display) { should == 'working' }
   end
 
   context 'multiple instance' do
+    let!(:parent_ruby_object1) { Fabricate(:parent_ruby_object, string_field: 'Jane') }
+    let!(:parent_ruby_object2) { Fabricate(:parent_ruby_object, string_field: 'John') }
 
-    let(:person1) { Fabricate(:person, :first_name => 'Jane') }
-    let(:person2) { Fabricate(:person, :first_name => 'John') }
-
-    it 'person1 is named Jane' do
-      person1.first_name.should == 'Jane'
+    it 'parent_ruby_object1 has the correct string field' do
+      parent_ruby_object1.string_field.should == 'Jane'
     end
 
-    it 'person2 is named John' do
-      person2.first_name.should == 'John'
+    it 'parent_ruby_object2 has the correct string field' do
+      parent_ruby_object2.string_field.should == 'John'
     end
 
-    it 'they have different last names' do
-      person1.last_name.should_not == person2.last_name
+    it 'they have different extra fields' do
+      expect(parent_ruby_object1.extra_fields).to_not equal(parent_ruby_object2.extra_fields)
     end
-
   end
 
   context 'with a specified class name' do
-
-    let(:someone) { Fabricate(:someone) }
+    subject { Fabricate(:custom_parent_ruby_object) }
 
     before do
-      Fabricator(:someone, :class_name => :person) do
-        first_name "Paul"
+      Fabricator(:custom_parent_ruby_object, class_name: :parent_ruby_object) do
+        string_field 'different'
       end
     end
 
-    it 'generates the person as someone' do
-      someone.first_name.should == "Paul"
-    end
-
-  end
-
-  context 'with an active record object' do
-
-    before { TestMigration.up }
-    after  { TestMigration.down }
-
-    before(:all) do
-      Fabrication.manager
-      Fabricator(:main_company, :from => :company) do
-        name { Faker::Company.name }
-        divisions(:count => 4)
-        non_field { "hi" }
-        after_create { |o| o.update_attributes(city: "Jacksonville Beach") }
-      end
-
-      Fabricator(:other_company, :from => :main_company) do
-        divisions(:count => 2)
-        before_validation { |o| o.name = "Crazysauce" }
-      end
-    end
-
-    let(:company) { Fabricate(:main_company, :name => "Hashrocket") }
-    let(:other_company) { Fabricate(:other_company) }
-
-    it 'generates field blocks immediately' do
-      company.name.should == "Hashrocket"
-    end
-
-    it 'generates associations immediately when forced' do
-      Division.find_all_by_company_id(company.id).count.should == 4
-    end
-
-    it 'generates non-database backed fields immediately' do
-      company.instance_variable_get(:@non_field).should == 'hi'
-    end
-
-    it 'executes after build blocks' do
-      other_company.name.should == 'Crazysauce'
-    end
-
-    it 'executes after create blocks' do
-      company.city.should == 'Jacksonville Beach'
-    end
-
-    it 'overrides associations' do
-      Fabricate(:company, :divisions => []).divisions.should == []
-    end
-
-    it 'overrides inherited associations' do
-      other_company.divisions.count.should == 2
-      Division.count.should == 2
-    end
-
+    its(:string_field) { should == 'different' }
   end
 
   context 'for namespaced classes' do
     context 'the namespaced class' do
-      subject { Fabricate('namespaced/team') }
-      its(:name) { should eq('A Random Team') }
-      its(:members_count) { should be_nil }
+      subject { Fabricate('namespaced_classes/ruby_object', name: 'working') }
+      its(:name) { should eq('working') }
+      it { should be_a(NamespacedClasses::RubyObject) }
     end
 
     context 'descendant from namespaced class' do
-      subject { Fabricate(:team_with_members_count) }
-      its(:name) { should eq('A Random Team') }
-      its(:members_count) { should == 7 }
+      subject { Fabricate(:predefined_namespaced_class) }
+      its(:name) { should eq('aaa') }
+      it { should be_a(NamespacedClasses::RubyObject) }
     end
   end
 
-  context 'with a mongoid document' do
-
-    let(:author) { Fabricate(:author) }
-
-    it "sets the author name" do
-      author.name.should == "George Orwell"
-    end
-
-    it 'generates four books' do
-      author.books.map(&:title).should == (1..4).map { |i| "book title #{i}" }
-    end
-
+  context 'with a mongoid document', depends_on: :mongoid do
     it "sets dynamic fields" do
-      Fabricate(:special_author).mongoid_dynamic_field.should == 50
+      expect(Fabricate(:parent_mongoid_document, mongoid_dynamic_field: 50).mongoid_dynamic_field).to eq 50
     end
 
     it "sets lazy dynamic fields" do
-      Fabricate(:special_author).lazy_dynamic_field.should == "foo"
+      expect(Fabricate(:parent_mongoid_document) { lazy_dynamic_field "foo" }.lazy_dynamic_field).to eq 'foo'
     end
 
     context "with disabled dynamic fields" do
-      before { Mongoid.allow_dynamic_fields = false }
-      after { Mongoid.allow_dynamic_fields = true }
-
       it "raises NoMethodError for mongoid_dynamic_field=" do
-        expect { Fabricate(:special_author) }.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
+        if Mongoid.respond_to?(:allow_dynamic_fields=)
+          Mongoid.allow_dynamic_fields = false
+          expect do
+            Fabricate(:parent_mongoid_document, mongoid_dynamic_field: 50)
+          end.to raise_error(Mongoid::Errors::UnknownAttribute, /mongoid_dynamic_field=/)
+          Mongoid.allow_dynamic_fields = true
+        end
       end
     end
   end
 
   context 'with multiple callbacks' do
-    let(:child) { Fabricate(:child) }
-
-    it "runs the first callback" do
-      child.first_name.should == "Johnny"
+    subject { Fabricate(:multiple_callbacks) }
+    before(:all) do
+      Fabricator(:multiple_callbacks, from: OpenStruct) do
+        before_validation { |o| o.callback1 = 'value1' }
+        before_validation { |o| o.callback2 = 'value2' }
+      end
     end
-
-    it "runs the second callback" do
-      child.age.should == 10
-    end
+    its(:callback1) { should == 'value1' }
+    its(:callback2) { should == 'value2' }
   end
 
   context 'with multiple, inherited callbacks' do
-    let(:senior) { Fabricate(:senior) }
-
-    it "runs the parent callbacks first" do
-      senior.age.should == 70
+    subject { Fabricate(:multiple_inherited_callbacks) }
+    before(:all) do
+      Fabricator(:multiple_inherited_callbacks, from: :multiple_callbacks) do
+        before_validation { |o| o.callback3 = o.callback1 + o.callback2 }
+      end
     end
-  end
-
-  context 'with a parent fabricator' do
-
-    context 'and a previously defined parent' do
-
-      let(:ernie) { Fabricate(:hemingway) }
-
-      it 'has the values from the parent' do
-        ernie.books.count.should == 4
-      end
-
-      it 'overrides specified values from the parent' do
-        ernie.name.should == 'Ernest Hemingway'
-      end
-
-    end
-
-    context 'and a class name as a parent' do
-
-      let(:greyhound) { Fabricate(:greyhound) }
-
-      it 'has the breed defined' do
-        greyhound.breed.should == 'greyhound'
-      end
-
-      it 'does not have a name' do
-        greyhound.name.should be_nil
-      end
-
-    end
-
+    its(:callback3) { 'value1value2' }
   end
 
   describe '.clear_definitions' do
     before { Fabrication.clear_definitions }
-    after { Fabrication::Support.find_definitions }
-
-    it 'should not generate authors' do
-      Fabrication.manager[:author].should be_nil
-    end
+    subject { Fabrication.manager }
+    it { should be_empty }
+    after { Fabrication.manager.load_definitions }
   end
 
   context 'when defining a fabricator twice' do
     it 'throws an error' do
-      lambda { Fabricator(:author) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
+      lambda { Fabricator(:parent_ruby_object) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
     end
   end
 
   context "when defining a fabricator for a class that doesn't exist" do
     it 'throws an error' do
-      lambda { Fabricator(:your_mom) }.should raise_error(Fabrication::UnfabricatableError)
+      lambda { Fabricator(:class_that_does_not_exist) }.should raise_error(Fabrication::UnfabricatableError)
     end
   end
 
   context 'when generating from a non-existant fabricator' do
     it 'throws an error' do
-      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::UnknownFabricatorError)
+      lambda { Fabricate(:misspelled_fabricator_name) }.should raise_error(Fabrication::UnknownFabricatorError)
     end
   end
 
@@ -466,29 +365,28 @@ describe Fabrication do
   end
 
   describe 'using an actual class in options' do
-    let(:some_company) { Fabricate(:some_company) }
-    subject { some_company }
+    subject { Fabricate(:actual_class) }
 
     context 'from' do
       before do
-        Fabricator(:some_company, :from => Company) do
+        Fabricator(:actual_class, from: OpenStruct) do
           name 'Hashrocket'
         end
       end
       after { Fabrication.clear_definitions }
       its(:name) { should == 'Hashrocket' }
-      it { should be_kind_of(Company) }
+      it { should be_kind_of(OpenStruct) }
     end
 
     context 'class_name' do
       before do
-        Fabricator(:some_company, :class_name => Company) do
+        Fabricator(:actual_class, class_name: OpenStruct) do
           name 'Hashrocket'
         end
       end
       after { Fabrication.clear_definitions }
       its(:name) { should == 'Hashrocket' }
-      it { should be_kind_of(Company) }
+      it { should be_kind_of(OpenStruct) }
     end
   end
 

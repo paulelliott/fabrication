@@ -13,17 +13,17 @@ describe Fabrication::Schematic::Definition do
   describe "generator selection" do
     subject { Fabrication::Schematic::Definition.new(klass).generator }
 
-    context "for an activerecord object" do
+    context "for an activerecord object", depends_on: :active_record do
       let(:klass) { ParentActiveRecordModel }
       it { should == Fabrication::Generator::ActiveRecord }
     end
 
-    context "for a mongoid object" do
+    context "for a mongoid object", depends_on: :mongoid do
       let(:klass) { ParentMongoidDocument }
       it { should == Fabrication::Generator::Mongoid }
     end
 
-    context "for a sequel object" do
+    context "for a sequel object", depends_on: :sequel do
       let(:klass) { ParentSequelModel }
       it { should == Fabrication::Generator::Sequel }
     end
@@ -228,12 +228,20 @@ describe Fabrication::Schematic::Definition do
   end
 
   context "when overriding" do
-    let(:address) { Address.new }
-
     it "symbolizes attribute keys" do
-      Fabricator(:address) { city { raise 'should not be called' } }
-      Fabricator(:contact) { address }
-      expect { Fabricate(:contact, 'address' => address) }.not_to raise_error
+      expect(Fabricate.build(:parent_ruby_object, 'string_field' => 'valid').string_field).to eq 'valid'
     end
+  end
+
+  describe '#sorted_attributes' do
+    subject { definition.sorted_attributes.map(&:name) }
+    let(:definition) do
+      Fabrication::Schematic::Definition.new(OpenStruct) do
+        three { nil }
+        one ''
+        transient :two
+      end
+    end
+    it { should == [:one, :two, :three] }
   end
 end

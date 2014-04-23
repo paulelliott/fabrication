@@ -1,3 +1,37 @@
+### 2.11.1 ###
+
+* Update string constantize to handle more edge cases (#209)
+
+### 2.11.0 ###
+
+* Process attributes with static values before ones with dynamic values at fabricate time (#208)
+
+### 2.10.0 ###
+
+* Add `rand` option when generating collections in fabricators (#207)
+* Include original exception when catching NameError in fabricators (#206)
+
+### 2.9.8 ###
+
+* Explicitly require rake for compatibility with certain IDE's. (#203, #204)
+
+### 2.9.7 ###
+
+* Support multiple path prefixes for fabricator definitions (#188)
+
+### 2.9.6 ###
+
+* Explicitly require singleton in schematic manager (#198)
+
+### 2.9.5 ###
+
+* Replace `delegate` calls with actual methods (#197)
+
+### 2.9.4 ###
+
+* Improve support for Rails 4 projects using protected attributes (#190)
+* Add rake task to list all known fabricators (#187)
+
 ### 2.9.3 ###
 
 * Use standard schematic fetch in cucumber step fabricator (#185)

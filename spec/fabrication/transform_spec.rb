@@ -11,7 +11,7 @@ describe Fabrication::Transform do
     context 'find definitions' do
       context 'transforms are empty' do
         it 'loads the definitions' do
-          Fabrication::Support.should_receive(:find_definitions)
+          Fabrication.manager.should_receive(:load_definitions)
           Fabrication::Transform.apply_to(nil, :name => 'Shay')
         end
       end
@@ -19,7 +19,7 @@ describe Fabrication::Transform do
       context 'transforms are not empty' do
         it 'does not load the definitions' do
           Fabrication::Transform.apply_to(nil, :name => 'Shay')
-          Fabrication::Support.should_not_receive(:find_definitions)
+          Fabrication.manager.should_not_receive(:load_definitions)
           Fabrication::Transform.apply_to(nil, :name => 'Gabriel')
         end
       end

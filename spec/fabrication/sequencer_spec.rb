@@ -68,17 +68,17 @@ describe Fabrication::Sequencer do
 
     context 'and then without a block' do
       it 'remembers the original block' do
-        Fabricate.sequence :ordinal, &:ordinalize
-        Fabricate.sequence(:ordinal).should == "1st"
+        Fabricate.sequence :changing_blocks do |i|
+          i * 10
+        end
+        Fabricate.sequence(:changing_blocks).should == 10
       end
       context 'and then with a new block' do
         it 'evaluates the new block' do
-          Fabricate.sequence(:ordinal) do |i|
-            i ** 2
-          end.should == 4
+          Fabricate.sequence(:changing_blocks) { |i| i ** 2 }.should == 4
         end
         it 'remembers the new block' do
-          Fabricate.sequence(:ordinal).should == 9
+          Fabricate.sequence(:changing_blocks).should == 9
         end
       end
     end
