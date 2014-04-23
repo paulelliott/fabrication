@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe Fabrication::Generator::DataMapper do
+describe Fabrication::Generator::DataMapper, depends_on: :data_mapper do
   describe '.supports?' do
     subject { Fabrication::Generator::DataMapper }
 
     it 'returns true for datamapper objects' do
-      subject.supports?(Movie).should be_true
+      subject.supports?(ParentDataMapperModel).should be_true
     end
 
     it 'returns false for non-datamapper objects objects' do
-      subject.supports?(Company).should be_false
+      subject.supports?(ParentRubyObject).should be_false
     end
   end
 end

@@ -58,5 +58,16 @@ describe Fabrication::Schematic::Attribute do
       end
       it { should == %w(something something) }
     end
+
+    context 'collection block with random amount' do
+      let(:random_amount) { 3 }
+      let(:attribute) do
+        Fabrication::Schematic::Attribute.new(Object, "a", nil, {rand: random_amount}) { 'something' }
+      end
+
+      it 'returns random number of items in collection with a max of passed in value' do
+        (1..random_amount).should be_member(attribute.processed_value({}).length)
+      end
+    end
   end
 end

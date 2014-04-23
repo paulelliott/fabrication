@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-describe Fabrication::Cucumber do
-  include described_class
-
+describe Fabrication::Cucumber::StepFabricator do
   let(:name) { 'dogs' }
 
   describe '#klass' do
@@ -11,8 +9,7 @@ describe Fabrication::Cucumber do
       let(:fabricator_name) { :dog }
 
       before do
-        Fabrication::Fabricator.stub(:schematic).
-          with(fabricator_name).and_return(double(klass: "Boom"))
+        Fabricate.stub(:schematic).with(fabricator_name).and_return(double(klass: "Boom"))
       end
 
       it { should == "Boom" }
@@ -36,12 +33,12 @@ describe Fabrication::Cucumber do
     let(:fabricator) { Fabrication::Cucumber::StepFabricator.new(name) }
 
     it "fabricates n times" do
-      Fabrication::Fabricator.should_receive(:fabricate).with(:dog, {}).exactly(n).times
+      Fabricate.should_receive(:create).with(:dog, {}).exactly(n).times
       fabricator.n n
     end
 
     it "fabricates with attrs" do
-      Fabrication::Fabricator.should_receive(:fabricate).
+      Fabricate.should_receive(:create).
         with(:dog, :collar => 'red').at_least(1)
       fabricator.n n, :collar => 'red'
     end
@@ -49,7 +46,7 @@ describe Fabrication::Cucumber do
     context 'with a plural subject' do
       let(:name) { 'dogs' }
       it 'remembers' do
-        Fabrication::Fabricator.stub(:fabricate).and_return("dog1", "dog2", "dog3")
+        Fabricate.stub(:create).and_return("dog1", "dog2", "dog3")
         fabricator.n n
         Fabrication::Cucumber::Fabrications[name].should == ["dog1", "dog2", "dog3"]
       end
@@ -58,7 +55,7 @@ describe Fabrication::Cucumber do
     context 'with a singular subject' do
       let(:name) { 'dog' }
       it 'remembers' do
-        Fabrication::Fabricator.stub(:fabricate).and_return("dog1")
+        Fabricate.stub(:create).and_return("dog1")
         fabricator.n 1
         Fabrication::Cucumber::Fabrications[name].should == 'dog1'
       end
@@ -69,17 +66,13 @@ describe Fabrication::Cucumber do
   describe '#from_table' do
     it 'maps column names to attribute names' do
       table = double(hashes: [{ 'Favorite Color' => 'pink' }])
-      Fabrication::Fabricator.should_receive(:fabricate).
-        with(:bear, :favorite_color => 'pink')
+      Fabricate.should_receive(:create).with(:bear, :favorite_color => 'pink')
       Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
     end
 
     context 'with table transforms' do
       let(:table) { double(hashes: [{ 'some' => 'thing' }]) }
-
-      before do
-        Fabrication::Fabricator.stub(:fabricate)
-      end
+      before { Fabricate.stub(:create) }
 
       it 'applies transforms' do
         Fabrication::Transform.should_receive(:apply_to).
@@ -95,14 +88,12 @@ describe Fabrication::Cucumber do
          {'some' => 'panother'}]
       end
       it 'fabricates with each rows attributes' do
-        Fabrication::Fabricator.should_receive(:fabricate).
-          with(:dog, {:some => 'thing'})
-        Fabrication::Fabricator.should_receive(:fabricate).
-          with(:dog, {:some => 'panother'})
+        Fabricate.should_receive(:create).with(:dog, {:some => 'thing'})
+        Fabricate.should_receive(:create).with(:dog, {:some => 'panother'})
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
-        Fabrication::Fabricator.stub(:fabricate).and_return('dog1', 'dog2')
+        Fabricate.stub(:create).and_return('dog1', 'dog2')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
         Fabrication::Cucumber::Fabrications[name].should == ["dog1", "dog2"]
       end
@@ -115,11 +106,11 @@ describe Fabrication::Cucumber do
         {'some' => 'thing'}
       end
       it 'fabricates with each row as an attribute' do
-        Fabrication::Fabricator.should_receive(:fabricate).with(:dog, {:some => 'thing'})
+        Fabricate.should_receive(:create).with(:dog, {:some => 'thing'})
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
-        Fabrication::Fabricator.stub(:fabricate).and_return('dog1')
+        Fabricate.stub(:create).and_return('dog1')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
         Fabrication::Cucumber::Fabrications[name].should == "dog1"
       end

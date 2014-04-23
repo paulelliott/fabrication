@@ -22,8 +22,8 @@ class Fabrication::Schematic::Attribute
   end
 
   def processed_value(processed_attributes)
-    if count
-      (1..count).map { |i| execute(processed_attributes, i, &value) }
+    if process_count
+      (1..process_count).map { |i| execute(processed_attributes, i, &value) }
     elsif value_proc?
       execute(processed_attributes, &value)
     else
@@ -31,13 +31,25 @@ class Fabrication::Schematic::Attribute
     end
   end
 
+  def value_static?; !value_proc? end
+  def value_proc?; Proc === value end
+
   private
 
   def execute(*args, &block)
     Fabrication::Schematic::Runner.new(klass).instance_exec(*args, &block)
   end
 
-  def count; params[:count] end
-  def value_proc?; Proc === value end
+  def process_count
+    count || rand
+  end
+
+  def count
+    params[:count]
+  end
+
+  def rand
+    Kernel.rand((1..params[:rand])) if params[:rand]
+  end
 
 end
