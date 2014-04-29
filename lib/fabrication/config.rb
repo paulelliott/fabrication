@@ -15,6 +15,7 @@ module Fabrication
     def fabricator_path
       @fabricator_path ||= ['test/fabricators', 'spec/fabricators']
     end
+    alias fabricator_paths fabricator_path
 
     def fabricator_dir
       puts "DEPRECATION WARNING: Fabrication::Config.fabricator_dir has been replaced by Fabrication::Config.fabricator_path"
@@ -40,6 +41,7 @@ module Fabrication
     def path_prefix
       @path_prefix ||= [defined?(Rails) ? Rails.root : "."]
     end
+    alias path_prefixes path_prefix
 
     attr_writer :register_with_steps
     def register_with_steps?; @register_with_steps end

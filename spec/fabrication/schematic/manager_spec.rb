@@ -56,6 +56,14 @@ describe Fabrication::Schematic::Manager do
   describe ".load_definitions" do
     before { Fabrication.clear_definitions }
 
+    context 'with multiple path_prefixes and fabricator_paths' do
+      it 'loads them all' do
+        expect(Fabrication::Config.path_prefixes).to receive(:each).and_call_original
+        expect(Fabrication::Config.fabricator_paths).to receive(:each)
+        Fabrication.manager.load_definitions
+      end
+    end
+
     context 'happy path' do
       it "loaded definitions" do
         Fabrication.manager.load_definitions
@@ -65,7 +73,7 @@ describe Fabrication::Schematic::Manager do
 
     context 'when an error occurs during the load' do
       it 'still freezes the manager' do
-        Fabrication::Config.should_receive(:fabricator_path).and_raise(Exception)
+        expect(Fabrication::Config).to receive(:fabricator_paths).and_raise(Exception)
         expect { Fabrication.manager.load_definitions }.to raise_error
         Fabrication.manager.should_not be_initializing
       end
