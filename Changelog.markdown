@@ -1,3 +1,7 @@
+### 2.11.2 ###
+
+* Fixed a bug preventing multiple path_prefixes from being loaded
+
 ### 2.11.1 ###
 
 * Update string constantize to handle more edge cases (#209)
