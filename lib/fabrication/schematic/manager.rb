@@ -42,7 +42,7 @@ class Fabrication::Schematic::Manager
   def load_definitions
     preinitialize
     Fabrication::Config.fabricator_path.each do |folder|
-      Dir.glob(File.join([Fabrication::Config.path_prefix, folder, '**', '*.rb'].compact)).sort.each do |file|
+      Dir.glob(File.join(Fabrication::Config.path_prefix, folder, '**', '*.rb')).sort.each do |file|
         load file
       end
     end

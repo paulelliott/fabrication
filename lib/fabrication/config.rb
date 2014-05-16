@@ -38,7 +38,7 @@ module Fabrication
     end
 
     def path_prefix
-      @path_prefix ||= [defined?(Rails) ? Rails.root : "."]
+      @path_prefix ||= [defined?(Rails) && Rails.root ? Rails.root : "."]
     end
 
     attr_writer :register_with_steps
