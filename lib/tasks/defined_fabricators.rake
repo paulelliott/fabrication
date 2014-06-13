@@ -1,7 +1,7 @@
 namespace :fabrication do
   desc "Display all registered fabricators by class"
   task :list => :environment do
-    Fabrication.manager.laod_definitions if Fabrication.manager.empty?
+    Fabrication.manager.load_definitions if Fabrication.manager.empty?
 
     if Fabrication.manager.schematics.none?
       puts "No fabricators found"
