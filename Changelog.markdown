@@ -1,3 +1,7 @@
+### 2.11.3 ###
+
+* Fixed a bug preventing the list rake task from working (#213)
+
 ### 2.11.2 ###
 
 * Fixed a bug preventing multiple path_prefixes from being loaded
