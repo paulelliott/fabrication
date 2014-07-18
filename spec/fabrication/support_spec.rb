@@ -7,15 +7,15 @@ describe Fabrication::Support do
     context "with a class that exists" do
 
       it "returns the class for a class" do
-        Fabrication::Support.class_for(Object).should == Object
+        expect(Fabrication::Support.class_for(Object)).to eq(Object)
       end
 
       it "returns the class for a class name string" do
-        Fabrication::Support.class_for('object').should == Object
+        expect(Fabrication::Support.class_for('object')).to eq(Object)
       end
 
       it "returns the class for a class name symbol" do
-        Fabrication::Support.class_for(:object).should == Object
+        expect(Fabrication::Support.class_for(:object)).to eq(Object)
       end
 
     end
@@ -23,13 +23,13 @@ describe Fabrication::Support do
     context "with a class that doesn't exist" do
 
       it "returns nil for a class name string" do
-        lambda { Fabrication::Support.class_for('your_mom') }.
-          should raise_error(Fabrication::UnfabricatableError)
+        expect { Fabrication::Support.class_for('your_mom') }.
+          to raise_error(Fabrication::UnfabricatableError)
       end
 
       it "returns nil for a class name symbol" do
-        lambda { Fabrication::Support.class_for(:your_mom) }.
-          should raise_error(Fabrication::UnfabricatableError)
+        expect { Fabrication::Support.class_for(:your_mom) }.
+          to raise_error(Fabrication::UnfabricatableError)
       end
 
       context "and custom const_missing is defined" do
@@ -42,8 +42,8 @@ describe Fabrication::Support do
         end
 
         it "raises an exception with the message from the original exception" do
-          lambda { Fabrication::Support.class_for("Family::Mom") }.
-            should raise_error(Fabrication::UnfabricatableError, /original message/)
+          expect { Fabrication::Support.class_for("Family::Mom") }.
+            to raise_error(Fabrication::UnfabricatableError, /original message/)
         end
       end
     end

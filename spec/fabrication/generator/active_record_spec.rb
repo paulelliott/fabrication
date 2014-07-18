@@ -6,11 +6,11 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
     subject { Fabrication::Generator::ActiveRecord }
 
     it "returns true for active record objects" do
-      subject.supports?(ParentActiveRecordModel).should be_true
+      expect(subject.supports?(ParentActiveRecordModel)).to be_true
     end
 
     it "returns false for non-active record objects" do
-      subject.supports?(ParentRubyObject).should be_false
+      expect(subject.supports?(ParentRubyObject)).to be_false
     end
   end
 
@@ -21,7 +21,7 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
     before { generator.send(:_instance=, instance) }
 
     it "saves" do
-      instance.should_receive(:save!)
+      expect(instance).to receive(:save!)
       generator.send(:persist)
     end
   end

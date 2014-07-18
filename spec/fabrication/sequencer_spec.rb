@@ -7,28 +7,28 @@ describe Fabrication::Sequencer do
 
     it { should == 0 }
     it 'creates a default sequencer' do
-      Fabrication::Sequencer.sequences[:_default].should == 1
+      expect(Fabrication::Sequencer.sequences[:_default]).to eq(1)
     end
   end
 
   context 'with only a name' do
 
     it 'starts with 0' do
-      Fabricate.sequence(:incr).should == 0
+      expect(Fabricate.sequence(:incr)).to eq(0)
     end
 
     it 'increments by one with each call' do
-      Fabricate.sequence(:incr).should == 1
-      Fabricate.sequence(:incr).should == 2
-      Fabricate.sequence(:incr).should == 3
-      Fabricate.sequence(:incr).should == 4
+      expect(Fabricate.sequence(:incr)).to eq(1)
+      expect(Fabricate.sequence(:incr)).to eq(2)
+      expect(Fabricate.sequence(:incr)).to eq(3)
+      expect(Fabricate.sequence(:incr)).to eq(4)
     end
 
     it 'increments counters separately' do
-      Fabricate.sequence(:number).should == 0
-      Fabricate.sequence(:number).should == 1
-      Fabricate.sequence(:number).should == 2
-      Fabricate.sequence(:number).should == 3
+      expect(Fabricate.sequence(:number)).to eq(0)
+      expect(Fabricate.sequence(:number)).to eq(1)
+      expect(Fabricate.sequence(:number)).to eq(2)
+      expect(Fabricate.sequence(:number)).to eq(3)
     end
 
   end
@@ -36,14 +36,14 @@ describe Fabrication::Sequencer do
   context 'with a name and starting number' do
 
     it 'starts with the number provided' do
-      Fabricate.sequence(:higher, 69).should == 69
+      expect(Fabricate.sequence(:higher, 69)).to eq(69)
     end
 
     it 'increments by one with each call' do
-      Fabricate.sequence(:higher).should == 70
-      Fabricate.sequence(:higher, 69).should == 71
-      Fabricate.sequence(:higher).should == 72
-      Fabricate.sequence(:higher).should == 73
+      expect(Fabricate.sequence(:higher)).to eq(70)
+      expect(Fabricate.sequence(:higher, 69)).to eq(71)
+      expect(Fabricate.sequence(:higher)).to eq(72)
+      expect(Fabricate.sequence(:higher)).to eq(73)
     end
 
   end
@@ -51,19 +51,19 @@ describe Fabrication::Sequencer do
   context 'with a block' do
 
     it 'yields the number to the block and returns the value' do
-      Fabricate.sequence(:email) do |i|
+      expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end.should == "user0@example.com"
+      end).to eq("user0@example.com")
     end
 
     it 'increments by one with each call' do
-      Fabricate.sequence(:email) do |i|
+      expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end.should == "user1@example.com"
+      end).to eq("user1@example.com")
 
-      Fabricate.sequence(:email) do |i|
+      expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end.should == "user2@example.com"
+      end).to eq("user2@example.com")
     end
 
     context 'and then without a block' do
@@ -71,14 +71,14 @@ describe Fabrication::Sequencer do
         Fabricate.sequence :changing_blocks do |i|
           i * 10
         end
-        Fabricate.sequence(:changing_blocks).should == 10
+        expect(Fabricate.sequence(:changing_blocks)).to eq(10)
       end
       context 'and then with a new block' do
         it 'evaluates the new block' do
-          Fabricate.sequence(:changing_blocks) { |i| i ** 2 }.should == 4
+          expect(Fabricate.sequence(:changing_blocks) { |i| i ** 2 }).to eq(4)
         end
         it 'remembers the new block' do
-          Fabricate.sequence(:changing_blocks).should == 9
+          expect(Fabricate.sequence(:changing_blocks)).to eq(9)
         end
       end
     end
@@ -91,8 +91,8 @@ describe Fabrication::Sequencer do
       Fabricate.sequence(:colors) do |i|
         %w[red green blue][i % 3]
       end
-      Fabricate.sequence(:shapes).should == 'circle'
-      Fabricate.sequence(:colors).should == 'green'
+      expect(Fabricate.sequence(:shapes)).to eq('circle')
+      expect(Fabricate.sequence(:colors)).to eq('green')
     end
   end
 
@@ -103,11 +103,11 @@ describe Fabrication::Sequencer do
     end
 
     it "starts a new sequence at the default" do
-      Fabricate.sequence(:default_test).should == 10000
+      expect(Fabricate.sequence(:default_test)).to eq(10000)
     end
 
     it "respects start value passed as an argument" do
-      Fabricate.sequence(:default_test2, 9).should == 9
+      expect(Fabricate.sequence(:default_test2, 9)).to eq(9)
     end
 
     after do

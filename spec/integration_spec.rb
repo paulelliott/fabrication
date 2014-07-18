@@ -46,7 +46,7 @@ shared_examples 'something fabricatable' do
 
   context 'state of the object' do
     it 'generates a fresh object every time' do
-      Fabricate(fabricator_name).should_not == subject
+      expect(Fabricate(fabricator_name)).not_to eq(subject)
     end
     it { should be_persisted }
   end
@@ -62,7 +62,7 @@ shared_examples 'something fabricatable' do
 
     it 'cascades to child records' do
       subject.send(collection_field).each do |o|
-        o.should_not be_persisted
+        expect(o).not_to be_persisted
       end
     end
   end
@@ -84,11 +84,11 @@ shared_examples 'something fabricatable' do
     subject { Fabricate("#{Fabrication::Support.singularize(collection_field.to_s)}_with_parent") }
 
     it 'sets the parent association' do
-      subject.send(fabricator_name).should be
+      expect(subject.send(fabricator_name)).to be
     end
 
     it 'sets the id of the associated object' do
-      subject.send("#{fabricator_name}_id").should == subject.send(fabricator_name).id
+      expect(subject.send("#{fabricator_name}_id")).to eq(subject.send(fabricator_name).id)
     end
   end
 end
@@ -170,8 +170,8 @@ describe Fabrication do
       end
 
       it 'generates the right number of objects' do
-        ParentSequelModel.count.should == 3
-        InheritedSequelModel.count.should == 2
+        expect(ParentSequelModel.count).to eq(3)
+        expect(InheritedSequelModel.count).to eq(2)
       end
     end
   end
@@ -201,7 +201,7 @@ describe Fabrication do
     end
 
     it 'evaluates the fields in order of declaration' do
-      parent_ruby_object.string_field.should == "Paul"
+      expect(parent_ruby_object.string_field).to eq("Paul")
     end
   end
 
@@ -215,11 +215,11 @@ describe Fabrication do
     let!(:parent_ruby_object2) { Fabricate(:parent_ruby_object, string_field: 'John') }
 
     it 'parent_ruby_object1 has the correct string field' do
-      parent_ruby_object1.string_field.should == 'Jane'
+      expect(parent_ruby_object1.string_field).to eq('Jane')
     end
 
     it 'parent_ruby_object2 has the correct string field' do
-      parent_ruby_object2.string_field.should == 'John'
+      expect(parent_ruby_object2.string_field).to eq('John')
     end
 
     it 'they have different extra fields' do
@@ -306,19 +306,19 @@ describe Fabrication do
 
   context 'when defining a fabricator twice' do
     it 'throws an error' do
-      lambda { Fabricator(:parent_ruby_object) {} }.should raise_error(Fabrication::DuplicateFabricatorError)
+      expect { Fabricator(:parent_ruby_object) {} }.to raise_error(Fabrication::DuplicateFabricatorError)
     end
   end
 
   context "when defining a fabricator for a class that doesn't exist" do
     it 'throws an error' do
-      lambda { Fabricator(:class_that_does_not_exist) }.should raise_error(Fabrication::UnfabricatableError)
+      expect { Fabricator(:class_that_does_not_exist) }.to raise_error(Fabrication::UnfabricatableError)
     end
   end
 
   context 'when generating from a non-existant fabricator' do
     it 'throws an error' do
-      lambda { Fabricate(:misspelled_fabricator_name) }.should raise_error(Fabrication::UnknownFabricatorError)
+      expect { Fabricate(:misspelled_fabricator_name) }.to raise_error(Fabrication::UnknownFabricatorError)
     end
   end
 
@@ -330,13 +330,13 @@ describe Fabrication do
       end
 
       it 'works fine' do
-        Fabricate(:widget).should be
+        expect(Fabricate(:widget)).to be
       end
     end
 
     context 'for a non-existant class' do
       it "raises an error if the class cannot be located" do
-        lambda { Fabricator(:somenonexistantclass) }.should raise_error(Fabrication::UnfabricatableError)
+        expect { Fabricator(:somenonexistantclass) }.to raise_error(Fabrication::UnfabricatableError)
       end
     end
   end
@@ -360,7 +360,7 @@ describe Fabrication do
     after { Fabrication.manager.freeze }
 
     it 'throws an error' do
-      lambda { Fabricate(:your_mom) }.should raise_error(Fabrication::MisplacedFabricateError)
+      expect { Fabricate(:your_mom) }.to raise_error(Fabrication::MisplacedFabricateError)
     end
   end
 

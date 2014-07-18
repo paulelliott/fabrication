@@ -5,7 +5,7 @@ describe Fabrication::Generator::Base do
   describe ".supports?" do
     subject { Fabrication::Generator::Base }
     it "supports any object" do
-      subject.supports?(Object).should be_true
+      expect(subject.supports?(Object)).to be_true
     end
   end
 
@@ -47,8 +47,8 @@ describe Fabrication::Generator::Base do
         end
 
         it "sends the return value of the block to the klass' initialize method" do
-          subject.arg1.should == :a
-          subject.arg2.should == :b
+          expect(subject.arg1).to eq(:a)
+          expect(subject.arg2).to eq(:b)
         end
       end
 
@@ -60,8 +60,8 @@ describe Fabrication::Generator::Base do
         end
 
         it "sends the return value of the block to the klass' initialize method" do
-          subject.arg1.should == :a
-          subject.arg2.should == :b
+          expect(subject.arg1).to eq(:a)
+          expect(subject.arg2).to eq(:b)
         end
 
       end
@@ -80,8 +80,8 @@ describe Fabrication::Generator::Base do
         end
 
         it "saves the return value of the block as instance" do
-          subject.arg1.should == :fixed_value
-          subject.arg2.should == nil
+          expect(subject.arg1).to eq(:fixed_value)
+          expect(subject.arg2).to eq(nil)
         end
       end
 
@@ -95,16 +95,16 @@ describe Fabrication::Generator::Base do
 
         context "without override" do
           it "saves the return value of the block as instance" do
-            subject.arg1.should == 10
-            subject.arg2.should == 20
+            expect(subject.arg1).to eq(10)
+            expect(subject.arg2).to eq(20)
           end
         end
 
         context "with override" do
           subject { schematic.fabricate(arg1: 30) }
           it "saves the return value of the block as instance" do
-            subject.arg1.should == 30
-            subject.arg2.should == 40
+            expect(subject.arg1).to eq(30)
+            expect(subject.arg2).to eq(40)
           end
         end
 
@@ -168,7 +168,7 @@ describe Fabrication::Generator::Base do
     before { generator.send(:_instance=, instance) }
 
     it 'saves' do
-      instance.should_receive(:save!)
+      expect(instance).to receive(:save!)
       generator.send(:persist)
     end
   end

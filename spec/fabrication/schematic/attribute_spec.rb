@@ -21,7 +21,7 @@ describe Fabrication::Schematic::Attribute do
       end
 
       it "has a proc for a value" do
-        Proc.should === subject.value
+        expect(Proc).to be === subject.value
       end
     end
 
@@ -66,7 +66,7 @@ describe Fabrication::Schematic::Attribute do
       end
 
       it 'returns random number of items in collection with a max of passed in value' do
-        (1..random_amount).should be_member(attribute.processed_value({}).length)
+        expect(1..random_amount).to be_member(attribute.processed_value({}).length)
       end
     end
   end

@@ -11,7 +11,7 @@ describe Fabrication::Transform do
     context 'find definitions' do
       context 'transforms are empty' do
         it 'loads the definitions' do
-          Fabrication.manager.should_receive(:load_definitions)
+          expect(Fabrication.manager).to receive(:load_definitions)
           Fabrication::Transform.apply_to(nil, :name => 'Shay')
         end
       end
@@ -19,7 +19,7 @@ describe Fabrication::Transform do
       context 'transforms are not empty' do
         it 'does not load the definitions' do
           Fabrication::Transform.apply_to(nil, :name => 'Shay')
-          Fabrication.manager.should_not_receive(:load_definitions)
+          expect(Fabrication.manager).not_to receive(:load_definitions)
           Fabrication::Transform.apply_to(nil, :name => 'Gabriel')
         end
       end
@@ -36,20 +36,20 @@ describe Fabrication::Transform do
         end
 
         it 'applies the transform to the specified types' do
-          Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'}).should == {:city => 'JACKSONVILLE BEACH'}
+          expect(Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'})).to eq({:city => 'JACKSONVILLE BEACH'})
         end
       end
 
       context 'no override has been defined' do
         it 'applies the generic transform' do
-          Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'}).should == {:city => 'Jacksonville'}
+          expect(Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'})).to eq({:city => 'Jacksonville'})
         end
       end
     end
 
     context 'when no generic transform has been defined' do
       it 'does not change value' do
-        Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'}).should == {:city => 'Jacksonville Beach'}
+        expect(Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'})).to eq({:city => 'Jacksonville Beach'})
       end
     end
 
@@ -61,7 +61,7 @@ describe Fabrication::Transform do
         end
 
         it 'applies corretly' do
-          Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'}).should == {:city => 'JACKSONVILLE BEACH'}
+          expect(Fabrication::Transform.apply_to(:address, {:city => 'Jacksonville Beach'})).to eq({:city => 'JACKSONVILLE BEACH'})
         end
       end
     end
@@ -72,24 +72,24 @@ describe Fabrication::Transform do
       Fabrication::Transform.define(:name, lambda {|value| value})
       Fabrication::Transform.only_for(:address, :name, lambda {|value| value})
       Fabrication::Transform.clear_all
-      Fabrication::Transform.send(:transforms).should be_empty
-      Fabrication::Transform.send(:overrides).should be_empty
+      expect(Fabrication::Transform.send(:transforms)).to be_empty
+      expect(Fabrication::Transform.send(:overrides)).to be_empty
     end
   end
 
   describe '.define' do
     it 'registers transform' do
-      lambda {
+      expect {
         Fabrication::Transform.define(:name, lambda {|value| value})
-      }.should change(Fabrication::Transform, :transforms)
+      }.to change(Fabrication::Transform, :transforms)
     end
   end
 
   describe '.only_for' do
     it 'registers an override transform for provided model' do
-      lambda {
+      expect {
         Fabrication::Transform.only_for(:address, :name, lambda {|value| value})
-      }.should change(Fabrication::Transform, :overrides)
+      }.to change(Fabrication::Transform, :overrides)
     end
   end
 

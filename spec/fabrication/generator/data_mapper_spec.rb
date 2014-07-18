@@ -5,11 +5,11 @@ describe Fabrication::Generator::DataMapper, depends_on: :data_mapper do
     subject { Fabrication::Generator::DataMapper }
 
     it 'returns true for datamapper objects' do
-      subject.supports?(ParentDataMapperModel).should be_true
+      expect(subject.supports?(ParentDataMapperModel)).to be_true
     end
 
     it 'returns false for non-datamapper objects objects' do
-      subject.supports?(ParentRubyObject).should be_false
+      expect(subject.supports?(ParentRubyObject)).to be_false
     end
   end
 end
