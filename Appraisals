@@ -29,7 +29,7 @@ appraise 'rails-3.1' do
 end
 
 appraise 'mongoid-4.0' do
-  gem 'mongoid', '4.0.0.beta1'
+  gem 'mongoid', '~> 4.0.0'
 end
 
 appraise 'mongoid-3.1' do
