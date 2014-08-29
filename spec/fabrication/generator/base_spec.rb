@@ -5,7 +5,7 @@ describe Fabrication::Generator::Base do
   describe ".supports?" do
     subject { Fabrication::Generator::Base }
     it "supports any object" do
-      expect(subject.supports?(Object)).to be_true
+      expect(subject.supports?(Object)).to be true
     end
   end
 

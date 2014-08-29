@@ -19,7 +19,7 @@ if defined?(I18n)
 end
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.raise_errors_for_deprecations!
 
   config.around do |example|
     example.run if DEFINED_CLASSES.fetch(example.metadata[:depends_on], true)

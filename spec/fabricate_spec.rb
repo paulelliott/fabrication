@@ -4,8 +4,8 @@ describe Fabricate do
   describe ".times" do
     it "fabricates an object X times" do
       objects = Fabricate.times(3, :parent_ruby_object)
-      expect(objects).to have(3).elements
-      expect(objects.all?(&:persisted?)).to be_true
+      expect(objects.length).to eq 3
+      expect(objects.all?(&:persisted?)).to be true
     end
 
     it "delegates overrides and blocks properly" do
@@ -20,8 +20,8 @@ describe Fabricate do
   describe ".build_times" do
     it "fabricates an object X times" do
       objects = Fabricate.build_times(3, :parent_ruby_object)
-      expect(objects).to have(3).elements
-      expect(objects.all?(&:persisted?)).to be_false
+      expect(objects.length).to eq 3
+      expect(objects.all?(&:persisted?)).to be false
     end
 
     it "delegates overrides and blocks properly" do

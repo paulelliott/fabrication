@@ -6,11 +6,11 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
     subject { Fabrication::Generator::ActiveRecord }
 
     it "returns true for active record objects" do
-      expect(subject.supports?(ParentActiveRecordModel)).to be_true
+      expect(subject.supports?(ParentActiveRecordModel)).to be true
     end
 
     it "returns false for non-active record objects" do
-      expect(subject.supports?(ParentRubyObject)).to be_false
+      expect(subject.supports?(ParentRubyObject)).to be false
     end
   end
 
