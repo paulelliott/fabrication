@@ -41,10 +41,10 @@ Given /^(?:that|those) (.*) belongs? to that (.*)$/ do |children, parent|
 end
 
 Then /^I should see (\d+) ([^"]*) in the database$/ do |count, model_name|
-  Fabrication::Cucumber::StepFabricator.new(model_name).klass.count.should == count.to_i
+  expect(Fabrication::Cucumber::StepFabricator.new(model_name).klass.count).to eq(count.to_i)
 end
 
 Then /^I should see the following (.*) in the database:$/ do |model_name, table|
   klass = Fabrication::Cucumber::StepFabricator.new(model_name).klass
-  klass.where(table.rows_hash.symbolize_keys).count.should == 1
+  expect(klass.where(table.rows_hash.symbolize_keys).count).to eq(1)
 end
