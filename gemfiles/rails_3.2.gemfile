@@ -8,6 +8,7 @@ gem "ffaker"
 gem "pry"
 gem "rake"
 gem "rspec"
+gem "rspec-its"
 gem "sqlite3"
 gem "activerecord", "~> 3.2.0", :require => "active_record"
 
