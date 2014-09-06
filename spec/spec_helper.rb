@@ -29,4 +29,11 @@ RSpec.configure do |config|
     TestMigration.up if DEFINED_CLASSES[:active_record]
     clear_mongodb
   end
+
+  if DEFINED_CLASSES[:active_record]
+    require 'rspec/rails/adapters'
+    require 'rspec/rails/fixture_support'
+    config.fixture_path = "spec/fixtures"
+    config.include RSpec::Rails::FixtureSupport
+  end
 end
