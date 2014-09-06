@@ -23,4 +23,8 @@ if defined?(ActiveRecord)
   Fabricator(:child_active_record_model_with_parent, from: :child_active_record_model) do
     parent_active_record_model
   end
+
+  Fabricator(:child_active_record_model_with_parent_fixture, from: :child_active_record_model) do
+    parent_active_record_model { parent_active_record_models(:parent) }
+  end
 end

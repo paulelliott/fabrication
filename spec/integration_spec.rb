@@ -122,6 +122,16 @@ describe Fabrication do
       let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
       it { should be_kind_of(ChildActiveRecordModel) }
     end
+
+    context 'with fixtures' do
+      fixtures :parent_active_record_models
+      let(:parent_from_fixture) { parent_active_record_models(:parent) }
+      subject(:child) { Fabricate(:child_active_record_model_with_parent_fixture) }
+      it { should be_kind_of(ChildActiveRecordModel) }
+      it "should load the parent from fixtures" do
+        expect(child.parent_active_record_model).to eq(parent_from_fixture)
+      end
+    end
   end
 
   context 'data_mapper models', depends_on: :data_mapper do

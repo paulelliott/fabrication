@@ -13,6 +13,8 @@ end
 
 appraise 'rails-4.1' do
   gem 'activerecord', '~> 4.1.0', require: 'active_record'
+  gem 'rails', '~> 4.1.0'
+  gem 'rspec-rails'
 end
 
 appraise 'rails-4' do
