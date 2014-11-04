@@ -11,6 +11,10 @@ end
 appraise 'blank-slate' do
 end
 
+appraise 'rails-4.2' do
+  gem 'activerecord', '~> 4.2.0.beta4', require: 'active_record'
+end
+
 appraise 'rails-4.1' do
   gem 'activerecord', '~> 4.1.0', require: 'active_record'
 end
