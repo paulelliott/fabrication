@@ -41,7 +41,7 @@ class Fabrication::Schematic::Attribute
   end
 
   def process_count
-    count || rand || rand_range
+    count || rand
   end
 
   def count
@@ -49,11 +49,11 @@ class Fabrication::Schematic::Attribute
   end
 
   def rand
-    Kernel.rand((1..params[:rand])) if params[:rand]
-  end
-
-  def rand_range
-    Kernel.rand((params[:start_range]..params[:end_range])) if params[:start_range] && params[:end_range]
+    if params[:rand].is_a?(Range)
+      Kernel.rand((params[:rand].begin..params[:rand].end))
+    else
+      Kernel.rand((1..params[:rand])) if params[:rand]
+    end
   end
 
 end
