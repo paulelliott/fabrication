@@ -74,10 +74,10 @@ describe Fabrication::Schematic::Attribute do
       let(:range_start) { 10 }
       let(:range_end) { 21 }
       let(:attribute) do
-        Fabrication::Schematic::Attribute.new(Object, "a", nil, {count: (range_start)..(range_end)}) { 'something' }
+        Fabrication::Schematic::Attribute.new(Object, "a", nil, {rand: (range_start)..(range_end)}) { 'something' }
       end
 
-      it 'returns random number of items in collection with a min and max of passed in value' do
+      it 'returns random number of items in collection with a min and max of passed in values' do
         expect(range_start..range_end).to be_member(attribute.processed_value({}).length)
       end
     end

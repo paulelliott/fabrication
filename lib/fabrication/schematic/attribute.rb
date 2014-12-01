@@ -45,15 +45,15 @@ class Fabrication::Schematic::Attribute
   end
 
   def count
-    if params[:count].is_a?(Range)
-      Kernel.rand((params[:count].begin..params[:count].end))
-    else
-      params[:count]
-    end
+    params[:count]
   end
 
   def rand
-    Kernel.rand((1..params[:rand])) if params[:rand]
+    if params[:rand].is_a?(Range)
+      Kernel.rand((params[:rand].begin..params[:rand].end))
+    else
+      Kernel.rand((1..params[:rand])) if params[:rand]
+    end
   end
 
 end
