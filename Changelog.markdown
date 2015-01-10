@@ -1,3 +1,8 @@
+### 2.12.0 ###
+
+* Fix typo in rake task
+* Leverage ActiveSupport's `classify` if available
+
 ### 2.11.3 ###
 
 * Fixed a bug preventing the list rake task from working (#213)
