@@ -8,7 +8,7 @@ class Fabrication::Support
 
     def class_for(class_or_to_s)
       class_name = variable_name_to_class_name(class_or_to_s)
-      klass = constantize(class_name)
+      constantize(class_name)
     rescue NameError => original_error
       raise Fabrication::UnfabricatableError.new(class_or_to_s, original_error)
     end
