@@ -7,7 +7,6 @@ module Fabrication
     def reset_defaults
       @fabricator_path =
         @path_prefix =
-        @active_support =
         @sequence_start =
         nil
     end
