@@ -66,12 +66,20 @@ class Fabrication::Schematic::Manager
   end
 
   def resolve_class(name, parent, options)
-    Fabrication::Support.class_for(
-      options[:class_name] ||
+    if class_name = options[:class_name]
+      return class_name if class_name.is_a?(Class)
+      begin
+        Fabrication::Support.constantize(class_name)
+      rescue
+        Fabrication::Support.class_for(class_name)
+      end
+    else
+      Fabrication::Support.class_for(
         (parent && parent.klass) ||
         options[:from] ||
         name
-    )
+      )
+    end
   end
 
   def schematic_for(name, options, &block)
