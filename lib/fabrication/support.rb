@@ -39,12 +39,7 @@ class Fabrication::Support
     end
 
     def variable_name_to_class_name(name)
-      name = name.to_s
-      if name.respond_to?(:classify)
-        name.to_s.classify
-      else
-        name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
-      end
+      name.to_s.gsub(/\/(.?)/){"::#{$1.upcase}"}.gsub(/(?:^|_)(.)/){$1.upcase}
     end
 
     def find_definitions
