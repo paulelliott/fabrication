@@ -1,3 +1,7 @@
+### 2.12.1 ###
+
+* Constantize class_name as it is supplied in fabricator definition (#238)
+
 ### 2.12.0 ###
 
 * Fix typo in rake task
