@@ -12,11 +12,15 @@ module Fabrication
   autoload :MisplacedFabricateError,  'fabrication/errors/misplaced_fabricate_error'
 
   module Schematic
-    autoload :Attribute,  'fabrication/schematic/attribute'
-    autoload :Definition, 'fabrication/schematic/definition'
-    autoload :Manager,    'fabrication/schematic/manager'
-    autoload :Evaluator,  'fabrication/schematic/evaluator'
-    autoload :Runner,     'fabrication/schematic/runner'
+    autoload :Attribute,        'fabrication/schematic/attribute'
+    autoload :Definition,       'fabrication/schematic/definition'
+    autoload :Manager,          'fabrication/schematic/manager'
+    autoload :Evaluator,        'fabrication/schematic/evaluator'
+    autoload :Runner,           'fabrication/schematic/runner'
+    autoload :ClassResolver,    'fabrication/schematic/class_resolver'
+    autoload :ResolverStrategy, 'fabrication/schematic/class_resolver/strategies/resolver_strategy'
+    autoload :ExplicitResolver, 'fabrication/schematic/class_resolver/strategies/explicit_strategy'
+    autoload :DefaultResolver,  'fabrication/schematic/class_resolver/strategies/default_strategy'
   end
 
   autoload :Config,     'fabrication/config'
