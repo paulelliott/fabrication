@@ -390,15 +390,4 @@ describe Fabrication do
     end
   end
 
-  describe 'pluralized class names' do
-    before do
-      class Cats; end
-      Fabricator(:my_many_cats, class_name: 'Cats')
-    end
-
-    it 'generates the proper class' do
-      expect(Fabricate(:my_many_cats).class).to eq(Cats)
-    end
-  end
-
 end
