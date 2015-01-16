@@ -1,3 +1,7 @@
+### 2.12.2 ###
+
+* Revert usage of ActiveSupport classify. This was expected to make it class resolution easier in Rails apps but turned out to cause a lot of trouble for some users. Everything is back to normal now.
+
 ### 2.12.1 ###
 
 * Constantize class_name as it is supplied in fabricator definition (#238)
