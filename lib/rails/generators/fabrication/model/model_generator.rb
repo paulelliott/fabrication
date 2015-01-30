@@ -9,7 +9,7 @@ module Fabrication
 
       def create_fabrication_file
         copy_attributes_from_model if attributes.empty?
-        template 'fabricator.rb', File.join(options[:dir], "#{singular_table_name}_fabricator.#{options[:extension].to_s}")
+        template 'fabricator.erb', File.join(options[:dir], "#{singular_table_name}_fabricator.#{options[:extension].to_s}")
       end
 
       def self.source_root
