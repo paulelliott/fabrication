@@ -310,12 +310,6 @@ describe Fabrication do
     end
   end
 
-  context "when defining a fabricator for a class that doesn't exist" do
-    it 'throws an error' do
-      expect { Fabricator(:class_that_does_not_exist) }.to raise_error(Fabrication::UnfabricatableError)
-    end
-  end
-
   context 'when generating from a non-existant fabricator' do
     it 'throws an error' do
       expect { Fabricate(:misspelled_fabricator_name) }.to raise_error(Fabrication::UnknownFabricatorError)
@@ -331,12 +325,6 @@ describe Fabrication do
 
       it 'works fine' do
         expect(Fabricate(:widget)).to be
-      end
-    end
-
-    context 'for a non-existant class' do
-      it "raises an error if the class cannot be located" do
-        expect { Fabricator(:somenonexistantclass) }.to raise_error(Fabrication::UnfabricatableError)
       end
     end
   end

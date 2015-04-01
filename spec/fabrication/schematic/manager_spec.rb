@@ -18,21 +18,21 @@ describe Fabrication::Schematic::Manager do
     end
 
     it "creates a schematic" do
-      expect(subject.schematics[:open_struct]).to be
+      expect(subject[:open_struct]).to be
     end
 
     it "has the correct class" do
-      expect(subject.schematics[:open_struct].klass).to eq(OpenStruct)
+      expect(subject[:open_struct].klass).to eq(OpenStruct)
     end
 
     it "has the attributes" do
-      expect(subject.schematics[:open_struct].attributes.size).to eq(2)
+      expect(subject[:open_struct].attributes.size).to eq(2)
     end
 
     context "with an alias" do
       it "recognizes the aliases" do
-        expect(subject.schematics[:thing_one]).to eq(subject.schematics[:open_struct])
-        expect(subject.schematics[:thing_two]).to eq(subject.schematics[:open_struct])
+        expect(subject[:thing_one]).to eq(subject[:open_struct])
+        expect(subject[:thing_two]).to eq(subject[:open_struct])
       end
     end
 
