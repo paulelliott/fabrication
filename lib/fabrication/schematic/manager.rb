@@ -14,8 +14,14 @@ class Fabrication::Schematic::Manager
     @schematics ||= {}
   end
 
-  def clear; schematics.clear end
-  def empty?; schematics.empty? end
+  def clear
+    schematics.clear
+    schematic_params.clear
+  end
+
+  def empty?
+    schematics.empty? && schematic_params.empty?
+  end
 
   def freeze
     @initializing = false
@@ -28,7 +34,8 @@ class Fabrication::Schematic::Manager
   end
 
   def [](name)
-    schematics[name.to_sym]
+    name = name.to_sym
+    schematics.fetch(name) { schematic_from_params(name) }
   end
 
   def build_stack
@@ -56,13 +63,16 @@ class Fabrication::Schematic::Manager
 
   protected
 
+  def schematic_params
+    @schematic_params ||= {}
+  end
+
   def raise_if_registered(name)
     (raise Fabrication::DuplicateFabricatorError, name) if self[name]
   end
 
   def store(name, aliases, options, &block)
-    schematic = schematics[name] = schematic_for(name, options, &block)
-    aliases.each { |as| schematics[as.to_sym] = schematic }
+    [name, *aliases].each { |as| schematic_params[as.to_sym] = [name, options, block] }
   end
 
   def resolve_class(name, parent, options)
@@ -85,4 +95,18 @@ class Fabrication::Schematic::Manager
     end
   end
 
+  def schematic_from_params(name)
+    return nil unless schematic_params.key?(name)
+
+    schematic_name, options, block = schematic_params.delete(name)
+
+    # resolve the main schematic if this is an alias
+    if name == schematic_name
+      schematic = schematic_for(schematic_name, options, &block)
+    else
+      schematic = self[schematic_name] unless name == schematic_name
+    end
+
+    schematics[name] = schematic
+  end
 end
