@@ -8,12 +8,26 @@ module Fabrication
       class_option :extension, :type => :string, :default => "rb", :desc => "file extension name"
 
       def create_fabrication_file
-        template 'fabricator.rb', File.join(options[:dir], "#{singular_table_name}_fabricator.#{options[:extension].to_s}")
+        copy_attributes_from_model if attributes.empty?
+        template 'fabricator.erb', File.join(options[:dir], "#{singular_table_name}_fabricator.#{options[:extension].to_s}")
       end
 
       def self.source_root
         @_fabrication_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
+
+      private
+
+      def copy_attributes_from_model
+        model = class_name.constantize
+        if defined?(ActiveRecord) && model < ActiveRecord::Base
+          self.attributes = model.columns_hash.map { |name, column|
+            Rails::Generators::GeneratedAttribute.new(name, column.type)
+          }
+        end
+      rescue NameError
+      end
+
     end
   end
 end
