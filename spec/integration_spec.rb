@@ -333,12 +333,6 @@ describe Fabrication do
         expect(Fabricate(:widget)).to be
       end
     end
-
-    context 'for a non-existant class' do
-      it "raises an error if the class cannot be located" do
-        expect { Fabricator(:somenonexistantclass) }.to raise_error(Fabrication::UnfabricatableError)
-      end
-    end
   end
 
   describe "Fabricate with a sequence" do
