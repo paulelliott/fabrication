@@ -1,3 +1,8 @@
+### 2.13.0 ###
+
+* Improved performance by lazily loading classes at fabricate time (#244)
+* Fields specified in ActiveRecord model generator will be included in Fabricator
+
 ### 2.12.2 ###
 
 * Revert usage of ActiveSupport classify. This was expected to make it class resolution easier in Rails apps but turned out to cause a lot of trouble for some users. Everything is back to normal now.
