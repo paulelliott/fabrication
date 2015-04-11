@@ -8,18 +8,11 @@ class Fabrication::Schematic::Definition
     Fabrication::Generator::Base
   ]
 
-  attr_accessor :name, :options
+  attr_accessor :name, :options, :block
   def initialize(name, options={}, &block)
     self.name = name
     self.options = options
-
-    if parent
-      merge_result = parent.merge(&block)
-      @attributes = merge_result.attributes
-      @callbacks = merge_result.callbacks
-    else
-      process_block(&block)
-    end
+    self.block = block
   end
 
   def process_block(&block)
@@ -42,11 +35,13 @@ class Fabrication::Schematic::Definition
 
   attr_writer :attributes
   def attributes
+    load_body
     @attributes ||= []
   end
 
   attr_writer :callbacks
   def callbacks
+    load_body
     @callbacks ||= {}
   end
 
@@ -109,15 +104,6 @@ class Fabrication::Schematic::Definition
     self.attributes = original.attributes.clone
   end
 
-  def merge(overrides={}, &block)
-    clone.tap do |definition|
-      definition.process_block(&block)
-      overrides.each do |name, value|
-        definition.append_or_update_attribute(name.to_sym, value)
-      end
-    end
-  end
-
   def generate_value(name, params)
     if params[:count]
       name = Fabrication::Support.singularize(name.to_s)
@@ -127,7 +113,30 @@ class Fabrication::Schematic::Definition
     end
   end
 
+  def merge(overrides={}, &block)
+    clone.tap do |definition|
+      definition.process_block(&block)
+      overrides.each do |name, value|
+        definition.append_or_update_attribute(name.to_sym, value)
+      end
+    end
+  end
+
   protected
+
+  def loaded?; !!@loaded end
+  def load_body
+    return if loaded?
+    @loaded = true
+
+    if parent
+      merge_result = parent.merge(&block)
+      @attributes = merge_result.attributes
+      @callbacks = merge_result.callbacks
+    else
+      process_block(&block)
+    end
+  end
 
   def parent
     @parent ||= Fabrication.manager[options[:from].to_s] if options[:from]

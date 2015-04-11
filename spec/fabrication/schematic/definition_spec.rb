@@ -51,9 +51,18 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe "#attributes" do
-    it "always returns an empty array" do
+    it "loads the fabricator body" do
       schematic.attributes = nil
+      expect(schematic).to receive(:load_body)
       expect(schematic.attributes).to eq([])
+    end
+  end
+
+  describe "#callbacks" do
+    it "loads the fabricator body" do
+      schematic.callbacks = nil
+      expect(schematic).to receive(:load_body)
+      expect(schematic.callbacks).to eq({})
     end
   end
 
