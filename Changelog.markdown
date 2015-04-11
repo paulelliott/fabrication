@@ -1,3 +1,7 @@
+### 2.13.1 ###
+
+* Wait to process fabricator definitions until they are actually used
+
 ### 2.13.0 ###
 
 * Improved performance by lazily loading classes at fabricate time (#244)
