@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Fabrication::Schematic::Definition do
 
   let(:schematic) do
-    Fabrication::Schematic::Definition.new(OpenStruct) do
+    Fabrication::Schematic::Definition.new('OpenStruct') do
       name "Orgasmo"
       something(:param => 2) { "hi!" }
       another_thing { 25 }
@@ -14,24 +14,24 @@ describe Fabrication::Schematic::Definition do
     subject { Fabrication::Schematic::Definition.new(klass).generator }
 
     context "for an activerecord object", depends_on: :active_record do
-      let(:klass) { ParentActiveRecordModel }
+      let(:klass) { 'ParentActiveRecordModel' }
       it { should == Fabrication::Generator::ActiveRecord }
     end
 
     context "for a mongoid object", depends_on: :mongoid do
-      let(:klass) { ParentMongoidDocument }
+      let(:klass) { 'ParentMongoidDocument' }
       it { should == Fabrication::Generator::Mongoid }
     end
 
     context "for a sequel object", depends_on: :sequel do
-      let(:klass) { ParentSequelModel }
+      let(:klass) { 'ParentSequelModel' }
       it { should == Fabrication::Generator::Sequel }
     end
   end
 
   describe ".new" do
-    it "stores the klass" do
-      expect(schematic.klass).to eq(OpenStruct)
+    it "stores the name" do
+      expect(schematic.name).to eq('OpenStruct')
     end
     it "stores the generator" do
       expect(schematic.generator).to eq(Fabrication::Generator::Base)
@@ -156,8 +156,8 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { lambda {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new(OpenStruct) do
-        on_init &block
+      Fabrication::Schematic::Definition.new('OpenStruct') do
+        on_init(&block)
       end
     end
 
@@ -170,7 +170,7 @@ describe Fabrication::Schematic::Definition do
       let(:child_schematic) do
         block = child_block
         init_schematic.merge do
-          on_init &block
+          on_init(&block)
         end
       end
 
@@ -184,8 +184,8 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { lambda {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new(OpenStruct) do
-        initialize_with &block
+      Fabrication::Schematic::Definition.new('OpenStruct') do
+        initialize_with(&block)
       end
     end
 
@@ -198,7 +198,7 @@ describe Fabrication::Schematic::Definition do
       let(:child_schematic) do
         block = child_block
         init_schematic.merge do
-          initialize_with &block
+          initialize_with(&block)
         end
       end
 
@@ -210,7 +210,7 @@ describe Fabrication::Schematic::Definition do
 
   describe '#transient' do
     let(:definition) do
-      Fabrication::Schematic::Definition.new(OpenStruct) do
+      Fabrication::Schematic::Definition.new('OpenStruct') do
         transient :one, :two => 'with a default value', :three => 200
       end
     end
@@ -236,7 +236,7 @@ describe Fabrication::Schematic::Definition do
   describe '#sorted_attributes' do
     subject { definition.sorted_attributes.map(&:name) }
     let(:definition) do
-      Fabrication::Schematic::Definition.new(OpenStruct) do
+      Fabrication::Schematic::Definition.new('OpenStruct') do
         three { nil }
         one ''
         transient :two

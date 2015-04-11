@@ -21,8 +21,8 @@ describe Fabrication::Schematic::Manager do
       expect(subject.schematics[:open_struct]).to be
     end
 
-    it "has the correct class" do
-      expect(subject.schematics[:open_struct].klass).to eq(OpenStruct)
+    it "infers the correct class" do
+      expect(subject.schematics[:open_struct].send(:klass)).to eq(OpenStruct)
     end
 
     it "has the attributes" do

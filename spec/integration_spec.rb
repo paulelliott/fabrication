@@ -310,9 +310,10 @@ describe Fabrication do
     end
   end
 
-  context "when defining a fabricator for a class that doesn't exist" do
+  context "when fabricating class that doesn't exist" do
+    before { Fabricator(:class_that_does_not_exist) }
     it 'throws an error' do
-      expect { Fabricator(:class_that_does_not_exist) }.to raise_error(Fabrication::UnfabricatableError)
+      expect { Fabricate(:class_that_does_not_exist) }.to raise_error(Fabrication::UnfabricatableError)
     end
   end
 

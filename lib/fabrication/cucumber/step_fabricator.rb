@@ -36,7 +36,7 @@ module Fabrication
       end
 
       def klass
-        Fabricate.schematic(@fabricator).klass
+        Fabricate.schematic(@fabricator).send(:klass)
       end
 
       private

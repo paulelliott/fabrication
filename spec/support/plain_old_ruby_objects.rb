@@ -67,3 +67,6 @@ class Sequencer
     attr_accessor :iterator
   end
 end
+
+class ClassWithInit < Struct.new(:arg1, :arg2)
+end

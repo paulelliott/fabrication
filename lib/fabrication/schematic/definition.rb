@@ -8,10 +8,18 @@ class Fabrication::Schematic::Definition
     Fabrication::Generator::Base
   ]
 
-  attr_accessor :klass
-  def initialize(klass, &block)
-    self.klass = klass
-    process_block(&block)
+  attr_accessor :name, :options
+  def initialize(name, options={}, &block)
+    self.name = name
+    self.options = options
+
+    if parent
+      merge_result = parent.merge(&block)
+      @attributes = merge_result.attributes
+      @callbacks = merge_result.callbacks
+    else
+      process_block(&block)
+    end
   end
 
   def process_block(&block)
@@ -117,5 +125,20 @@ class Fabrication::Schematic::Definition
     else
       proc { Fabricate(params[:fabricator] || name) }
     end
+  end
+
+  protected
+
+  def parent
+    @parent ||= Fabrication.manager[options[:from].to_s] if options[:from]
+  end
+
+  def klass
+    @klass ||= Fabrication::Support.class_for(
+      options[:class_name] ||
+        (parent && parent.klass) ||
+        options[:from] ||
+        name
+    )
   end
 end

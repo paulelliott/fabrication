@@ -13,7 +13,7 @@ end
 
 def get_class(model_name)
   fabricator_name = generate_fabricator_name(model_name)
-  Fabrication.manager[fabricator_name].klass
+  Fabrication.manager[fabricator_name].send(:klass)
 end
 
 
