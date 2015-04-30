@@ -1,3 +1,7 @@
+### 2.13.2 ###
+
+* Ignore errors produced from reading attributes during model generation
+
 ### 2.13.1 ###
 
 * Wait to process fabricator definitions until they are actually used
