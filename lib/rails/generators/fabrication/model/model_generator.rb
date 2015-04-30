@@ -25,7 +25,8 @@ module Fabrication
             Rails::Generators::GeneratedAttribute.new(name, column.type)
           }
         end
-      rescue NameError
+      rescue
+        # no table? no problem!
       end
 
     end
