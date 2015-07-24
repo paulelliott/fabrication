@@ -74,7 +74,7 @@ describe Fabrication::Schematic::Manager do
     context 'when an error occurs during the load' do
       it 'still freezes the manager' do
         expect(Fabrication::Config).to receive(:fabricator_paths).and_raise(Exception)
-        expect { Fabrication.manager.load_definitions }.to raise_error
+        expect { Fabrication.manager.load_definitions }.to raise_error(Exception)
         expect(Fabrication.manager).not_to be_initializing
       end
     end
