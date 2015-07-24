@@ -33,6 +33,22 @@ describe Fabricate do
     end
   end
 
+  describe ".attributes_for_times" do
+    it "fabricates an object X times" do
+      objects = Fabricate.attributes_for_times(3, :parent_ruby_object)
+      expect(objects.length).to eq 3
+      expect(objects).to all be_a_kind_of(Hash)
+    end
+
+    it "delegates overrides and blocks properly" do
+      object = Fabricate.attributes_for_times(1, :parent_ruby_object, string_field: 'different').first
+      expect(object[:string_field]).to eql('different')
+
+      object = Fabricate.attributes_for_times(1, :parent_ruby_object) { string_field 'other' }.first
+      expect(object[:string_field]).to eql('other')
+    end
+  end
+
   describe ".to_params", depends_on: :active_record do
     subject { Fabricate.to_params(:parent_active_record_model_with_children) }
 

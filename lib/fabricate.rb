@@ -7,6 +7,10 @@ class Fabricate
     count.times.map { Fabricate.build(name, overrides, &block) }
   end
 
+  def self.attributes_for_times(count, name, overrides={}, &block)
+    count.times.map { Fabricate.attributes_for(name, overrides, &block) }
+  end
+
   def self.attributes_for(name, overrides={}, &block)
     fail_if_initializing(name)
     schematic(name).to_attributes(overrides, &block)
