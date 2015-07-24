@@ -1,3 +1,7 @@
+### 2.14.0 ###
+
+* Add `Fabricate.attributes_for_times` method.
+
 ### 2.13.2 ###
 
 * Ignore errors produced from reading attributes during model generation
