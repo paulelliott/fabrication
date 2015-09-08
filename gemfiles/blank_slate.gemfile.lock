@@ -1,7 +1,6 @@
 PATH
   remote: ../
   specs:
-    fabrication (2.14.0)
 
 GEM
   remote: https://rubygems.org/
@@ -68,4 +67,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.10.4
+   1.10.6

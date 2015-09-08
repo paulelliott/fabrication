@@ -1,3 +1,7 @@
+### 2.14.1 ###
+
+* `include Rake::DSL` to prevent warnings in rake 0.9 and errors in rake 10 (#256)
+
 ### 2.14.0 ###
 
 * Add `Fabricate.attributes_for_times` method.
