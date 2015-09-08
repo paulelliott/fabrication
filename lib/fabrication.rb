@@ -2,6 +2,7 @@ autoload :Fabricate, 'fabricate'
 
 if defined?(Rake)
   require 'rake'
+  include Rake::DSL
   Dir[File.join(File.dirname(__FILE__), 'tasks', '**/*.rake')].each { |rake| load rake }
 end
 
