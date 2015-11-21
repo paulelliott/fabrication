@@ -19,7 +19,7 @@ appraise 'rails-4.1' do
   gem 'activerecord', '~> 4.1.0', require: 'active_record'
 end
 
-appraise 'rails-4' do
+appraise 'rails-4.0' do
   gem 'activerecord', '~> 4.0.0', require: 'active_record'
   gem 'protected_attributes'
 end
