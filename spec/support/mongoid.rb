@@ -1,6 +1,9 @@
 if defined?(Mongoid)
   Mongoid.load!("spec/support/mongoid.yml", :test)
 
+  Mongoid.logger.level = Logger::ERROR
+  Mongo::Logger.logger.level = Logger::ERROR if defined?(Mongo)
+
   def clear_mongodb
     Mongoid::Config.purge!
   end

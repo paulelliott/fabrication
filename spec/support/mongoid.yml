@@ -1,6 +1,15 @@
 test:
   allow_dynamic_fields: true
+
+  # For Mongoid 3.x and 4.0
   sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: fabrication_test
+
+  # For Mongoid 5.0
+  clients:
     default:
       hosts:
         - localhost:27017
