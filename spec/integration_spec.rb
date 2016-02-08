@@ -122,6 +122,11 @@ describe Fabrication do
       let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
       it { should be_kind_of(ChildActiveRecordModel) }
     end
+
+    context 'recursively defined relations' do
+      subject { Fabricate(:parent_active_record_model_with_recursion).child_active_record_models }
+      its(:size) { should == 1 }
+    end
   end
 
   context 'data_mapper models', depends_on: :data_mapper do
