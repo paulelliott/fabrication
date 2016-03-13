@@ -1,3 +1,8 @@
+### 2.15.0 ###
+
+* Prevent validation callbacks from being called more than once
+* Support for belongs_to association detection in ActiveRecord
+
 ### 2.14.1 ###
 
 * `include Rake::DSL` to prevent warnings in rake 0.9 and errors in rake 10 (#256)
