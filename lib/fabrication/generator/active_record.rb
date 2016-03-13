@@ -13,12 +13,6 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def build_default_expansion(field_name, params)
-    if params[:count]
-      fabricator_name = params[:fabricator] || Fabrication::Support.singularize(field_name.to_s)
-    else
-      fabricator_name = params[:fabricator] || field_name
-    end
-
     # When an inverse field is found, we can override this in the fabricator so we
     # don't run into an endless recursion
     build_args = {}
@@ -30,7 +24,14 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
         build_args[inverse_name] = []
       end
     end
-    proc { Fabricate.build(fabricator_name, build_args) }
+
+    if params[:count]
+      fabricator_name = params[:fabricator] || Fabrication::Support.singularize(field_name.to_s)
+      proc { Fabricate.build(params[:fabricator] || fabricator_name, build_args) }
+    else
+      fabricator_name = params[:fabricator] || field_name
+      proc { Fabricate(params[:fabricator] || fabricator_name, build_args) }
+    end
   end
 
   private
