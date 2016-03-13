@@ -45,7 +45,7 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   def inverse_of(name)
     reflection = _klass.reflections.fetch(name.to_s, nil) || # >= Rails 4.3
       _klass.reflections.fetch(name.to_sym, nil) # < Rails 4.3
-    inverse = reflection.inverse_of if reflection
+    reflection.inverse_of if reflection
   end
 
   # Returns true if the reflection is a belongs_to or has_one association
