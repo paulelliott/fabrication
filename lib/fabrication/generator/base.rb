@@ -82,6 +82,15 @@ class Fabrication::Generator::Base
 
   def validate_instance; end
 
+  def build_default_expansion(name, params)
+    if params[:count]
+      name = Fabrication::Support.singularize(name.to_s)
+      proc { Fabricate.build(params[:fabricator] || name) }
+    else
+      proc { Fabricate(params[:fabricator] || name) }
+    end
+  end
+
   protected
 
   attr_accessor :_klass, :_instance, :_transient_attributes
