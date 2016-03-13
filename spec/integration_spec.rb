@@ -13,6 +13,7 @@ shared_examples 'something fabricatable' do
   end
 
   context 'model callbacks are fired' do
+    its(:before_validation_value) { should == 1 }
     its(:before_save_value) { should == 11 }
   end
 

@@ -34,6 +34,10 @@ class ParentRubyObject < Persistable
   def child_ruby_objects
     @child_ruby_objects ||= []
   end
+
+  def before_validation_value
+    1
+  end
 end
 
 class ChildRubyObject < Persistable

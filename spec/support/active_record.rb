@@ -15,6 +15,7 @@ if defined?(ActiveRecord)
       end
 
       create_table :parent_active_record_models, :force => true do |t|
+        t.column :before_validation_value, :integer, null: false, default: 0
         t.column :before_save_value, :integer
         t.column :dynamic_field, :string
         t.column :nil_field, :string
@@ -38,6 +39,10 @@ if defined?(ActiveRecord)
     has_many :child_active_record_models, inverse_of: :parent_active_record_model
     attr_protected :number_field if respond_to?(:attr_protected)
     attr_accessor :extra_fields
+
+    before_validation do
+      self.before_validation_value += 1
+    end
 
     before_save do
       self.before_save_value = 11

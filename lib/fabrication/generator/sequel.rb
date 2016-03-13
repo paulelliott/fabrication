@@ -26,10 +26,6 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
     _instance.save
   end
 
-  def validate_instance
-    _instance.valid?
-  end
-
   private
 
   def load_instance_hooks

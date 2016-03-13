@@ -20,6 +20,11 @@ if defined?(DataMapper)
     before :save do
       self.before_save_value = 11
     end
+
+    # no validation callback in DataMapper
+    def before_validation_value
+      1
+    end
   end
 
   class ChildDataMapperModel

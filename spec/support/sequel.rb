@@ -25,6 +25,12 @@ if defined?(Sequel)
 
     def persisted?; !new? end
 
+    def before_validation
+      self.before_validation_value ||= 0
+      self.before_validation_value += 1
+      super
+    end
+
     def before_save
       self.before_save_value = 11
       super

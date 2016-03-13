@@ -8,10 +8,6 @@ class Fabrication::Generator::DataMapper < Fabrication::Generator::Base
     self._instance = _klass.new(_attributes)
   end
 
-  def validate_instance
-    _instance.valid?
-  end
-
   protected
 
   def persist

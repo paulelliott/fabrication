@@ -33,12 +33,6 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
     proc { Fabricate.build(fabricator_name, build_args) }
   end
 
-  protected
-
-  def validate_instance
-    _instance.valid?
-  end
-
   private
 
   # Returns the inverse field name of a given relation

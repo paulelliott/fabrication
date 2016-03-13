@@ -12,6 +12,7 @@ if defined?(Mongoid)
     include Mongoid::Document
     include Mongoid::Attributes::Dynamic if defined?(Mongoid::Attributes::Dynamic)
 
+    field :before_validation_value, default: 0
     field :before_save_value
     field :dynamic_field
     field :nil_field
@@ -24,6 +25,10 @@ if defined?(Mongoid)
     embeds_many :embedded_mongoid_documents
 
     attr_protected :number_field if respond_to?(:attr_protected)
+
+    before_validation do
+      self.before_validation_value += 1
+    end
 
     before_save do
       self.before_save_value = 11

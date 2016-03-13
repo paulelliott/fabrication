@@ -10,6 +10,7 @@ if defined?(Sequel)
       create_table :parent_sequel_models do
         primary_key :id
         String :kind
+        Integer :before_validation_value
         Integer :before_save_value
         String :dynamic_field
         String :nil_field

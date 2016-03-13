@@ -12,8 +12,4 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
     end
   end
 
-  def validate_instance
-    _instance.valid?
-  end
-
 end

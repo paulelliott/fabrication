@@ -19,7 +19,6 @@ class Fabrication::Generator::Base
   def create(attributes=[], callbacks=[])
     build(attributes, callbacks)
     execute_callbacks(callbacks[:before_validation])
-    validate_instance
     execute_callbacks(callbacks[:after_validation])
     execute_callbacks(callbacks[:before_save])
     execute_callbacks(callbacks[:before_create])
@@ -79,8 +78,6 @@ class Fabrication::Generator::Base
   def method_missing(method_name, *args, &block)
     _attributes[method_name] || super
   end
-
-  def validate_instance; end
 
   def build_default_expansion(name, params)
     if params[:count]
