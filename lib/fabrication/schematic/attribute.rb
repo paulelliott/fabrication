@@ -1,6 +1,7 @@
 class Fabrication::Schematic::Attribute
 
-  attr_accessor :klass, :name, :params, :value
+  attr_accessor :klass, :name, :value
+  attr_writer :params
 
   def initialize(klass, name, value, params={}, &block)
     self.klass = klass
