@@ -43,6 +43,8 @@ module Fabrication
     alias path_prefixes path_prefix
 
     attr_writer :register_with_steps
-    def register_with_steps?; @register_with_steps end
+    def register_with_steps?
+      @register_with_steps ||= nil
+    end
   end
 end

@@ -2,7 +2,7 @@ require 'ostruct'
 
 class Persistable
   def persisted?
-    @persisted
+    @persisted ||= nil
   end
   def save!
     @persisted = true

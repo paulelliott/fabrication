@@ -119,7 +119,10 @@ class Fabrication::Schematic::Definition
 
   protected
 
-  def loaded?; !!@loaded end
+  def loaded?
+    !!(@loaded ||= nil)
+  end
+
   def load_body
     return if loaded?
     @loaded = true
