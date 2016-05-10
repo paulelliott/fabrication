@@ -1,3 +1,5 @@
+require 'fabrication/railtie' if defined?(Rails)
+
 autoload :Fabricate, 'fabricate'
 
 if defined?(Rake)
