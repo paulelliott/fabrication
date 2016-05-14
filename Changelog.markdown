@@ -1,3 +1,7 @@
+### 2.15.1 ###
+
+* Automatically set fabrication as fixture replacement in rails (#280)
+
 ### 2.15.0 ###
 
 * Prevent validation callbacks from being called more than once
