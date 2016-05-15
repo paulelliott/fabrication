@@ -2,7 +2,7 @@ require 'ostruct'
 
 class Persistable
   def persisted?
-    @persisted
+    @persisted ||= nil
   end
   def save!
     @persisted = true
@@ -42,9 +42,11 @@ end
 
 class ChildRubyObject < Persistable
   attr_accessor \
-    :parent_ruby_object,
     :parent_ruby_object_id,
     :number_field
+
+  attr_reader \
+    :parent_ruby_object
 
   def parent_ruby_object=(parent_ruby_object)
     @parent_ruby_object = parent_ruby_object

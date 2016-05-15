@@ -8,7 +8,9 @@ class Fabrication::Schematic::Manager
     clear
   end
 
-  def initializing?; @initializing end
+  def initializing?
+    @initializing ||= nil
+  end
 
   def schematics
     @schematics ||= {}

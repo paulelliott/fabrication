@@ -51,7 +51,7 @@ class Fabrication::Generator::Base
   end
 
   def build_instance_with_constructor_override(callback)
-    self._instance = instance_eval &callback
+    self._instance = instance_eval(&callback)
     set_attributes
   end
 
