@@ -1,3 +1,7 @@
+### 2.15.2 ###
+
+* Tweaks to prevent warnings from rspec with `--warnings` flag (#279)
+
 ### 2.15.1 ###
 
 * Automatically set fabrication as fixture replacement in rails (#280)
