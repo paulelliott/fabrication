@@ -14,14 +14,14 @@ module Fabrication
     module Make
       def make(*args, &block)
         overrides = Fabrication::Support.extract_options!(args)
-        klass = name.underscore.to_sym
+        klass = Fabrication::Support.underscore(name).to_sym
         fabricator_name = args.first.is_a?(Symbol) ? "#{klass}_#{args.first}" : klass
         Fabricate.build(fabricator_name, overrides, &block)
       end
 
       def make!(*args, &block)
         overrides = Fabrication::Support.extract_options!(args)
-        klass = name.underscore.to_sym
+        klass = Fabrication::Support.underscore(name).to_sym
         fabricator_name = args.first.is_a?(Symbol) ? "#{klass}_#{args.first}" : klass
         Fabricate(fabricator_name, overrides, &block)
       end
