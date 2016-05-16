@@ -2,6 +2,7 @@ if defined?(Sequel)
   DB = Sequel.sqlite # in memory
   Sequel.extension :migration
   Sequel::Migrator.run(DB, 'spec/support/sequel_migrations', :current => 0)
+  Sequel::Model.strict_param_setting = true
 
   def clear_sequel_db
     ParentSequelModel.truncate
@@ -18,8 +19,6 @@ if defined?(Sequel)
     plugin :class_table_inheritance, key: :kind
 
     one_to_many :child_sequel_models
-
-    strict_param_setting = true
 
     attr_accessor :extra_fields
 
