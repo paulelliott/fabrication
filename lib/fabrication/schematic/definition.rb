@@ -46,7 +46,7 @@ class Fabrication::Schematic::Definition
   end
 
   def generator
-    @generator ||= GENERATORS.detect { |gen| gen.supports?(klass) }
+    @generator ||= Fabrication::Config.generator_for(GENERATORS, klass)
   end
 
   def sorted_attributes

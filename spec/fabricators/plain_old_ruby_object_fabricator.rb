@@ -30,3 +30,7 @@ Fabricator(:predefined_namespaced_class, from: 'namespaced_classes/ruby_object')
 end
 
 Fabricator(:troublemaker)
+
+Fabricator(:immutable_user) do
+  name 'abc'
+end
