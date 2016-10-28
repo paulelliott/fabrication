@@ -136,6 +136,23 @@ describe Fabrication::Generator::Base do
       end
       its(:string_field) { should == '1' }
     end
+
+    context 'with custom generators' do
+      before do
+        Fabrication.configure do |config|
+          config.generators << ImmutableGenerator
+        end
+      end
+
+      after do
+        Fabrication::Config.reset_defaults
+      end
+
+      it "uses custom generator" do
+        user = Fabricate(:immutable_user, name: 'foo')
+        expect(user.name).to eq('foo')
+      end
+    end
   end
 
   describe '#create' do

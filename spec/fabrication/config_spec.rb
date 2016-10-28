@@ -53,4 +53,14 @@ describe Fabrication::Config do
       its(:path_prefix) { should == ['/path/to/app', '/path/to/gem/fabricators'] }
     end
   end
+
+  describe ".register_generator" do
+    before do
+      Fabrication.configure do |config|
+        config.generators << ImmutableGenerator
+      end
+    end
+
+    its(:generators) { should == [ImmutableGenerator] }
+  end
 end

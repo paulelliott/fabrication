@@ -76,3 +76,23 @@ end
 
 class ClassWithInit < Struct.new(:arg1, :arg2)
 end
+
+class ImmutableUser
+  def initialize(attributes)
+    @attributes = attributes.to_hash
+  end
+
+  def name
+    @attributes.fetch(:name)
+  end
+end
+
+class ImmutableGenerator < Fabrication::Generator::Base
+  def self.supports?(klass)
+    klass == ImmutableUser
+  end
+
+  def build_instance
+    self._instance = _klass.new(_attributes)
+  end
+end

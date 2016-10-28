@@ -8,6 +8,7 @@ module Fabrication
       @fabricator_path =
         @path_prefix =
         @sequence_start =
+        @generators =
         nil
     end
 
@@ -45,6 +46,12 @@ module Fabrication
     attr_writer :register_with_steps
     def register_with_steps?
       @register_with_steps ||= nil
+    end
+
+    def generators; @generators ||= [] end
+
+    def generator_for(default_generators, klass)
+      (generators + default_generators).detect { |gen| gen.supports?(klass) }
     end
   end
 end
