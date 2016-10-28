@@ -1,3 +1,7 @@
+### 2.16.0 ###
+
+* Allow configuration of third-party model generators (#285)
+
 ### 2.15.2 ###
 
 * Tweaks to prevent warnings from rspec with `--warnings` flag (#279)
