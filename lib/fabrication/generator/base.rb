@@ -100,8 +100,6 @@ class Fabrication::Generator::Base
     _instance.save! if _instance.respond_to?(:save!)
   end
 
-  def post_initialize; end
-
   def process_attributes(attributes)
     self._transient_attributes = Hash.new
     attributes.each do |attribute|
