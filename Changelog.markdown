@@ -1,3 +1,7 @@
+### 2.16.1 ###
+
+* Remove explicit include of Rake::DSL (#290)
+
 ### 2.16.0 ###
 
 * Allow configuration of third-party model generators (#285)
