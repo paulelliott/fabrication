@@ -51,6 +51,8 @@ class Fabrication::Schematic::Manager
       end
     end
   rescue Exception => e
+    puts e.message
+    puts e.backtrace.join("\n")
     raise e
   ensure
     freeze
