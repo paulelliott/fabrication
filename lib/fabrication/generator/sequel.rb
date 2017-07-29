@@ -29,7 +29,7 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
   private
 
   def load_instance_hooks
-    klass = _klass.respond_to?(:cti_base_model) ? _klass.cti_base_model : _klass
+    klass = _klass.respond_to?(:cti_base_model) ? _klass.cti_models.first : _klass
     klass.plugin :instance_hooks unless klass.new.respond_to? :after_save_hook
   end
 
