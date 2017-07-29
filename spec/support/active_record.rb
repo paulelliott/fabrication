@@ -7,7 +7,10 @@ if defined?(ActiveRecord)
   ActiveRecord::Base.establish_connection(dbconfig)
   ActiveRecord::Migration.verbose = false
 
-  class TestMigration < ActiveRecord::Migration
+  migrationBaseClass = ActiveRecord.respond_to?(:version) && ActiveRecord.version.to_s >= "5.1.0" ?
+      ActiveRecord::Migration[5.1] : ActiveRecord::Migration
+
+  class TestMigration < migrationBaseClass
     def self.up
       create_table :child_active_record_models, :force => true do |t|
         t.column :parent_active_record_model_id, :integer
