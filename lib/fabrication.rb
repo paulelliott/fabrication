@@ -1,4 +1,4 @@
-require 'fabrication/railtie' if defined?(Rails)
+require 'fabrication/railtie' if defined?(Rails::Railtie)
 
 autoload :Fabricate, 'fabricate'
 
