@@ -22,6 +22,7 @@ if defined?(Mongoid)
   end
 
   Fabricator(:referenced_mongoid_document) do
+    parent_mongoid_document
     number_field 10
   end
 

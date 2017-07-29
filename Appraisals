@@ -4,7 +4,7 @@ appraise 'kitchen-sink' do
   gem "dm-migrations"
   gem "dm-sqlite-adapter"
   gem "dm-validations"
-  gem "mongoid", '~> 4.0.0'
+  gem "mongoid"
   gem "sequel"
 end
 
@@ -38,6 +38,10 @@ end
 
 appraise 'rails-3.1' do
   gem 'activerecord', '~> 3.1.0', require: 'active_record'
+end
+
+appraise 'mongoid-6.x' do
+  gem 'mongoid', '~> 6.0'
 end
 
 appraise 'mongoid-5.0' do
