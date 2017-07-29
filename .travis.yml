@@ -16,7 +16,6 @@ gemfile:
   - gemfiles/rails_4.1.gemfile
   - gemfiles/rails_4.0.gemfile
   - gemfiles/rails_3.2.gemfile
-  - gemfiles/rails_3.1.gemfile
   - gemfiles/mongoid_5.0.gemfile
   - gemfiles/mongoid_4.0.gemfile
   - gemfiles/mongoid_3.1.gemfile
@@ -27,7 +26,7 @@ matrix:
   fast_finish: true
   include:
     - rvm: 1.9.3
-      gemfile: gemfiles/kitchen_sink.gemfile
+      gemfile: gemfiles/rails_3.1.gemfile
     - rvm: 2.0.0
       gemfile: gemfiles/kitchen_sink.gemfile
     - rvm: 2.1
