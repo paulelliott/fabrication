@@ -16,7 +16,7 @@ if defined?(Sequel)
   end
 
   class ParentSequelModel < Sequel::Model
-    plugin :class_table_inheritance, key: :kind
+    plugin :class_table_inheritance, key: :kind, alias: :parent_sequel_models
 
     one_to_many :child_sequel_models
 
