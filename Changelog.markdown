@@ -1,3 +1,9 @@
+### 2.16.2 ###
+
+* require railtie only if Rails::Railtie is defined (#296)
+* Add explicit test suite support for Rails 5.1 and Mongoid 6
+* Fix a deprecation warning in sequel
+
 ### 2.16.1 ###
 
 * Remove explicit include of Rake::DSL (#290)
