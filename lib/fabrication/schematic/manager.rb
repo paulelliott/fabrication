@@ -45,7 +45,7 @@ class Fabrication::Schematic::Manager
     preinitialize
     Fabrication::Config.path_prefixes.each do |prefix|
       Fabrication::Config.fabricator_paths.each do |folder|
-        Dir.glob(File.join(prefix, folder, '**', '*.rb')).sort.each do |file|
+        Dir.glob(File.join(prefix.to_s, folder, '**', '*.rb')).sort.each do |file|
           load file
         end
       end
