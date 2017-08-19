@@ -1,3 +1,7 @@
+### 2.16.3 ###
+
+* Support nil prefix when loading files (for pickle compatibility) (#297)
+
 ### 2.16.2 ###
 
 * require railtie only if Rails::Railtie is defined (#296)
