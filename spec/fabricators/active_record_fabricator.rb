@@ -12,10 +12,6 @@ if defined?(ActiveRecord)
     end
   end
 
-  Fabricator(:parent_active_record_model_with_recursion, from: :parent_active_record_model) do
-    child_active_record_models(count: 1, fabricator: :child_active_record_model)
-  end
-
   Fabricator(:parent_active_record_model_with_children, from: :parent_active_record_model) do
     child_active_record_models(count: 2)
   end

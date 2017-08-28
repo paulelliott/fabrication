@@ -61,14 +61,7 @@ describe Fabricate do
         'false_field' => false,
         'extra_fields' => {},
         'child_active_record_models' => [
-          {
-            'number_field' => 10,
-            'parent_active_record_model' => nil
-          },
-          {
-            'number_field' => 10,
-            'parent_active_record_model' => nil
-           }
+          { 'number_field' => 10 }, { 'number_field' => 10 }
         ]
       }
     end

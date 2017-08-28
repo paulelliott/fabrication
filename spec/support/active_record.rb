@@ -35,11 +35,11 @@ if defined?(ActiveRecord)
   end
 
   class ChildActiveRecordModel < ActiveRecord::Base
-    belongs_to :parent_active_record_model, inverse_of: :child_active_record_models
+    belongs_to :parent_active_record_model
   end
 
   class ParentActiveRecordModel < ActiveRecord::Base
-    has_many :child_active_record_models, inverse_of: :parent_active_record_model
+    has_many :child_active_record_models
     attr_protected :number_field if respond_to?(:attr_protected)
     attr_accessor :extra_fields
 
