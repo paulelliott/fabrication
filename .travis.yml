@@ -25,11 +25,5 @@ gemfile:
 matrix:
   fast_finish: true
   include:
-    - rvm: 1.9.3
-      gemfile: gemfiles/rails_3.1.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/kitchen_sink.gemfile
-    - rvm: 2.1
-      gemfile: gemfiles/kitchen_sink.gemfile
     - rvm: 2.2
       gemfile: gemfiles/kitchen_sink.gemfile
