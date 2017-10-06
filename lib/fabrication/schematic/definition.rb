@@ -105,7 +105,12 @@ class Fabrication::Schematic::Definition
   end
 
   def generate_value(name, params)
-    generator.new(klass).build_default_expansion(name, params)
+    if params[:count]
+      name = Fabrication::Support.singularize(name.to_s)
+      proc { Fabricate.build(params[:fabricator] || name) }
+    else
+      proc { Fabricate(params[:fabricator] || name) }
+    end
   end
 
   def merge(overrides={}, &block)
