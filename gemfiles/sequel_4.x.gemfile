@@ -12,4 +12,4 @@ gem "rspec-its"
 gem "sqlite3"
 gem "sequel", "~> 4.0"
 
-gemspec :path => "../"
+gemspec path: "../"

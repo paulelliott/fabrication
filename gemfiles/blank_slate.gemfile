@@ -11,4 +11,4 @@ gem "rspec"
 gem "rspec-its"
 gem "sqlite3"
 
-gemspec :path => "../"
+gemspec path: "../"
