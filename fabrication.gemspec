@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "1.3.7"
   s.summary = "Implementing the factory pattern in Ruby so you don't have to."
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.2.0'
 
   s.files = Dir.glob("lib/**/*") + %w(LICENSE README.markdown Rakefile)
   s.require_path = 'lib'
