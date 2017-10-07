@@ -3,7 +3,7 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.3.1
+  - 2.4.2
 
 services:
   - mongodb
@@ -25,5 +25,7 @@ gemfile:
 matrix:
   fast_finish: true
   include:
+    - rvm: 2.3
+      gemfile: gemfiles/kitchen_sink.gemfile
     - rvm: 2.2
       gemfile: gemfiles/kitchen_sink.gemfile
