@@ -1,3 +1,9 @@
+### 2.17.0 ###
+
+* Revert relationship inverse overrides #270
+* Drop support for unmaintained ruby versions (< 2.2)
+* Drop support for rails 3.1
+
 ### 2.16.3 ###
 
 * Support nil prefix when loading files (for pickle compatibility) (#297)
