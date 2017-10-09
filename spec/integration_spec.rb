@@ -386,4 +386,44 @@ describe Fabrication do
     end
   end
 
+  describe 'accidentally an infinite recursion' do
+    context 'a single self-referencing fabricator' do
+      before do
+        Fabricator(:infinite_recursor, class_name: :child_ruby_object) do
+          parent_ruby_object { Fabricate(:infinite_recursor) }
+        end
+      end
+
+      it 'throws a meaningful error' do
+        expect do
+          Fabricate(:infinite_recursor)
+        end.to raise_error(
+          Fabrication::InfiniteRecursionError,
+          'You appear to have infinite recursion with the `infinite_recursor` fabricator'
+        )
+      end
+    end
+
+    context 'a parent-child recursive scenario' do
+      before do
+        Fabricator(:parent_recursor, class_name: :parent_ruby_object) do
+          child_ruby_objects(count: 1, fabricator: :child_recursor)
+        end
+
+        Fabricator(:child_recursor, class_name: :child_ruby_object) do
+          parent_ruby_object { Fabricate(:parent_recursor) }
+        end
+      end
+
+      it 'throws a meaningful error' do
+        expect do
+          Fabricate(:parent_recursor)
+        end.to raise_error(
+          Fabrication::InfiniteRecursionError,
+          'You appear to have infinite recursion with the `parent_recursor` fabricator'
+        )
+      end
+    end
+  end
+
 end
