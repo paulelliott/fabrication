@@ -1,3 +1,37 @@
+### 2.18.0 ###
+
+* Raise an error when fabrication detects a potentially infinite recursive build (#305)
+
+If you've set up fabricators that recursively call each other you may see an error like this:
+
+```
+You appear to have infinite recursion with the `user` fabricator
+```
+
+Your suite may even have been "working properly" before (one of mine was) but this error is now happening. Good news! You can improve the speed of your test suite AND avoid potential errors with a simple change.
+
+It's likely you have a scenario like this in the fabricator named by the error message.
+
+```
+Fabricator(:user) do
+  sessions(count: 1)
+end
+
+Fabricator(:session) do
+  user
+end
+```
+
+If you change the `user` fabricator to build with a nil inverse relationship all will be well again.
+
+```
+Fabricator(:user) do
+  sessions(count: 1) { Fabricate.build(:session, user: nil) }
+end
+```
+
+If you have any problems please email the google group and I'll help get you sorted. (fabricationgem@googlegroups.com)
+
 ### 2.17.0 ###
 
 * Revert relationship inverse overrides #270
