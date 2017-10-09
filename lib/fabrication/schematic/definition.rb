@@ -59,7 +59,7 @@ class Fabrication::Schematic::Definition
       to_params(overrides, &block)
     else
       begin
-        Fabrication.manager.build_stack << self
+        Fabrication.manager.build_stack << name
         merge(overrides, &block).instance_eval do
           generator.new(klass).build(sorted_attributes, callbacks)
         end
@@ -77,7 +77,7 @@ class Fabrication::Schematic::Definition
       to_params(overrides, &block)
     else
       begin
-        Fabrication.manager.create_stack << self
+        Fabrication.manager.create_stack << name
         merge(overrides, &block).instance_eval do
           generator.new(klass).create(sorted_attributes, callbacks)
         end
@@ -89,7 +89,7 @@ class Fabrication::Schematic::Definition
 
   def to_params(overrides={}, &block)
     Fabrication.manager.prevent_recursion!
-    Fabrication.manager.to_params_stack << self
+    Fabrication.manager.to_params_stack << name
     merge(overrides, &block).instance_eval do
       generator.new(klass).to_params(sorted_attributes)
     end

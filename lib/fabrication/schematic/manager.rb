@@ -61,7 +61,7 @@ class Fabrication::Schematic::Manager
   end
 
   def prevent_recursion!
-    (create_stack + build_stack + to_params_stack).map(&:name).group_by(&:to_sym).each do |name, values|
+    (create_stack + build_stack + to_params_stack).group_by(&:to_sym).each do |name, values|
       raise Fabrication::InfiniteRecursionError.new(name) if values.length > Fabrication::Config.recursion_limit
     end
   end
