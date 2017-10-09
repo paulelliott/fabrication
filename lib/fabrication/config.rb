@@ -53,5 +53,8 @@ module Fabrication
     def generator_for(default_generators, klass)
       (generators + default_generators).detect { |gen| gen.supports?(klass) }
     end
+
+    def recursion_limit; @recursion_limit ||= 20 end
+    def recursion_limit=(limit); @recursion_limit = limit end
   end
 end

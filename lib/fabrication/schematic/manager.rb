@@ -33,6 +33,10 @@ class Fabrication::Schematic::Manager
     schematics[name.to_sym]
   end
 
+  def create_stack
+    @create_stack ||= []
+  end
+
   def build_stack
     @build_stack ||= []
   end
@@ -54,6 +58,12 @@ class Fabrication::Schematic::Manager
     raise e
   ensure
     freeze
+  end
+
+  def prevent_recursion!
+    (create_stack + build_stack + to_params_stack).group_by(&:to_sym).each do |name, values|
+      raise Fabrication::InfiniteRecursionError.new(name) if values.length > Fabrication::Config.recursion_limit
+    end
   end
 
   protected
