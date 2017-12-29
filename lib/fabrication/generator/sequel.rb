@@ -23,7 +23,7 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
   end
 
   def persist
-    _instance.save
+    _instance.save(raise_on_failure: true)
   end
 
   private
