@@ -1,3 +1,9 @@
+### 2.19.0 ###
+
+* Raise an error when a Sequel model fails to validate (#306)
+
+This is already how ActiveRecord models work within fabrication. If you are running Sequel and encounter errors after upgrading it is because these models were silently failing either in validation or callbacks. Raising errors in these cases will help you improve reliability of your tests.
+
 ### 2.18.0 ###
 
 * Raise an error when fabrication detects a potentially infinite recursive build (#305)
