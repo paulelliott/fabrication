@@ -130,6 +130,15 @@ class Fabrication::Schematic::Definition
     end
   end
 
+  def klass
+    @klass ||= Fabrication::Support.class_for(
+      options[:class_name] ||
+        (parent && parent.klass) ||
+        options[:from] ||
+        name
+    )
+  end
+
   protected
 
   def loaded?
@@ -151,14 +160,5 @@ class Fabrication::Schematic::Definition
 
   def parent
     @parent ||= Fabrication.manager[options[:from].to_s] if options[:from]
-  end
-
-  def klass
-    @klass ||= Fabrication::Support.class_for(
-      options[:class_name] ||
-        (parent && parent.klass) ||
-        options[:from] ||
-        name
-    )
   end
 end
