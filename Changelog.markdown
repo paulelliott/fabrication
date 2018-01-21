@@ -1,3 +1,15 @@
+### 2.20.0 ###
+
+* Allow passing a range to rand (#292, #308)
+
+Now you can pass a range in as the `rand` option to get a random number of related objects. For example, to get a random number of `wockets` between 5 and 9 you could do this:
+
+```
+Fabricate(:widget) do
+  wockets(rand: 5..9)
+end
+```
+
 ### 2.19.0 ###
 
 * Raise an error when a Sequel model fails to validate (#306)
