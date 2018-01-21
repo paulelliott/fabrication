@@ -50,7 +50,12 @@ class Fabrication::Schematic::Attribute
   end
 
   def rand
-    Kernel.rand((1..params[:rand])) if params[:rand]
+    return unless params[:rand]
+
+    range = params[:rand]
+    range = 1..range unless range.is_a? Range
+
+    Kernel.rand(range)
   end
 
   def rand_range

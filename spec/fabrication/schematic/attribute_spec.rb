@@ -70,6 +70,17 @@ describe Fabrication::Schematic::Attribute do
       end
     end
 
+    context 'collection block with random amount given as range' do
+      let(:random_amount_range) { 10..21 }
+      let(:attribute) do
+        Fabrication::Schematic::Attribute.new(Object, "a", nil, {rand: random_amount_range}) { 'something' }
+      end
+
+      it 'returns random number of items in collection with a max of passed in value' do
+        expect(random_amount_range).to be_member(attribute.processed_value({}).length)
+      end
+    end
+
     context 'collection block with random amount within a range' do
       let(:range_start) { 10 }
       let(:range_end) { 21 }
