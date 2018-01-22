@@ -253,4 +253,9 @@ describe Fabrication::Schematic::Definition do
     end
     it { should == [:one, :two, :three] }
   end
+
+  describe '#klass' do
+    subject { schematic.klass }
+    it { should be OpenStruct }
+  end
 end
