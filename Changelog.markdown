@@ -1,3 +1,8 @@
+### 2.20.1 ###
+
+* Make #klass public so the `rake fabrication:list` works properly (#307)
+* Fix a bug preventing default expansions from singularizing when using `rand` option (#309)
+
 ### 2.20.0 ###
 
 * Allow passing a range to rand (#292, #308)
