@@ -426,4 +426,34 @@ describe Fabrication do
     end
   end
 
+  describe 'using the rand option' do
+    before { Fabrication.clear_definitions }
+
+    context 'with an integer' do
+      let!(:parent) do
+        Fabricate(:parent_ruby_object) do
+          child_ruby_objects(rand: 3)
+        end
+      end
+
+      it 'generates between 1 and 3 child_ruby_objects' do
+        expect(parent.child_ruby_objects.length).to be >= 1
+        expect(parent.child_ruby_objects.length).to be <= 3
+      end
+    end
+
+    context 'with a range' do
+      let!(:parent) do
+        Fabricate(:parent_ruby_object) do
+          child_ruby_objects(rand: 3..5)
+        end
+      end
+
+      it 'generates between 3 and 5 child_ruby_objects' do
+        expect(parent.child_ruby_objects.length).to be >= 3
+        expect(parent.child_ruby_objects.length).to be <= 5
+      end
+    end
+  end
+
 end

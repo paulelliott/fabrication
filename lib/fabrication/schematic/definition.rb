@@ -113,7 +113,7 @@ class Fabrication::Schematic::Definition
   end
 
   def generate_value(name, params)
-    if params[:count]
+    if params[:count] || params[:rand]
       name = Fabrication::Support.singularize(name.to_s)
       proc { Fabricate.build(params[:fabricator] || name) }
     else
