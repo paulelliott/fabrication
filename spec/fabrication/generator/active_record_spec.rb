@@ -1,5 +1,22 @@
 require 'spec_helper'
 
+describe Fabrication::Generator::ActiveRecord do
+  describe ".supports?" do
+    subject { Fabrication::Generator::ActiveRecord }
+
+    # Defines a fakey ActiveRecord module that doesn't also have
+    # ActiveRecord::Base such as those written by instrumentation
+    # platforms e.g. Honeycomb
+    module ActiveRecord; end
+
+    let(:active_record_fake) { ActiveRecord }
+
+    it "returns false for active record objects without ar::base" do
+      expect(subject.supports?(active_record_fake)).to be false
+    end
+  end
+end
+
 describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
 
   describe ".supports?" do
