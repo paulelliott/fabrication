@@ -1,3 +1,7 @@
+### 2.20.2 ###
+
+* Fix for applications with a phony ActiveRecord module declared (#312)
+
 ### 2.20.1 ###
 
 * Make #klass public so the `rake fabrication:list` works properly (#307)
