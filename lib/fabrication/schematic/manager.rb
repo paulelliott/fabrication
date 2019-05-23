@@ -73,7 +73,7 @@ class Fabrication::Schematic::Manager
   end
 
   def store(name, aliases, options, &block)
-    schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, options, &block)
+    schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, self, options, &block)
     aliases.each { |as| schematics[as.to_sym] = schematic }
   end
 

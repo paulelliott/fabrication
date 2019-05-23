@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Definition do
-
+  let(:manager) { Fabrication.manager }
   let(:schematic) do
-    Fabrication::Schematic::Definition.new('OpenStruct') do
+    Fabrication::Schematic::Definition.new('OpenStruct', manager) do
       name "Orgasmo"
       something(:param => 2) { "hi!" }
       another_thing { 25 }
@@ -165,7 +165,7 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { lambda {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      Fabrication::Schematic::Definition.new('OpenStruct', manager) do
         on_init(&block)
       end
     end
@@ -193,7 +193,7 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { lambda {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      Fabrication::Schematic::Definition.new('OpenStruct', manager) do
         initialize_with(&block)
       end
     end
@@ -219,7 +219,7 @@ describe Fabrication::Schematic::Definition do
 
   describe '#transient' do
     let(:definition) do
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      Fabrication::Schematic::Definition.new('OpenStruct', manager) do
         transient :one, :two => 'with a default value', :three => 200
       end
     end
@@ -245,7 +245,7 @@ describe Fabrication::Schematic::Definition do
   describe '#sorted_attributes' do
     subject { definition.sorted_attributes.map(&:name) }
     let(:definition) do
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      Fabrication::Schematic::Definition.new('OpenStruct', manager) do
         three { nil }
         one ''
         transient :two

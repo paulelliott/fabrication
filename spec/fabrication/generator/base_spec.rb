@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Fabrication::Generator::Base do
+  let(:manager) { Fabrication.manager }
 
   describe ".supports?" do
     subject { Fabrication::Generator::Base }
@@ -14,7 +15,7 @@ describe Fabrication::Generator::Base do
     let(:generator) { Fabrication::Generator::Base.new(ParentRubyObject) }
 
     let(:attributes) do
-      Fabrication::Schematic::Definition.new('ParentRubyObject') do
+      Fabrication::Schematic::Definition.new('ParentRubyObject', manager) do
         string_field 'different content'
         extra_fields(count: 4) { |attrs, index| "field #{index}" }
       end.attributes
@@ -39,7 +40,7 @@ describe Fabrication::Generator::Base do
 
       context "using init_with" do
         let(:schematic) do
-          Fabrication::Schematic::Definition.new('ClassWithInit') do
+          Fabrication::Schematic::Definition.new('ClassWithInit', manager) do
             on_init { init_with(:a, :b) }
           end
         end
@@ -52,7 +53,7 @@ describe Fabrication::Generator::Base do
 
       context "not using init_with" do
         let(:schematic) do
-          Fabrication::Schematic::Definition.new('ClassWithInit') do
+          Fabrication::Schematic::Definition.new('ClassWithInit', manager) do
             on_init { [ :a, :b ] }
           end
         end
@@ -70,7 +71,7 @@ describe Fabrication::Generator::Base do
 
       context "using only raw values" do
         let(:schematic) do
-          Fabrication::Schematic::Definition.new('ClassWithInit') do
+          Fabrication::Schematic::Definition.new('ClassWithInit', manager) do
             initialize_with { Struct.new(:arg1, :arg2).new(:fixed_value) }
           end
         end
@@ -83,7 +84,7 @@ describe Fabrication::Generator::Base do
 
       context "using attributes inside block" do
         let(:schematic) do
-           Fabrication::Schematic::Definition.new('ClassWithInit') do
+           Fabrication::Schematic::Definition.new('ClassWithInit', manager) do
              arg1 10
              initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1 + 10) }
           end
@@ -109,7 +110,7 @@ describe Fabrication::Generator::Base do
 
     context "using an after_create hook" do
       let(:schematic) do
-        Fabrication::Schematic::Definition.new('ParentRubyObject') do
+        Fabrication::Schematic::Definition.new('ParentRubyObject', manager) do
           string_field 'something'
           after_create { |k| k.string_field.upcase! }
         end
@@ -127,7 +128,7 @@ describe Fabrication::Generator::Base do
     context 'all the callbacks' do
       subject { schematic.build }
       let(:schematic) do
-        Fabrication::Schematic::Definition.new('ParentRubyObject') do
+        Fabrication::Schematic::Definition.new('ParentRubyObject', manager) do
           string_field ""
           after_build { |k| k.string_field += '1' }
           before_validation { |k| k.string_field += '2' }
@@ -159,7 +160,7 @@ describe Fabrication::Generator::Base do
     context 'all the callbacks' do
       subject { schematic.fabricate }
       let(:schematic) do
-        Fabrication::Schematic::Definition.new('ParentRubyObject') do
+        Fabrication::Schematic::Definition.new('ParentRubyObject', manager) do
           string_field ""
           after_build { |k| k.string_field += '1' }
           before_validation { |k| k.string_field += '2' }

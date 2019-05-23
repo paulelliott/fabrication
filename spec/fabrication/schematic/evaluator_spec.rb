@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Evaluator do
-  let(:definition) { Fabrication::Schematic::Definition.new(ParentRubyObject) }
+  let(:manager) { Fabrication.manager }
+  let(:definition) { Fabrication::Schematic::Definition.new(ParentRubyObject, manager) }
   let(:evaluator) { Fabrication::Schematic::Evaluator.new }
 
   describe 'attribute handling' do
