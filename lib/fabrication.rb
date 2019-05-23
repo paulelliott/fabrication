@@ -48,7 +48,7 @@ module Fabrication
   end
 
   def self.manager
-    @manager ||= Fabrication::Schematic::Manager.instance
+    @manager ||= Fabrication::Schematic::Manager.new
   end
 
   def self.schematics

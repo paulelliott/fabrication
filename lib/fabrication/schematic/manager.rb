@@ -1,8 +1,4 @@
-require 'singleton'
-
 class Fabrication::Schematic::Manager
-  include Singleton
-
   def preinitialize
     @initializing = true
     clear
