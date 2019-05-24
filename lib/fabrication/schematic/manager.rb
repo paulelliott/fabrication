@@ -1,4 +1,36 @@
+
+require 'forwardable'
+
 class Fabrication::Schematic::Manager
+  extend Forwardable
+  def_delegator :@loader, :load_definitions
+
+  class Loader
+    attr_reader :manager
+    def initialize(manager)
+      @manager = manager
+    end
+
+    def load_definitions
+      manager.preinitialize
+      Fabrication::Config.path_prefixes.each do |prefix|
+        Fabrication::Config.fabricator_paths.each do |folder|
+          Dir.glob(File.join(prefix.to_s, folder, '**', '*.rb')).sort.each do |file|
+            load file
+          end
+        end
+      end
+    rescue Exception => e
+      raise e
+    ensure
+      manager.freeze
+    end
+  end
+
+  def initialize
+    @loader = Loader.new(self)
+  end
+
   def preinitialize
     @initializing = true
     clear
@@ -8,16 +40,16 @@ class Fabrication::Schematic::Manager
     @initializing ||= nil
   end
 
+  def freeze
+    @initializing = false
+  end
+
   def schematics
     @schematics ||= {}
   end
 
   def clear; schematics.clear end
   def empty?; schematics.empty? end
-
-  def freeze
-    @initializing = false
-  end
 
   def register(name, options, &block)
     name = name.to_sym
@@ -39,21 +71,6 @@ class Fabrication::Schematic::Manager
 
   def to_params_stack
     @to_params_stack ||= []
-  end
-
-  def load_definitions
-    preinitialize
-    Fabrication::Config.path_prefixes.each do |prefix|
-      Fabrication::Config.fabricator_paths.each do |folder|
-        Dir.glob(File.join(prefix.to_s, folder, '**', '*.rb')).sort.each do |file|
-          load file
-        end
-      end
-    end
-  rescue Exception => e
-    raise e
-  ensure
-    freeze
   end
 
   def prevent_recursion!
