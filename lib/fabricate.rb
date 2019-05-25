@@ -34,8 +34,6 @@ class Fabricate
   end
 
   def self.schematic(name)
-    raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
-    Fabrication.manager.load_definitions if Fabrication.manager.empty?
-    Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
+    Fabrication.manager.load_schematic name
   end
 end

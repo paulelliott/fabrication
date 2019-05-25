@@ -61,6 +61,12 @@ class Fabrication::Schematic::Manager
     schematics[name.to_sym]
   end
 
+  def load_schematic(name)
+    raise Fabrication::MisplacedFabricateError.new(name) if initializing?
+    load_definitions if empty?
+    self[name.to_sym] || raise(Fabrication::UnknownFabricatorError.new(name))
+  end
+
   def create_stack
     @create_stack ||= []
   end
