@@ -5,16 +5,31 @@ class Fabrication::Schematic::Manager
   extend Forwardable
   def_delegators :@loader,
     :load_definitions,
-    :load_schematic
+    :load_schematic,
+    :preinitialize,
+    :initializing?,
+    :freeze
 
   class Loader
-    attr_reader :manager
     def initialize(manager)
       @manager = manager
     end
 
+    def preinitialize
+      @initializing = true
+      @manager.clear
+    end
+
+    def initializing?
+      @initializing ||= nil
+    end
+
+    def freeze
+      @initializing = false
+    end
+
     def load_definitions
-      manager.preinitialize
+      preinitialize
       Fabrication::Config.path_prefixes.each do |prefix|
         Fabrication::Config.fabricator_paths.each do |folder|
           Dir.glob(File.join(prefix.to_s, folder, '**', '*.rb')).sort.each do |file|
@@ -25,31 +40,18 @@ class Fabrication::Schematic::Manager
     rescue Exception => e
       raise e
     ensure
-      manager.freeze
+      freeze
     end
 
     def load_schematic(name)
-      raise Fabrication::MisplacedFabricateError.new(name) if manager.initializing?
-      load_definitions if manager.empty?
-      manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
+      raise Fabrication::MisplacedFabricateError.new(name) if initializing?
+      load_definitions if @manager.empty?
+      @manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
     end
   end
 
   def initialize
     @loader = Loader.new(self)
-  end
-
-  def preinitialize
-    @initializing = true
-    clear
-  end
-
-  def initializing?
-    @initializing ||= nil
-  end
-
-  def freeze
-    @initializing = false
   end
 
   def schematics
