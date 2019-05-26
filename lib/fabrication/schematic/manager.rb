@@ -3,7 +3,9 @@ require 'forwardable'
 
 class Fabrication::Schematic::Manager
   extend Forwardable
-  def_delegator :@loader, :load_definitions
+  def_delegators :@loader,
+    :load_definitions,
+    :load_schematic
 
   class Loader
     attr_reader :manager
@@ -24,6 +26,12 @@ class Fabrication::Schematic::Manager
       raise e
     ensure
       manager.freeze
+    end
+
+    def load_schematic(name)
+      raise Fabrication::MisplacedFabricateError.new(name) if manager.initializing?
+      load_definitions if manager.empty?
+      manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
     end
   end
 
@@ -59,12 +67,6 @@ class Fabrication::Schematic::Manager
 
   def [](name)
     schematics[name.to_sym]
-  end
-
-  def load_schematic(name)
-    raise Fabrication::MisplacedFabricateError.new(name) if initializing?
-    load_definitions if empty?
-    self[name.to_sym] || raise(Fabrication::UnknownFabricatorError.new(name))
   end
 
   def create_stack
