@@ -43,6 +43,10 @@ appraise 'mongoid-4.0' do
   gem 'mongoid', '~> 4.0.0'
 end
 
+appraise 'sequel-5.x' do
+  gem 'sequel', '~> 5.0'
+end
+
 appraise 'sequel-4.x' do
   gem 'sequel', '~> 4.0'
 end

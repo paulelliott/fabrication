@@ -18,6 +18,7 @@ gemfile:
   - gemfiles/mongoid_6.x.gemfile
   - gemfiles/mongoid_5.0.gemfile
   - gemfiles/mongoid_4.0.gemfile
+  - gemfiles/sequel_5.x.gemfile
   - gemfiles/sequel_4.x.gemfile
 
 matrix:
