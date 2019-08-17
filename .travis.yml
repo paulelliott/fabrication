@@ -14,6 +14,7 @@ gemfile:
   - gemfiles/rails_6.0.gemfile
   - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_4.2.gemfile
+  - gemfiles/mongoid_6.x.gemfile
   - gemfiles/mongoid_5.0.gemfile
   - gemfiles/mongoid_4.0.gemfile
   - gemfiles/mongoid_3.1.gemfile
