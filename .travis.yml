@@ -11,6 +11,7 @@ services:
 gemfile:
   - gemfiles/kitchen_sink.gemfile
   - gemfiles/blank_slate.gemfile
+  - gemfiles/rails_6.0.gemfile
   - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_4.2.gemfile
   - gemfiles/mongoid_5.0.gemfile
