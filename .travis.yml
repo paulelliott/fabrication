@@ -23,13 +23,13 @@ gemfile:
 matrix:
   fast_finish: true
   include:
+    - rvm: 2.5
+      gemfile: gemfiles/kitchen_sink.gemfile
+    - rvm: 2.4
+      gemfile: gemfiles/kitchen_sink.gemfile
     - rvm: 2.3
       gemfile: gemfiles/rails_4.1.gemfile
     - rvm: 2.3
       gemfile: gemfiles/rails_4.0.gemfile
     - rvm: 2.3
       gemfile: gemfiles/rails_3.2.gemfile
-    - rvm: 2.3
-      gemfile: gemfiles/kitchen_sink.gemfile
-    - rvm: 2.2
-      gemfile: gemfiles/kitchen_sink.gemfile
