@@ -27,6 +27,10 @@ appraise 'rails-4.2' do
   gem 'activerecord', '~> 4.2.0', require: 'active_record'
 end
 
+appraise 'mongoid-7.x' do
+  gem 'mongoid', '~> 5.0'
+end
+
 appraise 'mongoid-6.x' do
   gem 'mongoid', '~> 6.0'
 end
