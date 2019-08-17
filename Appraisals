@@ -11,6 +11,10 @@ end
 appraise 'blank-slate' do
 end
 
+appraise 'rails-6.0' do
+  gem 'activerecord', '~> 6.0.0', require: 'active_record'
+end
+
 appraise 'rails-5.1' do
   gem 'activerecord', '~> 5.1.0', require: 'active_record'
 end
@@ -23,17 +27,8 @@ appraise 'rails-4.2' do
   gem 'activerecord', '~> 4.2.0', require: 'active_record'
 end
 
-appraise 'rails-4.1' do
-  gem 'activerecord', '~> 4.1.0', require: 'active_record'
-end
-
-appraise 'rails-4.0' do
-  gem 'activerecord', '~> 4.0.0', require: 'active_record'
-  gem 'protected_attributes'
-end
-
-appraise 'rails-3.2' do
-  gem 'activerecord', '~> 3.2.0', require: 'active_record'
+appraise 'mongoid-7.x' do
+  gem 'mongoid', '~> 5.0'
 end
 
 appraise 'mongoid-6.x' do
@@ -48,12 +43,8 @@ appraise 'mongoid-4.0' do
   gem 'mongoid', '~> 4.0.0'
 end
 
-appraise 'mongoid-3.1' do
-  gem 'mongoid', '~> 3.1.0'
-end
-
-appraise 'mongoid-3.0' do
-  gem 'mongoid', '~> 3.0.0'
+appraise 'sequel-5.x' do
+  gem 'sequel', '~> 5.0'
 end
 
 appraise 'sequel-4.x' do

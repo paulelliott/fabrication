@@ -3,7 +3,7 @@ language: ruby
 cache: bundler
 
 rvm:
-  - 2.4.2
+  - 2.6.3
 
 services:
   - mongodb
@@ -11,24 +11,20 @@ services:
 gemfile:
   - gemfiles/kitchen_sink.gemfile
   - gemfiles/blank_slate.gemfile
+  - gemfiles/rails_6.0.gemfile
   - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_4.2.gemfile
+  - gemfiles/mongoid_7.x.gemfile
+  - gemfiles/mongoid_6.x.gemfile
   - gemfiles/mongoid_5.0.gemfile
   - gemfiles/mongoid_4.0.gemfile
-  - gemfiles/mongoid_3.1.gemfile
-  - gemfiles/mongoid_3.0.gemfile
+  - gemfiles/sequel_5.x.gemfile
   - gemfiles/sequel_4.x.gemfile
 
 matrix:
   fast_finish: true
   include:
-    - rvm: 2.3
-      gemfile: gemfiles/rails_4.1.gemfile
-    - rvm: 2.3
-      gemfile: gemfiles/rails_4.0.gemfile
-    - rvm: 2.3
-      gemfile: gemfiles/rails_3.2.gemfile
-    - rvm: 2.3
+    - rvm: 2.5
       gemfile: gemfiles/kitchen_sink.gemfile
-    - rvm: 2.2
+    - rvm: 2.4
       gemfile: gemfiles/kitchen_sink.gemfile
