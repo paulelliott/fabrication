@@ -36,10 +36,6 @@ appraise 'rails-4.0' do
   gem 'protected_attributes'
 end
 
-appraise 'rails-3.2' do
-  gem 'activerecord', '~> 3.2.0', require: 'active_record'
-end
-
 appraise 'mongoid-6.x' do
   gem 'mongoid', '~> 6.0'
 end
