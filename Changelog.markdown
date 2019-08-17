@@ -1,3 +1,12 @@
+### master ###
+
+* Add support for rails 6
+* Add support for sequel 5
+* Add support for mongoid 7
+* Drop support for rails versions no longer officially supported (4.1 and below)
+* Drop support for mongoid versions relying on unsupported active_model versions (3.1 and below)
+* Drop support for ruby versions no longer officially supported (2.3 and below)
+
 ### 2.20.2 ###
 
 * Fix for applications with a phony ActiveRecord module declared (#312)
