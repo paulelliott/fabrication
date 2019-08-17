@@ -27,5 +27,3 @@ matrix:
       gemfile: gemfiles/kitchen_sink.gemfile
     - rvm: 2.4
       gemfile: gemfiles/kitchen_sink.gemfile
-    - rvm: 2.3
-      gemfile: gemfiles/rails_4.1.gemfile
