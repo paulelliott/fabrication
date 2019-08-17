@@ -31,11 +31,6 @@ appraise 'rails-4.1' do
   gem 'activerecord', '~> 4.1.0', require: 'active_record'
 end
 
-appraise 'rails-4.0' do
-  gem 'activerecord', '~> 4.0.0', require: 'active_record'
-  gem 'protected_attributes'
-end
-
 appraise 'mongoid-6.x' do
   gem 'mongoid', '~> 6.0'
 end
