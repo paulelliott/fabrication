@@ -1,4 +1,8 @@
+<% if namespaced? -%>
+Fabricator(<%= ":#{singular_name}, from: '#{namespace}::#{class_name}'" %>) do
+<% else -%>
 Fabricator(<%= class_name.match(/::/) ? "'#{class_name}'" : ":#{singular_name}" %>) do
+<% end -%>
 <% width = attributes.map{|a| a.name.size }.max.to_i -%>
 <% attributes.each do |attribute| -%>
   <%= "%-#{width}s %s" % [attribute.name, attribute.default.inspect] %>
