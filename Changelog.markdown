@@ -1,4 +1,4 @@
-### master ###
+### 2.21.0 ###
 
 * Add support for rails 6
 * Add support for sequel 5
@@ -6,6 +6,7 @@
 * Drop support for rails versions no longer officially supported (4.1 and below)
 * Drop support for mongoid versions relying on unsupported active_model versions (3.1 and below)
 * Drop support for ruby versions no longer officially supported (2.3 and below)
+* Correctly generate fabricators inside rails engine namespaces (#315)
 
 ### 2.20.2 ###
 
