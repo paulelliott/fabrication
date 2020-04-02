@@ -85,7 +85,7 @@ describe Fabrication::Generator::Base do
         let(:schematic) do
            Fabrication::Schematic::Definition.new('ClassWithInit') do
              arg1 10
-             initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1 + 10) }
+             initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1.to_i + 10) }
           end
         end
 
@@ -104,6 +104,13 @@ describe Fabrication::Generator::Base do
           end
         end
 
+        context "with nil override" do
+          subject { schematic.fabricate(arg1: nil) }
+          it "saves the return value of the block as instance" do
+            expect(subject.arg1).to eq(nil)
+            expect(subject.arg2).to eq(10)
+          end
+        end
       end
     end
 

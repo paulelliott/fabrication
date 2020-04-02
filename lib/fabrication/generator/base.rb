@@ -76,7 +76,7 @@ class Fabrication::Generator::Base
   end
 
   def method_missing(method_name, *args, &block)
-    _attributes[method_name] || super
+    _attributes.fetch(method_name) { super }
   end
 
   protected
