@@ -1,3 +1,7 @@
+### 2.21.1 ###
+
+* Fix bug where nil property overrides could be ignored (#318)
+
 ### 2.21.0 ###
 
 * Add support for rails 6
