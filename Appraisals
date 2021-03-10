@@ -1,11 +1,11 @@
 appraise 'kitchen-sink' do
   gem 'activerecord', require: 'active_record'
-  gem "dm-core"
-  gem "dm-migrations"
-  gem "dm-sqlite-adapter"
-  gem "dm-validations"
-  gem "mongoid"
-  gem "sequel"
+  gem 'dm-core'
+  gem 'dm-migrations'
+  gem 'dm-sqlite-adapter'
+  gem 'dm-validations'
+  gem 'mongoid'
+  gem 'sequel'
 end
 
 appraise 'blank-slate' do
@@ -44,7 +44,11 @@ appraise 'mongoid-4.0' do
 end
 
 appraise 'sequel-5.x' do
-  gem 'sequel', '~> 5.0'
+  gem 'sequel', '~> 5.42'
+end
+
+appraise 'sequel-5.1' do
+  gem 'sequel', '~> 5.1.0'
 end
 
 appraise 'sequel-4.x' do

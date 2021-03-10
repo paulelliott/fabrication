@@ -84,7 +84,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    sequel (5.42.0)
+    sequel (5.1.0)
     sqlite3 (1.4.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
@@ -106,7 +106,7 @@ DEPENDENCIES
   rake
   rspec
   rspec-its
-  sequel (~> 5.42)
+  sequel (~> 5.1.0)
   sqlite3
 
 BUNDLED WITH

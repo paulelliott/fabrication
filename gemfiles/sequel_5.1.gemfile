@@ -10,6 +10,6 @@ gem "rake"
 gem "rspec"
 gem "rspec-its"
 gem "sqlite3"
-gem "sequel", "~> 5.42"
+gem "sequel", "~> 5.1.0"
 
 gemspec path: "../"
