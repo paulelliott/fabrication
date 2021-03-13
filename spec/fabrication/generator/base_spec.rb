@@ -80,10 +80,10 @@ describe Fabrication::Generator::Base do
 
       context "using attributes inside block" do
         let(:schematic) do
-           Fabrication::Schematic::Definition.new('ClassWithInit') do
-             arg1 10
-             initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1.to_i + 10) }
-           end
+          Fabrication::Schematic::Definition.new('ClassWithInit') do
+            arg1 10
+            initialize_with { Struct.new(:arg1, :arg2).new(arg1, arg1.to_i + 10) }
+          end
         end
 
         context "without override" do
