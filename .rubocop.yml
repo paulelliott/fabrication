@@ -7,6 +7,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
+RSpec/ExampleLength:
+  Enabled: false
+
 Layout/BlockAlignment:
   Enabled: False
 Layout/DotPosition:
@@ -124,8 +127,6 @@ RSpec/EmptyLineAfterHook:
 RSpec/EmptyLineAfterSubject:
   Enabled: False
 RSpec/EmptyLineAfterExampleGroup:
-  Enabled: False
-RSpec/ExampleLength:
   Enabled: False
 RSpec/ExampleWording:
   Enabled: False
