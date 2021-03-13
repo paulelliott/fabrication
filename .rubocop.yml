@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/EmptyLines:
-  Enabled: False
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: False
 Layout/EmptyLinesAroundBlockBody:

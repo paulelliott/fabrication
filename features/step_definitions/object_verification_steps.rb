@@ -16,7 +16,6 @@ def get_class(model_name)
   Fabrication.manager[fabricator_name].send(:klass)
 end
 
-
 Then /^that ([^"]*) should be persisted$/ do |object_name|
   object_name = dehumanize(object_name)
   object = fabrications[object_name]
