@@ -188,7 +188,7 @@ describe Fabrication do
       end
     end
 
-    its(:field1)  { should == 'value1' }
+    its(:field1) { should == 'value1' }
     its(:field2) { should == 'value2' }
   end
 
