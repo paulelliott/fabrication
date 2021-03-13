@@ -7,8 +7,6 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
-Layout/AssignmentIndentation:
-  Enabled: False
 Layout/BlockAlignment:
   Enabled: False
 Layout/DotPosition:

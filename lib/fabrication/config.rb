@@ -7,9 +7,9 @@ module Fabrication
     def reset_defaults
       @fabricator_path =
         @path_prefix =
-        @sequence_start =
-        @generators =
-        nil
+          @sequence_start =
+            @generators =
+              nil
     end
 
     def fabricator_path
