@@ -38,8 +38,8 @@ describe Fabrication::Cucumber::StepFabricator do
     end
 
     it "fabricates with attrs" do
-      expect(Fabricate).to receive(:create).
-        with(:dog, :collar => 'red').at_least(1)
+      expect(Fabricate).to receive(:create)
+        .with(:dog, :collar => 'red').at_least(1)
       fabricator.n n, :collar => 'red'
     end
 
@@ -75,8 +75,8 @@ describe Fabrication::Cucumber::StepFabricator do
       before { allow(Fabricate).to receive(:create) }
 
       it 'applies transforms' do
-        expect(Fabrication::Transform).to receive(:apply_to).
-          with('bears', {:some => 'thing'}).and_return({})
+        expect(Fabrication::Transform).to receive(:apply_to)
+          .with('bears', {:some => 'thing'}).and_return({})
         Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
       end
     end
