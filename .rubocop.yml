@@ -11,6 +11,8 @@ RSpec/ExampleLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 Layout/BlockAlignment:
   Enabled: False
@@ -183,8 +185,6 @@ Style/EmptyLiteral:
 Style/Encoding:
   Enabled: False
 Style/ExpandPathArguments:
-  Enabled: False
-Style/FrozenStringLiteralComment:
   Enabled: False
 Style/HashSyntax:
   Enabled: False
