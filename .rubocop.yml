@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/LineLength:
-  Enabled: False
 Layout/SpaceAfterComma:
   Enabled: False
 Layout/SpaceAroundEqualsInParameterDefault:
