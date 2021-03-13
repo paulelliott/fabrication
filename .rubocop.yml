@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/BlockAlignment:
-  Enabled: False
 Layout/DotPosition:
   Enabled: False
 Layout/EmptyLineAfterGuardClause:
