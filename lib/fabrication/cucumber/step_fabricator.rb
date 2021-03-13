@@ -3,13 +3,13 @@ module Fabrication
     class StepFabricator
       attr_reader :model
 
-      def initialize(model_name, opts ={})
+      def initialize(model_name, opts = {})
         @model = dehumanize(model_name)
         @fabricator = Fabrication::Support.singularize(@model).to_sym
         @parent_name = opts.delete(:parent)
       end
 
-      def from_table(table, extra={})
+      def from_table(table, extra = {})
         hashes = singular? ? [table.rows_hash] : table.hashes
         hashes.map do |hash|
           transformed_hash = Fabrication::Transform.apply_to(@model, parameterize_hash(hash))
@@ -17,7 +17,7 @@ module Fabrication
         end.tap {|o| remember(o) }
       end
 
-      def n(count, attrs={})
+      def n(count, attrs = {})
         count.times.map { make(attrs) }.tap {|o| remember(o) }
       end
 
@@ -62,7 +62,7 @@ module Fabrication
         hash.inject({}) {|h, (k, v)| h.update(dehumanize(k).to_sym => v)}
       end
 
-      def make(attrs={})
+      def make(attrs = {})
         Fabricate(@fabricator, attrs.merge(parentship))
       end
 

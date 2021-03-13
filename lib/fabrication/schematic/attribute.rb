@@ -2,7 +2,7 @@ class Fabrication::Schematic::Attribute
   attr_accessor :klass, :name, :value
   attr_writer :params
 
-  def initialize(klass, name, value, params={}, &block)
+  def initialize(klass, name, value, params = {}, &block)
     self.klass = klass
     self.name = name
     self.params = params

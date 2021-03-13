@@ -1,7 +1,7 @@
 class Fabrication::Sequencer
   DEFAULT = :_default
 
-  def self.sequence(name=DEFAULT, start=nil, &block)
+  def self.sequence(name = DEFAULT, start = nil, &block)
     idx = sequences[name] ||= start || Fabrication::Config.sequence_start
     if block_given?
       sequence_blocks[name] = block.to_proc

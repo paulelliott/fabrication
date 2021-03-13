@@ -1,7 +1,7 @@
 class Fabrication::Generator::Base
   def self.supports?(_klass); true end
 
-  def build(attributes=[], callbacks={})
+  def build(attributes = [], callbacks = {})
     process_attributes(attributes)
 
     if callbacks[:initialize_with]
@@ -15,7 +15,7 @@ class Fabrication::Generator::Base
     _instance
   end
 
-  def create(attributes=[], callbacks=[])
+  def create(attributes = [], callbacks = [])
     build(attributes, callbacks)
     execute_callbacks(callbacks[:before_validation])
     execute_callbacks(callbacks[:after_validation])
@@ -31,12 +31,12 @@ class Fabrication::Generator::Base
     callbacks.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) } if callbacks
   end
 
-  def to_params(attributes=[])
+  def to_params(attributes = [])
     process_attributes(attributes)
     _attributes.respond_to?(:with_indifferent_access) ? _attributes.with_indifferent_access : _attributes
   end
 
-  def to_hash(attributes=[], callbacks=[])
+  def to_hash(attributes = [], callbacks = [])
     process_attributes(attributes)
     Fabrication::Support.hash_class.new.tap do |hash|
       _attributes.map do |name, value|
