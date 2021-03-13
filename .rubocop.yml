@@ -1,4 +1,5 @@
 require:
+  - rubocop-rake
   - rubocop-rspec
 
 AllCops:

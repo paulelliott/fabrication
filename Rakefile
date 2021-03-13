@@ -13,8 +13,6 @@ task :cucumber do
   system('appraisal kitchen-sink cucumber -f progress')
 end
 
-if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
-  task default: [:cucumber, :appraisal]
-else
-  task default: :spec
-end
+default_task = !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"] ? %i(cucumber appraisal) : :spec
+
+task default: default_task
