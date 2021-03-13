@@ -2,11 +2,11 @@ require:
   - rubocop-rspec
 
 AllCops:
+  Exclude:
+    - gemfiles/*
   NewCops: enable
   TargetRubyVersion: 3.0
 
-Bundler/OrderedGems:
-  Enabled: False
 Gemspec/RequiredRubyVersion:
   Enabled: False
 Layout/AssignmentIndentation:
