@@ -25,7 +25,7 @@ describe Fabrication::Generator::Base do
     end
 
     it 'passes the object and count to blocks' do
-      expect(parent_ruby_object.extra_fields).to eq (1..4).map { |i| "field #{i}" }
+      expect(parent_ruby_object.extra_fields).to eq((1..4).map { |i| "field #{i}" })
     end
 
     it 'sets the static value' do
