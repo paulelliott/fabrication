@@ -8,6 +8,10 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.5
 
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/**/*
+
 RSpec/ExampleLength:
   Enabled: false
 Style/Documentation:
@@ -15,8 +19,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/ConstantDefinitionInBlock:
-  Enabled: False
 Lint/EmptyBlock:
   Enabled: False
 Lint/EmptyClass:
