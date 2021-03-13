@@ -55,11 +55,11 @@ module Fabrication
       end
 
       def dehumanize(string)
-        string.gsub(/\W+/,'_').downcase
+        string.gsub(/\W+/, '_').downcase
       end
 
       def parameterize_hash(hash)
-        hash.inject({}) {|h,(k,v)| h.update(dehumanize(k).to_sym => v)}
+        hash.inject({}) {|h, (k, v)| h.update(dehumanize(k).to_sym => v)}
       end
 
       def make(attrs={})

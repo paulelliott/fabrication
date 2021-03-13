@@ -12,7 +12,8 @@ Gem::Specification.new do |s|
 
   s.authors = ["Paul Elliott"]
   s.email = ["paul@codingfrontier.com"]
-  s.description = "Fabrication is an object generation framework for ActiveRecord, Mongoid, DataMapper, Sequel, or any other Ruby object."
+  s.description = "Fabrication is an object generation framework for ActiveRecord, " \
+                  "Mongoid, DataMapper, Sequel, or any other Ruby object."
 
   s.homepage = "http://fabricationgem.org"
   s.require_paths = ["lib"]

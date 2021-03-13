@@ -25,6 +25,6 @@ namespace :fabrication do
 
     say["Class", "Fabricator"]
     puts "-" * (names_width + class_width)
-    fabricators.each { |klass, names| say[klass,names] }
+    fabricators.each { |klass, names| say[klass, names] }
   end
 end

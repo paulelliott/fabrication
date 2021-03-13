@@ -65,7 +65,7 @@ class Fabrication::Generator::Base
   end
 
   def set_attributes
-    _attributes.each do |k,v|
+    _attributes.each do |k, v|
       _instance.send("#{k}=", v)
     end
   end

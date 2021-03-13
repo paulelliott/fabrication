@@ -2,7 +2,9 @@ require 'bundler'
 
 Bundler.require(:default, :development)
 
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'..','..','spec','support','**','*.rb'))].each {|f| require f}
+Dir[File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'spec', 'support', '**', '*.rb'))].each {|f|
+  require f
+}
 load 'lib/rails/generators/fabrication/cucumber_steps/templates/fabrication_steps.rb'
 
 Before do

@@ -4,7 +4,7 @@ ORDINALS = {
 }
 
 def dehumanize(string)
-  string.gsub(/\W+/,'_').downcase
+  string.gsub(/\W+/, '_').downcase
 end
 
 def generate_fabricator_name(model_name)

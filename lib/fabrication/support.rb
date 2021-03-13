@@ -43,7 +43,8 @@ class Fabrication::Support
     end
 
     def find_definitions
-      puts "DEPRECATION WARNING: Fabrication::Support.find_definitions has been replaced by Fabrication.manager.load_definitions and will be removed in 3.0.0."
+      puts "DEPRECATION WARNING: Fabrication::Support.find_definitions has " \
+        "been replaced by Fabrication.manager.load_definitions and will be removed in 3.0.0."
       Fabrication.manager.load_definitions
     end
 
@@ -59,8 +60,8 @@ class Fabrication::Support
 
     def underscore(string)
       string.gsub(/::/, '/')
-            .gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-            .gsub(/([a-z\d])([A-Z])/,'\1_\2')
+            .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+            .gsub(/([a-z\d])([A-Z])/, '\1_\2')
             .tr("-", "_")
             .downcase
     end
