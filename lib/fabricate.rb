@@ -42,8 +42,6 @@ class Fabricate
     Fabrication.manager[name] || raise(Fabrication::UnknownFabricatorError.new(name))
   end
 
-  private
-
   def self.fail_if_initializing(name)
     raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
   end
