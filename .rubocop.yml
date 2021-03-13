@@ -15,8 +15,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/AmbiguousRegexpLiteral:
-  Enabled: False
 Lint/AssignmentInCondition:
   Enabled: False
 Lint/ConstantDefinitionInBlock:
