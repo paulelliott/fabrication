@@ -32,6 +32,7 @@ module Fabrication
     end
 
     attr_writer :sequence_start
+
     def sequence_start; @sequence_start ||= 0 end
 
     def path_prefix=(folders)
@@ -44,6 +45,7 @@ module Fabrication
     alias path_prefixes path_prefix
 
     attr_writer :register_with_steps
+
     def register_with_steps?
       @register_with_steps ||= nil
     end

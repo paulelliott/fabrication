@@ -9,6 +9,7 @@ class Fabrication::Schematic::Definition
   ]
 
   attr_accessor :name, :options, :block
+
   def initialize(name, options={}, &block)
     self.name = name
     self.options = options
@@ -34,12 +35,14 @@ class Fabrication::Schematic::Definition
   end
 
   attr_writer :attributes
+
   def attributes
     load_body
     @attributes ||= []
   end
 
   attr_writer :callbacks
+
   def callbacks
     load_body
     @callbacks ||= {}
