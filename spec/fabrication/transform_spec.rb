@@ -37,8 +37,8 @@ describe Fabrication::Transform do
         it 'applies the transform to the specified types' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   {:city => 'Jacksonville Beach'}
-                 )).to eq({:city => 'JACKSONVILLE BEACH'})
+                   { :city => 'Jacksonville Beach' }
+                 )).to eq({ :city => 'JACKSONVILLE BEACH' })
         end
       end
 
@@ -46,8 +46,8 @@ describe Fabrication::Transform do
         it 'applies the generic transform' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   {:city => 'Jacksonville Beach'}
-                 )).to eq({:city => 'Jacksonville'})
+                   { :city => 'Jacksonville Beach' }
+                 )).to eq({ :city => 'Jacksonville' })
         end
       end
     end
@@ -56,8 +56,8 @@ describe Fabrication::Transform do
       it 'does not change value' do
         expect(Fabrication::Transform.apply_to(
                  :address,
-                 {:city => 'Jacksonville Beach'}
-               )).to eq({:city => 'Jacksonville Beach'})
+                 { :city => 'Jacksonville Beach' }
+               )).to eq({ :city => 'Jacksonville Beach' })
       end
     end
 
@@ -71,8 +71,8 @@ describe Fabrication::Transform do
         it 'applies corretly' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   {:city => 'Jacksonville Beach'}
-                 )).to eq({:city => 'JACKSONVILLE BEACH'})
+                   { :city => 'Jacksonville Beach' }
+                 )).to eq({ :city => 'JACKSONVILLE BEACH' })
         end
       end
     end
