@@ -11,6 +11,9 @@ AllCops:
 Lint/ConstantDefinitionInBlock:
   Exclude:
     - spec/**/*
+Lint/EmptyBlock:
+  Exclude:
+    - Appraisals
 
 RSpec/ExampleLength:
   Enabled: false
@@ -19,8 +22,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/EmptyBlock:
-  Enabled: False
 Lint/EmptyClass:
   Enabled: False
 Lint/IneffectiveAccessModifier:

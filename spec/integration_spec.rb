@@ -306,7 +306,7 @@ describe Fabrication do
 
   context 'when defining a fabricator twice' do
     it 'throws an error' do
-      expect { Fabricator(:parent_ruby_object) {} }.to raise_error(Fabrication::DuplicateFabricatorError)
+      expect { Fabricator(:parent_ruby_object) }.to raise_error(Fabrication::DuplicateFabricatorError)
     end
   end
 
