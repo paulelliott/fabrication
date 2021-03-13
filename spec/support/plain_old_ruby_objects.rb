@@ -4,6 +4,7 @@ class Persistable
   def persisted?
     @persisted ||= nil
   end
+
   def save!
     @persisted = true
   end

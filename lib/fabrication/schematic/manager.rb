@@ -17,6 +17,7 @@ class Fabrication::Schematic::Manager
   end
 
   def clear; schematics.clear end
+
   def empty?; schematics.empty? end
 
   def freeze

@@ -55,6 +55,7 @@ module Fabrication
     end
 
     def recursion_limit; @recursion_limit ||= 20 end
+
     def recursion_limit=(limit); @recursion_limit = limit end
   end
 end
