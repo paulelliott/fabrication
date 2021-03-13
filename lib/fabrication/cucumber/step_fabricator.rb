@@ -32,6 +32,7 @@ module Fabrication
 
       def parent
         return unless @parent_name
+
         Fabrications[dehumanize(@parent_name)]
       end
 
@@ -67,6 +68,7 @@ module Fabrication
 
       def parentship
         return {} unless parent
+
         parent_class_name = parent.class.to_s.underscore
 
         parent_instance = parent

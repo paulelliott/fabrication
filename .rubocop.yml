@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/EmptyLineAfterGuardClause:
-  Enabled: False
 Layout/EmptyLineAfterMagicComment:
   Enabled: False
 Layout/EmptyLineBetweenDefs:

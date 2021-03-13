@@ -24,9 +24,11 @@ class Fabrication::Support
           candidate = constant.const_get(name)
           next candidate if constant.const_defined?(name, false)
           next candidate unless Object.const_defined?(name)
+
           constant = constant.ancestors.inject do |const, ancestor|
             break const    if ancestor == Object
             break ancestor if ancestor.const_defined?(name, false)
+
             const
           end
           constant.const_get(name, false)
