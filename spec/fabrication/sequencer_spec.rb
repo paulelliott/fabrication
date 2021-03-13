@@ -69,7 +69,7 @@ describe Fabrication::Sequencer do
       end
       context 'and then with a new block' do
         it 'evaluates the new block' do
-          expect(Fabricate.sequence(:changing_blocks) { |i| i ** 2 }).to eq(4)
+          expect(Fabricate.sequence(:changing_blocks) { |i| i**2 }).to eq(4)
         end
         it 'remembers the new block' do
           expect(Fabricate.sequence(:changing_blocks)).to eq(9)
