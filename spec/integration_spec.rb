@@ -73,11 +73,11 @@ shared_examples 'something fabricatable' do
     it { should be_kind_of(Fabrication::Support.hash_class) }
     it 'serializes the attributes' do
       should include({
-        :dynamic_field => nil,
-        :nil_field => nil,
-        :number_field => 5,
-        :string_field => 'content'
-      })
+                       :dynamic_field => nil,
+                       :nil_field => nil,
+                       :number_field => 5,
+                       :string_field => 'content'
+                     })
     end
   end
 

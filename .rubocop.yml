@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/FirstHashElementIndentation:
-  Enabled: False
 Layout/IndentationWidth:
   Enabled: False
 Layout/LineLength:
