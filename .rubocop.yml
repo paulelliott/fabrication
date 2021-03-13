@@ -15,8 +15,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/SpaceBeforeBlockBraces:
-  Enabled: False
 Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: False
 Layout/SpaceInsideBlockBraces:
