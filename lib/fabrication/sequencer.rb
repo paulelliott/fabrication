@@ -1,5 +1,4 @@
 class Fabrication::Sequencer
-
   DEFAULT = :_default
 
   def self.sequence(name=DEFAULT, start=nil, &block)

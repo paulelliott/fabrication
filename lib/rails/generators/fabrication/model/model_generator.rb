@@ -33,7 +33,6 @@ module Fabrication
       rescue
         # no table? no problem!
       end
-
     end
   end
 end

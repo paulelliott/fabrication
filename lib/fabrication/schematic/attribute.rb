@@ -1,5 +1,4 @@
 class Fabrication::Schematic::Attribute
-
   attr_accessor :klass, :name, :value
   attr_writer :params
 
@@ -62,5 +61,4 @@ class Fabrication::Schematic::Attribute
   def rand_range
     Kernel.rand((params[:start_range]..params[:end_range])) if params[:start_range] && params[:end_range]
   end
-
 end

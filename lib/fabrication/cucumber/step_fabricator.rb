@@ -79,7 +79,6 @@ module Fabrication
 
         { parent_class_name => parent_instance }
       end
-
     end
 
     module Fabrications

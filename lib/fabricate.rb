@@ -47,5 +47,4 @@ class Fabricate
   def self.fail_if_initializing(name)
     raise Fabrication::MisplacedFabricateError.new(name) if Fabrication.manager.initializing?
   end
-
 end

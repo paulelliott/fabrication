@@ -1,5 +1,4 @@
 class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
-
   def self.supports?(klass)
     # Some gems will declare an ActiveRecord module for their own purposes
     # so we can't assume because we have the ActiveRecord module that we also
@@ -15,5 +14,4 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
       self._instance = _klass.new(_attributes)
     end
   end
-
 end

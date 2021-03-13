@@ -77,5 +77,4 @@ class Fabrication::Schematic::Manager
     schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, options, &block)
     aliases.each { |as| schematics[as.to_sym] = schematic }
   end
-
 end

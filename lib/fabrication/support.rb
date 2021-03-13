@@ -1,7 +1,5 @@
 class Fabrication::Support
-
   class << self
-
     def fabricatable?(name)
       Fabrication.manager[name] || class_for(name)
     end
@@ -66,7 +64,5 @@ class Fabrication::Support
             .tr("-", "_")
             .downcase
     end
-
   end
-
 end

@@ -1,5 +1,4 @@
 class Fabrication::Schematic::Evaluator < BasicObject
-
   def process(definition, &block)
     @_definition = definition
     instance_eval(&block)

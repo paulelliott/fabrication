@@ -1,5 +1,4 @@
 class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
-
   def self.supports?(klass)
     defined?(Mongoid) && klass.ancestors.include?(Mongoid::Document)
   end
@@ -11,5 +10,4 @@ class Fabrication::Generator::Mongoid < Fabrication::Generator::Base
       self._instance = _klass.new(_attributes)
     end
   end
-
 end

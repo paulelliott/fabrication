@@ -1,5 +1,4 @@
 class Fabrication::Generator::Base
-
   def self.supports?(_klass); true end
 
   def build(attributes=[], callbacks={})
@@ -99,5 +98,4 @@ class Fabrication::Generator::Base
     end
     _attributes.reject! { |k| _transient_attributes.keys.include?(k) }
   end
-
 end

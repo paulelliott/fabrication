@@ -1,5 +1,4 @@
 class Fabrication::Schematic::Runner
-
   attr_accessor :klass
 
   def initialize(klass)

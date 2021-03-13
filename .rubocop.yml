@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/EmptyLinesAroundClassBody:
-  Enabled: False
 Layout/EmptyLinesAroundModuleBody:
   Enabled: False
 Layout/ExtraSpacing:
