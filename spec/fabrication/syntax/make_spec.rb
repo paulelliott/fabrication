@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'fabrication/syntax/make'
 
 describe Fabrication::Syntax::Make do
-
   describe "#make mongoid", depends_on: :mongoid do
     it "should return a fabricated object" do
       expect(ParentMongoidDocument.make).to be_instance_of ParentMongoidDocument
@@ -27,7 +26,6 @@ describe Fabrication::Syntax::Make do
   end
 
   describe "#make activerecord", depends_on: :active_record do
-
     it "should return a fabricated object" do
       expect(ParentActiveRecordModel.make).to be_instance_of ParentActiveRecordModel
     end
@@ -39,7 +37,6 @@ describe Fabrication::Syntax::Make do
     it "bang should be the same as Fabricate" do
       expect(ParentActiveRecordModel.make!).not_to be_new_record
     end
-
   end
 
   describe "#make sequel", depends_on: :sequel do
@@ -55,5 +52,4 @@ describe Fabrication::Syntax::Make do
       expect(ParentSequelModel.make!.id).not_to be_nil
     end
   end
-
 end

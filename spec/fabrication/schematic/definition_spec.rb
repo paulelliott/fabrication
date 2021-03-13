@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Definition do
-
   let(:schematic) do
     Fabrication::Schematic::Definition.new('OpenStruct') do
       name "Orgasmo"
@@ -90,9 +89,7 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe "#merge" do
-
     context "without inheritance" do
-
       subject { schematic.merge }
 
       it { should_not == schematic }
@@ -119,11 +116,9 @@ describe Fabrication::Schematic::Definition do
         expect(Proc).to be === attribute.value
         expect(attribute.value.call).to eq(25)
       end
-
     end
 
     context "with inheritance" do
-
       subject do
         schematic.merge do
           name { "Willis" }
@@ -156,9 +151,7 @@ describe Fabrication::Schematic::Definition do
         expect(Proc).to be === attribute.value
         expect(attribute.value.call).to eq("Boo-ya!")
       end
-
     end
-
   end
 
   describe "#on_init" do

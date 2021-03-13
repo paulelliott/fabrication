@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Generator::Base do
-
   describe ".supports?" do
     subject { Fabrication::Generator::Base }
     it "supports any object" do
@@ -10,7 +9,6 @@ describe Fabrication::Generator::Base do
   end
 
   describe "#build" do
-
     let(:generator) { Fabrication::Generator::Base.new(ParentRubyObject) }
 
     let(:attributes) do
@@ -61,7 +59,6 @@ describe Fabrication::Generator::Base do
           expect(subject.arg1).to eq(:a)
           expect(subject.arg2).to eq(:b)
         end
-
       end
     end
 
@@ -199,5 +196,4 @@ describe Fabrication::Generator::Base do
       expect(Fabricate(:parent_ruby_object)).to be_persisted
     end
   end
-
 end

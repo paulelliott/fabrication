@@ -60,7 +60,6 @@ describe Fabrication::Cucumber::StepFabricator do
         expect(Fabrication::Cucumber::Fabrications[name]).to eq('dog1')
       end
     end
-
   end
 
   describe '#from_table' do
@@ -116,5 +115,4 @@ describe Fabrication::Cucumber::StepFabricator do
       end
     end
   end
-
 end

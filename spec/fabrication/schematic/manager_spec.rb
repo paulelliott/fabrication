@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
-
   let(:manager) { Fabrication::Schematic::Manager.instance }
   before { manager.clear }
 
@@ -35,7 +34,6 @@ describe Fabrication::Schematic::Manager do
         expect(subject.schematics[:thing_two]).to eq(subject.schematics[:open_struct])
       end
     end
-
   end
 
   describe '#[]' do
@@ -79,5 +77,4 @@ describe Fabrication::Schematic::Manager do
       end
     end
   end
-
 end

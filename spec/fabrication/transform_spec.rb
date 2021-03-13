@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Transform do
-
   before do
     Fabrication.clear_definitions
     Fabrication::Transform.clear_all
@@ -92,5 +91,4 @@ describe Fabrication::Transform do
       }.to change(Fabrication::Transform, :overrides)
     end
   end
-
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Attribute do
-
   describe ".new" do
     context "with name, params, and a static value" do
       subject do

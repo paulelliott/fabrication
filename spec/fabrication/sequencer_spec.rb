@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Fabrication::Sequencer do
-
   context 'with no arguments' do
     subject { Fabrication::Sequencer.sequence }
 
@@ -12,7 +11,6 @@ describe Fabrication::Sequencer do
   end
 
   context 'with only a name' do
-
     it 'starts with 0' do
       expect(Fabricate.sequence(:incr)).to eq(0)
     end
@@ -30,11 +28,9 @@ describe Fabrication::Sequencer do
       expect(Fabricate.sequence(:number)).to eq(2)
       expect(Fabricate.sequence(:number)).to eq(3)
     end
-
   end
 
   context 'with a name and starting number' do
-
     it 'starts with the number provided' do
       expect(Fabricate.sequence(:higher, 69)).to eq(69)
     end
@@ -45,11 +41,9 @@ describe Fabrication::Sequencer do
       expect(Fabricate.sequence(:higher)).to eq(72)
       expect(Fabricate.sequence(:higher)).to eq(73)
     end
-
   end
 
   context 'with a block' do
-
     it 'yields the number to the block and returns the value' do
       expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"

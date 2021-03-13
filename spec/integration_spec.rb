@@ -95,7 +95,6 @@ shared_examples 'something fabricatable' do
 end
 
 describe Fabrication do
-
   context 'plain old ruby objects' do
     let(:fabricator_name) { :parent_ruby_object }
     let(:collection_field) { :child_ruby_objects }
@@ -455,5 +454,4 @@ describe Fabrication do
       end
     end
   end
-
 end

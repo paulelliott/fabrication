@@ -18,7 +18,6 @@ describe Fabrication::Generator::ActiveRecord do
 end
 
 describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
-
   describe ".supports?" do
     subject { Fabrication::Generator::ActiveRecord }
 
@@ -44,7 +43,6 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
   end
 
   describe "#create" do
-
     let(:attributes) do
       Fabrication::Schematic::Definition.new(ParentActiveRecordModel) do
         string_field 'Different Content'
@@ -76,7 +74,5 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
     it 'persists the divisions' do
       expect(ChildActiveRecordModel.where(parent_active_record_model_id: parent_active_record_model.id).count).to eq 2
     end
-
   end
-
 end
