@@ -14,8 +14,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: False
 Layout/ExtraSpacing:
   Enabled: False
 Layout/FirstHashElementIndentation:

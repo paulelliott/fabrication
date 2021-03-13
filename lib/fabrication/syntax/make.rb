@@ -1,6 +1,5 @@
 module Fabrication
   module Syntax
-
     # Extends Fabrication to provide make/make! class methods, which are
     # shortcuts for Fabricate.build/Fabricate.
     #
