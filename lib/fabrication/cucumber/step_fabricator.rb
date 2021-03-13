@@ -14,11 +14,11 @@ module Fabrication
         hashes.map do |hash|
           transformed_hash = Fabrication::Transform.apply_to(@model, parameterize_hash(hash))
           make(transformed_hash.merge(extra))
-        end.tap {|o| remember(o) }
+        end.tap { |o| remember(o) }
       end
 
       def n(count, attrs = {})
-        count.times.map { make(attrs) }.tap {|o| remember(o) }
+        count.times.map { make(attrs) }.tap { |o| remember(o) }
       end
 
       def has_many(children)
@@ -59,7 +59,7 @@ module Fabrication
       end
 
       def parameterize_hash(hash)
-        hash.inject({}) {|h, (k, v)| h.update(dehumanize(k).to_sym => v)}
+        hash.inject({}) { |h, (k, v)| h.update(dehumanize(k).to_sym => v) }
       end
 
       def make(attrs = {})
