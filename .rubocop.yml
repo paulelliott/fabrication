@@ -9,6 +9,8 @@ AllCops:
 
 RSpec/ExampleLength:
   Enabled: false
+Style/Documentation:
+  Enabled: false
 
 Layout/BlockAlignment:
   Enabled: False
@@ -175,8 +177,6 @@ Style/ClassAndModuleChildren:
 Style/ClassVars:
   Enabled: False
 Style/ConditionalAssignment:
-  Enabled: False
-Style/Documentation:
   Enabled: False
 Style/EmptyLiteral:
   Enabled: False
