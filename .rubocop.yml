@@ -5,10 +5,8 @@ AllCops:
   Exclude:
     - gemfiles/*
   NewCops: enable
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 2.5
 
-Gemspec/RequiredRubyVersion:
-  Enabled: False
 Layout/AssignmentIndentation:
   Enabled: False
 Layout/BlockAlignment:
@@ -55,6 +53,8 @@ Layout/SpaceInsideHashLiteralBraces:
   Enabled: False
 Lint/AmbiguousBlockAssociation:
   Enabled: False
+Lint/AmbiguousRegexpLiteral:
+  Enabled: False
 Lint/AssignmentInCondition:
   Enabled: False
 Lint/ConstantDefinitionInBlock:
@@ -66,6 +66,8 @@ Lint/EmptyClass:
 Lint/IneffectiveAccessModifier:
   Enabled: False
 Lint/MissingSuper:
+  Enabled: False
+Lint/NonDeterministicRequireOrder:
   Enabled: False
 Lint/ParenthesesAsGroupedExpression:
   Enabled: False
