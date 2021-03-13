@@ -9,4 +9,5 @@ gem 'pry'
 gem 'rake'
 gem 'rspec'
 gem 'rspec-its'
+gem 'rubocop-rspec', require: false
 gem 'sqlite3'

@@ -1,0 +1,237 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0
+
+Bundler/OrderedGems:
+  Enabled: False
+Gemspec/RequiredRubyVersion:
+  Enabled: False
+Layout/AssignmentIndentation:
+  Enabled: False
+Layout/BlockAlignment:
+  Enabled: False
+Layout/DotPosition:
+  Enabled: False
+Layout/EmptyLineAfterGuardClause:
+  Enabled: False
+Layout/EmptyLineAfterMagicComment:
+  Enabled: False
+Layout/EmptyLineBetweenDefs:
+  Enabled: False
+Layout/EmptyLines:
+  Enabled: False
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: False
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: False
+Layout/EmptyLinesAroundClassBody:
+  Enabled: False
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: False
+Layout/ExtraSpacing:
+  Enabled: False
+Layout/FirstHashElementIndentation:
+  Enabled: False
+Layout/IndentationWidth:
+  Enabled: False
+Layout/LineLength:
+  Enabled: False
+Layout/SpaceAfterComma:
+  Enabled: False
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: False
+Layout/SpaceAroundOperators:
+  Enabled: False
+Layout/SpaceBeforeBlockBraces:
+  Enabled: False
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: False
+Layout/SpaceInsideBlockBraces:
+  Enabled: False
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: False
+Lint/AmbiguousBlockAssociation:
+  Enabled: False
+Lint/AssignmentInCondition:
+  Enabled: False
+Lint/ConstantDefinitionInBlock:
+  Enabled: False
+Lint/EmptyBlock:
+  Enabled: False
+Lint/EmptyClass:
+  Enabled: False
+Lint/IneffectiveAccessModifier:
+  Enabled: False
+Lint/MissingSuper:
+  Enabled: False
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: False
+Lint/RedundantDirGlobSort:
+  Enabled: False
+Lint/RedundantStringCoercion:
+  Enabled: False
+Lint/RescueException:
+  Enabled: False
+Lint/ShadowingOuterLocalVariable:
+  Enabled: False
+Lint/UnusedBlockArgument:
+  Enabled: False
+Lint/UnusedMethodArgument:
+  Enabled: False
+Lint/UselessAccessModifier:
+  Enabled: False
+Lint/Void:
+  Enabled: False
+Metrics/AbcSize:
+  Enabled: False
+Metrics/BlockLength:
+  Enabled: False
+Metrics/ClassLength:
+  Enabled: False
+Metrics/CyclomaticComplexity:
+  Enabled: False
+Metrics/MethodLength:
+  Enabled: False
+Metrics/PerceivedComplexity:
+  Enabled: False
+Naming/MemoizedInstanceVariableName:
+  Enabled: False
+Naming/MethodName:
+  Enabled: False
+Naming/PredicateName:
+  Enabled: False
+Naming/RescuedExceptionsVariableName:
+  Enabled: False
+Naming/VariableName:
+  Enabled: False
+RSpec/Be:
+  Enabled: False
+RSpec/BeforeAfterAll:
+  Enabled: False
+RSpec/ContextWording:
+  Enabled: False
+RSpec/DescribedClass:
+  Enabled: False
+RSpec/EmptyLineAfterExample:
+  Enabled: False
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: False
+RSpec/EmptyLineAfterHook:
+  Enabled: False
+RSpec/EmptyLineAfterSubject:
+  Enabled: False
+RSpec/EmptyLineAfterExampleGroup:
+  Enabled: False
+RSpec/ExampleLength:
+  Enabled: False
+RSpec/ExampleWording:
+  Enabled: False
+RSpec/HookArgument:
+  Enabled: False
+RSpec/HooksBeforeExamples:
+  Enabled: False
+RSpec/ImplicitExpect:
+  Enabled: False
+RSpec/ImplicitSubject:
+  Enabled: False
+RSpec/ItBehavesLike:
+  Enabled: False
+RSpec/LeadingSubject:
+  Enabled: False
+RSpec/LeakyConstantDeclaration:
+  Enabled: False
+RSpec/MessageSpies:
+  Enabled: False
+RSpec/MultipleDescribes:
+  Enabled: False
+RSpec/MultipleExpectations:
+  Enabled: False
+RSpec/NamedSubject:
+  Enabled: False
+RSpec/NestedGroups:
+  Enabled: False
+RSpec/NotToNot:
+  Enabled: False
+RSpec/StubbedMock:
+  Enabled: False
+RSpec/VerifiedDoubles:
+  Enabled: False
+Style/AccessorGrouping:
+  Enabled: False
+Style/ArgumentsForwarding:
+  Enabled: False
+Style/BlockDelimiters:
+  Enabled: False
+Style/CaseEquality:
+  Enabled: False
+Style/ClassCheck:
+  Enabled: False
+Style/ClassAndModuleChildren:
+  Enabled: False
+Style/ClassVars:
+  Enabled: False
+Style/ConditionalAssignment:
+  Enabled: False
+Style/Documentation:
+  Enabled: False
+Style/EmptyLiteral:
+  Enabled: False
+Style/Encoding:
+  Enabled: False
+Style/ExpandPathArguments:
+  Enabled: False
+Style/FrozenStringLiteralComment:
+  Enabled: False
+Style/HashSyntax:
+  Enabled: False
+Style/IfUnlessModifier:
+  Enabled: False
+Style/Lambda:
+  Enabled: False
+Style/MissingRespondToMissing:
+  Enabled: False
+Style/ModuleFunction:
+  Enabled: False
+Style/MultilineBlockChain:
+  Enabled: False
+Style/MultilineTernaryOperator:
+  Enabled: False
+Style/MutableConstant:
+  Enabled: False
+Style/NumericLiterals:
+  Enabled: False
+Style/PercentLiteralDelimiters:
+  Enabled: False
+Style/PerlBackrefs:
+  Enabled: False
+Style/PreferredHashMethods:
+  Enabled: False
+Style/Proc:
+  Enabled: False
+Style/RaiseArgs:
+  Enabled: False
+Style/RedundantBegin:
+  Enabled: False
+Style/RegexpLiteral:
+  Enabled: False
+Style/RescueStandardError:
+  Enabled: False
+Style/SafeNavigation:
+  Enabled: False
+Style/SingleLineMethods:
+  Enabled: False
+Style/SpecialGlobalVars:
+  Enabled: False
+Style/StringLiterals:
+  Enabled: False
+Style/StructInheritance:
+  Enabled: False
+Style/SymbolArray:
+  Enabled: False
+Style/SymbolProc:
+  Enabled: False
+Style/WordArray:
+  Enabled: False
