@@ -25,7 +25,9 @@ class Fabrication::Schematic::Definition
 
   def append_or_update_attribute(attribute_name, value, params = {}, &block)
     attribute = Fabrication::Schematic::Attribute.new(klass, attribute_name, value, params, &block)
-    if index = attributes.index { |a| a.name == attribute.name }
+    index = attributes.index { |a| a.name == attribute.name }
+
+    if index
       attribute.transient! if attributes[index].transient?
       attributes[index] = attribute
     else
