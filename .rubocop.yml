@@ -98,8 +98,6 @@ RSpec/VerifiedDoubles:
   Enabled: False
 Style/AccessorGrouping:
   Enabled: False
-Style/ArgumentsForwarding:
-  Enabled: False
 Style/ClassAndModuleChildren:
   Enabled: False
 Style/MissingRespondToMissing:
