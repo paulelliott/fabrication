@@ -17,7 +17,7 @@ describe Fabrication::Schematic::Manager do
     end
 
     it 'creates a schematic' do
-      expect(subject.schematics[:open_struct]).to be
+      expect(subject.schematics[:open_struct]).to be_present
     end
 
     it 'infers the correct class' do
@@ -65,7 +65,7 @@ describe Fabrication::Schematic::Manager do
     context 'happy path' do
       it 'loaded definitions' do
         Fabrication.manager.load_definitions
-        expect(Fabrication.manager[:parent_ruby_object]).to be
+        expect(Fabrication.manager[:parent_ruby_object]).to be_present
       end
     end
 
