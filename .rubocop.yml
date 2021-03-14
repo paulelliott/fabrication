@@ -11,9 +11,6 @@ AllCops:
 Lint/ConstantDefinitionInBlock:
   Exclude:
     - spec/**/*
-Lint/EmptyBlock:
-  Exclude:
-    - Appraisals
 Lint/EmptyClass:
   Exclude:
     - spec/**/*

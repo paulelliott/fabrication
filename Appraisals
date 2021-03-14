@@ -9,6 +9,7 @@ appraise 'kitchen-sink' do
 end
 
 appraise 'blank-slate' do
+  # this simulates requiring fabrication with no known frameworks present
 end
 
 appraise 'rails-6.1' do
