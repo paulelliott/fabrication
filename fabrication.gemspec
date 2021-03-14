@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.5.0'
 
-  s.files = Dir.glob('lib/**/*') + %w(LICENSE README.markdown Rakefile)
+  s.files = Dir.glob('lib/**/*') + %w[LICENSE README.markdown Rakefile]
   s.require_path = 'lib'
 end

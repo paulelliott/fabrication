@@ -55,7 +55,7 @@ describe Fabrication::Schematic::Attribute do
       let(:attribute) do
         Fabrication::Schematic::Attribute.new(Object, 'a', nil, { count: 2 }) { 'something' }
       end
-      it { should == %w(something something) }
+      it { should == %w[something something] }
     end
 
     context 'collection block with random amount' do
