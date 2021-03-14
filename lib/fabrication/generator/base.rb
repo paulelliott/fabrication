@@ -36,7 +36,7 @@ class Fabrication::Generator::Base
     _attributes.respond_to?(:with_indifferent_access) ? _attributes.with_indifferent_access : _attributes
   end
 
-  def to_hash(attributes = [], callbacks = [])
+  def to_hash(attributes = [], _callbacks = [])
     process_attributes(attributes)
     Fabrication::Support.hash_class.new.tap do |hash|
       _attributes.map do |name, value|
