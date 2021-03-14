@@ -114,8 +114,6 @@ Style/ConditionalAssignment:
   Enabled: False
 Style/EmptyLiteral:
   Enabled: False
-Style/Encoding:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:
