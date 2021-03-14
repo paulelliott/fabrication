@@ -28,7 +28,7 @@ describe Fabrication::Config do
         end
       end
 
-      its(:fabricator_path) { should == ['lib', 'support'] }
+      its(:fabricator_path) { should == %w[lib support] }
     end
   end
 

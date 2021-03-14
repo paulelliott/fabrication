@@ -48,7 +48,7 @@ describe Fabrication::Cucumber::StepFabricator do
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return("dog1", "dog2", "dog3")
         fabricator.n n
-        expect(Fabrication::Cucumber::Fabrications[name]).to eq(["dog1", "dog2", "dog3"])
+        expect(Fabrication::Cucumber::Fabrications[name]).to eq(%w[dog1 dog2 dog3])
       end
     end
 
@@ -94,7 +94,7 @@ describe Fabrication::Cucumber::StepFabricator do
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1', 'dog2')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
-        expect(Fabrication::Cucumber::Fabrications[name]).to eq(["dog1", "dog2"])
+        expect(Fabrication::Cucumber::Fabrications[name]).to eq(%w[dog1 dog2])
       end
     end
 
