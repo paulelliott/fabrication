@@ -137,7 +137,7 @@ class Fabrication::Schematic::Definition
   def klass
     @klass ||= Fabrication::Support.class_for(
       options[:class_name] ||
-        (parent && parent.klass) ||
+        parent&.klass ||
         options[:from] ||
         name
     )

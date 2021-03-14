@@ -30,7 +30,7 @@ class Fabrication::Generator::Base
   end
 
   def execute_callbacks(callbacks)
-    callbacks.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) } if callbacks
+    callbacks&.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) }
   end
 
   def to_params(attributes = [])
@@ -42,7 +42,7 @@ class Fabrication::Generator::Base
     process_attributes(attributes)
     Fabrication::Support.hash_class.new.tap do |hash|
       _attributes.map do |name, value|
-        if value && value.respond_to?(:id)
+        if value.respond_to?(:id)
           hash["#{name}_id"] = value.id
         else
           hash[name] = value
