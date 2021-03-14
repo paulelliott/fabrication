@@ -138,6 +138,7 @@ describe Fabrication::Generator::Base do
           after_validation { |k| k.string_field += '3' }
         end
       end
+
       its(:string_field) { should == '1' }
     end
 
@@ -174,6 +175,7 @@ describe Fabrication::Generator::Base do
           after_save { |k| k.string_field += '7' }
         end
       end
+
       its(:string_field) { should == '1234567' }
     end
   end

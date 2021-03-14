@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
   let(:manager) { Fabrication::Schematic::Manager.instance }
+
   before { manager.clear }
 
   describe '#register' do
@@ -42,11 +43,13 @@ describe Fabrication::Schematic::Manager do
 
     context 'with a symbol' do
       let(:key) { :some }
+
       it { should == 'thing' }
     end
 
     context 'with a string' do
       let(:key) { 'some' }
+
       it { should == 'thing' }
     end
   end

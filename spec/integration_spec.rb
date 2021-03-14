@@ -100,16 +100,19 @@ describe Fabrication do
   context 'plain old ruby objects' do
     let(:fabricator_name) { :parent_ruby_object }
     let(:collection_field) { :child_ruby_objects }
+
     it_should_behave_like 'something fabricatable'
   end
 
   context 'active_record models', depends_on: :active_record do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
+
     it_should_behave_like 'something fabricatable'
 
     context 'associations in attributes_for' do
       let(:parent_model) { Fabricate(:parent_active_record_model) }
+
       subject do
         Fabricate.attributes_for(:child_active_record_model, parent_active_record_model: parent_model)
       end
@@ -122,6 +125,7 @@ describe Fabrication do
     context 'association proxies' do
       subject { parent_model.child_active_record_models.build }
       let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
+
       it { should be_kind_of(ChildActiveRecordModel) }
     end
   end
@@ -134,6 +138,7 @@ describe Fabrication do
 
     context 'associations in attributes_for' do
       let(:parent_model) { Fabricate(:parent_data_mapper_model) }
+
       subject do
         Fabricate.attributes_for(
           :child_data_mapper_model, parent_data_mapper_model: parent_model
@@ -149,18 +154,21 @@ describe Fabrication do
   context 'referenced mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
+
     it_should_behave_like 'something fabricatable'
   end
 
   context 'embedded mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
+
     it_should_behave_like 'something fabricatable'
   end
 
   context 'sequel models', depends_on: :sequel do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
+
     it_should_behave_like 'something fabricatable'
 
     context 'with class table inheritance' do

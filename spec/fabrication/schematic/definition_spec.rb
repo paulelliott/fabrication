@@ -14,16 +14,19 @@ describe Fabrication::Schematic::Definition do
 
     context 'for an activerecord object', depends_on: :active_record do
       let(:klass) { 'ParentActiveRecordModel' }
+
       it { should == Fabrication::Generator::ActiveRecord }
     end
 
     context 'for a mongoid object', depends_on: :mongoid do
       let(:klass) { 'ParentMongoidDocument' }
+
       it { should == Fabrication::Generator::Mongoid }
     end
 
     context 'for a sequel object', depends_on: :sequel do
       let(:klass) { 'ParentSequelModel' }
+
       it { should == Fabrication::Generator::Sequel }
     end
   end
@@ -247,6 +250,7 @@ describe Fabrication::Schematic::Definition do
         transient :two
       end
     end
+
     it { should == %i[one two three] }
   end
 

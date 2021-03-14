@@ -41,6 +41,7 @@ describe Fabrication::Schematic::Attribute do
 
     context 'singular value' do
       let(:attribute) { Fabrication::Schematic::Attribute.new(Object, 'a', 'something') }
+
       it { should == 'something' }
     end
 
@@ -48,6 +49,7 @@ describe Fabrication::Schematic::Attribute do
       let(:attribute) do
         Fabrication::Schematic::Attribute.new(Object, 'a', nil, {}) { 'something' }
       end
+
       it { should == 'something' }
     end
 
@@ -55,6 +57,7 @@ describe Fabrication::Schematic::Attribute do
       let(:attribute) do
         Fabrication::Schematic::Attribute.new(Object, 'a', nil, { count: 2 }) { 'something' }
       end
+
       it { should == %w[something something] }
     end
 

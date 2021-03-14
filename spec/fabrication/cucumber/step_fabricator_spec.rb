@@ -17,12 +17,14 @@ describe Fabrication::Cucumber::StepFabricator do
       context 'given a human name' do
         let(:name) { 'weiner dogs' }
         let(:fabricator_name) { :weiner_dog }
+
         it { should == 'Boom' }
       end
 
       context 'given a titlecase human name' do
         let(:name) { 'Weiner Dog' }
         let(:fabricator_name) { :weiner_dog }
+
         it { should == 'Boom' }
       end
     end
@@ -45,6 +47,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
     context 'with a plural subject' do
       let(:name) { 'dogs' }
+
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1', 'dog2', 'dog3')
         fabricator.n n
@@ -54,6 +57,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
     context 'with a singular subject' do
       let(:name) { 'dog' }
+
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1')
         fabricator.n 1
@@ -71,6 +75,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
     context 'with table transforms' do
       let(:table) { double(hashes: [{ 'some' => 'thing' }]) }
+
       before { allow(Fabricate).to receive(:create) }
 
       it 'applies transforms' do
@@ -86,6 +91,7 @@ describe Fabrication::Cucumber::StepFabricator do
         [{ 'some' => 'thing' },
          { 'some' => 'panother' }]
       end
+
       it 'fabricates with each rows attributes' do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
         expect(Fabricate).to receive(:create).with(:dog, { some: 'panother' })
@@ -105,6 +111,7 @@ describe Fabrication::Cucumber::StepFabricator do
       let(:rows_hash) do
         { 'some' => 'thing' }
       end
+
       it 'fabricates with each row as an attribute' do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
