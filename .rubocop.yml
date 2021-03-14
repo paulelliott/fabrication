@@ -138,5 +138,3 @@ Style/NumericLiterals:
   Enabled: False
 Style/PercentLiteralDelimiters:
   Enabled: False
-Style/PerlBackrefs:
-  Enabled: False
