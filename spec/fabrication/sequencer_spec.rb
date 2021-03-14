@@ -80,6 +80,7 @@ describe Fabrication::Sequencer do
       end
     end
   end
+
   context 'with two sequences declared with blocks' do
     it 'remembers both blocks' do
       Fabricate.sequence(:shapes) do |i|
