@@ -153,5 +153,3 @@ Style/RedundantBegin:
   Enabled: False
 Style/RegexpLiteral:
   Enabled: False
-Style/RescueStandardError:
-  Enabled: False

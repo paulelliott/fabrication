@@ -31,7 +31,7 @@ module Fabrication
             Rails::Generators::GeneratedAttribute.new(name, column.type)
           }
         end
-      rescue
+      rescue StandardError
         # no table? no problem!
       end
     end

@@ -54,7 +54,7 @@ class Fabrication::Support
 
     def singularize(string)
       string.singularize
-    rescue
+    rescue StandardError
       string.end_with?('s') ? string[0..-2] : string
     end
 
