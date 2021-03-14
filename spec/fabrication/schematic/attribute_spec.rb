@@ -16,7 +16,7 @@ describe Fabrication::Schematic::Attribute do
 
     context 'with a block value' do
       subject do
-        Fabrication::Schematic::Attribute.new(Object, 'a', Proc.new { 'c' })
+        Fabrication::Schematic::Attribute.new(Object, 'a', proc { 'c' })
       end
 
       it 'has a proc for a value' do

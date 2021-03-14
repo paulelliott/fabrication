@@ -142,5 +142,3 @@ Style/PerlBackrefs:
   Enabled: False
 Style/PreferredHashMethods:
   Enabled: False
-Style/Proc:
-  Enabled: False
