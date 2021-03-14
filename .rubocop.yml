@@ -146,5 +146,3 @@ Style/Proc:
   Enabled: False
 Style/RaiseArgs:
   Enabled: False
-Style/RedundantBegin:
-  Enabled: False
