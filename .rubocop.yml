@@ -25,8 +25,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/RedundantDirGlobSort:
-  Enabled: False
 Lint/RedundantStringCoercion:
   Enabled: False
 Lint/RescueException:
