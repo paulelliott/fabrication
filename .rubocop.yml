@@ -42,8 +42,6 @@ Metrics/MethodLength:
   Enabled: False
 Metrics/PerceivedComplexity:
   Enabled: False
-Naming/MemoizedInstanceVariableName:
-  Enabled: False
 Naming/MethodName:
   Enabled: False
 Naming/PredicateName:
