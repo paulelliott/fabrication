@@ -31,6 +31,8 @@ Naming/PredicateName:
 
 RSpec/ExampleLength:
   Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
@@ -65,8 +67,6 @@ RSpec/LeakyConstantDeclaration:
 RSpec/MessageSpies:
   Enabled: False
 RSpec/MultipleDescribes:
-  Enabled: False
-RSpec/MultipleExpectations:
   Enabled: False
 RSpec/NamedSubject:
   Enabled: False
