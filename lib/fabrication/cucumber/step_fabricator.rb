@@ -82,14 +82,16 @@ module Fabrication
     end
 
     module Fabrications
-      @@fabrications = {}
+      def self.fabrications
+        @fabrications ||= {}
+      end
 
       def self.[](fabricator)
-        @@fabrications[fabricator.to_sym]
+        fabrications[fabricator.to_sym]
       end
 
       def self.[]=(fabricator, fabrication)
-        @@fabrications[fabricator.to_sym] = fabrication
+        fabrications[fabricator.to_sym] = fabrication
       end
     end
   end

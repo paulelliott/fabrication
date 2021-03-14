@@ -108,8 +108,6 @@ Style/ClassCheck:
   Enabled: False
 Style/ClassAndModuleChildren:
   Enabled: False
-Style/ClassVars:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:
