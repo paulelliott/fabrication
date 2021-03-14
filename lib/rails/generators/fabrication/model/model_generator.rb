@@ -13,7 +13,7 @@ module Fabrication
         template_file = File.join(
           options[:dir],
           class_path,
-          "#{file_name}_fabricator.#{options[:extension].to_s}"
+          "#{file_name}_fabricator.#{options[:extension]}"
         )
         template 'fabricator.erb', template_file
       end
