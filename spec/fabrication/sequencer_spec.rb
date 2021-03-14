@@ -100,16 +100,16 @@ describe Fabrication::Sequencer do
       Fabrication::Config.sequence_start = 10_000
     end
 
+    after do
+      Fabrication::Sequencer.reset
+    end
+
     it 'starts a new sequence at the default' do
       expect(Fabricate.sequence(:default_test)).to eq(10_000)
     end
 
     it 'respects start value passed as an argument' do
       expect(Fabricate.sequence(:default_test2, 9)).to eq(9)
-    end
-
-    after do
-      Fabrication::Sequencer.reset
     end
   end
 end

@@ -326,9 +326,9 @@ describe Fabrication do
 
     subject { Fabrication.manager }
 
-    it { should be_empty }
-
     after { Fabrication.manager.load_definitions }
+
+    it { should be_empty }
   end
 
   context 'when defining a fabricator twice' do
