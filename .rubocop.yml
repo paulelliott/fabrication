@@ -55,8 +55,6 @@ RSpec/ContextWording:
   Enabled: False
 RSpec/DescribedClass:
   Enabled: False
-RSpec/ExampleWording:
-  Enabled: False
 RSpec/ImplicitExpect:
   Enabled: False
 RSpec/ImplicitSubject:
