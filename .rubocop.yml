@@ -28,6 +28,9 @@ Metrics/BlockLength:
 Naming/MethodName:
   Exclude:
     - lib/fabrication.rb
+Naming/PredicateName:
+  Exclude:
+    - lib/fabrication/cucumber/step_fabricator.rb
 
 RSpec/ExampleLength:
   Enabled: false
@@ -45,8 +48,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Enabled: False
 Metrics/PerceivedComplexity:
-  Enabled: False
-Naming/PredicateName:
   Enabled: False
 Naming/RescuedExceptionsVariableName:
   Enabled: False
