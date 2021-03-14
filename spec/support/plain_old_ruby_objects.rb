@@ -23,6 +23,7 @@ class ParentRubyObject < Persistable
   attr_writer :child_ruby_objects
 
   def initialize
+    super
     self.id = 23
     self.before_save_value = 11
   end
