@@ -90,17 +90,17 @@ describe Fabrication::Transform do
 
   describe '.define' do
     it 'registers transform' do
-      expect {
+      expect do
         Fabrication::Transform.define(:name, ->(value) { value })
-      }.to change(Fabrication::Transform, :transforms)
+      end.to change(Fabrication::Transform, :transforms)
     end
   end
 
   describe '.only_for' do
     it 'registers an override transform for provided model' do
-      expect {
+      expect do
         Fabrication::Transform.only_for(:address, :name, ->(value) { value })
-      }.to change(Fabrication::Transform, :overrides)
+      end.to change(Fabrication::Transform, :overrides)
     end
   end
 end

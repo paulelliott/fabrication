@@ -27,9 +27,9 @@ module Fabrication
       def copy_attributes_from_model
         model = class_name.constantize
         if defined?(ActiveRecord) && model < ActiveRecord::Base
-          self.attributes = model.columns_hash.map { |name, column|
+          self.attributes = model.columns_hash.map do |name, column|
             Rails::Generators::GeneratedAttribute.new(name, column.type)
-          }
+          end
         end
       rescue StandardError
         # no table? no problem!

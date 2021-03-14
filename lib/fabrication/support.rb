@@ -39,9 +39,9 @@ class Fabrication::Support
     end
 
     def variable_name_to_class_name(name)
-      name.to_s.gsub(%r{/(.?)}) {
+      name.to_s.gsub(%r{/(.?)}) do
         "::#{Regexp.last_match(1).upcase}"
-      }.gsub(/(?:^|_)(.)/) { Regexp.last_match(1).upcase }
+      end.gsub(/(?:^|_)(.)/) { Regexp.last_match(1).upcase }
     end
 
     def find_definitions

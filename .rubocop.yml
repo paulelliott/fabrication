@@ -100,8 +100,6 @@ Style/AccessorGrouping:
   Enabled: False
 Style/ArgumentsForwarding:
   Enabled: False
-Style/BlockDelimiters:
-  Enabled: False
 Style/ClassAndModuleChildren:
   Enabled: False
 Style/MissingRespondToMissing:
