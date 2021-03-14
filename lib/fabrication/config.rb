@@ -35,7 +35,7 @@ module Fabrication
       self.fabricator_path = folders
     end
 
-    attr_writer :sequence_start
+    attr_writer :sequence_start, :register_with_steps
 
     def sequence_start
       @sequence_start ||= 0
@@ -49,8 +49,6 @@ module Fabrication
       @path_prefix ||= [defined?(Rails) ? Rails.root : '.']
     end
     alias path_prefixes path_prefix
-
-    attr_writer :register_with_steps
 
     def register_with_steps?
       @register_with_steps ||= nil

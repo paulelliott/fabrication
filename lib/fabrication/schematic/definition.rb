@@ -35,14 +35,12 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  attr_writer :attributes
+  attr_writer :attributes, :callbacks
 
   def attributes
     load_body
     @attributes ||= []
   end
-
-  attr_writer :callbacks
 
   def callbacks
     load_body

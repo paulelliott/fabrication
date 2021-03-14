@@ -96,8 +96,6 @@ RSpec/StubbedMock:
   Enabled: False
 RSpec/VerifiedDoubles:
   Enabled: False
-Style/AccessorGrouping:
-  Enabled: False
 Style/ClassAndModuleChildren:
   Enabled: False
 Style/MissingRespondToMissing:
