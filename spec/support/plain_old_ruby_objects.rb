@@ -76,8 +76,7 @@ class Sequencer
   end
 end
 
-class ClassWithInit < Struct.new(:arg1, :arg2)
-end
+ClassWithInit = Struct.new(:arg1, :arg2)
 
 class ImmutableUser
   def initialize(attributes)

@@ -178,7 +178,7 @@ describe Fabrication do
 
   context 'when the class requires a constructor' do
     before(:all) do
-      class CustomInitializer < Struct.new(:field1, :field2); end
+      CustomInitializer = Struct.new(:field1, :field2)
       Fabricator(:custom_initializer)
     end
 
