@@ -7,8 +7,8 @@ class Fabrication::Support
     def class_for(class_or_to_s)
       class_name = variable_name_to_class_name(class_or_to_s)
       constantize(class_name)
-    rescue NameError => original_error
-      raise Fabrication::UnfabricatableError.new(class_or_to_s, original_error)
+    rescue NameError => e
+      raise Fabrication::UnfabricatableError.new(class_or_to_s, e)
     end
 
     def constantize(camel_cased_word)

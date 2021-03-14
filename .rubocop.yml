@@ -49,8 +49,6 @@ Metrics/MethodLength:
   Enabled: False
 Metrics/PerceivedComplexity:
   Enabled: False
-Naming/RescuedExceptionsVariableName:
-  Enabled: False
 Naming/VariableName:
   Enabled: False
 RSpec/Be:
