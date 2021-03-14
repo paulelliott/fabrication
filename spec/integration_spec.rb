@@ -200,7 +200,7 @@ describe Fabrication do
 
     before do
       CustomInitializer = Struct.new(:field1, :field2)
-      Fabricator(:custom_initializer) unless Fabrication.manager[:custom_initializer]
+      Fabricator(:custom_initializer) unless described_class.manager[:custom_initializer]
     end
 
     its(:field1) { should == 'value1' }
@@ -297,7 +297,7 @@ describe Fabrication do
     subject { Fabricate(:multiple_callbacks) }
 
     before do
-      unless Fabrication.manager[:multiple_callbacks]
+      unless described_class.manager[:multiple_callbacks]
         Fabricator(:multiple_callbacks, from: OpenStruct) do
           before_validation { |o| o.callback1 = 'value1' }
           before_validation { |o| o.callback2 = 'value2' }
@@ -322,11 +322,11 @@ describe Fabrication do
   end
 
   describe '.clear_definitions' do
-    subject { Fabrication.manager }
+    subject { described_class.manager }
 
-    before { Fabrication.clear_definitions }
+    before { described_class.clear_definitions }
 
-    after { Fabrication.manager.load_definitions }
+    after { described_class.manager.load_definitions }
 
     it { should be_empty }
   end
@@ -379,9 +379,9 @@ describe Fabrication do
   end
 
   describe 'Fabricating while initializing' do
-    before { Fabrication.manager.preinitialize }
+    before { described_class.manager.preinitialize }
 
-    after { Fabrication.manager.freeze }
+    after { described_class.manager.freeze }
 
     it 'throws an error' do
       expect { Fabricate(:your_mom) }.to raise_error(Fabrication::MisplacedFabricateError)
@@ -398,7 +398,7 @@ describe Fabrication do
         end
       end
 
-      after { Fabrication.clear_definitions }
+      after { described_class.clear_definitions }
 
       its(:name) { should == 'Hashrocket' }
       it { should be_kind_of(OpenStruct) }
@@ -411,7 +411,7 @@ describe Fabrication do
         end
       end
 
-      after { Fabrication.clear_definitions }
+      after { described_class.clear_definitions }
 
       its(:name) { should == 'Hashrocket' }
       it { should be_kind_of(OpenStruct) }
@@ -459,7 +459,7 @@ describe Fabrication do
   end
 
   describe 'using the rand option' do
-    before { Fabrication.clear_definitions }
+    before { described_class.clear_definitions }
 
     context 'with an integer' do
       let!(:parent) do

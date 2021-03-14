@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
   context 'when ActiveRecord is erroneously defined' do
     describe '.supports?' do
-      subject { Fabrication::Generator::ActiveRecord }
+      subject { described_class }
 
       # Defines a fakey ActiveRecord module that doesn't also have
       # ActiveRecord::Base such as those written by instrumentation
@@ -20,7 +20,7 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
 
   context 'when ActiveRecord is correctly defined', depends_on: :active_record do
     describe '.supports?' do
-      subject { Fabrication::Generator::ActiveRecord }
+      subject { described_class }
 
       it 'returns true for active record objects' do
         expect(subject.supports?(ParentActiveRecordModel)).to be true
@@ -33,7 +33,7 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
 
     describe '#persist' do
       let(:instance) { double }
-      let(:generator) { Fabrication::Generator::ActiveRecord.new(ParentActiveRecordModel) }
+      let(:generator) { described_class.new(ParentActiveRecordModel) }
 
       before { generator.send(:_instance=, instance) }
 
@@ -52,7 +52,7 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
         end.attributes
       end
 
-      let(:generator) { Fabrication::Generator::ActiveRecord.new(ParentActiveRecordModel) }
+      let(:generator) { described_class.new(ParentActiveRecordModel) }
       let!(:parent_active_record_model) { generator.create(attributes, {}) }
       let(:child_active_record_models) { parent_active_record_model.child_active_record_models }
 

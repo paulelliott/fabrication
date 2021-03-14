@@ -5,7 +5,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
   describe '#klass' do
     context 'with a schematic for class "Boom"' do
-      subject { Fabrication::Cucumber::StepFabricator.new(name).klass }
+      subject { described_class.new(name).klass }
 
       let(:fabricator_name) { :dog }
 
@@ -33,7 +33,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
   describe '#n' do
     let(:n) { 3 }
-    let(:fabricator) { Fabrication::Cucumber::StepFabricator.new(name) }
+    let(:fabricator) { described_class.new(name) }
 
     it 'fabricates n times' do
       expect(Fabricate).to receive(:create).with(:dog, {}).exactly(n).times
@@ -71,7 +71,7 @@ describe Fabrication::Cucumber::StepFabricator do
     it 'maps column names to attribute names' do
       table = double(hashes: [{ 'Favorite Color' => 'pink' }])
       expect(Fabricate).to receive(:create).with(:bear, favorite_color: 'pink')
-      Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
+      described_class.new('bears').from_table(table)
     end
 
     context 'with table transforms' do
@@ -82,7 +82,7 @@ describe Fabrication::Cucumber::StepFabricator do
       it 'applies transforms' do
         expect(Fabrication::Transform).to receive(:apply_to)
           .with('bears', { some: 'thing' }).and_return({})
-        Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
+        described_class.new('bears').from_table(table)
       end
     end
 
@@ -96,12 +96,12 @@ describe Fabrication::Cucumber::StepFabricator do
       it 'fabricates with each rows attributes' do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
         expect(Fabricate).to receive(:create).with(:dog, { some: 'panother' })
-        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
+        described_class.new(name).from_table(table)
       end
 
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1', 'dog2')
-        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
+        described_class.new(name).from_table(table)
         expect(Fabrication::Cucumber::Fabrications[name]).to eq(%w[dog1 dog2])
       end
     end
@@ -115,12 +115,12 @@ describe Fabrication::Cucumber::StepFabricator do
 
       it 'fabricates with each row as an attribute' do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
-        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
+        described_class.new(name).from_table(table)
       end
 
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1')
-        Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
+        described_class.new(name).from_table(table)
         expect(Fabrication::Cucumber::Fabrications[name]).to eq('dog1')
       end
     end

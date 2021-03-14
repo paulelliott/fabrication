@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Fabrication::Sequencer do
   context 'with no arguments' do
-    subject { Fabrication::Sequencer.sequence }
+    subject { described_class.sequence }
 
     it { should == 0 }
 
     it 'creates a default sequencer' do
-      expect(Fabrication::Sequencer.sequences[:_default]).to eq(1)
+      expect(described_class.sequences[:_default]).to eq(1)
     end
   end
 
@@ -96,12 +96,12 @@ describe Fabrication::Sequencer do
 
   context 'with a default sequence start' do
     before do
-      Fabrication::Sequencer.reset
+      described_class.reset
       Fabrication::Config.sequence_start = 10_000
     end
 
     after do
-      Fabrication::Sequencer.reset
+      described_class.reset
     end
 
     it 'starts a new sequence at the default' do

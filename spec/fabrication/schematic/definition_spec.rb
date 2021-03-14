@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Fabrication::Schematic::Definition do
   let(:schematic) do
-    Fabrication::Schematic::Definition.new('OpenStruct') do
+    described_class.new('OpenStruct') do
       name 'Orgasmo'
       something(param: 2) { 'hi!' }
       another_thing { 25 }
@@ -10,7 +10,7 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe 'generator selection' do
-    subject { Fabrication::Schematic::Definition.new(klass).generator }
+    subject { described_class.new(klass).generator }
 
     context 'for an activerecord object', depends_on: :active_record do
       let(:klass) { 'ParentActiveRecordModel' }
@@ -164,7 +164,7 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { -> {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      described_class.new('OpenStruct') do
         on_init(&block)
       end
     end
@@ -192,7 +192,7 @@ describe Fabrication::Schematic::Definition do
     let(:init_block) { -> {} }
     let(:init_schematic) do
       block = init_block
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      described_class.new('OpenStruct') do
         initialize_with(&block)
       end
     end
@@ -218,7 +218,7 @@ describe Fabrication::Schematic::Definition do
 
   describe '#transient' do
     let(:definition) do
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      described_class.new('OpenStruct') do
         transient :one, two: 'with a default value', three: 200
       end
     end
@@ -245,7 +245,7 @@ describe Fabrication::Schematic::Definition do
     subject { definition.sorted_attributes.map(&:name) }
 
     let(:definition) do
-      Fabrication::Schematic::Definition.new('OpenStruct') do
+      described_class.new('OpenStruct') do
         three { nil }
         one ''
         transient :two

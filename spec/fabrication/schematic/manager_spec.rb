@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
-  let(:manager) { Fabrication::Schematic::Manager.instance }
+  let(:manager) { described_class.instance }
 
   before { manager.clear }
 

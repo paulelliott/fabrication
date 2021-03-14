@@ -3,54 +3,54 @@ require 'spec_helper'
 describe Fabricate do
   describe '.times' do
     it 'fabricates an object X times' do
-      objects = Fabricate.times(3, :parent_ruby_object)
+      objects = described_class.times(3, :parent_ruby_object)
       expect(objects.length).to eq 3
       expect(objects.all?(&:persisted?)).to be true
     end
 
     it 'delegates overrides and blocks properly' do
-      object = Fabricate.times(1, :parent_ruby_object, string_field: 'different').first
+      object = described_class.times(1, :parent_ruby_object, string_field: 'different').first
       expect(object.string_field).to eql('different')
 
-      object = Fabricate.times(1, :parent_ruby_object) { string_field 'other' }.first
+      object = described_class.times(1, :parent_ruby_object) { string_field 'other' }.first
       expect(object.string_field).to eql('other')
     end
   end
 
   describe '.build_times' do
     it 'fabricates an object X times' do
-      objects = Fabricate.build_times(3, :parent_ruby_object)
+      objects = described_class.build_times(3, :parent_ruby_object)
       expect(objects.length).to eq 3
       expect(objects.all?(&:persisted?)).to be false
     end
 
     it 'delegates overrides and blocks properly' do
-      object = Fabricate.build_times(1, :parent_ruby_object, string_field: 'different').first
+      object = described_class.build_times(1, :parent_ruby_object, string_field: 'different').first
       expect(object.string_field).to eql('different')
 
-      object = Fabricate.build_times(1, :parent_ruby_object) { string_field 'other' }.first
+      object = described_class.build_times(1, :parent_ruby_object) { string_field 'other' }.first
       expect(object.string_field).to eql('other')
     end
   end
 
   describe '.attributes_for_times' do
     it 'fabricates an object X times' do
-      objects = Fabricate.attributes_for_times(3, :parent_ruby_object)
+      objects = described_class.attributes_for_times(3, :parent_ruby_object)
       expect(objects.length).to eq 3
       expect(objects).to all be_a_kind_of(Hash)
     end
 
     it 'delegates overrides and blocks properly' do
-      object = Fabricate.attributes_for_times(1, :parent_ruby_object, string_field: 'different').first
+      object = described_class.attributes_for_times(1, :parent_ruby_object, string_field: 'different').first
       expect(object[:string_field]).to eql('different')
 
-      object = Fabricate.attributes_for_times(1, :parent_ruby_object) { string_field 'other' }.first
+      object = described_class.attributes_for_times(1, :parent_ruby_object) { string_field 'other' }.first
       expect(object[:string_field]).to eql('other')
     end
   end
 
   describe '.to_params', depends_on: :active_record do
-    subject { Fabricate.to_params(:parent_active_record_model_with_children) }
+    subject { described_class.to_params(:parent_active_record_model_with_children) }
 
     it do
       should == {

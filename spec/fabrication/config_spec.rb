@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Fabrication::Config do
-  subject { Fabrication::Config }
+  subject { described_class }
 
-  after { Fabrication::Config.reset_defaults }
+  after { described_class.reset_defaults }
 
   context 'default configs' do
     its(:fabricator_path) { should == ['test/fabricators', 'spec/fabricators'] }
