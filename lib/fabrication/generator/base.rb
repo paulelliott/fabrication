@@ -1,5 +1,7 @@
 class Fabrication::Generator::Base
-  def self.supports?(_klass); true end
+  def self.supports?(_klass)
+    true
+  end
 
   def build(attributes = [], callbacks = {})
     process_attributes(attributes)

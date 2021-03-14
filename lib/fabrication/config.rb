@@ -2,7 +2,9 @@ module Fabrication
   module Config
     extend self
 
-    def configure; yield self end
+    def configure
+      yield self
+    end
 
     def reset_defaults
       @fabricator_path =
@@ -35,7 +37,9 @@ module Fabrication
 
     attr_writer :sequence_start
 
-    def sequence_start; @sequence_start ||= 0 end
+    def sequence_start
+      @sequence_start ||= 0
+    end
 
     def path_prefix=(folders)
       @path_prefix = (Array.new << folders).flatten
@@ -52,14 +56,20 @@ module Fabrication
       @register_with_steps ||= nil
     end
 
-    def generators; @generators ||= [] end
+    def generators
+      @generators ||= []
+    end
 
     def generator_for(default_generators, klass)
       (generators + default_generators).detect { |gen| gen.supports?(klass) }
     end
 
-    def recursion_limit; @recursion_limit ||= 20 end
+    def recursion_limit
+      @recursion_limit ||= 20
+    end
 
-    def recursion_limit=(limit); @recursion_limit = limit end
+    def recursion_limit=(limit)
+      @recursion_limit = limit
+    end
   end
 end

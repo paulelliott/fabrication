@@ -16,9 +16,13 @@ class Fabrication::Schematic::Manager
     @schematics ||= {}
   end
 
-  def clear; schematics.clear end
+  def clear
+    schematics.clear
+  end
 
-  def empty?; schematics.empty? end
+  def empty?
+    schematics.empty?
+  end
 
   def freeze
     @initializing = false

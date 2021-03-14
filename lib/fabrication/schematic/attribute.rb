@@ -31,9 +31,13 @@ class Fabrication::Schematic::Attribute
     end
   end
 
-  def value_static?; !value_proc? end
+  def value_static?
+    !value_proc?
+  end
 
-  def value_proc?; Proc === value end
+  def value_proc?
+    Proc === value
+  end
 
   private
 

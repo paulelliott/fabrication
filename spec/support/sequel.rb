@@ -12,7 +12,9 @@ if defined?(Sequel)
   class ChildSequelModel < Sequel::Model
     many_to_one :parent_sequel_model
 
-    def persisted?; !new? end
+    def persisted?
+      !new?
+    end
   end
 
   class ParentSequelModel < Sequel::Model
@@ -22,7 +24,9 @@ if defined?(Sequel)
 
     attr_accessor :extra_fields
 
-    def persisted?; !new? end
+    def persisted?
+      !new?
+    end
 
     def before_validation
       self.before_validation_value ||= 0
