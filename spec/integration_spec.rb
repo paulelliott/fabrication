@@ -295,6 +295,7 @@ describe Fabrication do
         end
       end
     end
+
     its(:callback1) { should == 'value1' }
     its(:callback2) { should == 'value2' }
   end
@@ -306,11 +307,13 @@ describe Fabrication do
         before_validation { |o| o.callback3 = o.callback1 + o.callback2 }
       end
     end
+
     its(:callback3) { 'value1value2' }
   end
 
   describe '.clear_definitions' do
     before { Fabrication.clear_definitions }
+
     subject { Fabrication.manager }
     it { should be_empty }
 
@@ -325,6 +328,7 @@ describe Fabrication do
 
   context "when fabricating class that doesn't exist" do
     before { Fabricator(:class_that_does_not_exist) }
+
     it 'throws an error' do
       expect { Fabricate(:class_that_does_not_exist) }.to raise_error(Fabrication::UnfabricatableError)
     end
@@ -365,6 +369,7 @@ describe Fabrication do
 
   describe 'Fabricating while initializing' do
     before { Fabrication.manager.preinitialize }
+
     after { Fabrication.manager.freeze }
 
     it 'throws an error' do
@@ -381,7 +386,9 @@ describe Fabrication do
           name 'Hashrocket'
         end
       end
+
       after { Fabrication.clear_definitions }
+
       its(:name) { should == 'Hashrocket' }
       it { should be_kind_of(OpenStruct) }
     end
@@ -392,7 +399,9 @@ describe Fabrication do
           name 'Hashrocket'
         end
       end
+
       after { Fabrication.clear_definitions }
+
       its(:name) { should == 'Hashrocket' }
       it { should be_kind_of(OpenStruct) }
     end
