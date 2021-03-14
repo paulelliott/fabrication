@@ -116,8 +116,6 @@ Style/EmptyLiteral:
   Enabled: False
 Style/Encoding:
   Enabled: False
-Style/ExpandPathArguments:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:
