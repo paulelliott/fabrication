@@ -122,8 +122,6 @@ Style/HashSyntax:
   Enabled: False
 Style/IfUnlessModifier:
   Enabled: False
-Style/Lambda:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:

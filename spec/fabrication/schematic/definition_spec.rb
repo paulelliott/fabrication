@@ -155,7 +155,7 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe '#on_init' do
-    let(:init_block) { lambda {} }
+    let(:init_block) { -> {} }
     let(:init_schematic) do
       block = init_block
       Fabrication::Schematic::Definition.new('OpenStruct') do
@@ -168,7 +168,7 @@ describe Fabrication::Schematic::Definition do
     end
 
     context 'with inheritance' do
-      let(:child_block) { lambda {} }
+      let(:child_block) { -> {} }
       let(:child_schematic) do
         block = child_block
         init_schematic.merge do
@@ -183,7 +183,7 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe '#initialize_with' do
-    let(:init_block) { lambda {} }
+    let(:init_block) { -> {} }
     let(:init_schematic) do
       block = init_block
       Fabrication::Schematic::Definition.new('OpenStruct') do
@@ -196,7 +196,7 @@ describe Fabrication::Schematic::Definition do
     end
 
     context 'with inheritance' do
-      let(:child_block) { lambda {} }
+      let(:child_block) { -> {} }
       let(:child_schematic) do
         block = child_block
         init_schematic.merge do

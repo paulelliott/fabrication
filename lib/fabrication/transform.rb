@@ -29,7 +29,7 @@ class Fabrication::Transform
     end
 
     def transforms
-      @transforms ||= Hash.new(lambda { |value| value })
+      @transforms ||= Hash.new(->(value) { value })
     end
   end
 end

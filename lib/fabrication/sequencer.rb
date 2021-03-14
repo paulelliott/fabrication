@@ -6,7 +6,7 @@ class Fabrication::Sequencer
     if block_given?
       sequence_blocks[name] = block.to_proc
     else
-      sequence_blocks[name] ||= lambda { |i| i }
+      sequence_blocks[name] ||= ->(i) { i }
     end.call(idx).tap do
       sequences[name] += 1
     end

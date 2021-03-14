@@ -26,12 +26,12 @@ describe Fabrication::Transform do
 
     context 'when there is a generic transform for that column' do
       before do
-        Fabrication::Transform.define(:city, lambda { |value| value.split.first })
+        Fabrication::Transform.define(:city, ->(value) { value.split.first })
       end
 
       context 'fabricating an instance that is described by the per fabricator transform' do
         before do
-          Fabrication::Transform.only_for(:address, :city, lambda { |value| value.upcase })
+          Fabrication::Transform.only_for(:address, :city, ->(value) { value.upcase })
         end
 
         it 'applies the transform to the specified types' do
@@ -64,8 +64,8 @@ describe Fabrication::Transform do
     context 'ensuring precedence' do
       context 'override is done before generic transform' do
         before do
-          Fabrication::Transform.only_for(:address, :city, lambda { |value| value.upcase })
-          Fabrication::Transform.define(:city, lambda { |value| value.split.first })
+          Fabrication::Transform.only_for(:address, :city, ->(value) { value.upcase })
+          Fabrication::Transform.define(:city, ->(value) { value.split.first })
         end
 
         it 'applies corretly' do
@@ -80,8 +80,8 @@ describe Fabrication::Transform do
 
   describe '.clear_all' do
     it 'clears all transforms' do
-      Fabrication::Transform.define(:name, lambda { |value| value })
-      Fabrication::Transform.only_for(:address, :name, lambda { |value| value })
+      Fabrication::Transform.define(:name, ->(value) { value })
+      Fabrication::Transform.only_for(:address, :name, ->(value) { value })
       Fabrication::Transform.clear_all
       expect(Fabrication::Transform.send(:transforms)).to be_empty
       expect(Fabrication::Transform.send(:overrides)).to be_empty
@@ -91,7 +91,7 @@ describe Fabrication::Transform do
   describe '.define' do
     it 'registers transform' do
       expect {
-        Fabrication::Transform.define(:name, lambda { |value| value })
+        Fabrication::Transform.define(:name, ->(value) { value })
       }.to change(Fabrication::Transform, :transforms)
     end
   end
@@ -99,7 +99,7 @@ describe Fabrication::Transform do
   describe '.only_for' do
     it 'registers an override transform for provided model' do
       expect {
-        Fabrication::Transform.only_for(:address, :name, lambda { |value| value })
+        Fabrication::Transform.only_for(:address, :name, ->(value) { value })
       }.to change(Fabrication::Transform, :overrides)
     end
   end
