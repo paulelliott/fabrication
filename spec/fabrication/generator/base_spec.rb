@@ -14,7 +14,7 @@ describe Fabrication::Generator::Base do
     let(:attributes) do
       Fabrication::Schematic::Definition.new('ParentRubyObject') do
         string_field 'different content'
-        extra_fields(count: 4) { |attrs, index| "field #{index}" }
+        extra_fields(count: 4) { |_attrs, index| "field #{index}" }
       end.attributes
     end
 

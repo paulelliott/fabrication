@@ -47,7 +47,7 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
       Fabrication::Schematic::Definition.new(ParentActiveRecordModel) do
         string_field 'Different Content'
         number_field { |attrs| attrs[:string_field].length }
-        child_active_record_models(count: 2) { |attrs, i| ChildActiveRecordModel.new(number_field: i) }
+        child_active_record_models(count: 2) { |_attrs, i| ChildActiveRecordModel.new(number_field: i) }
       end.attributes
     end
 

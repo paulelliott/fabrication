@@ -8,7 +8,7 @@ namespace :fabrication do
       next
     end
 
-    schematic_groups = Fabrication.manager.schematics.group_by do |name, fabdef|
+    schematic_groups = Fabrication.manager.schematics.group_by do |_name, fabdef|
       fabdef.klass.name
     end
 
