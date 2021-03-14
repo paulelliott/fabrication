@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Fabrication::Config do
   subject { Fabrication::Config }
+
   after { Fabrication::Config.reset_defaults }
 
   context 'default configs' do

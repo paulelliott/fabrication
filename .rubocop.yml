@@ -50,8 +50,6 @@ RSpec/ContextWording:
   Enabled: False
 RSpec/DescribedClass:
   Enabled: False
-RSpec/EmptyLineAfterSubject:
-  Enabled: False
 RSpec/EmptyLineAfterExampleGroup:
   Enabled: False
 RSpec/ExampleWording:

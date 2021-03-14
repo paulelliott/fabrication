@@ -39,6 +39,7 @@ describe Fabrication::Schematic::Manager do
 
   describe '#[]' do
     subject { manager[key] }
+
     before { manager.schematics[:some] = 'thing' }
 
     context 'with a symbol' do

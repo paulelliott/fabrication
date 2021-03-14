@@ -6,6 +6,7 @@ describe Fabrication::Schematic::Evaluator do
 
   describe 'attribute handling' do
     subject { definition.attributes.first }
+
     before { evaluator.process(definition, &block) }
 
     context 'without a count' do

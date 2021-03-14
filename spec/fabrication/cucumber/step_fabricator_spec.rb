@@ -6,6 +6,7 @@ describe Fabrication::Cucumber::StepFabricator do
   describe '#klass' do
     context 'with a schematic for class "Boom"' do
       subject { Fabrication::Cucumber::StepFabricator.new(name).klass }
+
       let(:fabricator_name) { :dog }
 
       before do

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 shared_examples 'something fabricatable' do
   subject { fabricated_object }
+
   let(:fabricated_object) { Fabricate(fabricator_name, placeholder: 'dynamic content') }
 
   context 'defaults from fabricator' do
@@ -37,6 +38,7 @@ shared_examples 'something fabricatable' do
 
     context 'child collections' do
       subject { fabricated_object.send(collection_field) }
+
       its(:size) { should == 2 }
       its(:first) { should be_persisted }
       its('first.number_field') { should == 10 }
@@ -60,6 +62,7 @@ shared_examples 'something fabricatable' do
 
   context 'build' do
     subject { Fabricate.build("#{fabricator_name}_with_children") }
+
     it { should_not be_persisted }
 
     it 'cascades to child records' do
@@ -71,6 +74,7 @@ shared_examples 'something fabricatable' do
 
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
+
     it { should be_kind_of(Fabrication::Support.hash_class) }
 
     it 'serializes the attributes' do
@@ -124,6 +128,7 @@ describe Fabrication do
 
     context 'association proxies' do
       subject { parent_model.child_active_record_models.build }
+
       let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
 
       it { should be_kind_of(ChildActiveRecordModel) }
@@ -217,6 +222,7 @@ describe Fabrication do
 
   context 'with a field named the same as an Object method' do
     subject { Fabricate(:predefined_namespaced_class, display: 'working') }
+
     its(:display) { should == 'working' }
   end
 
@@ -252,12 +258,14 @@ describe Fabrication do
   context 'for namespaced classes' do
     context 'the namespaced class' do
       subject { Fabricate('namespaced_classes/ruby_object', name: 'working') }
+
       its(:name) { should eq('working') }
       it { should be_a(NamespacedClasses::RubyObject) }
     end
 
     context 'descendant from namespaced class' do
       subject { Fabricate(:predefined_namespaced_class) }
+
       its(:name) { should eq('aaa') }
       it { should be_a(NamespacedClasses::RubyObject) }
     end
@@ -287,6 +295,7 @@ describe Fabrication do
 
   context 'with multiple callbacks' do
     subject { Fabricate(:multiple_callbacks) }
+
     before do
       unless Fabrication.manager[:multiple_callbacks]
         Fabricator(:multiple_callbacks, from: OpenStruct) do
@@ -302,6 +311,7 @@ describe Fabrication do
 
   context 'with multiple, inherited callbacks' do
     subject { Fabricate(:multiple_inherited_callbacks) }
+
     before do
       Fabricator(:multiple_inherited_callbacks, from: :multiple_callbacks) do
         before_validation { |o| o.callback3 = o.callback1 + o.callback2 }
@@ -315,6 +325,7 @@ describe Fabrication do
     before { Fabrication.clear_definitions }
 
     subject { Fabrication.manager }
+
     it { should be_empty }
 
     after { Fabrication.manager.load_definitions }

@@ -243,6 +243,7 @@ describe Fabrication::Schematic::Definition do
 
   describe '#sorted_attributes' do
     subject { definition.sorted_attributes.map(&:name) }
+
     let(:definition) do
       Fabrication::Schematic::Definition.new('OpenStruct') do
         three { nil }
@@ -256,6 +257,7 @@ describe Fabrication::Schematic::Definition do
 
   describe '#klass' do
     subject { schematic.klass }
+
     it { should be OpenStruct }
   end
 end

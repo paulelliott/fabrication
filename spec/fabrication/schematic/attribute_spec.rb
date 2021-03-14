@@ -26,6 +26,7 @@ describe Fabrication::Schematic::Attribute do
 
     context 'with nils' do
       subject { Fabrication::Schematic::Attribute.new(Object, 'a', nil) }
+
       its(:params) { should == {} }
       its(:value) { should be_nil }
     end
@@ -33,6 +34,7 @@ describe Fabrication::Schematic::Attribute do
 
   describe '#transient?' do
     subject { Fabrication::Schematic::Attribute.new(Object, 'a', nil, transient: true) }
+
     it { should be_transient }
   end
 

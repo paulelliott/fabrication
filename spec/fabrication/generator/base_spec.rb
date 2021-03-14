@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Fabrication::Generator::Base do
   describe '.supports?' do
     subject { Fabrication::Generator::Base }
+
     it 'supports any object' do
       expect(subject.supports?(Object)).to be true
     end
@@ -95,6 +96,7 @@ describe Fabrication::Generator::Base do
 
         context 'with override' do
           subject { schematic.fabricate(arg1: 30) }
+
           it 'saves the return value of the block as instance' do
             expect(subject.arg1).to eq(30)
             expect(subject.arg2).to eq(40)
@@ -103,6 +105,7 @@ describe Fabrication::Generator::Base do
 
         context 'with nil override' do
           subject { schematic.fabricate(arg1: nil) }
+
           it 'saves the return value of the block as instance' do
             expect(subject.arg1).to eq(nil)
             expect(subject.arg2).to eq(10)
@@ -130,6 +133,7 @@ describe Fabrication::Generator::Base do
 
     context 'all the callbacks' do
       subject { schematic.build }
+
       let(:schematic) do
         Fabrication::Schematic::Definition.new('ParentRubyObject') do
           string_field ''
@@ -163,6 +167,7 @@ describe Fabrication::Generator::Base do
   describe '#create' do
     context 'all the callbacks' do
       subject { schematic.fabricate }
+
       let(:schematic) do
         Fabrication::Schematic::Definition.new('ParentRubyObject') do
           string_field ''
