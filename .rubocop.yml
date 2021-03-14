@@ -33,6 +33,9 @@ RSpec/ExampleLength:
   Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
@@ -65,8 +68,6 @@ RSpec/MessageSpies:
 RSpec/MultipleDescribes:
   Enabled: False
 RSpec/NamedSubject:
-  Enabled: False
-RSpec/NestedGroups:
   Enabled: False
 RSpec/StubbedMock:
   Enabled: False
