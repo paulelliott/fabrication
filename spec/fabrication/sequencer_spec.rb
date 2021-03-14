@@ -5,6 +5,7 @@ describe Fabrication::Sequencer do
     subject { Fabrication::Sequencer.sequence }
 
     it { should == 0 }
+
     it 'creates a default sequencer' do
       expect(Fabrication::Sequencer.sequences[:_default]).to eq(1)
     end
@@ -67,10 +68,12 @@ describe Fabrication::Sequencer do
         end
         expect(Fabricate.sequence(:changing_blocks)).to eq(10)
       end
+
       context 'and then with a new block' do
         it 'evaluates the new block' do
           expect(Fabricate.sequence(:changing_blocks) { |i| i**2 }).to eq(4)
         end
+
         it 'remembers the new block' do
           expect(Fabricate.sequence(:changing_blocks)).to eq(9)
         end

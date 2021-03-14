@@ -32,9 +32,11 @@ describe Fabrication::Schematic::Definition do
     it 'stores the name' do
       expect(schematic.name).to eq('OpenStruct')
     end
+
     it 'stores the generator' do
       expect(schematic.generator).to eq(Fabrication::Generator::Base)
     end
+
     it 'stores the attributes' do
       expect(schematic.attributes.size).to eq(3)
     end
@@ -44,6 +46,7 @@ describe Fabrication::Schematic::Definition do
     it 'returns the requested attribute if it exists' do
       expect(schematic.attribute(:name).name).to eq(:name)
     end
+
     it 'returns nil if it does not exist' do
       expect(schematic.attribute(:not_there)).to be_nil
     end

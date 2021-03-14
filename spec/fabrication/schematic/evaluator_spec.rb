@@ -15,6 +15,7 @@ describe Fabrication::Schematic::Evaluator do
         end
       end
       its(:name) { should == :dynamic_field }
+
       it 'the attribute produces the correct value' do
         expect(subject.processed_value({})).to be_kind_of(ChildRubyObject)
       end
@@ -27,6 +28,7 @@ describe Fabrication::Schematic::Evaluator do
         end
       end
       its(:name) { should == :dynamic_field }
+
       it 'the attribute produces the correct value' do
         expect(subject.processed_value({}).first).to be_kind_of(ChildRubyObject)
       end

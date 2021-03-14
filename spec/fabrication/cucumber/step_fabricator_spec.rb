@@ -91,6 +91,7 @@ describe Fabrication::Cucumber::StepFabricator do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'panother' })
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
+
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1', 'dog2')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
@@ -108,6 +109,7 @@ describe Fabrication::Cucumber::StepFabricator do
         expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
+
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)

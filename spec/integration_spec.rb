@@ -49,6 +49,7 @@ shared_examples 'something fabricatable' do
     it 'generates a fresh object every time' do
       expect(Fabricate(fabricator_name)).not_to eq(subject)
     end
+
     it { should be_persisted }
   end
 
@@ -71,6 +72,7 @@ shared_examples 'something fabricatable' do
   context 'attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
     it { should be_kind_of(Fabrication::Support.hash_class) }
+
     it 'serializes the attributes' do
       should include({
                        dynamic_field: nil,
@@ -303,6 +305,7 @@ describe Fabrication do
     before { Fabrication.clear_definitions }
     subject { Fabrication.manager }
     it { should be_empty }
+
     after { Fabrication.manager.load_definitions }
   end
 
