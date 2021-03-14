@@ -165,5 +165,3 @@ Style/StringLiterals:
   Enabled: False
 Style/StructInheritance:
   Enabled: False
-Style/SymbolArray:
-  Enabled: False

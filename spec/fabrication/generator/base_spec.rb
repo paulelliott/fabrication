@@ -51,7 +51,7 @@ describe Fabrication::Generator::Base do
       context "not using init_with" do
         let(:schematic) do
           Fabrication::Schematic::Definition.new('ClassWithInit') do
-            on_init { [:a, :b] }
+            on_init { %i[a b] }
           end
         end
 

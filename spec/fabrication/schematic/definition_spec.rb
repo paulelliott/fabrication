@@ -244,7 +244,7 @@ describe Fabrication::Schematic::Definition do
         transient :two
       end
     end
-    it { should == [:one, :two, :three] }
+    it { should == %i[one two three] }
   end
 
   describe '#klass' do
