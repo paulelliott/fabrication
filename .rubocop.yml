@@ -110,8 +110,6 @@ Style/ClassAndModuleChildren:
   Enabled: False
 Style/ClassVars:
   Enabled: False
-Style/ConditionalAssignment:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:

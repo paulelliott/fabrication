@@ -8,10 +8,10 @@ class Fabrication::Generator::ActiveRecord < Fabrication::Generator::Base
   end
 
   def build_instance
-    if _klass.respond_to?(:protected_attributes)
-      self._instance = _klass.new(_attributes, without_protection: true)
-    else
-      self._instance = _klass.new(_attributes)
-    end
+    self._instance = if _klass.respond_to?(:protected_attributes)
+                       _klass.new(_attributes, without_protection: true)
+                     else
+                       _klass.new(_attributes)
+                     end
   end
 end
