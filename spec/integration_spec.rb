@@ -177,9 +177,9 @@ describe Fabrication do
   end
 
   context 'when the class requires a constructor' do
-    before(:all) do
+    before do
       CustomInitializer = Struct.new(:field1, :field2)
-      Fabricator(:custom_initializer)
+      Fabricator(:custom_initializer) unless Fabrication.manager[:custom_initializer]
     end
 
     subject do
@@ -277,10 +277,12 @@ describe Fabrication do
 
   context 'with multiple callbacks' do
     subject { Fabricate(:multiple_callbacks) }
-    before(:all) do
-      Fabricator(:multiple_callbacks, from: OpenStruct) do
-        before_validation { |o| o.callback1 = 'value1' }
-        before_validation { |o| o.callback2 = 'value2' }
+    before do
+      unless Fabrication.manager[:multiple_callbacks]
+        Fabricator(:multiple_callbacks, from: OpenStruct) do
+          before_validation { |o| o.callback1 = 'value1' }
+          before_validation { |o| o.callback2 = 'value2' }
+        end
       end
     end
     its(:callback1) { should == 'value1' }
@@ -289,7 +291,7 @@ describe Fabrication do
 
   context 'with multiple, inherited callbacks' do
     subject { Fabricate(:multiple_inherited_callbacks) }
-    before(:all) do
+    before do
       Fabricator(:multiple_inherited_callbacks, from: :multiple_callbacks) do
         before_validation { |o| o.callback3 = o.callback1 + o.callback2 }
       end
@@ -325,7 +327,7 @@ describe Fabrication do
 
   context 'defining a fabricator' do
     context 'without a block' do
-      before(:all) do
+      before do
         class Widget; end
         Fabricator(:widget)
       end

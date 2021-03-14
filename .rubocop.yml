@@ -46,8 +46,6 @@ Metrics/MethodLength:
   Enabled: False
 Metrics/PerceivedComplexity:
   Enabled: False
-RSpec/BeforeAfterAll:
-  Enabled: False
 RSpec/ContextWording:
   Enabled: False
 RSpec/DescribedClass:
