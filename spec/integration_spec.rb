@@ -5,7 +5,7 @@ shared_examples 'something fabricatable' do
 
   let(:fabricated_object) { Fabricate(fabricator_name, placeholder: 'dynamic content') }
 
-  context 'defaults from fabricator' do
+  context 'with defaults from fabricator' do
     its(:dynamic_field) { should == 'dynamic content' }
     its(:nil_field) { should be_nil }
     its(:number_field) { should == 5 }
@@ -13,12 +13,12 @@ shared_examples 'something fabricatable' do
     its(:false_field) { should == false }
   end
 
-  context 'model callbacks are fired' do
+  context 'when model callbacks are fired' do
     its(:before_validation_value) { should == 1 }
     its(:before_save_value) { should == 11 }
   end
 
-  context 'overriding at fabricate time' do
+  context 'when overriding at fabricate time' do
     let(:fabricated_object) do
       Fabricate(
         "#{fabricator_name}_with_children",
@@ -36,7 +36,7 @@ shared_examples 'something fabricatable' do
     its(:number_field) { should == 10 }
     its(:string_field) { should == 'new content' }
 
-    context 'child collections' do
+    context 'with child collections' do
       subject { fabricated_object.send(collection_field) }
 
       its(:size) { should == 2 }
@@ -47,7 +47,7 @@ shared_examples 'something fabricatable' do
     end
   end
 
-  context 'state of the object' do
+  context 'with state of the object' do
     it 'generates a fresh object every time' do
       expect(Fabricate(fabricator_name)).not_to eq(subject)
     end
@@ -55,12 +55,12 @@ shared_examples 'something fabricatable' do
     it { should be_persisted }
   end
 
-  context 'transient attributes' do
+  context 'with transient attributes' do
     it { should_not respond_to(:placeholder) }
     its(:extra_fields) { should == { transient_value: 'dynamic content' } }
   end
 
-  context 'build' do
+  context 'when build' do
     subject { Fabricate.build("#{fabricator_name}_with_children") }
 
     it { should_not be_persisted }
@@ -72,7 +72,7 @@ shared_examples 'something fabricatable' do
     end
   end
 
-  context 'attributes for' do
+  context 'when attributes for' do
     subject { Fabricate.attributes_for(fabricator_name) }
 
     it { should be_kind_of(Fabrication::Support.hash_class) }
@@ -87,7 +87,7 @@ shared_examples 'something fabricatable' do
     end
   end
 
-  context 'belongs_to associations' do
+  context 'with belongs_to associations' do
     subject { Fabricate("#{Fabrication::Support.singularize(collection_field.to_s)}_with_parent") }
 
     it 'sets the parent association' do
@@ -101,20 +101,20 @@ shared_examples 'something fabricatable' do
 end
 
 describe Fabrication do
-  context 'plain old ruby objects' do
+  context 'with plain old ruby objects' do
     let(:fabricator_name) { :parent_ruby_object }
     let(:collection_field) { :child_ruby_objects }
 
     it_behaves_like 'something fabricatable'
   end
 
-  context 'active_record models', depends_on: :active_record do
+  context 'with active_record models', depends_on: :active_record do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
 
     it_behaves_like 'something fabricatable'
 
-    context 'associations in attributes_for' do
+    context 'with associations in attributes_for' do
       subject do
         Fabricate.attributes_for(:child_active_record_model, parent_active_record_model: parent_model)
       end
@@ -126,7 +126,7 @@ describe Fabrication do
       end
     end
 
-    context 'association proxies' do
+    context 'with association proxies' do
       subject { parent_model.child_active_record_models.build }
 
       let(:parent_model) { Fabricate(:parent_active_record_model_with_children) }
@@ -135,13 +135,13 @@ describe Fabrication do
     end
   end
 
-  context 'data_mapper models', depends_on: :data_mapper do
+  context 'with data_mapper models', depends_on: :data_mapper do
     let(:fabricator_name) { :parent_data_mapper_model }
     let(:collection_field) { :child_data_mapper_models }
 
     it_behaves_like 'something fabricatable'
 
-    context 'associations in attributes_for' do
+    context 'with associations in attributes_for' do
       subject do
         Fabricate.attributes_for(
           :child_data_mapper_model, parent_data_mapper_model: parent_model
@@ -156,21 +156,21 @@ describe Fabrication do
     end
   end
 
-  context 'referenced mongoid documents', depends_on: :mongoid do
+  context 'with referenced mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
 
     it_behaves_like 'something fabricatable'
   end
 
-  context 'embedded mongoid documents', depends_on: :mongoid do
+  context 'with embedded mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
 
     it_behaves_like 'something fabricatable'
   end
 
-  context 'sequel models', depends_on: :sequel do
+  context 'with sequel models', depends_on: :sequel do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
 
@@ -226,7 +226,7 @@ describe Fabrication do
     its(:display) { should == 'working' }
   end
 
-  context 'multiple instance' do
+  context 'with multiple instances' do
     let!(:parent_ruby_object1) { Fabricate(:parent_ruby_object, string_field: 'Jane') }
     let!(:parent_ruby_object2) { Fabricate(:parent_ruby_object, string_field: 'John') }
 
@@ -255,15 +255,15 @@ describe Fabrication do
     its(:string_field) { should == 'different' }
   end
 
-  context 'for namespaced classes' do
-    context 'the namespaced class' do
+  context 'with namespaced classes' do
+    context 'when the namespaced class' do
       subject { Fabricate('namespaced_classes/ruby_object', name: 'working') }
 
       its(:name) { should eq('working') }
       it { should be_a(NamespacedClasses::RubyObject) }
     end
 
-    context 'descendant from namespaced class' do
+    context 'when descendant from namespaced class' do
       subject { Fabricate(:predefined_namespaced_class) }
 
       its(:name) { should eq('aaa') }
@@ -351,7 +351,7 @@ describe Fabrication do
     end
   end
 
-  context 'defining a fabricator' do
+  context 'when defining a fabricator' do
     context 'without a block' do
       before do
         class Widget; end
@@ -391,7 +391,7 @@ describe Fabrication do
   describe 'using an actual class in options' do
     subject { Fabricate(:actual_class) }
 
-    context 'from' do
+    context 'with from' do
       before do
         Fabricator(:actual_class, from: OpenStruct) do
           name 'Hashrocket'
@@ -404,7 +404,7 @@ describe Fabrication do
       it { should be_kind_of(OpenStruct) }
     end
 
-    context 'class_name' do
+    context 'with class_name' do
       before do
         Fabricator(:actual_class, class_name: OpenStruct) do
           name 'Hashrocket'
@@ -419,7 +419,7 @@ describe Fabrication do
   end
 
   describe 'accidentally an infinite recursion' do
-    context 'a single self-referencing fabricator' do
+    context 'with a single self-referencing fabricator' do
       before do
         Fabricator(:infinite_recursor, class_name: :child_ruby_object) do
           parent_ruby_object { Fabricate(:infinite_recursor) }
@@ -436,7 +436,7 @@ describe Fabrication do
       end
     end
 
-    context 'a parent-child recursive scenario' do
+    context 'with a parent-child recursive scenario' do
       before do
         Fabricator(:parent_recursor, class_name: :parent_ruby_object) do
           child_ruby_objects(count: 1, fabricator: :child_recursor)

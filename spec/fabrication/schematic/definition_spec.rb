@@ -12,19 +12,19 @@ describe Fabrication::Schematic::Definition do
   describe 'generator selection' do
     subject { described_class.new(klass).generator }
 
-    context 'for an activerecord object', depends_on: :active_record do
+    context 'with an activerecord object', depends_on: :active_record do
       let(:klass) { 'ParentActiveRecordModel' }
 
       it { should == Fabrication::Generator::ActiveRecord }
     end
 
-    context 'for a mongoid object', depends_on: :mongoid do
+    context 'with a mongoid object', depends_on: :mongoid do
       let(:klass) { 'ParentMongoidDocument' }
 
       it { should == Fabrication::Generator::Mongoid }
     end
 
-    context 'for a sequel object', depends_on: :sequel do
+    context 'with a sequel object', depends_on: :sequel do
       let(:klass) { 'ParentSequelModel' }
 
       it { should == Fabrication::Generator::Sequel }
@@ -72,7 +72,7 @@ describe Fabrication::Schematic::Definition do
   end
 
   describe '#fabricate' do
-    context 'an instance' do
+    context 'with an instance' do
       it 'generates a new instance' do
         expect(schematic.fabricate).to be_kind_of(OpenStruct)
       end

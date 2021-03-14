@@ -36,7 +36,7 @@ describe Fabrication::Generator::Base do
     context 'with on_init block' do
       subject { schematic.fabricate }
 
-      context 'using init_with' do
+      context 'when using init_with' do
         let(:schematic) do
           Fabrication::Schematic::Definition.new('ClassWithInit') do
             on_init { init_with(:a, :b) }
@@ -49,7 +49,7 @@ describe Fabrication::Generator::Base do
         end
       end
 
-      context 'not using init_with' do
+      context 'when not using init_with' do
         let(:schematic) do
           Fabrication::Schematic::Definition.new('ClassWithInit') do
             on_init { %i[a b] }
@@ -66,7 +66,7 @@ describe Fabrication::Generator::Base do
     context 'with initialize_with block' do
       subject { schematic.fabricate }
 
-      context 'using only raw values' do
+      context 'when using only raw values' do
         let(:schematic) do
           Fabrication::Schematic::Definition.new('ClassWithInit') do
             initialize_with { Struct.new(:arg1, :arg2).new(:fixed_value) }
@@ -79,7 +79,7 @@ describe Fabrication::Generator::Base do
         end
       end
 
-      context 'using attributes inside block' do
+      context 'when using attributes inside block' do
         let(:schematic) do
           Fabrication::Schematic::Definition.new('ClassWithInit') do
             arg1 10
@@ -114,7 +114,7 @@ describe Fabrication::Generator::Base do
       end
     end
 
-    context 'using an after_create hook' do
+    context 'when using an after_create hook' do
       let(:schematic) do
         Fabrication::Schematic::Definition.new('ParentRubyObject') do
           string_field 'something'
@@ -131,7 +131,7 @@ describe Fabrication::Generator::Base do
       end
     end
 
-    context 'all the callbacks' do
+    context 'with all the callbacks' do
       subject { schematic.build }
 
       let(:schematic) do
@@ -165,7 +165,7 @@ describe Fabrication::Generator::Base do
   end
 
   describe '#create' do
-    context 'all the callbacks' do
+    context 'with all the callbacks' do
       subject { schematic.fabricate }
 
       let(:schematic) do

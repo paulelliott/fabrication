@@ -61,7 +61,7 @@ describe Fabrication::Sequencer do
       end).to eq('user2@example.com')
     end
 
-    context 'and then without a block' do
+    context 'without a block' do
       it 'remembers the original block' do
         Fabricate.sequence :changing_blocks do |i|
           i * 10
@@ -69,7 +69,7 @@ describe Fabrication::Sequencer do
         expect(Fabricate.sequence(:changing_blocks)).to eq(10)
       end
 
-      context 'and then with a new block' do
+      context 'with a new block' do
         it 'evaluates the new block' do
           expect(Fabricate.sequence(:changing_blocks) { |i| i**2 }).to eq(4)
         end

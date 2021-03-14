@@ -15,14 +15,14 @@ describe Fabrication::Cucumber::StepFabricator do
 
       it { should == 'Boom' }
 
-      context 'given a human name' do
+      context 'with a human name' do
         let(:name) { 'weiner dogs' }
         let(:fabricator_name) { :weiner_dog }
 
         it { should == 'Boom' }
       end
 
-      context 'given a titlecase human name' do
+      context 'with a titlecase human name' do
         let(:name) { 'Weiner Dog' }
         let(:fabricator_name) { :weiner_dog }
 
@@ -106,7 +106,7 @@ describe Fabrication::Cucumber::StepFabricator do
       end
     end
 
-    context 'singular' do
+    context 'when singular' do
       let(:name) { 'dog' }
       let(:table) { double('ASTable', rows_hash: rows_hash) }
       let(:rows_hash) do

@@ -41,13 +41,13 @@ describe Fabrication::Schematic::Attribute do
   describe '#processed_value' do
     subject { attribute.processed_value({}) }
 
-    context 'singular value' do
+    context 'with a singular value' do
       let(:attribute) { described_class.new(Object, 'a', 'something') }
 
       it { should == 'something' }
     end
 
-    context 'singular block' do
+    context 'with a singular block' do
       let(:attribute) do
         described_class.new(Object, 'a', nil, {}) { 'something' }
       end
@@ -55,7 +55,7 @@ describe Fabrication::Schematic::Attribute do
       it { should == 'something' }
     end
 
-    context 'collection block' do
+    context 'with a collection block' do
       let(:attribute) do
         described_class.new(Object, 'a', nil, { count: 2 }) { 'something' }
       end
@@ -63,7 +63,7 @@ describe Fabrication::Schematic::Attribute do
       it { should == %w[something something] }
     end
 
-    context 'collection block with random amount' do
+    context 'with a collection block with random amount' do
       let(:random_amount) { 3 }
       let(:attribute) do
         described_class.new(Object, 'a', nil, { rand: random_amount }) { 'something' }
@@ -74,7 +74,7 @@ describe Fabrication::Schematic::Attribute do
       end
     end
 
-    context 'collection block with random amount given as range' do
+    context 'with a collection block with random amount given as range' do
       let(:random_amount_range) { 10..21 }
       let(:attribute) do
         described_class.new(Object, 'a', nil, { rand: random_amount_range }) { 'something' }
@@ -85,7 +85,7 @@ describe Fabrication::Schematic::Attribute do
       end
     end
 
-    context 'collection block with random amount within a range' do
+    context 'with a collection block with random amount within a range' do
       let(:range_start) { 10 }
       let(:range_end) { 21 }
       let(:attribute) do

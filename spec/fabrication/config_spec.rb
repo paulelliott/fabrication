@@ -5,7 +5,7 @@ describe Fabrication::Config do
 
   after { described_class.reset_defaults }
 
-  context 'default configs' do
+  context 'with default configs' do
     its(:fabricator_path) { should == ['test/fabricators', 'spec/fabricators'] }
     its(:path_prefix) { should == ['.'] }
     its(:sequence_start) { should == 0 }

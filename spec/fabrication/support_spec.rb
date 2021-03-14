@@ -27,7 +27,7 @@ describe Fabrication::Support do
           .to raise_error(Fabrication::UnfabricatableError)
       end
 
-      context 'and custom const_missing is defined' do
+      context 'when custom const_missing is defined' do
         before do
           module Family
             def self.const_missing(_name)

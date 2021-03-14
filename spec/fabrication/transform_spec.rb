@@ -7,15 +7,15 @@ describe Fabrication::Transform do
   end
 
   describe '.apply_to' do
-    context 'find definitions' do
-      context 'transforms are empty' do
+    context 'with find definitions' do
+      context 'when transforms are empty' do
         it 'loads the definitions' do
           expect(Fabrication.manager).to receive(:load_definitions)
           described_class.apply_to(nil, name: 'Shay')
         end
       end
 
-      context 'transforms are not empty' do
+      context 'when transforms are not empty' do
         it 'does not load the definitions' do
           described_class.apply_to(nil, name: 'Shay')
           expect(Fabrication.manager).not_to receive(:load_definitions)
@@ -29,7 +29,7 @@ describe Fabrication::Transform do
         described_class.define(:city, ->(value) { value.split.first })
       end
 
-      context 'fabricating an instance that is described by the per fabricator transform' do
+      context 'when fabricating an instance that is described by the per fabricator transform' do
         before do
           described_class.only_for(:address, :city, ->(value) { value.upcase })
         end
@@ -42,7 +42,7 @@ describe Fabrication::Transform do
         end
       end
 
-      context 'no override has been defined' do
+      context 'when no override has been defined' do
         it 'applies the generic transform' do
           expect(described_class.apply_to(
                    :address,
@@ -61,8 +61,8 @@ describe Fabrication::Transform do
       end
     end
 
-    context 'ensuring precedence' do
-      context 'override is done before generic transform' do
+    context 'when ensuring precedence' do
+      context 'when override is done before generic transform' do
         before do
           described_class.only_for(:address, :city, ->(value) { value.upcase })
           described_class.define(:city, ->(value) { value.split.first })

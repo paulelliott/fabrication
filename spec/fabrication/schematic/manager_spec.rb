@@ -66,7 +66,7 @@ describe Fabrication::Schematic::Manager do
       end
     end
 
-    context 'happy path' do
+    context 'with the happy path' do
       it 'loaded definitions' do
         Fabrication.manager.load_definitions
         expect(Fabrication.manager[:parent_ruby_object]).to be_present
