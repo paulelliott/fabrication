@@ -21,6 +21,10 @@ Lint/Void:
   Exclude:
     - features/step_definitions/object_verification_steps.rb
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 RSpec/ExampleLength:
   Enabled: false
 Style/Documentation:
@@ -29,8 +33,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Metrics/AbcSize:
-  Enabled: False
-Metrics/BlockLength:
   Enabled: False
 Metrics/ClassLength:
   Enabled: False
