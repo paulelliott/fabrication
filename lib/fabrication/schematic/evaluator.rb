@@ -60,7 +60,7 @@ class Fabrication::Schematic::Evaluator < BasicObject
 
   def transient(*field_names)
     field_names.each do |field_name|
-      if field_name.kind_of?(::Hash)
+      if field_name.is_a?(::Hash)
         field_name.each_pair { |name, value| @_definition.append_or_update_attribute(name, value, transient: true) }
       else
         @_definition.append_or_update_attribute(field_name, nil, transient: true)
