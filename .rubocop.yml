@@ -120,8 +120,6 @@ Style/ExpandPathArguments:
   Enabled: False
 Style/HashSyntax:
   Enabled: False
-Style/IfUnlessModifier:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:

@@ -14,9 +14,7 @@ DEFINED_CLASSES = {
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'support', '*.rb'))].sort.each { |f| require f }
 
-if defined?(I18n)
-  I18n.enforce_available_locales = false
-end
+I18n.enforce_available_locales = false if defined?(I18n)
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
