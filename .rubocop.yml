@@ -60,8 +60,6 @@ RSpec/ImplicitSubject:
   Enabled: False
 RSpec/ItBehavesLike:
   Enabled: False
-RSpec/LeadingSubject:
-  Enabled: False
 RSpec/LeakyConstantDeclaration:
   Enabled: False
 RSpec/MessageSpies:

@@ -115,11 +115,11 @@ describe Fabrication do
     it_should_behave_like 'something fabricatable'
 
     context 'associations in attributes_for' do
-      let(:parent_model) { Fabricate(:parent_active_record_model) }
-
       subject do
         Fabricate.attributes_for(:child_active_record_model, parent_active_record_model: parent_model)
       end
+
+      let(:parent_model) { Fabricate(:parent_active_record_model) }
 
       it 'serializes the belongs_to as an id' do
         should include({ parent_active_record_model_id: parent_model.id })
@@ -142,13 +142,13 @@ describe Fabrication do
     it_should_behave_like 'something fabricatable'
 
     context 'associations in attributes_for' do
-      let(:parent_model) { Fabricate(:parent_data_mapper_model) }
-
       subject do
         Fabricate.attributes_for(
           :child_data_mapper_model, parent_data_mapper_model: parent_model
         )
       end
+
+      let(:parent_model) { Fabricate(:parent_data_mapper_model) }
 
       it 'serializes the belongs_to as an id' do
         should include({ parent_data_mapper_model_id: parent_model.id })
@@ -192,15 +192,15 @@ describe Fabrication do
   end
 
   context 'when the class requires a constructor' do
-    before do
-      CustomInitializer = Struct.new(:field1, :field2)
-      Fabricator(:custom_initializer) unless Fabrication.manager[:custom_initializer]
-    end
-
     subject do
       Fabricate(:custom_initializer) do
         on_init { init_with('value1', 'value2') }
       end
+    end
+
+    before do
+      CustomInitializer = Struct.new(:field1, :field2)
+      Fabricator(:custom_initializer) unless Fabrication.manager[:custom_initializer]
     end
 
     its(:field1) { should == 'value1' }
@@ -322,9 +322,9 @@ describe Fabrication do
   end
 
   describe '.clear_definitions' do
-    before { Fabrication.clear_definitions }
-
     subject { Fabrication.manager }
+
+    before { Fabrication.clear_definitions }
 
     after { Fabrication.manager.load_definitions }
 
