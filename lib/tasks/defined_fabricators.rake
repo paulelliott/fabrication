@@ -8,12 +8,12 @@ namespace :fabrication do
       next
     end
 
-    groups = Fabrication.manager.schematics.group_by do |name, fabdef|
+    schematic_groups = Fabrication.manager.schematics.group_by do |name, fabdef|
       fabdef.klass.name
     end
 
     fabricators = {}
-    groups.sort_by { |klass, _| klass }.each do |klass, groups|
+    schematic_groups.sort_by { |klass, _| klass }.each do |klass, groups|
       fabricators[klass] = groups.map(&:first).sort.join(", ")
     end
 
