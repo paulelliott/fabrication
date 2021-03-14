@@ -11,15 +11,15 @@ describe Fabrication::Transform do
       context 'transforms are empty' do
         it 'loads the definitions' do
           expect(Fabrication.manager).to receive(:load_definitions)
-          Fabrication::Transform.apply_to(nil, :name => 'Shay')
+          Fabrication::Transform.apply_to(nil, name: 'Shay')
         end
       end
 
       context 'transforms are not empty' do
         it 'does not load the definitions' do
-          Fabrication::Transform.apply_to(nil, :name => 'Shay')
+          Fabrication::Transform.apply_to(nil, name: 'Shay')
           expect(Fabrication.manager).not_to receive(:load_definitions)
-          Fabrication::Transform.apply_to(nil, :name => 'Gabriel')
+          Fabrication::Transform.apply_to(nil, name: 'Gabriel')
         end
       end
     end
@@ -37,8 +37,8 @@ describe Fabrication::Transform do
         it 'applies the transform to the specified types' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   { :city => 'Jacksonville Beach' }
-                 )).to eq({ :city => 'JACKSONVILLE BEACH' })
+                   { city: 'Jacksonville Beach' }
+                 )).to eq({ city: 'JACKSONVILLE BEACH' })
         end
       end
 
@@ -46,8 +46,8 @@ describe Fabrication::Transform do
         it 'applies the generic transform' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   { :city => 'Jacksonville Beach' }
-                 )).to eq({ :city => 'Jacksonville' })
+                   { city: 'Jacksonville Beach' }
+                 )).to eq({ city: 'Jacksonville' })
         end
       end
     end
@@ -56,8 +56,8 @@ describe Fabrication::Transform do
       it 'does not change value' do
         expect(Fabrication::Transform.apply_to(
                  :address,
-                 { :city => 'Jacksonville Beach' }
-               )).to eq({ :city => 'Jacksonville Beach' })
+                 { city: 'Jacksonville Beach' }
+               )).to eq({ city: 'Jacksonville Beach' })
       end
     end
 
@@ -71,8 +71,8 @@ describe Fabrication::Transform do
         it 'applies corretly' do
           expect(Fabrication::Transform.apply_to(
                    :address,
-                   { :city => 'Jacksonville Beach' }
-                 )).to eq({ :city => 'JACKSONVILLE BEACH' })
+                   { city: 'Jacksonville Beach' }
+                 )).to eq({ city: 'JACKSONVILLE BEACH' })
         end
       end
     end

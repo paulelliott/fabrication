@@ -1,6 +1,6 @@
 if defined?(Mongoid)
   Fabricator(:parent_mongoid_document) do
-    transient :placeholder, :transient_with_default => 'my custom value'
+    transient :placeholder, transient_with_default: 'my custom value'
     dynamic_field { |attrs| attrs[:placeholder] }
     nil_field nil
     number_field 5

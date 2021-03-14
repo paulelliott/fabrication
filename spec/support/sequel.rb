@@ -1,7 +1,7 @@
 if defined?(Sequel)
   DB = Sequel.sqlite # in memory
   Sequel.extension :migration
-  Sequel::Migrator.run(DB, 'spec/support/sequel_migrations', :current => 0)
+  Sequel::Migrator.run(DB, 'spec/support/sequel_migrations', current: 0)
   Sequel::Model.strict_param_setting = true
 
   def clear_sequel_db

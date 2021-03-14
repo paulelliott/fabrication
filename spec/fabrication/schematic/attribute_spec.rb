@@ -4,12 +4,12 @@ describe Fabrication::Schematic::Attribute do
   describe '.new' do
     context 'with name, params, and a static value' do
       subject do
-        Fabrication::Schematic::Attribute.new(Object, 'a', 'c', { :b => 1 })
+        Fabrication::Schematic::Attribute.new(Object, 'a', 'c', { b: 1 })
       end
 
       its(:klass)  { should == Object }
       its(:name)   { should == 'a' }
-      its(:params) { should == { :b => 1 } }
+      its(:params) { should == { b: 1 } }
       its(:value)  { should == 'c' }
       it { should_not be_transient }
     end

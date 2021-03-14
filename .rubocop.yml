@@ -118,8 +118,6 @@ Style/Encoding:
   Enabled: False
 Style/ExpandPathArguments:
   Enabled: False
-Style/HashSyntax:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:

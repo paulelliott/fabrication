@@ -39,8 +39,8 @@ describe Fabrication::Cucumber::StepFabricator do
 
     it 'fabricates with attrs' do
       expect(Fabricate).to receive(:create)
-        .with(:dog, :collar => 'red').at_least(1)
-      fabricator.n n, :collar => 'red'
+        .with(:dog, collar: 'red').at_least(1)
+      fabricator.n n, collar: 'red'
     end
 
     context 'with a plural subject' do
@@ -65,7 +65,7 @@ describe Fabrication::Cucumber::StepFabricator do
   describe '#from_table' do
     it 'maps column names to attribute names' do
       table = double(hashes: [{ 'Favorite Color' => 'pink' }])
-      expect(Fabricate).to receive(:create).with(:bear, :favorite_color => 'pink')
+      expect(Fabricate).to receive(:create).with(:bear, favorite_color: 'pink')
       Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
     end
 
@@ -75,20 +75,20 @@ describe Fabrication::Cucumber::StepFabricator do
 
       it 'applies transforms' do
         expect(Fabrication::Transform).to receive(:apply_to)
-          .with('bears', { :some => 'thing' }).and_return({})
+          .with('bears', { some: 'thing' }).and_return({})
         Fabrication::Cucumber::StepFabricator.new('bears').from_table(table)
       end
     end
 
     context 'with a plural subject' do
-      let(:table) { double('ASTable', :hashes => hashes) }
+      let(:table) { double('ASTable', hashes: hashes) }
       let(:hashes) do
         [{ 'some' => 'thing' },
          { 'some' => 'panother' }]
       end
       it 'fabricates with each rows attributes' do
-        expect(Fabricate).to receive(:create).with(:dog, { :some => 'thing' })
-        expect(Fabricate).to receive(:create).with(:dog, { :some => 'panother' })
+        expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
+        expect(Fabricate).to receive(:create).with(:dog, { some: 'panother' })
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
@@ -100,12 +100,12 @@ describe Fabrication::Cucumber::StepFabricator do
 
     context 'singular' do
       let(:name) { 'dog' }
-      let(:table) { double('ASTable', :rows_hash => rows_hash) }
+      let(:table) { double('ASTable', rows_hash: rows_hash) }
       let(:rows_hash) do
         { 'some' => 'thing' }
       end
       it 'fabricates with each row as an attribute' do
-        expect(Fabricate).to receive(:create).with(:dog, { :some => 'thing' })
+        expect(Fabricate).to receive(:create).with(:dog, { some: 'thing' })
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
       end
       it 'remembers' do
