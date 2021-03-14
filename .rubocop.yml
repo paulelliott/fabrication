@@ -134,5 +134,3 @@ Style/MultilineTernaryOperator:
   Enabled: False
 Style/MutableConstant:
   Enabled: False
-Style/NumericLiterals:
-  Enabled: False
