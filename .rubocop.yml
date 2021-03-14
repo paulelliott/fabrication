@@ -25,6 +25,10 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
 
+Naming/MethodName:
+  Exclude:
+    - lib/fabrication.rb
+
 RSpec/ExampleLength:
   Enabled: false
 Style/Documentation:
@@ -41,8 +45,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Enabled: False
 Metrics/PerceivedComplexity:
-  Enabled: False
-Naming/MethodName:
   Enabled: False
 Naming/PredicateName:
   Enabled: False
