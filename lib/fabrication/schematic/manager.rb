@@ -55,8 +55,6 @@ class Fabrication::Schematic::Manager
         end
       end
     end
-  rescue Exception => e
-    raise e
   ensure
     freeze
   end
