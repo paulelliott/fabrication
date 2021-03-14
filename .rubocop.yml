@@ -159,5 +159,3 @@ Style/SafeNavigation:
   Enabled: False
 Style/SingleLineMethods:
   Enabled: False
-Style/SpecialGlobalVars:
-  Enabled: False
