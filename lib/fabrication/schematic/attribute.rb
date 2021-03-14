@@ -36,7 +36,7 @@ class Fabrication::Schematic::Attribute
   end
 
   def value_proc?
-    Proc === value
+    value.is_a?(Proc)
   end
 
   private

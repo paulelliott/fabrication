@@ -102,8 +102,6 @@ Style/ArgumentsForwarding:
   Enabled: False
 Style/BlockDelimiters:
   Enabled: False
-Style/CaseEquality:
-  Enabled: False
 Style/ClassAndModuleChildren:
   Enabled: False
 Style/MissingRespondToMissing:

@@ -20,7 +20,7 @@ describe Fabrication::Schematic::Attribute do
       end
 
       it 'has a proc for a value' do
-        expect(Proc).to be === subject.value
+        expect(subject.value).to be_a(Proc)
       end
     end
 
