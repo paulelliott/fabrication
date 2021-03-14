@@ -140,5 +140,3 @@ Style/PercentLiteralDelimiters:
   Enabled: False
 Style/PerlBackrefs:
   Enabled: False
-Style/PreferredHashMethods:
-  Enabled: False
