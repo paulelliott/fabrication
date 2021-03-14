@@ -17,6 +17,9 @@ Lint/EmptyBlock:
 Lint/EmptyClass:
   Exclude:
     - spec/**/*
+Lint/Void:
+  Exclude:
+    - features/step_definitions/object_verification_steps.rb
 
 RSpec/ExampleLength:
   Enabled: false
@@ -25,8 +28,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/Void:
-  Enabled: False
 Metrics/AbcSize:
   Enabled: False
 Metrics/BlockLength:
