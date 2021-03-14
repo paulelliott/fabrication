@@ -25,8 +25,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Lint/UselessAccessModifier:
-  Enabled: False
 Lint/Void:
   Enabled: False
 Metrics/AbcSize:
