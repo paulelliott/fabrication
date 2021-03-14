@@ -64,7 +64,7 @@ end
 
 class Troublemaker
   def raise_exception=(value)
-    raise "Troublemaker exception" if value
+    raise 'Troublemaker exception' if value
   end
 end
 

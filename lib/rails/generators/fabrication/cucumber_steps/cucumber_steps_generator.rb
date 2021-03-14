@@ -4,7 +4,7 @@ module Fabrication
   module Generators
     class CucumberStepsGenerator < Rails::Generators::Base
       def generate
-        template 'fabrication_steps.rb', "features/step_definitions/fabrication_steps.rb"
+        template 'fabrication_steps.rb', 'features/step_definitions/fabrication_steps.rb'
       end
 
       def self.source_root

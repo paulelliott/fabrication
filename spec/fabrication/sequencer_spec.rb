@@ -47,17 +47,17 @@ describe Fabrication::Sequencer do
     it 'yields the number to the block and returns the value' do
       expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end).to eq("user0@example.com")
+      end).to eq('user0@example.com')
     end
 
     it 'increments by one with each call' do
       expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end).to eq("user1@example.com")
+      end).to eq('user1@example.com')
 
       expect(Fabricate.sequence(:email) do |i|
         "user#{i}@example.com"
-      end).to eq("user2@example.com")
+      end).to eq('user2@example.com')
     end
 
     context 'and then without a block' do
@@ -90,17 +90,17 @@ describe Fabrication::Sequencer do
     end
   end
 
-  context "with a default sequence start" do
+  context 'with a default sequence start' do
     before do
       Fabrication::Sequencer.reset
       Fabrication::Config.sequence_start = 10000
     end
 
-    it "starts a new sequence at the default" do
+    it 'starts a new sequence at the default' do
       expect(Fabricate.sequence(:default_test)).to eq(10000)
     end
 
-    it "respects start value passed as an argument" do
+    it 'respects start value passed as an argument' do
       expect(Fabricate.sequence(:default_test2, 9)).to eq(9)
     end
 

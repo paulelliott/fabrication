@@ -18,8 +18,8 @@ module Fabrication
     alias fabricator_paths fabricator_path
 
     def fabricator_dir
-      puts "DEPRECATION WARNING: Fabrication::Config.fabricator_dir " \
-        "has been replaced by Fabrication::Config.fabricator_path"
+      puts 'DEPRECATION WARNING: Fabrication::Config.fabricator_dir ' \
+        'has been replaced by Fabrication::Config.fabricator_path'
       fabricator_path
     end
 
@@ -28,8 +28,8 @@ module Fabrication
     end
 
     def fabricator_dir=(folders)
-      puts "DEPRECATION WARNING: Fabrication::Config.fabricator_dir " \
-        "has been replaced by Fabrication::Config.fabricator_path"
+      puts 'DEPRECATION WARNING: Fabrication::Config.fabricator_dir ' \
+        'has been replaced by Fabrication::Config.fabricator_path'
       self.fabricator_path = folders
     end
 
@@ -42,7 +42,7 @@ module Fabrication
     end
 
     def path_prefix
-      @path_prefix ||= [defined?(Rails) ? Rails.root : "."]
+      @path_prefix ||= [defined?(Rails) ? Rails.root : '.']
     end
     alias path_prefixes path_prefix
 

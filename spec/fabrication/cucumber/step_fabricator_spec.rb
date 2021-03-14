@@ -9,35 +9,35 @@ describe Fabrication::Cucumber::StepFabricator do
       let(:fabricator_name) { :dog }
 
       before do
-        allow(Fabricate).to receive(:schematic).with(fabricator_name).and_return(double(klass: "Boom"))
+        allow(Fabricate).to receive(:schematic).with(fabricator_name).and_return(double(klass: 'Boom'))
       end
 
-      it { should == "Boom" }
+      it { should == 'Boom' }
 
-      context "given a human name" do
-        let(:name) { "weiner dogs" }
+      context 'given a human name' do
+        let(:name) { 'weiner dogs' }
         let(:fabricator_name) { :weiner_dog }
-        it { should == "Boom" }
+        it { should == 'Boom' }
       end
 
-      context "given a titlecase human name" do
-        let(:name) { "Weiner Dog" }
+      context 'given a titlecase human name' do
+        let(:name) { 'Weiner Dog' }
         let(:fabricator_name) { :weiner_dog }
-        it { should == "Boom" }
+        it { should == 'Boom' }
       end
     end
   end
 
-  describe "#n" do
+  describe '#n' do
     let(:n) { 3 }
     let(:fabricator) { Fabrication::Cucumber::StepFabricator.new(name) }
 
-    it "fabricates n times" do
+    it 'fabricates n times' do
       expect(Fabricate).to receive(:create).with(:dog, {}).exactly(n).times
       fabricator.n n
     end
 
-    it "fabricates with attrs" do
+    it 'fabricates with attrs' do
       expect(Fabricate).to receive(:create)
         .with(:dog, :collar => 'red').at_least(1)
       fabricator.n n, :collar => 'red'
@@ -46,7 +46,7 @@ describe Fabrication::Cucumber::StepFabricator do
     context 'with a plural subject' do
       let(:name) { 'dogs' }
       it 'remembers' do
-        allow(Fabricate).to receive(:create).and_return("dog1", "dog2", "dog3")
+        allow(Fabricate).to receive(:create).and_return('dog1', 'dog2', 'dog3')
         fabricator.n n
         expect(Fabrication::Cucumber::Fabrications[name]).to eq(%w[dog1 dog2 dog3])
       end
@@ -55,7 +55,7 @@ describe Fabrication::Cucumber::StepFabricator do
     context 'with a singular subject' do
       let(:name) { 'dog' }
       it 'remembers' do
-        allow(Fabricate).to receive(:create).and_return("dog1")
+        allow(Fabricate).to receive(:create).and_return('dog1')
         fabricator.n 1
         expect(Fabrication::Cucumber::Fabrications[name]).to eq('dog1')
       end
@@ -81,7 +81,7 @@ describe Fabrication::Cucumber::StepFabricator do
     end
 
     context 'with a plural subject' do
-      let(:table) { double("ASTable", :hashes => hashes) }
+      let(:table) { double('ASTable', :hashes => hashes) }
       let(:hashes) do
         [{ 'some' => 'thing' },
          { 'some' => 'panother' }]
@@ -100,7 +100,7 @@ describe Fabrication::Cucumber::StepFabricator do
 
     context 'singular' do
       let(:name) { 'dog' }
-      let(:table) { double("ASTable", :rows_hash => rows_hash) }
+      let(:table) { double('ASTable', :rows_hash => rows_hash) }
       let(:rows_hash) do
         { 'some' => 'thing' }
       end
@@ -111,7 +111,7 @@ describe Fabrication::Cucumber::StepFabricator do
       it 'remembers' do
         allow(Fabricate).to receive(:create).and_return('dog1')
         Fabrication::Cucumber::StepFabricator.new(name).from_table(table)
-        expect(Fabrication::Cucumber::Fabrications[name]).to eq("dog1")
+        expect(Fabrication::Cucumber::Fabrications[name]).to eq('dog1')
       end
     end
   end

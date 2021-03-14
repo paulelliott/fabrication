@@ -1,5 +1,5 @@
 if defined?(Mongoid)
-  Mongoid.load!("spec/support/mongoid.yml", :test)
+  Mongoid.load!('spec/support/mongoid.yml', :test)
 
   Mongoid.logger.level = Logger::ERROR
   Mongo::Logger.logger.level = Logger::ERROR if defined?(Mongo)

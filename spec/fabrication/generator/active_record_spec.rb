@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Fabrication::Generator::ActiveRecord do
-  describe ".supports?" do
+  describe '.supports?' do
     subject { Fabrication::Generator::ActiveRecord }
 
     # Defines a fakey ActiveRecord module that doesn't also have
@@ -11,38 +11,38 @@ describe Fabrication::Generator::ActiveRecord do
 
     let(:active_record_fake) { ActiveRecord }
 
-    it "returns false for active record objects without ar::base" do
+    it 'returns false for active record objects without ar::base' do
       expect(subject.supports?(active_record_fake)).to be false
     end
   end
 end
 
 describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
-  describe ".supports?" do
+  describe '.supports?' do
     subject { Fabrication::Generator::ActiveRecord }
 
-    it "returns true for active record objects" do
+    it 'returns true for active record objects' do
       expect(subject.supports?(ParentActiveRecordModel)).to be true
     end
 
-    it "returns false for non-active record objects" do
+    it 'returns false for non-active record objects' do
       expect(subject.supports?(ParentRubyObject)).to be false
     end
   end
 
-  describe "#persist" do
+  describe '#persist' do
     let(:instance) { double }
     let(:generator) { Fabrication::Generator::ActiveRecord.new(ParentActiveRecordModel) }
 
     before { generator.send(:_instance=, instance) }
 
-    it "saves" do
+    it 'saves' do
       expect(instance).to receive(:save!)
       generator.send(:persist)
     end
   end
 
-  describe "#create" do
+  describe '#create' do
     let(:attributes) do
       Fabrication::Schematic::Definition.new(ParentActiveRecordModel) do
         string_field 'Different Content'

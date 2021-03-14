@@ -4,6 +4,6 @@ Fabricator(:sequencer) do
   block_iterator  { sequence(:block_iterator) { |i| "block#{i}" } }
 end
 
-Fabricator("Sequencer::Namespaced") do
+Fabricator('Sequencer::Namespaced') do
   iterator { sequence(:iterator) }
 end

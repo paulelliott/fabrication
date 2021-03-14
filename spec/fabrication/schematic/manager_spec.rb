@@ -4,32 +4,32 @@ describe Fabrication::Schematic::Manager do
   let(:manager) { Fabrication::Schematic::Manager.instance }
   before { manager.clear }
 
-  describe "#register" do
+  describe '#register' do
     subject { manager }
 
-    let(:options) { { aliases: ["thing_one", :thing_two] } }
+    let(:options) { { aliases: ['thing_one', :thing_two] } }
 
     before do
       manager.register(:open_struct, options) do
-        first_name "Joe"
-        last_name { "Schmoe" }
+        first_name 'Joe'
+        last_name { 'Schmoe' }
       end
     end
 
-    it "creates a schematic" do
+    it 'creates a schematic' do
       expect(subject.schematics[:open_struct]).to be
     end
 
-    it "infers the correct class" do
+    it 'infers the correct class' do
       expect(subject.schematics[:open_struct].send(:klass)).to eq(OpenStruct)
     end
 
-    it "has the attributes" do
+    it 'has the attributes' do
       expect(subject.schematics[:open_struct].attributes.size).to eq(2)
     end
 
-    context "with an alias" do
-      it "recognizes the aliases" do
+    context 'with an alias' do
+      it 'recognizes the aliases' do
         expect(subject.schematics[:thing_one]).to eq(subject.schematics[:open_struct])
         expect(subject.schematics[:thing_two]).to eq(subject.schematics[:open_struct])
       end
@@ -51,7 +51,7 @@ describe Fabrication::Schematic::Manager do
     end
   end
 
-  describe ".load_definitions" do
+  describe '.load_definitions' do
     before { Fabrication.clear_definitions }
 
     context 'with multiple path_prefixes and fabricator_paths' do
@@ -63,7 +63,7 @@ describe Fabrication::Schematic::Manager do
     end
 
     context 'happy path' do
-      it "loaded definitions" do
+      it 'loaded definitions' do
         Fabrication.manager.load_definitions
         expect(Fabrication.manager[:parent_ruby_object]).to be
       end

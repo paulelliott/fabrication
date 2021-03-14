@@ -161,5 +161,3 @@ Style/SingleLineMethods:
   Enabled: False
 Style/SpecialGlobalVars:
   Enabled: False
-Style/StringLiterals:
-  Enabled: False

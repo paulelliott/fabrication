@@ -39,9 +39,9 @@ shared_examples 'something fabricatable' do
       subject { fabricated_object.send(collection_field) }
       its(:size) { should == 2 }
       its(:first) { should be_persisted }
-      its("first.number_field") { should == 10 }
+      its('first.number_field') { should == 10 }
       its(:last) { should be_persisted }
-      its("last.number_field") { should == 10 }
+      its('last.number_field') { should == 10 }
     end
   end
 
@@ -194,14 +194,14 @@ describe Fabrication do
 
   context 'with the generation parameter' do
     let(:parent_ruby_object) do
-      Fabricate(:parent_ruby_object, string_field: "Paul") do
+      Fabricate(:parent_ruby_object, string_field: 'Paul') do
         placeholder { |attrs| "#{attrs[:string_field]}#{attrs[:number_field]}" }
         number_field 50
       end
     end
 
     it 'evaluates the fields in order of declaration' do
-      expect(parent_ruby_object.string_field).to eq("Paul")
+      expect(parent_ruby_object.string_field).to eq('Paul')
     end
   end
 
@@ -254,16 +254,16 @@ describe Fabrication do
   end
 
   context 'with a mongoid document', depends_on: :mongoid do
-    it "sets dynamic fields" do
+    it 'sets dynamic fields' do
       expect(Fabricate(:parent_mongoid_document, mongoid_dynamic_field: 50).mongoid_dynamic_field).to eq 50
     end
 
-    it "sets lazy dynamic fields" do
-      expect(Fabricate(:parent_mongoid_document) { lazy_dynamic_field "foo" }.lazy_dynamic_field).to eq 'foo'
+    it 'sets lazy dynamic fields' do
+      expect(Fabricate(:parent_mongoid_document) { lazy_dynamic_field 'foo' }.lazy_dynamic_field).to eq 'foo'
     end
 
-    context "with disabled dynamic fields" do
-      it "raises NoMethodError for mongoid_dynamic_field=" do
+    context 'with disabled dynamic fields' do
+      it 'raises NoMethodError for mongoid_dynamic_field=' do
         if Mongoid.respond_to?(:allow_dynamic_fields=)
           Mongoid.allow_dynamic_fields = false
           expect do
@@ -336,15 +336,15 @@ describe Fabrication do
     end
   end
 
-  describe "Fabricate with a sequence" do
+  describe 'Fabricate with a sequence' do
     subject { Fabricate(:sequencer) }
 
     its(:simple_iterator) { should == 0 }
     its(:param_iterator)  { should == 10 }
-    its(:block_iterator)  { should == "block2" }
+    its(:block_iterator)  { should == 'block2' }
 
-    context "when namespaced" do
-      subject { Fabricate("Sequencer::Namespaced") }
+    context 'when namespaced' do
+      subject { Fabricate('Sequencer::Namespaced') }
 
       its(:iterator) { should == 0 }
     end

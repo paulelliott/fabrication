@@ -1,5 +1,5 @@
 if defined?(DataMapper)
-  DataMapper.setup(:default, "sqlite3::memory:")
+  DataMapper.setup(:default, 'sqlite3::memory:')
 
   class ParentDataMapperModel
     include DataMapper::Resource

@@ -1,6 +1,6 @@
 ORDINALS = {
-  "first" => 0,
-  "second" => 1
+  'first' => 0,
+  'second' => 1
 }
 
 def dehumanize(string)
