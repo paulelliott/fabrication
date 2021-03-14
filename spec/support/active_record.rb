@@ -7,8 +7,11 @@ if defined?(ActiveRecord)
   ActiveRecord::Base.establish_connection(dbconfig)
   ActiveRecord::Migration.verbose = false
 
-  migration_base_class = ActiveRecord.respond_to?(:version) && ActiveRecord.version.to_s >= '5.1.0' ?
-      ActiveRecord::Migration[5.1] : ActiveRecord::Migration
+  migration_base_class = if ActiveRecord.respond_to?(:version) && ActiveRecord.version.to_s >= '5.1.0'
+                           ActiveRecord::Migration[5.1]
+                         else
+                           ActiveRecord::Migration
+                         end
 
   class TestMigration < migration_base_class
     def self.up
