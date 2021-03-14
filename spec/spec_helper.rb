@@ -23,7 +23,7 @@ RSpec.configure do |config|
     example.run if DEFINED_CLASSES.fetch(example.metadata[:depends_on], true)
   end
 
-  config.before(:each) do
+  config.before do
     TestMigration.up if DEFINED_CLASSES[:active_record]
     clear_mongodb
   end

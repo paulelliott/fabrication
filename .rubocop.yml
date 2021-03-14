@@ -52,8 +52,6 @@ RSpec/DescribedClass:
   Enabled: False
 RSpec/ExampleWording:
   Enabled: False
-RSpec/HookArgument:
-  Enabled: False
 RSpec/HooksBeforeExamples:
   Enabled: False
 RSpec/ImplicitExpect:
