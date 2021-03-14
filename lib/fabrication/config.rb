@@ -26,7 +26,7 @@ module Fabrication
     end
 
     def fabricator_path=(folders)
-      @fabricator_path = (Array.new << folders).flatten
+      @fabricator_path = ([] << folders).flatten
     end
 
     def fabricator_dir=(folders)
@@ -42,7 +42,7 @@ module Fabrication
     end
 
     def path_prefix=(folders)
-      @path_prefix = (Array.new << folders).flatten
+      @path_prefix = ([] << folders).flatten
     end
 
     def path_prefix

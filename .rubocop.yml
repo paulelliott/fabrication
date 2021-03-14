@@ -112,8 +112,6 @@ Style/ClassVars:
   Enabled: False
 Style/ConditionalAssignment:
   Enabled: False
-Style/EmptyLiteral:
-  Enabled: False
 Style/MissingRespondToMissing:
   Enabled: False
 Style/ModuleFunction:

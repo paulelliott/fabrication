@@ -6,7 +6,7 @@ if defined?(Mongoid)
     number_field 5
     string_field 'content'
     false_field false
-    extra_fields { Hash.new }
+    extra_fields { {} }
     before_validation do |object, transients|
       object.extra_fields[:transient_value] = transients[:placeholder]
     end

@@ -93,7 +93,7 @@ class Fabrication::Generator::Base
   end
 
   def process_attributes(attributes)
-    self._transient_attributes = Hash.new
+    self._transient_attributes = ({})
     attributes.each do |attribute|
       _attributes[attribute.name] = attribute.processed_value(_attributes)
       _transient_attributes[attribute.name] = _attributes[attribute.name] if attribute.transient?
