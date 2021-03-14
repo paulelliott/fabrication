@@ -239,7 +239,7 @@ describe Fabrication do
     end
 
     it 'they have different extra fields' do
-      expect(parent_ruby_object1.extra_fields).to_not equal(parent_ruby_object2.extra_fields)
+      expect(parent_ruby_object1.extra_fields).not_to equal(parent_ruby_object2.extra_fields)
     end
   end
 
