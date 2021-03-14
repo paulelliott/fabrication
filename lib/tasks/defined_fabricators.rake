@@ -17,8 +17,8 @@ namespace :fabrication do
       fabricators[klass] = groups.map(&:first).sort.join(", ")
     end
 
-    class_width = fabricators.keys.max_by { |v| v.size }.size + 3 # padding
-    names_width = fabricators.values.max_by { |v| v.size }.size
+    class_width = fabricators.keys.max_by(&:size).size + 3 # padding
+    names_width = fabricators.values.max_by(&:size).size
     say = lambda do |f1, f2|
       printf "%-#{class_width}s%-#{names_width}s\n", f1, f2
     end
