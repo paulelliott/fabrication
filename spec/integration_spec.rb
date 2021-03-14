@@ -105,14 +105,14 @@ describe Fabrication do
     let(:fabricator_name) { :parent_ruby_object }
     let(:collection_field) { :child_ruby_objects }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
   end
 
   context 'active_record models', depends_on: :active_record do
     let(:fabricator_name) { :parent_active_record_model }
     let(:collection_field) { :child_active_record_models }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
 
     context 'associations in attributes_for' do
       subject do
@@ -139,7 +139,7 @@ describe Fabrication do
     let(:fabricator_name) { :parent_data_mapper_model }
     let(:collection_field) { :child_data_mapper_models }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
 
     context 'associations in attributes_for' do
       subject do
@@ -160,21 +160,21 @@ describe Fabrication do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :referenced_mongoid_documents }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
   end
 
   context 'embedded mongoid documents', depends_on: :mongoid do
     let(:fabricator_name) { :parent_mongoid_document }
     let(:collection_field) { :embedded_mongoid_documents }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
   end
 
   context 'sequel models', depends_on: :sequel do
     let(:fabricator_name) { :parent_sequel_model }
     let(:collection_field) { :child_sequel_models }
 
-    it_should_behave_like 'something fabricatable'
+    it_behaves_like 'something fabricatable'
 
     context 'with class table inheritance' do
       before do
