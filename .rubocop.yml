@@ -151,5 +151,3 @@ Style/RaiseArgs:
   Enabled: False
 Style/RedundantBegin:
   Enabled: False
-Style/RegexpLiteral:
-  Enabled: False
