@@ -2,10 +2,8 @@ require 'spec_helper'
 
 describe Fabrication::Generator::Base do
   describe '.supports?' do
-    subject { described_class }
-
     it 'supports any object' do
-      expect(subject.supports?(Object)).to be true
+      expect(described_class.supports?(Object)).to be true
     end
   end
 
@@ -34,7 +32,7 @@ describe Fabrication::Generator::Base do
     end
 
     context 'with on_init block' do
-      subject { schematic.fabricate }
+      let(:fabricated_object) { schematic.fabricate }
 
       context 'when using init_with' do
         let(:schematic) do
@@ -44,8 +42,8 @@ describe Fabrication::Generator::Base do
         end
 
         it "sends the return value of the block to the klass' initialize method" do
-          expect(subject.arg1).to eq(:a)
-          expect(subject.arg2).to eq(:b)
+          expect(fabricated_object.arg1).to eq(:a)
+          expect(fabricated_object.arg2).to eq(:b)
         end
       end
 
@@ -57,14 +55,14 @@ describe Fabrication::Generator::Base do
         end
 
         it "sends the return value of the block to the klass' initialize method" do
-          expect(subject.arg1).to eq(:a)
-          expect(subject.arg2).to eq(:b)
+          expect(fabricated_object.arg1).to eq(:a)
+          expect(fabricated_object.arg2).to eq(:b)
         end
       end
     end
 
     context 'with initialize_with block' do
-      subject { schematic.fabricate }
+      let(:fabricated_object) { schematic.fabricate }
 
       context 'when using only raw values' do
         let(:schematic) do
@@ -74,8 +72,8 @@ describe Fabrication::Generator::Base do
         end
 
         it 'saves the return value of the block as instance' do
-          expect(subject.arg1).to eq(:fixed_value)
-          expect(subject.arg2).to eq(nil)
+          expect(fabricated_object.arg1).to eq(:fixed_value)
+          expect(fabricated_object.arg2).to eq(nil)
         end
       end
 
@@ -89,26 +87,26 @@ describe Fabrication::Generator::Base do
 
         context 'without override' do
           it 'saves the return value of the block as instance' do
-            expect(subject.arg1).to eq(10)
-            expect(subject.arg2).to eq(20)
+            expect(fabricated_object.arg1).to eq(10)
+            expect(fabricated_object.arg2).to eq(20)
           end
         end
 
         context 'with override' do
-          subject { schematic.fabricate(arg1: 30) }
+          let(:fabricated_object) { schematic.fabricate(arg1: 30) }
 
           it 'saves the return value of the block as instance' do
-            expect(subject.arg1).to eq(30)
-            expect(subject.arg2).to eq(40)
+            expect(fabricated_object.arg1).to eq(30)
+            expect(fabricated_object.arg2).to eq(40)
           end
         end
 
         context 'with nil override' do
-          subject { schematic.fabricate(arg1: nil) }
+          let(:fabricated_object) { schematic.fabricate(arg1: nil) }
 
           it 'saves the return value of the block as instance' do
-            expect(subject.arg1).to eq(nil)
-            expect(subject.arg2).to eq(10)
+            expect(fabricated_object.arg1).to eq(nil)
+            expect(fabricated_object.arg2).to eq(10)
           end
         end
       end

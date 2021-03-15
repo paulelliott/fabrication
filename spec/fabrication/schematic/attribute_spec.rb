@@ -15,12 +15,12 @@ describe Fabrication::Schematic::Attribute do
     end
 
     context 'with a block value' do
-      subject do
+      let(:attribute) do
         described_class.new(Object, 'a', proc { 'c' })
       end
 
       it 'has a proc for a value' do
-        expect(subject.value).to be_a(Proc)
+        expect(attribute.value).to be_a(Proc)
       end
     end
 

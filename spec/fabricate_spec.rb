@@ -50,10 +50,10 @@ describe Fabricate do
   end
 
   describe '.to_params', depends_on: :active_record do
-    subject { described_class.to_params(:parent_active_record_model_with_children) }
+    let(:as_params) { described_class.to_params(:parent_active_record_model_with_children) }
 
-    it do
-      should == {
+    it 'correctly serializes' do
+      expect(as_params).to eq(
         'dynamic_field' => nil,
         'nil_field' => nil,
         'number_field' => 5,
@@ -63,12 +63,12 @@ describe Fabricate do
         'child_active_record_models' => [
           { 'number_field' => 10 }, { 'number_field' => 10 }
         ]
-      }
+      )
     end
 
     it 'is accessible as symbols' do
-      expect(subject[:number_field]).to eq(5)
-      expect(subject[:child_active_record_models].first[:number_field]).to eq(10)
+      expect(as_params[:number_field]).to eq(5)
+      expect(as_params[:child_active_record_models].first[:number_field]).to eq(10)
     end
   end
 end

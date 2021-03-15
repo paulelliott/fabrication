@@ -96,19 +96,21 @@ describe Fabrication::Schematic::Definition do
 
   describe '#merge' do
     context 'without inheritance' do
-      subject { schematic.merge }
+      let(:merged_schematic) { schematic.merge }
 
-      it { should_not == schematic }
+      it 'creates a new schematic' do
+        expect(merged_schematic).not_to eq(schematic)
+      end
 
       it "stored 'name' correctly" do
-        attribute = subject.attribute(:name)
+        attribute = merged_schematic.attribute(:name)
         expect(attribute.name).to eq(:name)
         expect(attribute.params).to eq({})
         expect(attribute.value).to eq('Orgasmo')
       end
 
       it "stored 'something' correctly" do
-        attribute = subject.attribute(:something)
+        attribute = merged_schematic.attribute(:something)
         expect(attribute.name).to eq(:something)
         expect(attribute.params).to eq({ param: 2 })
         expect(attribute.value).to be_a(Proc)
@@ -116,7 +118,7 @@ describe Fabrication::Schematic::Definition do
       end
 
       it "stored 'another_thing' correctly" do
-        attribute = subject.attribute(:another_thing)
+        attribute = merged_schematic.attribute(:another_thing)
         expect(attribute.name).to eq(:another_thing)
         expect(attribute.params).to eq({})
         expect(attribute.value).to be_a(Proc)
@@ -125,7 +127,7 @@ describe Fabrication::Schematic::Definition do
     end
 
     context 'with inheritance' do
-      subject do
+      let(:merged_schematic) do
         schematic.merge do
           name { 'Willis' }
           something 'Else!'
@@ -133,10 +135,12 @@ describe Fabrication::Schematic::Definition do
         end
       end
 
-      it { should_not == schematic }
+      it 'creates a new schematic' do
+        expect(merged_schematic).not_to eq(schematic)
+      end
 
       it "stored 'name' correctly" do
-        attribute = subject.attribute(:name)
+        attribute = merged_schematic.attribute(:name)
         expect(attribute.name).to eq(:name)
         expect(attribute.params).to eq({})
         expect(attribute.value).to be_a(Proc)
@@ -144,14 +148,14 @@ describe Fabrication::Schematic::Definition do
       end
 
       it "stored 'something' correctly" do
-        attribute = subject.attribute(:something)
+        attribute = merged_schematic.attribute(:something)
         expect(attribute.name).to eq(:something)
         expect(attribute.params).to eq({})
         expect(attribute.value).to eq('Else!')
       end
 
       it "stored 'another_thing' correctly" do
-        attribute = subject.attribute(:another_thing)
+        attribute = merged_schematic.attribute(:another_thing)
         expect(attribute.name).to eq(:another_thing)
         expect(attribute.params).to eq({ thats_what: 'she_said' })
         expect(attribute.value).to be_a(Proc)

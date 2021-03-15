@@ -3,8 +3,6 @@ require 'spec_helper'
 describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
   context 'when ActiveRecord is erroneously defined' do
     describe '.supports?' do
-      subject { described_class }
-
       # Defines a fakey ActiveRecord module that doesn't also have
       # ActiveRecord::Base such as those written by instrumentation
       # platforms e.g. Honeycomb
@@ -13,21 +11,19 @@ describe Fabrication::Generator::ActiveRecord, depends_on: :active_record do
       let(:active_record_fake) { ActiveRecord }
 
       it 'returns false for active record objects without ar::base' do
-        expect(subject.supports?(active_record_fake)).to be false
+        expect(described_class.supports?(active_record_fake)).to be false
       end
     end
   end
 
   context 'when ActiveRecord is correctly defined', depends_on: :active_record do
     describe '.supports?' do
-      subject { described_class }
-
       it 'returns true for active record objects' do
-        expect(subject.supports?(ParentActiveRecordModel)).to be true
+        expect(described_class.supports?(ParentActiveRecordModel)).to be true
       end
 
       it 'returns false for non-active record objects' do
-        expect(subject.supports?(ParentRubyObject)).to be false
+        expect(described_class.supports?(ParentRubyObject)).to be false
       end
     end
 

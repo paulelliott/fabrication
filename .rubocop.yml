@@ -59,8 +59,6 @@ RSpec/LeakyConstantDeclaration:
   Enabled: False
 RSpec/MessageSpies:
   Enabled: False
-RSpec/NamedSubject:
-  Enabled: False
 RSpec/StubbedMock:
   Enabled: False
 RSpec/VerifiedDoubles:
