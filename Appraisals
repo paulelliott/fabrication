@@ -24,7 +24,7 @@ appraise 'rails-5.2' do
 end
 
 appraise 'mongoid-7.x' do
-  gem 'mongoid', '~> 5.0'
+  gem 'mongoid', '~> 7.0'
 end
 
 appraise 'mongoid-6.x' do
