@@ -1,15 +1,17 @@
-require 'singleton'
+
+require 'forwardable'
 
 class Fabrication::Schematic::Manager
-  include Singleton
+  extend Forwardable
+  def_delegators :@loader,
+    :load_definitions,
+    :load_schematic,
+    :preinitialize,
+    :initializing?,
+    :freeze
 
-  def preinitialize
-    @initializing = true
-    clear
-  end
-
-  def initializing?
-    @initializing ||= nil
+  def initialize
+    @loader = Fabrication::Schematic::Loader.new(self)
   end
 
   def schematics
@@ -18,10 +20,6 @@ class Fabrication::Schematic::Manager
 
   def clear; schematics.clear end
   def empty?; schematics.empty? end
-
-  def freeze
-    @initializing = false
-  end
 
   def register(name, options, &block)
     name = name.to_sym
@@ -45,21 +43,6 @@ class Fabrication::Schematic::Manager
     @to_params_stack ||= []
   end
 
-  def load_definitions
-    preinitialize
-    Fabrication::Config.path_prefixes.each do |prefix|
-      Fabrication::Config.fabricator_paths.each do |folder|
-        Dir.glob(File.join(prefix.to_s, folder, '**', '*.rb')).sort.each do |file|
-          load file
-        end
-      end
-    end
-  rescue Exception => e
-    raise e
-  ensure
-    freeze
-  end
-
   def prevent_recursion!
     (create_stack + build_stack + to_params_stack).group_by(&:to_sym).each do |name, values|
       raise Fabrication::InfiniteRecursionError.new(name) if values.length > Fabrication::Config.recursion_limit
@@ -73,7 +56,7 @@ class Fabrication::Schematic::Manager
   end
 
   def store(name, aliases, options, &block)
-    schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, options, &block)
+    schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, self, options, &block)
     aliases.each { |as| schematics[as.to_sym] = schematic }
   end
 

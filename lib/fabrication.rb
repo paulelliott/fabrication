@@ -20,6 +20,7 @@ module Fabrication
     autoload :Manager,    'fabrication/schematic/manager'
     autoload :Evaluator,  'fabrication/schematic/evaluator'
     autoload :Runner,     'fabrication/schematic/runner'
+    autoload :Loader,     'fabrication/schematic/loader'
   end
 
   autoload :Config,     'fabrication/config'
@@ -48,7 +49,7 @@ module Fabrication
   end
 
   def self.manager
-    @manager ||= Fabrication::Schematic::Manager.instance
+    @manager ||= Fabrication::Schematic::Manager.new
   end
 
   def self.schematics
