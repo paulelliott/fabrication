@@ -1,10 +1,8 @@
 class Fabrication::Transform
-
   class << self
-
     def apply_to(schematic, attributes_hash)
       Fabrication.manager.load_definitions if Fabrication.manager.empty?
-      attributes_hash.inject({}) {|h,(k,v)| h.update(k => apply_transform(schematic, k, v)) }
+      attributes_hash.inject({}) { |h, (k, v)| h.update(k => apply_transform(schematic, k, v)) }
     end
 
     def clear_all
@@ -31,9 +29,7 @@ class Fabrication::Transform
     end
 
     def transforms
-      @transforms ||= Hash.new(lambda {|value| value})
+      @transforms ||= Hash.new(->(value) { value })
     end
-
   end
-
 end

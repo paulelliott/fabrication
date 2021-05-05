@@ -1,59 +1,59 @@
 require 'spec_helper'
 
 describe Fabrication::Schematic::Manager do
+  let(:manager) { described_class.instance }
 
-  let(:manager) { Fabrication::Schematic::Manager.instance }
   before { manager.clear }
 
-  describe "#register" do
-    subject { manager }
-
-    let(:options) { { aliases: ["thing_one", :thing_two] } }
+  describe '#register' do
+    let(:options) { { aliases: ['thing_one', :thing_two] } }
 
     before do
       manager.register(:open_struct, options) do
-        first_name "Joe"
-        last_name { "Schmoe" }
+        first_name 'Joe'
+        last_name { 'Schmoe' }
       end
     end
 
-    it "creates a schematic" do
-      expect(subject.schematics[:open_struct]).to be
+    it 'creates a schematic' do
+      expect(manager.schematics[:open_struct]).to be_present
     end
 
-    it "infers the correct class" do
-      expect(subject.schematics[:open_struct].send(:klass)).to eq(OpenStruct)
+    it 'infers the correct class' do
+      expect(manager.schematics[:open_struct].send(:klass)).to eq(OpenStruct)
     end
 
-    it "has the attributes" do
-      expect(subject.schematics[:open_struct].attributes.size).to eq(2)
+    it 'has the attributes' do
+      expect(manager.schematics[:open_struct].attributes.size).to eq(2)
     end
 
-    context "with an alias" do
-      it "recognizes the aliases" do
-        expect(subject.schematics[:thing_one]).to eq(subject.schematics[:open_struct])
-        expect(subject.schematics[:thing_two]).to eq(subject.schematics[:open_struct])
+    context 'with an alias' do
+      it 'recognizes the aliases' do
+        expect(manager.schematics[:thing_one]).to eq(manager.schematics[:open_struct])
+        expect(manager.schematics[:thing_two]).to eq(manager.schematics[:open_struct])
       end
     end
-
   end
 
   describe '#[]' do
     subject { manager[key] }
+
     before { manager.schematics[:some] = 'thing' }
 
     context 'with a symbol' do
       let(:key) { :some }
+
       it { should == 'thing' }
     end
 
     context 'with a string' do
       let(:key) { 'some' }
+
       it { should == 'thing' }
     end
   end
 
-  describe ".load_definitions" do
+  describe '.load_definitions' do
     before { Fabrication.clear_definitions }
 
     context 'with multiple path_prefixes and fabricator_paths' do
@@ -64,10 +64,10 @@ describe Fabrication::Schematic::Manager do
       end
     end
 
-    context 'happy path' do
-      it "loaded definitions" do
+    context 'with the happy path' do
+      it 'loaded definitions' do
         Fabrication.manager.load_definitions
-        expect(Fabrication.manager[:parent_ruby_object]).to be
+        expect(Fabrication.manager[:parent_ruby_object]).to be_present
       end
     end
 
@@ -79,5 +79,4 @@ describe Fabrication::Schematic::Manager do
       end
     end
   end
-
 end

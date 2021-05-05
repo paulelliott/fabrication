@@ -1,8 +1,9 @@
 class Fabrication::Generator::Base
+  def self.supports?(_klass)
+    true
+  end
 
-  def self.supports?(_klass); true end
-
-  def build(attributes=[], callbacks={})
+  def build(attributes = [], callbacks = {})
     process_attributes(attributes)
 
     if callbacks[:initialize_with]
@@ -16,7 +17,7 @@ class Fabrication::Generator::Base
     _instance
   end
 
-  def create(attributes=[], callbacks=[])
+  def create(attributes = [], callbacks = [])
     build(attributes, callbacks)
     execute_callbacks(callbacks[:before_validation])
     execute_callbacks(callbacks[:after_validation])
@@ -29,19 +30,19 @@ class Fabrication::Generator::Base
   end
 
   def execute_callbacks(callbacks)
-    callbacks.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) } if callbacks
+    callbacks&.each { |callback| _instance.instance_exec(_instance, _transient_attributes, &callback) }
   end
 
-  def to_params(attributes=[])
+  def to_params(attributes = [])
     process_attributes(attributes)
     _attributes.respond_to?(:with_indifferent_access) ? _attributes.with_indifferent_access : _attributes
   end
 
-  def to_hash(attributes=[], callbacks=[])
+  def to_hash(attributes = [], _callbacks = [])
     process_attributes(attributes)
     Fabrication::Support.hash_class.new.tap do |hash|
       _attributes.map do |name, value|
-        if value && value.respond_to?(:id)
+        if value.respond_to?(:id)
           hash["#{name}_id"] = value.id
         else
           hash[name] = value
@@ -66,7 +67,7 @@ class Fabrication::Generator::Base
   end
 
   def set_attributes
-    _attributes.each do |k,v|
+    _attributes.each do |k, v|
       _instance.send("#{k}=", v)
     end
   end
@@ -92,12 +93,11 @@ class Fabrication::Generator::Base
   end
 
   def process_attributes(attributes)
-    self._transient_attributes = Hash.new
+    self._transient_attributes = ({})
     attributes.each do |attribute|
       _attributes[attribute.name] = attribute.processed_value(_attributes)
       _transient_attributes[attribute.name] = _attributes[attribute.name] if attribute.transient?
     end
     _attributes.reject! { |k| _transient_attributes.keys.include?(k) }
   end
-
 end

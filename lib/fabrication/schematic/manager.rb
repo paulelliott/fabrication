@@ -16,8 +16,13 @@ class Fabrication::Schematic::Manager
     @schematics ||= {}
   end
 
-  def clear; schematics.clear end
-  def empty?; schematics.empty? end
+  def clear
+    schematics.clear
+  end
+
+  def empty?
+    schematics.empty?
+  end
 
   def freeze
     @initializing = false
@@ -54,15 +59,13 @@ class Fabrication::Schematic::Manager
         end
       end
     end
-  rescue Exception => e
-    raise e
   ensure
     freeze
   end
 
   def prevent_recursion!
     (create_stack + build_stack + to_params_stack).group_by(&:to_sym).each do |name, values|
-      raise Fabrication::InfiniteRecursionError.new(name) if values.length > Fabrication::Config.recursion_limit
+      raise Fabrication::InfiniteRecursionError, name if values.length > Fabrication::Config.recursion_limit
     end
   end
 
@@ -76,5 +79,4 @@ class Fabrication::Schematic::Manager
     schematic = schematics[name] = Fabrication::Schematic::Definition.new(name, options, &block)
     aliases.each { |as| schematics[as.to_sym] = schematic }
   end
-
 end

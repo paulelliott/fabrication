@@ -1,5 +1,4 @@
 class Fabrication::Generator::DataMapper < Fabrication::Generator::Base
-
   def self.supports?(klass)
     defined?(DataMapper) && klass.ancestors.include?(DataMapper::Hook)
   end
@@ -13,5 +12,4 @@ class Fabrication::Generator::DataMapper < Fabrication::Generator::Base
   def persist
     _instance.save
   end
-
 end

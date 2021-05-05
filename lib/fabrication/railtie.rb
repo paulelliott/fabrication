@@ -9,9 +9,7 @@ module Fabrication
           config.generators
         end
 
-      unless generators.rails.has_key?(:fixture_replacement)
-        generators.fixture_replacement :fabrication
-      end
+      generators.fixture_replacement :fabrication unless generators.rails.key?(:fixture_replacement)
     end
   end
 end

@@ -1,5 +1,4 @@
 class Fabrication::Generator::Sequel < Fabrication::Generator::Base
-
   def initialize(klass)
     super
     load_instance_hooks
@@ -32,5 +31,4 @@ class Fabrication::Generator::Sequel < Fabrication::Generator::Base
     klass = _klass.respond_to?(:cti_base_model) ? _klass.cti_models.first : _klass
     klass.plugin :instance_hooks unless klass.new.respond_to? :after_save_hook
   end
-
 end

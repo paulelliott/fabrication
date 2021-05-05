@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe Fabrication::Config do
-  subject { Fabrication::Config }
-  after { Fabrication::Config.reset_defaults }
+  subject { described_class }
 
-  context "default configs" do
+  after { described_class.reset_defaults }
+
+  context 'with default configs' do
     its(:fabricator_path) { should == ['test/fabricators', 'spec/fabricators'] }
     its(:path_prefix) { should == ['.'] }
     its(:sequence_start) { should == 0 }
   end
 
-  describe ".fabricator_path" do
-    context "with a single folder" do
+  describe '.fabricator_path' do
+    context 'with a single folder' do
       before do
         Fabrication.configure do |config|
           config.fabricator_path = 'lib'
@@ -21,19 +22,19 @@ describe Fabrication::Config do
       its(:fabricator_path) { should == ['lib'] }
     end
 
-    context "with multiple folders" do
+    context 'with multiple folders' do
       before do
         Fabrication.configure do |config|
-          config.fabricator_path = %w(lib support)
+          config.fabricator_path = %w[lib support]
         end
       end
 
-      its(:fabricator_path) { should == ['lib', 'support'] }
+      its(:fabricator_path) { should == %w[lib support] }
     end
   end
 
-  describe ".path_prefix" do
-    context "with a single folder" do
+  describe '.path_prefix' do
+    context 'with a single folder' do
       before do
         Fabrication.configure do |config|
           config.path_prefix = '/path/to/app'
@@ -43,10 +44,10 @@ describe Fabrication::Config do
       its(:path_prefix) { should == ['/path/to/app'] }
     end
 
-    context "with multiple folders" do
+    context 'with multiple folders' do
       before do
         Fabrication.configure do |config|
-          config.path_prefix = %w(/path/to/app /path/to/gem/fabricators)
+          config.path_prefix = %w[/path/to/app /path/to/gem/fabricators]
         end
       end
 
@@ -54,7 +55,7 @@ describe Fabrication::Config do
     end
   end
 
-  describe ".register_generator" do
+  describe '.register_generator' do
     before do
       Fabrication.configure do |config|
         config.generators << ImmutableGenerator

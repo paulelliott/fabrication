@@ -1,0 +1,75 @@
+require:
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - gemfiles/*
+  NewCops: enable
+  TargetRubyVersion: 2.5
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/**/*
+Lint/EmptyClass:
+  Exclude:
+    - spec/**/*
+Lint/Void:
+  Exclude:
+    - features/step_definitions/object_verification_steps.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Naming/MethodName:
+  Exclude:
+    - lib/fabrication.rb
+Naming/PredicateName:
+  Exclude:
+    - lib/fabrication/cucumber/step_fabricator.rb
+
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: False
+Metrics/ClassLength:
+  Enabled: False
+Metrics/CyclomaticComplexity:
+  Enabled: False
+Metrics/MethodLength:
+  Enabled: False
+Metrics/PerceivedComplexity:
+  Enabled: False
+RSpec/ImplicitExpect:
+  Enabled: False
+RSpec/ImplicitSubject:
+  Enabled: False
+RSpec/LeakyConstantDeclaration:
+  Enabled: False
+RSpec/MessageSpies:
+  Enabled: False
+RSpec/StubbedMock:
+  Enabled: False
+RSpec/VerifiedDoubles:
+  Enabled: False
+Style/ClassAndModuleChildren:
+  Enabled: False
+Style/MissingRespondToMissing:
+  Enabled: False
+Style/ModuleFunction:
+  Enabled: False
+Style/MultilineBlockChain:
+  Enabled: False
+Style/MutableConstant:
+  Enabled: False

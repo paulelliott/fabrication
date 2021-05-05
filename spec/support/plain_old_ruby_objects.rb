@@ -4,6 +4,7 @@ class Persistable
   def persisted?
     @persisted ||= nil
   end
+
   def save!
     @persisted = true
   end
@@ -22,6 +23,7 @@ class ParentRubyObject < Persistable
   attr_writer :child_ruby_objects
 
   def initialize
+    super
     self.id = 23
     self.before_save_value = 11
   end
@@ -62,7 +64,7 @@ end
 
 class Troublemaker
   def raise_exception=(value)
-    raise "Troublemaker exception" if value
+    raise 'Troublemaker exception' if value
   end
 end
 
@@ -74,8 +76,7 @@ class Sequencer
   end
 end
 
-class ClassWithInit < Struct.new(:arg1, :arg2)
-end
+ClassWithInit = Struct.new(:arg1, :arg2)
 
 class ImmutableUser
   def initialize(attributes)

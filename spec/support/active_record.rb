@@ -1,23 +1,26 @@
 if defined?(ActiveRecord)
   dbconfig = {
-    :adapter => 'sqlite3',
-    :database => ':memory:'
+    adapter: 'sqlite3',
+    database: ':memory:'
   }
 
   ActiveRecord::Base.establish_connection(dbconfig)
   ActiveRecord::Migration.verbose = false
 
-  migrationBaseClass = ActiveRecord.respond_to?(:version) && ActiveRecord.version.to_s >= "5.1.0" ?
-      ActiveRecord::Migration[5.1] : ActiveRecord::Migration
+  migration_base_class = if ActiveRecord.respond_to?(:version) && ActiveRecord.version.to_s >= '5.1.0'
+                           ActiveRecord::Migration[5.1]
+                         else
+                           ActiveRecord::Migration
+                         end
 
-  class TestMigration < migrationBaseClass
+  class TestMigration < migration_base_class
     def self.up
-      create_table :child_active_record_models, :force => true do |t|
+      create_table :child_active_record_models, force: true do |t|
         t.column :parent_active_record_model_id, :integer
         t.column :number_field, :integer
       end
 
-      create_table :parent_active_record_models, :force => true do |t|
+      create_table :parent_active_record_models, force: true do |t|
         t.column :before_validation_value, :integer, null: false, default: 0
         t.column :before_save_value, :integer
         t.column :dynamic_field, :string

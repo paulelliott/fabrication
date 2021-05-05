@@ -52,16 +52,17 @@ module Fabrication
   end
 
   def self.schematics
-    puts "DEPRECATION WARNING: Fabrication.schematics has been replaced by Fabrication.manager and will be removed in 3.0.0."
+    puts 'DEPRECATION WARNING: Fabrication.schematics has been replaced by Fabrication.manager' \
+      ' and will be removed in 3.0.0.'
     manager
   end
 end
 
-def Fabricator(name, options={}, &block)
+def Fabricator(name, options = {}, &block)
   Fabrication.manager.register(name, options, &block)
 end
 
-def Fabricate(name, overrides={}, &block)
+def Fabricate(name, overrides = {}, &block)
   Fabricate.create(name, overrides, &block).tap do |object|
     Fabrication::Cucumber::Fabrications[name] = object if Fabrication::Config.register_with_steps?
   end

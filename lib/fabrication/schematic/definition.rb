@@ -1,5 +1,4 @@
 class Fabrication::Schematic::Definition
-
   GENERATORS = [
     Fabrication::Generator::ActiveRecord,
     Fabrication::Generator::DataMapper,
@@ -9,7 +8,8 @@ class Fabrication::Schematic::Definition
   ]
 
   attr_accessor :name, :options, :block
-  def initialize(name, options={}, &block)
+
+  def initialize(name, options = {}, &block)
     self.name = name
     self.options = options
     self.block = block
@@ -23,9 +23,11 @@ class Fabrication::Schematic::Definition
     attributes.detect { |a| a.name == name }
   end
 
-  def append_or_update_attribute(attribute_name, value, params={}, &block)
+  def append_or_update_attribute(attribute_name, value, params = {}, &block)
     attribute = Fabrication::Schematic::Attribute.new(klass, attribute_name, value, params, &block)
-    if index = attributes.index { |a| a.name == attribute.name }
+    index = attributes.index { |a| a.name == attribute.name }
+
+    if index
       attribute.transient! if attributes[index].transient?
       attributes[index] = attribute
     else
@@ -33,13 +35,13 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  attr_writer :attributes
+  attr_writer :attributes, :callbacks
+
   def attributes
     load_body
     @attributes ||= []
   end
 
-  attr_writer :callbacks
   def callbacks
     load_body
     @callbacks ||= {}
@@ -53,7 +55,7 @@ class Fabrication::Schematic::Definition
     attributes.select(&:value_static?) + attributes.select(&:value_proc?)
   end
 
-  def build(overrides={}, &block)
+  def build(overrides = {}, &block)
     Fabrication.manager.prevent_recursion!
     if Fabrication.manager.to_params_stack.any?
       to_params(overrides, &block)
@@ -69,7 +71,7 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  def fabricate(overrides={}, &block)
+  def fabricate(overrides = {}, &block)
     Fabrication.manager.prevent_recursion!
     if Fabrication.manager.build_stack.any?
       build(overrides, &block)
@@ -87,7 +89,7 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  def to_params(overrides={}, &block)
+  def to_params(overrides = {}, &block)
     Fabrication.manager.prevent_recursion!
     Fabrication.manager.to_params_stack << name
     merge(overrides, &block).instance_eval do
@@ -97,7 +99,7 @@ class Fabrication::Schematic::Definition
     Fabrication.manager.to_params_stack.pop
   end
 
-  def to_attributes(overrides={}, &block)
+  def to_attributes(overrides = {}, &block)
     merge(overrides, &block).instance_eval do
       generator.new(klass).to_hash(sorted_attributes, callbacks)
     end
@@ -121,7 +123,7 @@ class Fabrication::Schematic::Definition
     end
   end
 
-  def merge(overrides={}, &block)
+  def merge(overrides = {}, &block)
     clone.tap do |definition|
       definition.process_block(&block)
       overrides.each do |name, value|
@@ -133,7 +135,7 @@ class Fabrication::Schematic::Definition
   def klass
     @klass ||= Fabrication::Support.class_for(
       options[:class_name] ||
-        (parent && parent.klass) ||
+        parent&.klass ||
         options[:from] ||
         name
     )
@@ -147,6 +149,7 @@ class Fabrication::Schematic::Definition
 
   def load_body
     return if loaded?
+
     @loaded = true
 
     if parent

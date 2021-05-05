@@ -1,12 +1,12 @@
 if defined?(DataMapper)
   Fabricator(:parent_data_mapper_model) do
-    transient :placeholder, :transient_with_default => 'my custom value'
+    transient :placeholder, transient_with_default: 'my custom value'
     dynamic_field { |attrs| attrs[:placeholder] }
     nil_field nil
     number_field 5
     string_field 'content'
     false_field false
-    extra_fields { Hash.new }
+    extra_fields { {} }
     before_validation do |object, transients|
       object.extra_fields[:transient_value] = transients[:placeholder]
     end
